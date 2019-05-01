@@ -1,0 +1,25 @@
+@import '../styles/variables';
+
+.item {
+  margin-bottom: $spacer * 1.35;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacer / 4;
+}
+
+.description {
+  margin-bottom: 0;
+}
+
+.info {
+  font-size: 95%;
+  color: $grey;
+  margin-bottom: 0;
+
+  span:not(:last-child) {
+    margin-right: $spacer / 4;
+  }
+}

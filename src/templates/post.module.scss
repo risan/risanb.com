@@ -1,0 +1,13 @@
+@import '../styles/variables';
+
+.info {
+  color: $grey;
+
+  span:not(:last-child) {
+    margin-right: $spacer / 4;
+  }
+}
+
+.comments {
+  margin-top: $spacer * 4;
+}

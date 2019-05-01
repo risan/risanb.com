@@ -1,0 +1,12 @@
+@import '../styles/variables.scss';
+
+.home {
+  section {
+    margin-bottom: $spacer * 2;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: $spacer;
+  }
+}
