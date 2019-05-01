@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Risan Bagja',
     description: 'Programming journal of Risan Bagja Pradana. A passionate coder who writes codes for fun. Seriously.',
-    siteUrl: 'https://risanb.com',
+    siteUrl: 'https://risan.netlify.com',
     lang: 'en',
     locale: 'en_US',
     twitter: '@risanbagja',
