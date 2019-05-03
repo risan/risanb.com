@@ -19,6 +19,7 @@ export const query = graphql`
   {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
+      filter: { fields: { slug: { regex: "/^\/posts\//" } } }
     ) {
       nodes {
         fields {
