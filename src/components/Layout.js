@@ -14,10 +14,7 @@ export default ({ children, className, ...props }) => (
         <nav className="nav">
           <ul className="nav__menu">
             <li>
-              <Link to="/blog/">Blog</Link>
-            </li>
-            <li>
-              <Link to="/tips/">Tips</Link>
+              <Link to="/posts/">Posts</Link>
             </li>
             <li>
               <Link to="/about/">About</Link>

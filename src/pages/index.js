@@ -23,22 +23,16 @@ export default ({ data }) => (
 
     <section>
       <h2>Recent Posts</h2>
-      <PostList items={data.blog.nodes} />
-    </section>
-
-    <section>
-      <h2>Recent Tips</h2>
-      <PostList items={data.tips.nodes} compact />
+      <PostList items={data.allMarkdownRemark.nodes} />
     </section>
   </Layout>
 );
 
 export const query = graphql`
   {
-    blog: allMarkdownRemark(
+    allMarkdownRemark(
       limit: 3
       sort: { fields: frontmatter___date, order: DESC }
-      filter: { fields: { slug: { regex: "/^/blog//" } } }
     ) {
       nodes {
         fields {
@@ -50,21 +44,6 @@ export const query = graphql`
           description
         }
         timeToRead
-      }
-    }
-    tips: allMarkdownRemark(
-      limit: 5
-      sort: { fields: frontmatter___date, order: DESC }
-      filter: { fields: { slug: { regex: "/^/tips//" } } }
-    ) {
-      nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          date
-        }
       }
     }
   }

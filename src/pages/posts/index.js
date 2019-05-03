@@ -5,12 +5,12 @@ import PostList from '../../components/PostList';
 
 export default ({ data }) => (
   <Layout
-    title="Programming Tips"
-    slug="/tips/"
+    title="Programming Articles and Tutorials"
+    slug="/posts/"
   >
     <section>
-      <h1>All Tips</h1>
-      <PostList items={data.allMarkdownRemark.nodes} compact />
+      <h1>All Posts</h1>
+      <PostList items={data.allMarkdownRemark.nodes} />
     </section>
   </Layout>
 );
@@ -19,7 +19,6 @@ export const query = graphql`
   {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      filter: { fields: { slug: { regex: "/^\/tips\//" } } }
     ) {
       nodes {
         fields {
@@ -28,7 +27,9 @@ export const query = graphql`
         frontmatter {
           title
           date
+          description
         }
+        timeToRead
       }
     }
   }
