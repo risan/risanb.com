@@ -33,10 +33,10 @@ export default ({ children, className, ...props }) => (
             <a href="https://github.com/risan">Github</a>
           </li>
           <li>
-            <a href="https://stackoverflow.com">StackOverflow</a>
+            <a href="https://stackoverflow.com/users/5138222">Stack Overflow</a>
           </li>
           <li>
-            <a href="/foo.xml">RSS</a>
+            <a href="/rss.xml">RSS</a>
           </li>
         </ul>
       </nav>
