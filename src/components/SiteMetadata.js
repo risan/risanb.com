@@ -62,7 +62,7 @@ const SiteMetadata = ({
           <meta property="og:site_name" content={siteMetadata.title} />
           <meta property="og:locale" content={siteMetadata.locale} />
           <meta property="og:url" content={url} />
-          <meta property="og:image" content={img.src} />
+          <meta property="og:image" content={siteMetadata.siteUrl + img.src} />
           <meta property="og:image:width" content={img.width} />
           <meta property="og:image:height" content={img.height} />
 
@@ -71,7 +71,7 @@ const SiteMetadata = ({
           <meta name="twitter:creator" content={siteMetadata.twitter} />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={metaDescription} />
-          <meta name="twitter:image" content={img.src} />
+          <meta name="twitter:image" content={siteMetadata.siteUrl + img.src} />
 
           <link rel="canonical" href={url} />
         </Helmet>
