@@ -1,0 +1,12 @@
+name = "Naboo"
+license = "MIT"
+licenselink = "https://github.com/risan/naboo/blob/master/LICENSE"
+description = "Hugo minimalist theme"
+homepage = "ttps://github.com/risan/naboo"
+tags = ["blog", "minimalist", "responsive", "clean"]
+features = []
+min_version = "0.64.1"
+
+[author]
+  name = "Risan Bagja Pradana"
+  homepage = "https://risanb.com/"

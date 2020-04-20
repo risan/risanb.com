@@ -1,0 +1,10 @@
+baseURL: "https://risanb.com/"
+title: "Risan Bagja"
+theme: "naboo"
+markup:
+  highlight:
+    style: github
+params:
+  description: "Risan Bagja's Blog: programming, travel stories, life journal, and other random stuff."
+  images: [/img/risan-og.jpg]
+  favicon: "earth-icon.png"

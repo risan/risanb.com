@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <article class="wysiwyg">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+
+    {{ range .Sections }}
+      <h3>Recent Posts from {{ .Title }}</h3>
+      <ul>
+        {{ range first 5 .Pages }}
+          <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </article>
+{{ end }}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{{ with .Params.lang }}{{ . }}{{ else }}{{ .Page.Language.Lang }}{{ end }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <meta name="description" content="{{ .Params.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ block "head" . }}{{ end }}
+  {{- if .Site.Params.favicon }}
+  <link rel="icon" href="/{{ .Site.Params.favicon }}">
+  {{- end }}
+  {{- with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
+  {{- end }}
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minireset.css@0.0.6/minireset.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/wysiwyg.css@0.0.3/wysiwyg.min.css">
+  {{- $style := resources.Get "main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <a class="header-title" href="/">
+        {{ .Site.Title }}
+      </a>
+
+      <nav class="header-nav">
+        <ul>
+          <li>
+            <a href="/">
+              <span role="img" aria-label="House with Garden">🏡</span>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <span role="img" aria-label="Fire">🔥</span>
+            <a href="/code/">Code</a>
+          </li>
+          <li>
+            <span role="img" aria-label="Green Textbook">📗</span>
+            <a href="/blog/">Blog</a>
+          </li>
+          <li>
+            <span role="img" aria-label="Panda Face">🐼</span>
+            <a href="/about/">About</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container main-container">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="footer">
+    <div class="container footer-container">
+      <span>&copy; Risan Bagja 2020</span>
+      <nav class="footer-nav">
+        <ul>
+          <li>
+            <a href="https://github.com/risan">Github</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/risanbagja">Twitter</a>
+          </li>
+          <li>
+            <a href="/index.xml">RSS</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <article class="wysiwyg">
+    <h1>Category: {{ .Title | humanize }}</h1>
+
+    <ul>
+      {{ range .Pages }}
+        <li>
+          <a href="{{ .Permalink }}">
+            {{ .Title }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </article>
+{{ end }}
