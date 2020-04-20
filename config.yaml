@@ -1,6 +1,7 @@
 baseURL: "https://risanb.com/"
 title: "Risan Bagja"
 theme: "naboo"
+googleAnalytics: UA-27136969-15
 markup:
   highlight:
     style: github
