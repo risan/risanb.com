@@ -1,10 +1,10 @@
 ---
 title: Building My First iOS Game
 date: 2018-10-10T00:10:00+02:00
-tags: [ios, swift]
-categories: [coding-journal]
 description: Things I learned from building my very first iOS game using the latest Swift version 4.2.
-image: ./og.jpg
+categories: [log]
+tags: [swift]
+images: [code/building-my-first-ios-game/og.jpg]
 ---
 Sunday night two weeks ago, I had nothing better to do. So I started googling for some iOS tutorial and landed on this amazing [video tutorial](https://www.raywenderlich.com/5993-your-first-ios-app) by Ray Wenderlich. It's quite exciting and easy to follow for a total beginner like me. I delved into Swift documentation before and got bored easily. 😝
 
@@ -12,7 +12,7 @@ On that tutorial, you'll learn the basic of iOS development by building some sim
 
 You can check out the complete project on my Github repository: [risan/bullseye-ios](https://github.com/risan/bullseye-ios).
 
-![Bull's Eye game in action](https://media.giphy.com/media/8TzojHt7pxqv8GhXnW/giphy.gif)
+![Bull's Eye game in action](./bulls-eyes-game-in-action.gif)
 
 Here are a few things that I learned and gathered so far about Swift programming language. Note that I use the latest Swift 4.2 version.
 
@@ -478,10 +478,10 @@ This little quest of mine, leading me to find more tutorials about building iOS 
 
 [3. Creating a paginated sliding cards](https://github.com/risan/sliding-cards-ios)
 
-![Sliding Cards in Action](https://media.giphy.com/media/EQBBtahcZ36yS4ATKz/giphy.gif)
+![Sliding Cards in Action](./sliding-cards-in-action.gif)
 
 [4. A War Card Game](https://github.com/risan/war-card-game-ios)
 
-![War Card Game in Action](https://media.giphy.com/media/3oqoBNGeV4PEbCcQcP/giphy.gif)
+![War Card Game in Action](./war-card-game-in-action.gif)
 
 I probably should start reading the Swift documentation. 🤔

@@ -1,10 +1,10 @@
 ---
+lang: id
 title: Sisi Selatan Djurgården
 date: 2019-05-27T04:44:00+02:00
-tags: [jurnal, stockholm, swedia]
-lang: id
-image: ./DSC_7950.jpg
-lang: id
+categories: [photos]
+tags: [stockholm, swedia]
+images: [/blog/sisi-selatan-djurgarden/DSC_7950.jpg]
 ---
 
 Jum'at dua pekan yang lalu saya berkunjung ke Djurgården. Djurgården ini merupakan pulau yang berada tidak jauh dari pusat Kota Stockholm. Di sini terdapat banyak tempat-tempat menarik, mulai dari taman-taman yang rindang, museum-museum, galeri-galeri lukisan, hingga taman bermain. Tak ayal pulau ini menjadi salah satu tempat rekreasi favorit bagi warga Stockholm dan para wisatawan.

@@ -1,10 +1,10 @@
 ---
 title: Colorful Google Maps Marker
 date: 2019-05-12T14:32:00+02:00
-tags: [javascript, maps]
-categories: [snippet]
 description: How to use SVG path notation to replace the default Google Maps marker icon. Make the marker's color easily configurable.
-image: /img/google-maps-logo-og.png
+categories: [snippet]
+tags: [javascript, maps]
+images: [/img/google-maps-logo-og.png]
 ---
 When we're using the Google Maps API and adding a marker into our map instance, by default we'll end up with this red pin figure.
 

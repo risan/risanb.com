@@ -1,9 +1,10 @@
 ---
+lang: id
 title: Mendadak Oyakodon
 date: 2018-07-05T23:37:00+02:00
+categories: [journal]
 tags: [kuliner]
-lang: id
-image: ./img_2926.jpg
+images: [/blog/mendadak-oyakodon/img_2926.jpg]
 ---
 Untuk makan malam kali ini saya memasak Oyakodon—*donburi* atau nasi dengan lauk berupa potongan ayam, telur, dan daun bawang. Secara harfiah Oyakodon dapat diartikan "ibu dan anak dalam mangkuk". Tentu penamaan ini merujuk pada bahan ayam sebagai ibu dan telur sebagai anaknya.
 

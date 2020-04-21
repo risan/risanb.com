@@ -1,10 +1,10 @@
 ---
 title: Add Postmark's Tag in Laravel
 date: 2020-02-09T20:45:00+07:00
-tags: [laravel, php]
-categories: [snippet]
 description: An easy way to add a Postmark's tag in Laravel.
-image: /img/laravel-logo-og.png
+categories: [snippet]
+tags: [laravel, php]
+images: [/img/laravel-logo-og.png]
 ---
 Laravel makes it super easy to work with e-mail. It ships with an SMTP based mail driver out of the box. We can also easily use API based mail drivers like Amazon SES, Mailgun, or even Postmark.
 

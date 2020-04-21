@@ -1,9 +1,10 @@
 ---
+lang: id
 title: Gamla Stan Siang Itu
 date: 2019-05-12T20:20:00+02:00
-tags: [jurnal, stockholm, swedia]
-lang: id
-image: ./DSC_7400.jpg
+categories: [photos]
+tags: [stockholm, swedia]
+images: [/blog/gamla-stan-siang-itu/DSC_7400.jpg]
 ---
 Sudah lama rasanya saya tidak menyusuri jalan-jalan sempit di Gamla Stan. Karenanya Jum'at siang kemarin, saya sengaja menyempatkan diri untuk keliling Gamla Stan sebelum pulang ke rumah. Gamla Stan yang bila diterjemahkan berarti "Kota Tua" ini memang berada tidak jauh dari Medborgarplatsen—tempat saya beranjak.
 

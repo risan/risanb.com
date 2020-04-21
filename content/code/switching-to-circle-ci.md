@@ -1,10 +1,10 @@
 ---
 title: Switching to Circle CI
 date: 2020-01-26T22:15:00+07:00
-tags: [devops]
-categories: [coding-journal]
 description: Switching from Travis CI to Circle CI to run the test suites for my JavaScript project.
-image: /img/circleci-logo-og.png
+categories: [log]
+tags: [devops]
+images: [/img/circleci-logo-og.png]
 ---
 I used to use [Travis CI](https://travis-ci.org) for running my test suites. But now I'm switching to [Circle CI](https://circleci.com) for my latest open-source JavaScript project: [helpers](https://github.com/risan/helpers). Though it has no build matrix feature out of the box, the test suites often complete faster (I'm speaking about the free version here).
 

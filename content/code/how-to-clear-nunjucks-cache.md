@@ -1,10 +1,10 @@
 ---
 title: How to Clear Nunjucks Cache
 date: 2019-01-14T21:01:00+02:00
-tags: [javascript, node]
-categories: [snippet]
 description: Learn how to clear Nunjucks compiled template cache.
-image: /img/nunjucks-logo-og.png
+categories: [snippet]
+tags: [javascript, node]
+images: [/img/nunjucks-logo-og.png]
 ---
 I'm building a static site generator (again) named [Flores](https://github.com/risan/flores). Initially, I use [Pug](https://pugjs.org/) for the templating engine. But then I discovered [Nunjucks](https://mozilla.github.io/nunjucks/). It has a lot more features and the syntax is quite similar to [Twig](https://twig.symfony.com/) which I'm familiar with. I also did a quick test and the render time is quite similar when the cache option is activated.
 

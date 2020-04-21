@@ -1,10 +1,10 @@
 ---
 title: Vue Chart Component with Chart.js
 date: 2018-10-14T18:38:00+02:00
-tags: [javascript, vue]
-categories: [tutorial]
 description: Let's build a reusable and beautiful chart component for Vue.js using the Chart.js library.
-image: ./og.png
+categories: [tutorial]
+tags: [javascript, vue]
+images: [/code/vue-chart-component-with-chartjs/og.png]
 ---
 Chart.js is an amazing chart library for JavaScript. It's modern and performant; built on top of the HTML5 canvas. It includes 8 different chart types which super easy to extend and configure. On top of it all, the generated chart just looks beautiful.
 
@@ -832,7 +832,7 @@ export default {
 
 Open up your project on the browser. You should now see two checkboxes. What happens when you toggle both of these checkboxes? Nothing. If you have the [Vue Devtools](https://github.com/vuejs/vue-devtools) installed on your browser you could see that the `datasets` props on the `LineChart` component is indeed updated following these two checkboxes. But that won't trigger the underlying Chart.js to redraw the chart. Let's fix this!
 
-![The Chart Is Not Updated](https://media.giphy.com/media/9XXSF1Zk5VI9UKMArK/giphy.gif)
+![The Chart Is Not Updated](./the-chart-is-not-updated.gif)
 
 Edit the `src/components/LineChart.vue` file:
 
@@ -887,7 +887,7 @@ If the `datasets` prop is changed. We simply replace the `data.datasets` propert
 
 Now if you try to toggle the checkbox, the chart should be updated accordingly.
 
-![Togglable Chart Datasets](https://media.giphy.com/media/557HUQUQ7RdMQbX9th/giphy.gif)
+![Togglable Chart Datasets](./togglable-chart-datasets.gif)
 
 Before the `LineChart` component instance is destroyed, it's a good practice to clear up all the object references and all the event listeners attached to the Chart.js instance. We can do so by calling the `destroy()` method on the Chart.js instance:
 

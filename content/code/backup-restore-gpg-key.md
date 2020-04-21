@@ -1,9 +1,9 @@
 ---
 title: How to Backup and Restore Your GPG Key
 date: 2020-01-11T23:13:00+07:00
-tags: [devops, macos]
-categories: [tutorial]
 description: Learn how to backup and restore your GPG key.
+categories: [tutorial]
+tags: [macos]
 ---
 A couple of weeks ago I upgraded my MacBook to Catalina—the latest version of macOS. Once the upgrade was completed, I couldn't sign my Git commits because my GPG key was missing. Somehow the upgrade wiped out my entire `.gnupg` directory where I stored all my GPG keys. Luckily I've made a backup of my private GPG keys.
 

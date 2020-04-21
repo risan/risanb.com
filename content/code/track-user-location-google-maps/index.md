@@ -1,10 +1,10 @@
 ---
 title: Track User's Location and Display it on Google Maps
 date: 2018-03-16T17:57:00+02:00
-tags: [javascript, maps]
-categories: [tutorial]
 description: We'll learn on how to track user's location using the Geolocation API and display it on Google Maps.
-image: ./og.jpg
+categories: [tutorial]
+tags: [javascript, maps]
+images: [/code/track-user-location-google-maps/og.jpg]
 ---
 This is actually my answer to someone's question on [PHP Indonesia](https://www.facebook.com/groups/35688476100/) Facebook group. How can we track user's location continuously using the Geolocation API and display it on Google Maps?
 
@@ -553,7 +553,7 @@ function init() {
 
 Now we should get a nice user's coordinate and error at the bottom of the map.
 
-![Google Maps Geolocation Example](https://media.giphy.com/media/k8aLET8SuIQs5AuXWT/source.gif)
+![Google Maps Geolocation Example](./07-geolocation-example.gif)
 
 You can check out the [live demo](https://google-maps-geolocation.bitballoon.com/) and play around with it. You can also get the source for this tutorial on Github: [google-maps-geolocation-example](https://github.com/risan/google-maps-geolocation-example).
 

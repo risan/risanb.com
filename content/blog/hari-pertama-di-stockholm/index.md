@@ -1,9 +1,10 @@
 ---
+lang: id
 title: Hari Pertama di Stockholm
 date: 2019-05-04T11:51:00+02:00
-tags: [jurnal, stockholm, swedia]
-lang: id
-image: ./06_gamla_stan.jpg
+categories: [journal]
+tags: [stockholm, swedia]
+images: [/blog/hari-pertama-di-stockholm/06_gamla_stan.jpg]
 ---
 Hari itu tanggal 4 November 2014. Sekira pukul enam pagi, pesawat Thai Airways yang saya tumpangi akhirnya mendarat di Bandara Internasional Arlanda. Bila transit dua jam di Thailand tidak masuk hitungan, itulah kali pertama saya menjejakan kaki di luar negeri.
 

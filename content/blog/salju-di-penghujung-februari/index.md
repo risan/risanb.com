@@ -1,9 +1,10 @@
 ---
+lang: id
 title: Salju di Penghujung Februari
 date: 2018-02-27T12:16:00+02:00
-tags: [jurnal, stockholm, swedia]
-lang: id
-image: ./05-salju-di-city-hall.jpg
+categories: [photos]
+tags: [stockholm, swedia]
+images: [/blog/salju-di-penghujung-februari/05-salju-di-city-hall.jpg]
 ---
 Hari Sabtu dan Minggu kemarin, Swedia mengalami "*isdygn*" yang kedua kalinya di musim dingin kali ini. *Isdygn* adalah istilah meteorologi yang digunakan di Swedia saat temperatur maksimum di siang hari berada di bawah 0°C di seantero negeri.
 

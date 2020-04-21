@@ -1,10 +1,10 @@
 ---
 title: I Create My Own Static Site Generator
 date: 2018-02-11T17:06:00+02:00
-tags: [javascript, node]
-categories: [coding-journal]
 description: Instead of writing a blog post more often, I decided to redesign my four months old blog, ditched Jekyll and built a custom static site generator.
-image: ./og.jpg
+categories: [log]
+tags: [javascript, node]
+images: [/code/i-create-my-own-static-site-generator/og.jpg]
 ---
 Instead of writing a blog post more often, I decided to redesign my four months old blog, ditched Jekyll and built a custom static site generator. The conversation went like this:
 

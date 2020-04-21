@@ -2,17 +2,17 @@
 <html lang="{{ with .Params.lang }}{{ . }}{{ else }}{{ .Page.Language.Lang }}{{ end }}">
 <head>
   <meta charset="utf-8">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
-  <meta name="description" content="{{ .Params.description }}">
+  <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {{ template "_internal/opengraph.html" . }}
   {{ template "_internal/twitter_cards.html" . }}
   {{ block "head" . }}{{ end }}
   {{- if .Site.Params.favicon }}
-  <link rel="icon" href="/{{ .Site.Params.favicon }}">
+    <link rel="icon" href="/{{ .Site.Params.favicon }}">
   {{- end }}
   {{- with .OutputFormats.Get "RSS" }}
-  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
+    <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
   {{- end }}
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minireset.css@0.0.6/minireset.min.css">

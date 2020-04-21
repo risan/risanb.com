@@ -1,9 +1,9 @@
 ---
 title: New Blog and Things I learned Building It
 date: 2017-10-09T17:06:00+02:00
-tags: [css, nginx, jekyll]
-categories: [coding-journal]
 description: I finally have my programming blog again. I'll walk you through the tech stack I use and things I learned building this blog.
+categories: [log]
+tags: [css, nginx, jekyll]
 ---
 Hello, world!
 

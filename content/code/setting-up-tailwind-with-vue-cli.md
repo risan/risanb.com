@@ -1,9 +1,9 @@
 ---
 title: Setting Up Tailwind CSS with Vue CLI
 date: 2020-03-07T22:16:00+07:00
-tags: [vue, css]
-categories: [snippet]
 description: A simple trick using axios to handle error response that uses 200 status code.
+categories: [snippet]
+tags: [vue, css]
 ---
 It's quite easy to set up Tailwind CSS within your Vue CLI project. Since Vue CLI is already shipped with PostCSS, all we have to do is to install Tailwind as a PostCSS plugin. If you look at this [Vue CLI source code](https://github.com/vuejs/vue-cli/blob/1a0b59142aa8797810ca90705290d960a4ee6d1e/packages/%40vue/cli-service/lib/config/css.js#L76-L90), you'll notice that Vue CLI will look through every possible PostCSS config file.
 

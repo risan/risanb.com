@@ -175,14 +175,14 @@ a:hover {
   margin-bottom: 1.4em;
 }
 
+.wysiwyg figure a:hover {
+  border-bottom: none;
+}
+
 .wysiwyg figcaption {
   color: #555;
   font-size: .85em;
   margin-top: .5em;
-}
-
-.wysiwyg img {
-  display: block;
 }
 
 .list-taxonomy {

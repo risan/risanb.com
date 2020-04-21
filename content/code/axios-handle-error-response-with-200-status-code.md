@@ -1,9 +1,10 @@
 ---
 title: "Axios: Handle Error Response with 200 Status Code"
 date: 2020-02-23T20:19:00+07:00
-tags: [javascript]
-categories: [snippet]
+lastmod: 2020-04-01T20:19:00+07:00
 description: A simple trick using axios to handle error response that uses 200 status code.
+categories: [snippet]
+tags: [javascript]
 ---
 You might be using an API that does not utilize the HTTP status code properly. For example, even if the operation is failed because of the client error, the API returns a 200 status code—when in fact the 200 status code is meant for a successful response.
 

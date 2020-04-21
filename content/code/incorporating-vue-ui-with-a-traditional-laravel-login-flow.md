@@ -1,9 +1,9 @@
 ---
 title: Incorporating Vue UI with a Traditional Laravel Login Flow
 date: 2020-03-22T21:21:00+07:00
-tags: [javascript, laravel, vue]
-categories: [snippet]
 description: A simple trick to incorporate Vue-based UI with a traditional session-based Laravel login flow.
+categories: [snippet]
+tags: [javascript, laravel, vue]
 ---
 Let's say we want to create a traditional login flow using the Laravel framework. The users will enter their username and password and our system will send an HTTP POST request to authenticate that credentials. And at the same time, instead of using a traditional HTML form, we want to use a Vue component for building the form UI.
 

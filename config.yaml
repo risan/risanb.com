@@ -6,6 +6,6 @@ markup:
   highlight:
     style: github
 params:
-  description: "Risan Bagja's Blog: programming, travel stories, life journal, and other random stuff."
+  description: "Hi, my name is Risan Bagja. I write about my experiences, daily life, places I’ve traveled, things I learned, programming stuff, and other random things."
   images: [/img/risan-og.jpg]
   favicon: "earth-icon.png"

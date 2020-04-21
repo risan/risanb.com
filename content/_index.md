@@ -1,5 +1,6 @@
 ---
-title: Welcome to My Blog!
-description: Hi, my name is Risan and I code for fun! Seriously.
+title: Risan Bagja's Blog
 ---
-My name is Risan Bagja. I code for fun, seriously. I enjoy spending time writing clean and maintainable code. This blog serves as a journal to document things I learn as an avid programmer. Here you'll find articles, tutorials, and some quick tips about programming.
+# Welcome to My Blog!
+
+Hi, my name is Risan Bagja. This blog serves as my creative catalyst—a place to share my thoughts and a journal of my life’s journey. I write about my experiences, daily life, places I’ve traveled, things I learned, programming stuff, and other random things as well.

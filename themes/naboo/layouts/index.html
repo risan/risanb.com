@@ -1,6 +1,6 @@
+{{ define "title" }}{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}
 {{ define "main" }}
   <article class="wysiwyg">
-    <h1>{{ .Title }}</h1>
     {{ .Content }}
 
     {{ range .Sections }}

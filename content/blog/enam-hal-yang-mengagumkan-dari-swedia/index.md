@@ -1,9 +1,10 @@
 ---
+lang: id
 title: Enam Hal yang Mengagumkan dari Swedia
 date: 2018-06-14T08:35:00+02:00
+categories: [writing]
 tags: [swedia]
-lang: id
-image: ./dsc_0104.jpg
+images: [/blog/enam-hal-yang-mengagumkan-dari-swedia/dsc_0104.jpg]
 ---
 Nyaris empat tahun berlalu sejak pertama kali saya menginjakan kaki di tanah Swedia. Sebelumnya saya bahkan tidak pernah berpelesir jauh hingga ke luar negeri. Paspor pun sebetulnya baru saya miliki beberapa minggu menjelang keberangkatan ke Swedia. Karenanya banyak hal baru yang membuat saya berdecak kagum saat tinggal di negeri Skandinavia ini.
 
