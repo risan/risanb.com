@@ -1,9 +1,16 @@
+/* base */
 html, body {
   height: 100%;
 }
 
 html {
   font-size: 16px;
+}
+
+@media screen and (min-width: 769px) {
+  html {
+    font-size: 17px;
+  }
 }
 
 body {
@@ -32,11 +39,17 @@ a:hover {
 
 .container {
   width: 100%;
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+.main-container {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+/* header */
 .header {
   background: #151515;
 }
@@ -79,6 +92,7 @@ a:hover {
   color: #fff176;
 }
 
+/* footer */
 .footer {
   background: #edf1f3;
   margin-top: auto;
@@ -101,15 +115,11 @@ a:hover {
   margin-right: .75rem;
 }
 
-.main-container {
-  margin-top: 2rem;
-  margin-bottom: 5rem;
-}
-
+/* syntax highlighting */
 .highlight {
   font-size: .95rem;
   line-height: 1.5;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.4em;
   margin-left: -1rem;
   margin-right: -1rem;
   padding: 1rem;
@@ -131,6 +141,15 @@ a:hover {
   padding: 0;
 }
 
+.wysiwyg a code {
+  color: #303f9f;
+}
+
+.wysiwyg a:hover code {
+  color: #7b1fa2;
+}
+
+/* wysiwyg */
 .wysiwyg header {
   margin-bottom: 1.4rem;
 }
@@ -152,12 +171,18 @@ a:hover {
   margin: 0 .5rem;
 }
 
-.wysiwyg a code {
-  color: #303f9f;
+.wysiwyg figure {
+  margin-bottom: 1.4em;
 }
 
-.wysiwyg a:hover code {
-  color: #7b1fa2;
+.wysiwyg figcaption {
+  color: #555;
+  font-size: .85em;
+  margin-top: .5em;
+}
+
+.wysiwyg img {
+  display: block;
 }
 
 .list-taxonomy {
