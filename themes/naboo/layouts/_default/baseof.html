@@ -15,10 +15,11 @@
     <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
   {{- end }}
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minireset.css@0.0.6/minireset.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/wysiwyg.css@0.0.3/wysiwyg.min.css">
-  {{- $style := resources.Get "main.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $style.Permalink }}">
+  {{- $minireset := resources.Get "minireset.css" -}}
+  {{- $wysiwyg := resources.Get "wysiwyg.css" -}}
+  {{- $main := resources.Get "main.css" -}}
+  {{- $styles := slice $minireset $wysiwyg $main | resources.Concat "styles.css" | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}">
 </head>
 <body>
   <header class="header">
