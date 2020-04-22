@@ -16,18 +16,18 @@ Untuk ukuran musim panas, suhu di luar cukup dingin: 15 derajat Celsius. Saya pu
 
 Awalnya saya hanya berencana untuk bersepeda hingga Södermalm, namun rupanya lutut saya masih sanggup mengayuh sedikit lebih jauh hingga Gamla Stan. Total jarak yang harus saya tempuh untuk pulang-pergi antara rumah dan Gamla Stan adalah 17 kilometer. Permulaan yang baik. Semoga saja saya tetap konsisten menjalankannya.
 
-![Rute dari rumah menuju Gamla Stan.](./cycling_route.png)
+{{<img alt="Rute dari rumah menuju Gamla Stan." src="cycling_route.png">}}
 
-![Hornstull dilihat dari jembatan Liljeholmsbron.](./dsc_2558.jpg)
+{{<img alt="Hornstull dilihat dari jembatan Liljeholmsbron." src="dsc_2558.jpg">}}
 
-![Apartemen-apartemen berdiri di sepanjang Hornstulls Strand.](./dsc_2559.jpg)
+{{<img alt="Apartemen-apartemen berdiri di sepanjang Hornstulls Strand." src="dsc_2559.jpg">}}
 
-![Suasana jembatan Liljeholmsbron.](./dsc_2564.jpg)
+{{<img alt="Suasana jembatan Liljeholmsbron." src="dsc_2564.jpg">}}
 
-![Feri berlayar meninggalkan Gamla Stan.](./dsc_2567.jpg)
+{{<img alt="Feri berlayar meninggalkan Gamla Stan." src="dsc_2567.jpg">}}
 
-![Istirahat sejenak di Skeppsbrokajen sebelum kembali pulang.](./dsc_2570.jpg)
+{{<img alt="Istirahat sejenak di Skeppsbrokajen sebelum kembali pulang." src="dsc_2570.jpg">}}
 
-![Suasana jalan Hornsgatan di Södermalm.](./dsc_2576.jpg)
+{{<img alt="Suasana jalan Hornsgatan di Södermalm." src="dsc_2576.jpg">}}
 
-![Jalur sepeda dan pejalan kaki di sepanjang rute E4/E20 yang menuju Södertälje.](./dsc_2580.jpg)
+{{<img alt="Jalur sepeda dan pejalan kaki di sepanjang rute E4/E20 yang menuju Södertälje." src="dsc_2580.jpg">}}

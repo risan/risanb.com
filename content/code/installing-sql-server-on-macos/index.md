@@ -18,7 +18,7 @@ First, you're going to need Docker. If you haven't had it installed, heads up to
 
 Once it's installed, you'll have a new Docker icon on your menu bar. Click this icon and make sure that Docker is already.
 
-![Docker is running](./docker-is-running.png)
+{{<img alt="Docker is running" src="docker-is-running.png">}}
 
 ## Running SQL Server Container Image
 

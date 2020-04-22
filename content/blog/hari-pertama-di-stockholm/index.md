@@ -16,22 +16,22 @@ Sepanjang jalan saya tidak henti-hentinya berdecak kagum melihat langsung bagaim
 
 Lepas menyimpan koper di Central Station, saya beranjak ke Gamla Stan—kota tua yang berada tidak jauh dari Central Station. Berikut adalah foto-foto yang saya ambil pada hari itu.
 
-![Tunnelbana melintasi perairan antara Gamla Stan dan Slussen.](./01_gamla_stan.jpg)
+{{<img alt="Tunnelbana melintasi perairan antara Gamla Stan dan Slussen." src="01_gamla_stan.jpg">}}
 
-![Tak jauh dari stasiun kereta Gamla Stan.](./02_gamla_stan.jpg)
+{{<img alt="Tak jauh dari stasiun kereta Gamla Stan." src="02_gamla_stan.jpg">}}
 
-![Di salah satu sudut Gamla Stan, beberapa pohon masih berdaun kekuningan.](./03_gamla_stan.jpg)
+{{<img alt="Di salah satu sudut Gamla Stan, beberapa pohon masih berdaun kekuningan." src="03_gamla_stan.jpg">}}
 
-![Susana di sekitar Skeppsbron di pagi hari, tampak Museum Nasional di kejauhan.](./04_kungliga_slottet.jpg)
+{{<img alt="Susana di sekitar Skeppsbron di pagi hari, tampak Museum Nasional di kejauhan." src="04_kungliga_slottet.jpg">}}
 
-![Jalan Slottsbacken yang berada tepat di samping Kungliga Slottet—The Royal Palace.](./05_kungliga_slottet.jpg)
+{{<img alt="Jalan Slottsbacken yang berada tepat di samping Kungliga Slottet—The Royal Palace." src="05_kungliga_slottet.jpg">}}
 
-![Stortorget—square tertua di Kota Stockholm, tepat berada di jantung Gamla Stan.](./06_gamla_stan.jpg)
+{{<img alt="Stortorget—square tertua di Kota Stockholm, tepat berada di jantung Gamla Stan." src="06_gamla_stan.jpg">}}
 
-![Kapal-kapal feri berlabuh di Skepssbron.](./07_skeppsbron.jpg)
+{{<img alt="Kapal-kapal feri berlabuh di Skepssbron." src="07_skeppsbron.jpg">}}
 
-![Kapal Af Chapman yang kini disulap menjadi hostel tampak di sebrang pulau.](./08_skeppsbron.jpg)
+{{<img alt="Kapal Af Chapman yang kini disulap menjadi hostel tampak di sebrang pulau." src="08_skeppsbron.jpg">}}
 
-![Deretan hotel di sepanjang Skepssbron.](./09_skeppsbron.jpg)
+{{<img alt="Deretan hotel di sepanjang Skepssbron." src="09_skeppsbron.jpg">}}
 
-![Hiruk pikuk di Central Station.](./10_central_station.jpg)
+{{<img alt="Hiruk pikuk di Central Station." src="10_central_station.jpg">}}

@@ -20,24 +20,24 @@ Hari Jumat kemarin saya menyempatkan diri untuk jalan-jalan mengelilingi Pulau S
 
 Perjalanan saya mulai dari jantung Södermalm di Medborgarplatsen. Berjalan ke arah Barat menuju taman Tantolunden. Menyisiri teluk Årstaviken di sepanjang Jalan Ringvägen. Berbelok di taman Vitabergsparken di mana Gereja Sofia berdiri. Menikmati indahnya pemandangan Kota Stockholm dari ketinggian di Jalan Fjällgatan sebelum akhirnya berakhir di Stasiun Mariatorget.
 
-![Menyulap ruas jalan yang ditutup menjadi lapak tambahan bagi restoran.](./dsc_2422.jpg)
+{{<img alt="Menyulap ruas jalan yang ditutup menjadi lapak tambahan bagi restoran." src="dsc_2422.jpg">}}
 
-![Salah satu kafe di daerah Södermalm.](./dsc_2424.jpg)
+{{<img alt="Salah satu kafe di daerah Södermalm." src="dsc_2424.jpg">}}
 
-![Kapal pesiar yang tengah merapat ke pelabuhan.](./dsc_2435.jpg)
+{{<img alt="Kapal pesiar yang tengah merapat ke pelabuhan." src="dsc_2435.jpg">}}
 
-![Fotografiska—museum yang memamerkan beragam koleksi fotografi.](./dsc_2436.jpg)
+{{<img alt="Fotografiska—museum yang memamerkan beragam koleksi fotografi." src="dsc_2436.jpg">}}
 
-![Burung camar mengepakan sayapnya.](./dsc_2437.jpg)
+{{<img alt="Burung camar mengepakan sayapnya." src="dsc_2437.jpg">}}
 
-![Pemandangan ke arah Gamla Stan, Normalm, dan Skeppsholmen dari ketinggian Fjällgatan.](./dsc_2438.jpg)
+{{<img alt="Pemandangan ke arah Gamla Stan, Normalm, dan Skeppsholmen dari ketinggian Fjällgatan." src="dsc_2438.jpg">}}
 
-![Taman Ria Gröna Lund dilihat dari ketinggian Fjällgatan.](./dsc_2453.jpg)
+{{<img alt="Taman Ria Gröna Lund dilihat dari ketinggian Fjällgatan." src="dsc_2453.jpg">}}
 
-![Gamla Stan dan Normalm nampak di kejauhan.](./dsc_2458.jpg)
+{{<img alt="Gamla Stan dan Normalm nampak di kejauhan." src="dsc_2458.jpg">}}
 
-![Para pesepeda melintas di Jalan Stadsgårdsleden.](./dsc_2460.jpg)
+{{<img alt="Para pesepeda melintas di Jalan Stadsgårdsleden." src="dsc_2460.jpg">}}
 
-![Suasana Jalan Urvädersgränd, tempat dimana musisi Swedia abad ke-18 Carl Michael Bellman tinggal (rumah berwarna jingga di turunan sebelah kanan).](./dsc_2469.jpg)
+{{<img alt="Suasana Jalan Urvädersgränd, tempat dimana musisi Swedia abad ke-18 Carl Michael Bellman tinggal (rumah berwarna jingga di turunan sebelah kanan)." src="dsc_2469.jpg">}}
 
-![Pemandangan dari Katarinahissen, nampak Balai Kota Stockholm di kejauhan.](./dsc_2474.jpg)
+{{<img alt="Pemandangan dari Katarinahissen, nampak Balai Kota Stockholm di kejauhan." src="dsc_2474.jpg">}}

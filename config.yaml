@@ -5,6 +5,8 @@ googleAnalytics: UA-27136969-15
 markup:
   highlight:
     style: github
+imaging:
+  quality: 80
 params:
   description: "Hi, my name is Risan Bagja. I write about my experiences, daily life, places I’ve traveled, things I learned, programming stuff, and other random things."
   images: [/img/risan-og.jpg]

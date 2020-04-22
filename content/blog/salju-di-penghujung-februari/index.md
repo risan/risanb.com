@@ -14,22 +14,22 @@ Di Stockholm sendiri, pagi ini suhu mencapai -6°C—relatif tidak sedingin hari
 
 Pada siang hari, salju sempat sempat berhenti. Saya pun menyempatkan diri untuk jalan-jalan ke Monteliusvägen. Monteliusvägen ini merupakan salah satu titik populer untuk mengambil foto di Stockholm. Ia berupa jalan setapak di tepi tebing, di mana kita bisa memandang lepas ke arah Danau Mälaren dan daerah-daerah di sekitarnya: Kungsholmen, Riddarholmen dan Gamla Stan.
 
-![Salju yang perlahan menumpuk di sekitar perumahan.](./01-salju-di-perumahan.jpg)
+{{<img alt="Salju yang perlahan menumpuk di sekitar perumahan." src="01-salju-di-perumahan.jpg">}}
 
-![Suasana di daerah Mariatorget.](./02-salju-di-mariatorget.jpg)
+{{<img alt="Suasana di daerah Mariatorget." src="02-salju-di-mariatorget.jpg">}}
 
-![Jalan Hornsgatan siang ini.](./03-salju-di-hornsgatan.jpg)
+{{<img alt="Jalan Hornsgatan siang ini." src="03-salju-di-hornsgatan.jpg">}}
 
-![Gamla Stan dilihat dari Monteliusvägen.](./04-salju-di-gamlastan.jpg)
+{{<img alt="Gamla Stan dilihat dari Monteliusvägen." src="04-salju-di-gamlastan.jpg">}}
 
-![Kapal feri berlayar melewati balai Kota Stockholm.](./05-salju-di-city-hall.jpg)
+{{<img alt="Kapal feri berlayar melewati balai Kota Stockholm." src="05-salju-di-city-hall.jpg">}}
 
-![Pemandangan Gamla Stan—kota tua.](./06-salju-di-gamlastan.jpg)
+{{<img alt="Pemandangan Gamla Stan—kota tua." src="06-salju-di-gamlastan.jpg">}}
 
-![Riddarholmen dilihat dari Monteliusvägen dengan perairan Mälaren yang membeku.](./07-salju-di-riddarholmen.jpg)
+{{<img alt="Riddarholmen dilihat dari Monteliusvägen dengan perairan Mälaren yang membeku." src="07-salju-di-riddarholmen.jpg">}}
 
-![Kereta bawah tanah yang keluar dari permukaan untuk melewati perairan Mälaren.](./08-salju-di-gamlastan.jpg)
+{{<img alt="Kereta bawah tanah yang keluar dari permukaan untuk melewati perairan Mälaren." src="08-salju-di-gamlastan.jpg">}}
 
-![Kungsholmen dilihat dari Monteliusvägen.](./09-salju-di-kungsholmen.jpg)
+{{<img alt="Kungsholmen dilihat dari Monteliusvägen." src="09-salju-di-kungsholmen.jpg">}}
 
-![Gamla Stan dari kejauhan.](./10-salju-di-gamlastan.jpg)
+{{<img alt="Gamla Stan dari kejauhan." src="10-salju-di-gamlastan.jpg">}}

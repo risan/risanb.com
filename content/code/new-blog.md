@@ -11,8 +11,6 @@ After more than four years, I finally have my programming blog again 🎉🎉�
 
 Having a blog will be a good exercise to improve my writing skill. It's also a great way for documenting my learning journey and share back the knowledge to the vast programming community.
 
-![New Blog and Things I learned Building It](./featured.jpg)
-
 {{< toc >}}
 
 ## The Tech Stacks

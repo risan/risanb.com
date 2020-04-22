@@ -5,7 +5,7 @@ description = "Hugo minimalist theme"
 homepage = "ttps://github.com/risan/naboo"
 tags = ["blog", "minimalist", "responsive", "clean"]
 features = []
-min_version = "0.64.1"
+min_version = "0.69.1"
 
 [author]
   name = "Risan Bagja Pradana"

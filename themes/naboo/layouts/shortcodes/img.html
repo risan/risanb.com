@@ -1,0 +1,12 @@
+{{- $img := .Page.Resources.GetMatch (.Get "src") -}}
+<figure>
+  <a href="{{ $img.Permalink }}">
+  {{- if gt $img.Width 1000 -}}
+    {{- $resize := $img.Resize "1000x" -}}
+    <img src="{{ $resize.Permalink }}" {{- with .Get "alt"}}alt="{{ . }}"{{- end }}>
+  {{- else -}}
+    <img src="{{ $img.Permalink }}" {{- with .Get "alt"}}alt="{{ . }}"{{- end }}>
+  {{- end -}}
+  </a>
+  {{- with .Get "alt"}}<figcaption>{{ . }}</figcaption>{{- end }}
+</figure>

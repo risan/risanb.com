@@ -10,9 +10,7 @@ Untuk makan malam kali ini saya memasak Oyakodon—*donburi* atau nasi dengan la
 
 Saya sendiri sebetulnya baru mengenal Oyakodon tadi pagi, lewat sebuah video singkat di YouTube tentang restoran Tamahide di Tokyo, Jepang. Restoran yang berdiri sejak tahun 1760 ini terkenal akan sajian *shamo-nabe*—sajian *hot pot* dengan lauk ayam khas Utara Kanto. Restoran ini juga yang menjadi tempat lahirnya Oyakodon.
 
-<div class="iframe-wrapper">
-  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/A_ehH20Nv_A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+{{<youtube A_ehH20Nv_A>}}
 
 Sejarah Oyakodon bermula dari tahun 1887, saat seorang pengunjung menyarankan pengelola restoran Tamahide agar memanfaatkan sisa ayam dan kaldu dari sajian *shamo-nabe*-nya. Empat tahun berselang, menu Oyakodon lahir dari ide Toku Yamada—istri juru masak dari generasi ke-5.
 
@@ -34,7 +32,7 @@ Sementara untuk kuahnya, kita perlu mencapurkan bahan-bahan berikut:
 * 1/2 sendok makan mirin; dan
 * 1/2 sendok makan gula.
 
-![Bahan-bahan untuk membuat Oyakodon.](./img_2920.jpg)
+{{<img alt="Bahan-bahan untuk membuat Oyakodon." src="img_2920.jpg">}}
 
 ## Cara Memasak Oyakodon
 
@@ -46,4 +44,4 @@ Langkah untuk memasaknya pun tidak merepotkan:
 4. Kemudian tuangkan hasil kocokan telur ayam, masak hingga telur setengah matang (bila ragu dengan kualitas telur, masak hingga benar-benar matang);
 5. Angkat dan tuangkan masakan di atas nasi panas. Jangan lupa taburkan potongan daun bawang untuk menambah cita rasa.
 
-![Oyakodon siap untuk dinikmati!](./img_2926.jpg)
+{{<img alt="Oyakodon siap untuk dinikmati!" src="img_2926.jpg">}}

@@ -12,7 +12,7 @@ On that tutorial, you'll learn the basic of iOS development by building some sim
 
 You can check out the complete project on my Github repository: [risan/bullseye-ios](https://github.com/risan/bullseye-ios).
 
-![Bull's Eye game in action](./bulls-eyes-game-in-action.gif)
+{{<img alt="Bull's Eye game in action" src="bulls-eyes-game-in-action.gif">}}
 
 Here are a few things that I learned and gathered so far about Swift programming language. Note that I use the latest Swift 4.2 version.
 
@@ -470,18 +470,18 @@ This little quest of mine, leading me to find more tutorials about building iOS 
 
 [1. Auto layout practice](https://github.com/risan/autolayout-ios)
 
-![Auto Layout Practice](./auto-layout.jpg)
+{{<img alt="Auto Layout Practice" src="auto-layout.jpg">}}
 
 [2. Stack Views practice](https://github.com/risan/stack-views-ios)
 
-![Stack Views Practice](./stack-views.jpg)
+{{<img alt="Stack Views Practice" src="stack-views.jpg">}}
 
 [3. Creating a paginated sliding cards](https://github.com/risan/sliding-cards-ios)
 
-![Sliding Cards in Action](./sliding-cards-in-action.gif)
+{{<img alt="Sliding Cards in Action" src="sliding-cards-in-action.gif">}}
 
 [4. A War Card Game](https://github.com/risan/war-card-game-ios)
 
-![War Card Game in Action](./war-card-game-in-action.gif)
+{{<img alt="War Card Game in Action" src="war-card-game-in-action.gif">}}
 
 I probably should start reading the Swift documentation. 🤔
