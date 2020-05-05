@@ -4,6 +4,9 @@ theme: "naboo"
 googleAnalytics: UA-27136969-15
 disqusShortname: risanb
 markup:
+  goldmark:
+    renderer:
+      unsafe: true
   highlight:
     style: github
 imaging:

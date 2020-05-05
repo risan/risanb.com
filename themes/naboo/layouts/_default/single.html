@@ -4,7 +4,7 @@
       <h1>{{ .Title }}</h1>
       <div class="info">
         <p>
-          <span>📅</span>
+          <span role="img" aria-label="calendar">📅</span>
           <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>
             {{ .Date.Format "02 Jan 2006" }}
           </time>
@@ -12,7 +12,7 @@
         {{- with .Params.categories -}}
           <span>&middot;</span>
           <p>
-            <span>📁</span>
+            <span role="img" aria-label="closed file folder">📁</span>
             {{- range $idx, $category := . }}
               {{- if $idx }}, {{- end }}
               <a href="/categories/{{ $category }}/">
@@ -24,10 +24,10 @@
         {{- with .Params.tags -}}
           <span>&middot;</span>
           <p>
-            <span>🏷</span>
+            <span role="img" aria-label="label tag">🏷</span>
             {{- range $idx, $tag := . }}
               {{- if $idx }}, {{- end }}
-              <a href="/tags/{{ $tag }}">
+              <a href="/tags/{{ $tag }}/">
                 {{- $tag | humanize -}}
               </a>
             {{- end }}
