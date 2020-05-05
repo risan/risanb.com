@@ -37,6 +37,43 @@ a:hover {
   text-decoration: none;
 }
 
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #303f9f;
+  border: none;
+  padding: .35rem .85rem;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #7b1fa2;
+}
+
 .container {
   width: 100%;
   max-width: 720px;

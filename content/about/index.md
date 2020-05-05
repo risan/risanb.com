@@ -4,6 +4,7 @@ lastmod: 2020-04-21T23:40:00+07:00
 title: About Me
 description: Hi, my name is Risan and I code for fun! Seriously. I'm passionate about coding. I enjoy spending time writing clean and maintainable code.
 images: [/img/risan-og.jpg]
+disable_disqus: true
 ---
 ![Hi, my name is Risan Bagja!](/img/risan.jpg)
 

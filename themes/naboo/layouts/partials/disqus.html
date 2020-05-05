@@ -1,0 +1,47 @@
+{{- if .Site.DisqusShortname -}}
+{{- if not .Params.disable_disqus -}}
+<section id="commentsSection" class="wysiwyg" style="margin-top: 4rem;">
+  <button type="button" id="loadCommentsBtn" class="button" onclick="loadComments()">
+    Load Comments
+  </button>
+</section>
+
+<script>
+  var commentsVisible = false;
+
+  function loadComments() {
+    if (commentsVisible) {
+      return;
+    }
+
+    commentsVisible = true;
+
+    var loadCommentsBtn = document.getElementById('loadCommentsBtn');
+    var title = document.createElement('h2');
+    title.appendChild(document.createTextNode('Comments'));
+    var thread = document.createElement('div');
+    thread.id = 'disqus_thread';
+
+    loadCommentsBtn.style.display = 'none';
+    loadCommentsBtn.parentNode.insertBefore(title, loadCommentsBtn);
+    loadCommentsBtn.parentNode.insertBefore(thread, title.nextSibling);
+
+    if (['localhost', '127.0.0.1'].indexOf(window.location.hostname) != -1) {
+      thread.innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+
+    var disqus_config = function() {
+      this.page.url = {{ .Permalink }};
+      this.page.identifier = {{ with .Params.disqus_identifier }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }};
+    };
+
+    var script = document.createElement('script');
+    script.src = 'https://' + {{ .Site.DisqusShortname }} + '.disqus.com/embed.js';
+    script.setAttribute('data-timestamp', +new Date());
+    script.setAttribute('async', true);
+    document.body.appendChild(script);
+  };
+</script>
+{{- end -}}
+{{- end -}}
