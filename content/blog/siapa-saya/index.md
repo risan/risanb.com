@@ -3,7 +3,7 @@ lang: id
 title: Siapa Saya?
 date: 2010-03-01T15:06:00+07:00
 categories: [writing]
-tags: [ulasan, buku]
+tags: [sinopsis, buku]
 images: [/blog/siapa-saya/cover.jpg]
 ---
 ![Siapa Saya?](cover.jpg)

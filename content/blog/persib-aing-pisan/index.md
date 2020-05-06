@@ -3,7 +3,7 @@ lang: id
 title: Persib Aing Pisan
 date: 2007-03-27T17:07:00+07:00
 categories: [journal]
-tags: [putih-abu]
+tags: [putih-abu, racauan]
 images: [/blog/persib-aing-pisan/cover.jpg]
 ---
 ![Persib Aing Pisan](cover.jpg)

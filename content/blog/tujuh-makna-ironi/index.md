@@ -3,7 +3,7 @@ lang: id
 title: Tujuh Makna Ironi
 date: 2010-03-02T19:48:00+07:00
 categories: [writing]
-tags: [ulasan, buku]
+tags: [non-fiksi]
 images: [/blog/tujuh-makna-ironi/cover.jpg]
 ---
 ![Tujuh Makna Ironi](cover.jpg)

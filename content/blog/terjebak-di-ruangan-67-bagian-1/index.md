@@ -3,7 +3,7 @@ lang: id
 title: Terjebak di Ruangan 67 – Bagian 1
 date: 2007-03-17T16:16:00+07:00
 categories: [journal]
-tags: [putih-abu]
+tags: [putih-abu, racauan]
 images: [/blog/terjebak-di-ruangan-67-bagian-1/cover.jpg]
 ---
 ![Terjebak di Ruangan 67 – Bagian 1](cover.jpg)

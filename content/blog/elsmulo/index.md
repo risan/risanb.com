@@ -2,7 +2,7 @@
 lang: id
 title: Elsmulo
 date: 2010-08-08T16:09:00+07:00
-categories: [writing]
+categories: [journal]
 tags: [racauan]
 images: [/blog/elsmulo/cover.jpg]
 ---
