@@ -10,7 +10,7 @@ It's a bit inconvenience when working on a project that uses the Microsoft SQL S
 
 But now it's no longer the case. October last year, SQL Server 2017 for Linux finally went into general availability. It's container images are also available on [Docker hub](https://hub.docker.com/r/microsoft/mssql-server-linux/) for us to use. That means we can finally install SQL Server on macOS!
 
-{{< toc >}}
+{{<toc>}}
 
 ## Installing Docker
 

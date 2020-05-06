@@ -12,7 +12,7 @@ Last night I did some tinkering to integrate Chart.js within the existing Vue co
 
 You can check out the final working source code on [Github](https://github.com/risan/vue-chart-example). You can also visit the demo here: [risan.github.io/vue-chart-example](https://risan.github.io/vue-chart-example/).
 
-{{< toc >}}
+{{<toc>}}
 
 ## Creating New Project
 

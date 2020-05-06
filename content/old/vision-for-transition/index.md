@@ -22,16 +22,13 @@ Kalau denger seluruh track-nya, ente bakal ngerasa zaman-zamannya Linkin Park, P
 
 Soal liriknya sendiri, wuih dalem banget. Banyak baget pesannya. Jangan jauh-jauh lah denger aja hitnya Kedamaian. Mereka merindukan kedamaian di muka bumi.
 
-*Tak ada kesedihan...*
-<br>
+*Tak ada kesedihan...*\
 *Tak ada kepedihan hanya satu kedamaian...*
 
 Wah wah wah. Mau yang cinta-cintaan ada juga loh. Walaupun cinta tetap nge-rock bok, kaya lagu yang judulnya Fallin. Kata-katanya gini
 
-*You give me love, that’s true...*
-<br>
-*and i know my heart beats for you...*
-<br>
+*You give me love, that’s true...*\
+*and i know my heart beats for you...*\
 *I feel you in the wind...*
 
 Wah, mantap lah. Makanya dengerin dong!

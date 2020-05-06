@@ -16,7 +16,7 @@ You can check out the complete project on my Github repository: [risan/bullseye-
 
 Here are a few things that I learned and gathered so far about Swift programming language. Note that I use the latest Swift 4.2 version.
 
-{{< toc >}}
+{{<toc>}}
 
 ## Variables, Constants, and Data Types
 

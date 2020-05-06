@@ -10,7 +10,7 @@ This is actually my answer to someone's question on [PHP Indonesia](https://www.
 
 Before getting started, we're going to need an [API Key](https://developers.google.com/maps/documentation/javascript/get-api-key) to use the Google Maps JavaScript API. As a safety measure, don't forget to set the HTTP referrers on your API key to your own domains.
 
-{{< toc >}}
+{{<toc>}}
 
 ## Displaying Google Map on Your Page
 

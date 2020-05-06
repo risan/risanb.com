@@ -3,7 +3,7 @@ lang: id
 title: Lune Bab 1 – Laut yang Bergejolak
 date: 2009-12-24T22:18:00+07:00
 categories: [writing]
-tags: [non-fiksi]
+tags: [fiksi]
 images: [/blog/lune-laut-yang-bergejolak/cover.jpg]
 ---
 ![Lune Bab 1 – Laut yang Bergejolak](cover.jpg)

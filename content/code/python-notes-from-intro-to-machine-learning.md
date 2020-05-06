@@ -14,7 +14,7 @@ That's why I decided to read all of the provided Python modules and implement it
 
 So here are some notes and snippets of Python that I've been collecting so far (I'm not even halfway through the course 😝). Also, note that the codes here are still using Python version 2.7.
 
-{{< toc >}}
+{{<toc>}}
 
 ## Modules Classes and Functions
 

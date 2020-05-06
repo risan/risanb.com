@@ -16,12 +16,9 @@ Nah ceritanya udah jam satu siang, kami pun cau ke stadion Siliwangi. Sebelum ma
 
 Jreng, sekitar jam 3 baru muncul tim kesayangan kita PERSIB. Yel-Yel pun berkumandang (kaya adzan) seantero stadion.
 
-*Persib Bandung yang kutunggu kutunggu...*
-<br>
-*kunanti nanti...*
-<br>
-*Telah lama kuberdiri berdiri...*
-<br>
+*Persib Bandung yang kutunggu kutunggu...*\
+*kunanti nanti...*\
+*Telah lama kuberdiri berdiri...*\
 *kunanti nanti...*
 
 Yah kurang lebih seperti itu keadaanya. Kami pun terbawa suasana dan ikut teriak-teriak.

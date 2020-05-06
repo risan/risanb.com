@@ -3,7 +3,7 @@ lang: id
 title: Night at Museum
 date: 2007-03-20T19:12:00+07:00
 categories: [writing]
-tags: [ulasan]
+tags: [ulasan, film]
 images: [/blog/night-at-museum/cover.jpg]
 ---
 ![Night at Museum](cover.jpg)

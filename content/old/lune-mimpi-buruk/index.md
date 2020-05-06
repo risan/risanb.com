@@ -3,7 +3,7 @@ lang: id
 title: Lune Bab 3 – Mimpi Buruk
 date: 2009-12-26T17:00:00+07:00
 categories: [writing]
-tags: [non-fiksi]
+tags: [fiksi]
 images: [/blog/lune-mimpi-buruk/cover.jpg]
 ---
 ![Lune Bab 3 – Mimpi Buruk](cover.jpg)

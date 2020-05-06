@@ -12,7 +12,7 @@ Though people usually use Rollup to bundle a library. It's possible to bundle an
 
 > You can access the source code for this tutorial here: [github.com/risan/eat-fruit](https://github.com/risan/eat-fruit).
 
-{{< toc >}}
+{{<toc>}}
 
 ## Installation
 

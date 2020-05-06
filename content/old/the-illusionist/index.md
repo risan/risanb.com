@@ -3,7 +3,7 @@ lang: id
 title: The Illusionist
 date: 2007-03-20T19:38:00+07:00
 categories: [writing]
-tags: [ulasan]
+tags: [ulasan, film]
 images: [/blog/the-illusionist/cover.jpg]
 ---
 ![The Illusionist](cover.jpg)

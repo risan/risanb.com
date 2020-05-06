@@ -8,15 +8,15 @@ images: [/code/i-create-my-own-static-site-generator/og.jpg]
 ---
 Instead of writing a blog post more often, I decided to redesign my four months old blog, ditched Jekyll and built a custom static site generator. The conversation went like this:
 
-My inner Yoda: "Write more often this year, you must"<br>
-Dark side of the Force: "I find the combination of Ruby and Javascript is disturbing"<br>
+My inner Yoda: "Write more often this year, you must"\
+Dark side of the Force: "I find the combination of Ruby and Javascript is disturbing"\
 Me: "Okay, let's reinvent the wheel and build the static site generator entirely in Javascript!"
 
 I'm easily seduced by the dark side. It's my bad habit. Rather than putting more thought into the writing, I procrastinate by rebuilding the blog from the start all over again. I promise myself that this is the last one 🤞. And as a compensation, I tried to make notes on new things I've discovered from building this static site generator.
 
 You can check the code and the content of this website on my [Github repository](https://github.com/risan/website). It still needs some works to do: add some tests and extracting the generators to its own NPM module.
 
-{{< toc >}}
+{{<toc>}}
 
 ## The Tech Stacks
 

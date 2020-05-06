@@ -10,7 +10,7 @@ If you're a DevOps engineer or a web developer, there's a good chance that you'r
 
 But, when is the last time you created or upgraded your SSH key? And did you use the latest recommended public-key algorithm? If it was more than five years ago and you generated your SSH key with the default options, you probably ended up using RSA algorithm with key-size less than 2048 bits long.
 
-{{< toc >}}
+{{<toc>}}
 
 ## Check Available SSH Keys on Your Computer
 

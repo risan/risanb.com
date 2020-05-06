@@ -8,7 +8,7 @@ images: [/code/seeding-table-with-relationships-in-laravel/og.jpg]
 ---
 This is my answer to someone's question on [StackOverflow](https://stackoverflow.com/questions/49219245/laravel-5-6-how-to-seed-tables-with-relationships-to-other-tables/49219836#answer-49219836). How can we seed table with relationships in Laravel? Let's learn how to define relationships on the Eloquent model and use Laravel's model factory to seed the database.
 
-{{< toc >}}
+{{<toc>}}
 
 ## Model and Table Structure
 
