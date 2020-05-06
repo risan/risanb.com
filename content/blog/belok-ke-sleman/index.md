@@ -36,4 +36,4 @@ Selepas dari kerabat Oom Ega, kami kembali ke kota Jogja untuk pulang ke Bandung
 
 ![Opik menunggu kereta pulang.](08-menunggu-kereta.jpg)
 
-Foto cover dari [Unsplash](https://unsplash.com/photos/49m3xCfHako) oleh [Craig Whitehead](https://unsplash.com/@sixstreetunder) .
+Foto cover dari [Unsplash](https://unsplash.com/photos/49m3xCfHako) oleh [Craig Whitehead](https://unsplash.com/@sixstreetunder).
