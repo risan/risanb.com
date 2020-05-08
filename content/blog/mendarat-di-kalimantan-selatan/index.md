@@ -3,7 +3,7 @@ lang: id
 title: Mendarat di Kalimantan Selatan
 date: 2011-11-11T07:11:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia, kalimantan]
+tags: [kalimantan-selatan, indonesia, putih-abu]
 images: [/blog/mendarat-di-kalimantan-selatan/cover.jpg]
 ---
 ![Mendarat di Kalimantan Selatan](cover.jpg)

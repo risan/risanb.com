@@ -3,7 +3,7 @@ lang: id
 title: Mendadak Cipanas
 date: 2011-11-08T14:38:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia]
+tags: [jawa-barat, indonesia, putih-abu]
 images: [/blog/mendadak-cipanas/cover.jpg]
 ---
 ![Mendadak Cipanas](cover.jpg)

@@ -3,7 +3,7 @@ lang: id
 title: Jalan-Jalan di Malioboro
 date: 2011-11-08T19:55:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia, yogyakarta]
+tags: [yogyakarta, indonesia, putih-abu]
 images: [/blog/jalan-jalan-di-malioboro/cover.jpg]
 ---
 ![Jalan-Jalan di Malioboro](cover.jpg)

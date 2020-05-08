@@ -3,7 +3,7 @@ lang: id
 title: "Jogja: Touchdown!"
 date: 2011-11-08T17:03:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia, yogyakarta]
+tags: [yogyakarta, indonesia, putih-abu]
 images: [/blog/jogja-touchdown/cover.jpg]
 ---
 ![Jogja: Touchdown!](cover.jpg)

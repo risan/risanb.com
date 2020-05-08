@@ -3,7 +3,7 @@ lang: id
 title: "Hotel Wilis, Hotel Super Murah di Jogja"
 date: 2011-11-08T19:22:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia, yogyakarta]
+tags: [yogyakarta, indonesia, putih-abu]
 images: [/blog/hotel-wilis-hotel-super-murah-di-jogja/cover.jpg]
 ---
 ![Hotel Wilis, Hotel Super Murah di Jogja](cover.jpg)

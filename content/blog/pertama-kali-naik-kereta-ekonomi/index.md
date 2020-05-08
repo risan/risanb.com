@@ -3,7 +3,7 @@ lang: id
 title: Pertama Kali Naik Kereta Ekonomi
 date: 2011-11-08T16:05:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia]
+tags: [yogyakarta, indonesia, putih-abu]
 images: [/blog/pertama-kali-naik-kereta-ekonomi/cover.jpg]
 ---
 ![Pertama Kali Naik Kereta Ekonomi](cover.jpg)

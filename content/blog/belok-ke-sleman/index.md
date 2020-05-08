@@ -3,7 +3,7 @@ lang: id
 title: Belok ke Sleman
 date: 2011-11-08T20:01:00+07:00
 categories: [travel]
-tags: [putih-abu, indonesia, yogyakarta]
+tags: [yogyakarta, indonesia, putih-abu]
 images: [/blog/belok-ke-sleman/cover.jpg]
 ---
 ![Jalan-Jalan di Malioboro](cover.jpg)
