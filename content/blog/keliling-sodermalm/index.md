@@ -2,7 +2,7 @@
 lang: id
 title: Keliling Södermalm
 date: 2018-06-09T07:35:00+02:00
-categories: [photos]
+categories: [photos, travel]
 tags: [stockholm, swedia]
 images: [/blog/keliling-sodermalm/dsc_2469.jpg]
 ---
@@ -14,7 +14,7 @@ Jauh sebelum abad ke-17, di Södermalm hanya terdapat pedesaan dan lahan-lahan p
 
 Satu abad kemudian, Södermalm bertransformasi menjadi kawasan yang trendi dan menjadi pusat industri kreatif. Restoran, kafe, bar, dan kedai-kedai kopi organik; berjamur di setiap sudutnya. Toko-toko yang menjual piringan hitam, sepatu kets, papan lucur, hingga pernak-pernik antik; berderet di sepanjang jalan. Tak heran jika pada tahun 2014 Majalah Vogue menobatkan Södermalm sebagai salah satu kawasan paling nge-*hip* di seluruh dunia.
 
-<p align="center">◈ ◈ ◈</p>
+\*\*\*
 
 Hari Jumat kemarin saya menyempatkan diri untuk jalan-jalan mengelilingi Pulau Södermalm.
 

@@ -2,7 +2,7 @@
 lang: id
 title: Salju di Penghujung Februari
 date: 2018-02-27T12:16:00+02:00
-categories: [photos]
+categories: [journal, photos]
 tags: [stockholm, swedia]
 images: [/blog/salju-di-penghujung-februari/05-salju-di-city-hall.jpg]
 ---

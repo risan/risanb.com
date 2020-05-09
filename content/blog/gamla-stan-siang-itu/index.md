@@ -2,7 +2,7 @@
 lang: id
 title: Gamla Stan Siang Itu
 date: 2019-05-12T20:20:00+02:00
-categories: [photos]
+categories: [photos, travel]
 tags: [stockholm, swedia]
 images: [/blog/gamla-stan-siang-itu/DSC_7400.jpg]
 ---

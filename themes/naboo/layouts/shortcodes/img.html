@@ -3,10 +3,10 @@
   <a href="{{ $img.Permalink }}">
   {{- if gt $img.Width 1000 -}}
     {{- $resize := $img.Resize "1000x" -}}
-    <img src="{{ $resize.Permalink }}" {{- with .Get "alt"}}alt="{{ . }}"{{- end }}>
+    <img src="{{ $resize.Permalink }}" {{- with .Get "alt"}}alt="{{ . | plainify }}"{{- end }}>
   {{- else -}}
-    <img src="{{ $img.Permalink }}" {{- with .Get "alt"}}alt="{{ . }}"{{- end }}>
+    <img src="{{ $img.Permalink }}" {{- with .Get "alt"}}alt="{{ . | plainify }}"{{- end }}>
   {{- end -}}
   </a>
-  {{- with .Get "alt"}}<figcaption>{{ . }}</figcaption>{{- end }}
+  {{- with .Get "alt" }}<figcaption>{{ . | markdownify }}</figcaption>{{- end }}
 </figure>
