@@ -24,13 +24,21 @@ Di sebelah Timur *resort*, aliran Sungai Cikarang menyatu dengan lautan. Di bata
 
 ![Tanah Lot Amanda Ratu.](01-amanda-ratu.jpg)
 
-![Pantai sempit di antara tebing karang.](02-pantai-sempit-di-antara-tebing-karang.jpg)
+![Bersantai menikmati pagi.](02-amanda-ratu.jpg)
 
-![Di atas karang berlatar samudera.](03-di-atas-karang.jpg)
+![Pantai sempit di antara tebing karang.](03-pantai-sempit-di-antara-tebing-karang.jpg)
 
-![Boyband wannabe.](04-boyband-wannabe.jpg)
+![Berpose berlatar tebing karang](04-nk-08.jpg)
 
-![Bermain di atas karang.](05-bermain-di-atas-karang.jpg)
+![Di atas karang berlatar samudera.](05-di-atas-karang.jpg)
+
+![Boyband wannabe.](06-boyband-wannabe.jpg)
+
+![Bermain di atas karang.](07-bermain-di-atas-karang.jpg)
+
+![Menyusuri Muara Cikarang](08-menyusuri-amanda-ratu.jpg)
+
+![Amanda Ratu Resort](09-amanda-ratu-resort.jpg)
 
 Mentari semakin terik bersinar. Sementara itu sekelompok anak kecil berhamburan melompat dari minibus. Dengan riang mereka berlari mendekati kolam renang yang ada di kompleks *resort* Amanda Ratu. Kami pun melanjutkan perjalanan kami.
 

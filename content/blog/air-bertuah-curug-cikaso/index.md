@@ -20,6 +20,10 @@ Pun dengan berjalan kaki, untuk mencapai lokasi curug tidaklah jauh. Tidak mengu
 
 Di tengah perjalanan menuju Curug Cikaso, kami berpapasan dengan sekelompok petani yang tengah memanen padinya. Kami ditawari untuk istirahat sejenak sembari menikmati air kelapa muda langsung dari pohonnya. Kontan kami menyetujuinya. Sebilah golok langsung menghujam kulit buah kelapa yang tebal, mengikis bagian atas tempurungnya. Kami menyeruput segarnya air kelapa dari bagian atas tempurungnya yang terbuka. Segar dan gurih. Belum lagi daging buahnya yang tebal, lembut, dan manis. *Ahhhh*, penyegar sempurna di tengah siang yang mulai terik.
 
+![Menyusuri pematang sawah untuk menuju Curug Cikaso.](01-menyusuri-pesawahan-menuju-curug-cikaso.jpg)
+
+![Menikmati kelapa muda di pematang sawah.](02-air-kelapa-muda.jpg)
+
 Sambil asyik bergulat menghabiskan sajian kelapa segar, si Kakek—petani tua berkulit legam dan murah senyum ini—bercerita banyak hal tentang Curug Cikaso. Kisahnya penuh dengan aroma ke-gaib-an dan mitos, sehingga sempat membuat kami menggigil di siang bolong. Konon banyak pengunjung yang tiba-tiba tak bisa bergerak dan tenggelam saat berenang di sekitaran curug. Katanya juga sering ada pejabat yang sengaja singgah ke Curug Cikaso untuk dimandikan, meminta berkah agar menang Pilkada mungkin. Si Kakek juga bercerita tentang khasiat meminum air curug untuk menarik hati lawan jenis.
 
 Curug Cikaso memiliki tiga aliran air terjun, oleh karenanya curug ini juga kerap disebut sebagai Curug Tilu—*tilu* dalam Bahasa Sunda artinya tiga. Aliran airnya yang berasal dari Sungai Cikaso deras menghujam permukaan air, menerbangkan rintik-rintik air serupa embun ke udara.
@@ -32,19 +36,21 @@ Meski paling kecil, alirannya tetap saja deras. Kolam yang dibentuk di bawah ali
 
 Meski tidak percaya, kami tetap saja ingin mencoba minum langsung dari aliran Curug Cikaso. Airnya jernih, rasanya tawar dan tidak berbau. Persis seperti air mineral dalam kemasan. Aku bahkan ketagihan akan segarnya air curug ini. Sambil berpijak di bebatuan, kubuka rahangku lebar-lebar, mencoba menangkap tetesan air curug sebanyak-banyaknya. Sejuk terasa kala tegukan demi tegukan air Sungai Cikaso terus mengalir ke kerongkonganku. Soal jodoh? Itu sih bonus.
 
-![Meminum air bertuah Curug Cikaso.](01-meminum-air-curug-cikaso.jpg)
+![Meminum air bertuah Curug Cikaso.](03-meminum-air-curug-cikaso.jpg)
 
-![Menyusuri pematang sawah untuk menuju Curug Cikaso.](02-menyusuri-pesawahan-menuju-curug-cikaso.jpg)
+![Tiga aliran air terjun Curug Cikaso.](04-curug-cikaso.jpg)
 
-![Tiga aliran air terjun Curug Cikaso.](03-curug-cikaso.jpg)
+![Addinul berpose di depan Curug Cikaso.](05-berpose-di-curug-cikaso.jpg)
 
-![Addinul berpose di depan Curug Cikaso.](04-berpose-di-curug-cikaso.jpg)
+![Berpose dengan latar aliran Curug Cikaso.](06-berpose-dengan-latar-air-terjun.jpg)
 
-![Berpose dengan latar aliran Curug Cikaso.](05-berpose-dengan-latar-air-terjun.jpg)
+![Aliran air terjun yang paling kecil.](07-air-terjun-yang-paling-kecil.jpg)
 
-![Aliran air terjun yang paling kecil.](06-air-terjun-yang-paling-kecil.jpg)
+![Berenang di bawah aliran air terjun.](08-di-bawah-aliran-air-terjun.jpg)
 
-![Berenang di bawah aliran air terjun.](07-di-bawah-aliran-air-terjun.jpg)
+![Berenang, menegak kesegaran air curug.](09-berenang.jpg)
+
+![Berendam di hari yang terik.](10-berendam.jpg)
 
 P.S: tidak usah percaya dengan mitos kemujaraban air Sungai Cikaso karena bisa berujung kepada kemusyrikan.
 

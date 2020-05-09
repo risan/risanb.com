@@ -44,4 +44,6 @@ Dan menyoal suhu air panasnya, Gunung Pancar tak usah diragukan lagi: panas! Ben
 
 ![Menunggu Damri di Botani Square.](03-naik-damri-dari-botani-square.jpg)
 
+![Pemandian air panas di Gunung Pancar](04-gunung-pancar.jpg)
+
 Foto cover dari [Unsplash](https://unsplash.com/photos/PLeo6LGc3AI) oleh [Sebastian Engler](https://unsplash.com/@snengl).

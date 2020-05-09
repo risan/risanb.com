@@ -22,6 +22,14 @@ Aku kembali membujuk kekasihku untuk mencari Pelabuhan Sunda Kelapa. Siang tadi 
 
 Kami pun kembali menyusuri Kota Tua, berjalan terus ke arah Utara. Dengan bantuan GPS dan modal tanya sana-sini, akhirnya kami sampai di Pelabuhan Sunda Kelapa. Truk-truk kontainer berukuran raksasa hilir-mudik di muka pelabuhan. Ratusan atau mungkin ribuan peti kemas tertumpuk memenuhi setiap sudut pelabuhan. Kuli-kuli panggul nampak sibuk menurunkan karung-karung terigu dari sebuah kapal. Dengan lihai mereka meniti tangga dari papan kayu yang kecil, membopong satu atau dua karung di punggungnya.
 
+![Bersampan di Pelabuhan Sunda Kelapa.](01-bersampan-di-sunda-kelapa.jpg)
+
+![Suasana di Pelabuhan Sunda Kelapa.](02-suasana-pelabuhan-sunda-kelapa.jpg)
+
+![Menurunkan muatan.](03-menurunkan-muatan.jpg)
+
+![Kekasihku yang luar biasa](04-sunda-kelapa.jpg)
+
 Tiba-tiba seorang bapak menawari kami untuk berkeliling pelabuhan dengan sampannya. Seketika aku teringat Kamga, pembawa acara Explore Indonesia itu juga menyusuri pelabuhan bersejarah ini dengan sampan. Aku tergoda tawarannya, kekasihku pun turut merestui. Dengan sedikit tawar-menawar, akhirnya kami menyutujui harga jasa sampannya.
 
 \*\*\*
@@ -32,11 +40,9 @@ Kapal-kapal kayu bermotor dengan ukuran yang besar berjejer menyesaki sisi kanan
 
 "Bisa saja kita menumpang kapal itu. Minta izin aja ke kaptennya.", jawab Pak Oting. "Tapi lama kalau pakai kapal itu, bisa berminggu-minggu. Pakai saja PELNI, lima ratus ribu atau enam ratusan." Sekali lagi pikiranku terbang ke pelosok-pelosok negeri yang belum pernah kujamah.
 
-![Bersampan di Pelabuhan Sunda Kelapa.](01-bersampan-di-sunda-kelapa.jpg)
+![Bersampan di Sunda Kelapa.](05-bersampan-di-sunda-kelapa.jpg)
 
-![Suasana di Pelabuhan Sunda Kelapa.](02-suasana-pelabuhan-sunda-kelapa.jpg)
-
-![Menurunkan muatan.](03-menurunkan-muatan.jpg)
+![Menganggapnya sebagai latihan sebelum bersampan di Venesia.](06-sebelum-ke-venice.jpg)
 
 Sampan terus melaju perlahan, membelah perairan Sunda Kelapa yang kian mengeruh dan semakin dangkal. Aku membayangkan masa lalu dari pelabuhan ini. Bagaimana pelabuhan ini menjadi salah satu pusat perdagangan terpenting di Nusantara. Dari kuasa Kerajaan Pajajaran hingga jatuh ke tangan Fatahilah dari Kerajaan Demak. Dari kuasa Demak hingga jatuh ke tangan pimpinan VOC: Jan Pieterszoon Coen yang menancapkan taring-taring kolonialisme di Nusantara.
 

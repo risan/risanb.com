@@ -20,9 +20,11 @@ Dua jam lebih kami berjalan, akhirnya kami menemui sebuah plang kayu dan sebuah 
 
 ![Jalan menuju Pantai Pangumbahan.](01-jalan-menuju-pangumbahan.jpg)
 
-![Gapura kayu Desa Pangumbahan.](02-gapura-desa-pangumabahan.jpg)
+![Jangan senang dulu, masih jauh](02-hampir-sampai.jpg)
 
-![Suasana Pantai Pangumbahan yang damai.](03-pantai-pangumbahan.jpg)
+![Gapura kayu Desa Pangumbahan.](03-gapura-desa-pangumabahan.jpg)
+
+![Suasana Pantai Pangumbahan yang damai.](04-pantai-pangumbahan.jpg)
 
 Pantai Pangumbahan memiliki pantai yang benar-benar luas dan cukup landai. Butiran pasirnya halus dan terasa hangat karena diterpa sinar matahari seharian. Hutan dataran rendah tampak lebat dan mendominasi sepanjang bibir pantai. Benar-benar tempat yang sempurna bagi penyu untuk bertelur.
 
@@ -32,24 +34,24 @@ Penyu yang bertelur di sepanjang Pantai Pangumbahan ini merupakan spesies Penyu 
 
 Saat di Pangumbahan, bersama seorang petugas konservasi kami turut serta melepaskan tukik-tukik yang baru menetas ke lautan lepas. Jumlahnya ratusan. Tukik-tukik tersebut sangat menggemaskan. Mereka mengepak-ngepakkan tungkai depannya. Tertatih-tatih bergerak ke arah ombak bergulung, menuju samudera lepas. Mereka akan berenang ribuan kilometer, menjelajahi lautan. Apabila mereka telah dewasa, penyu-penyu itu akan kembali untuk bertelur di pantai ini. Kata si petugas, penyu-penyu itu memiliki kompas alami dalam tubuhnya, sehingga mereka bisa mengetahui arah mana yang mereka tuju. Hewan yang menakjubkan.
 
-![Tukik-tukik menuju samudera luas.](04-menuju-lautan.jpg)
+![Tukik-tukik menuju samudera luas.](05-menuju-lautan.jpg)
 
-![Selamatkan penyu kita!](05-selamatkan-penyu-kita.jpg)
+![Selamatkan penyu kita!](06-selamatkan-penyu-kita.jpg)
 
-![Tempat penetasan telur penyu.](06-tempat-penetasan-telur.jpg)
+![Tempat penetasan telur penyu.](07-tempat-penetasan-telur.jpg)
 
-![Hold my hand!](07-hold-my-hand.jpg)
+![Hold my hand!](08-hold-my-hand.jpg)
 
 Mentari semakin condong di ufuk Barat. Sinarnya meredup kemerahan. Semburat lembayung perlahan menghiasi langit yang kejinggaan. Ombak di Pangumbahan berdebur keras. Suaranya bergemuruh ditengah kesunyian. Kini tukik-tukik kecil itu tengah berenang-renang menantang gelombang dahsyat samudera. Mereka baru saja menetas pagi ini, namun mereka sudah harus mengecap kerasnya hidup.
 
 Sejenak kami pun menikmati mentari yang perlahan tertelan lautan. Detik demi detik senja kunikmati. Mencoba membaca dan meresapi bait demi bait lukisan sempurna Sang Kuasa.
 
-![Berpose di Pantai Pangumbahan.](08-senja-di-pangumbahan.jpg)
+![Berpose di Pantai Pangumbahan.](09-senja-di-pangumbahan.jpg)
 
-![Menikmati indahnya senja di Pangumbahan.](09-menikmati-matahari-tenggelam.jpg)
+![Menikmati indahnya senja di Pangumbahan.](10-menikmati-matahari-tenggelam.jpg)
 
-![Mengambil foto dengan latar Samudera Hindia.](10-foto-dengan-latar-matahari-tenggelam.jpg)
+![Mengambil foto dengan latar Samudera Hindia.](11-foto-dengan-latar-matahari-tenggelam.jpg)
 
-![Mentari yang perlahan tenggelam di cakrawala.](11-surya-tenggelam.jpg)
+![Mentari yang perlahan tenggelam di cakrawala.](12-surya-tenggelam.jpg)
 
 Foto cover dari [Flickr](https://www.flickr.com/photos/kishlc/3480918292/) oleh [Carla Kishinami](https://www.flickr.com/photos/kishlc/).
