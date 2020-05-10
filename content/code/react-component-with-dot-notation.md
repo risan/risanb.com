@@ -4,7 +4,7 @@ date: 2018-04-07T23:04:00+02:00
 description: Learn how to define a React component that is accessible through the dot notation. A common component pattern to show a parent-child relation.
 categories: [snippet]
 tags: [javascript, react]
-images: [/img/react-logo-og.png]
+images: [/img/react.png]
 ---
 This is my answer to someone's question on [StackOverflow](https://stackoverflow.com/questions/49256472/react-how-to-extend-a-component-that-has-child-components-and-keep-them/49258038#answer-49258038). How can we define a React component that is accessible through the dot notation?
 

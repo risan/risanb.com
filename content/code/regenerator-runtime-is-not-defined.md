@@ -4,7 +4,7 @@ date: 2018-11-11T11:05:00+02:00
 description: Configuring Rollup and Babel to transform Async function into a backward compatible ES5 code.
 categories: [log]
 tags: [javascript]
-images: [/img/babel-logo-og.png]
+images: [/img/babel.png]
 ---
 I was tinkering with my antiquated, silly, and super tiny NPM module this morning: [giphy-random](https://github.com/risan/giphy-random). It basically for retrieving a random GIF using the Gihpy API.
 

@@ -4,7 +4,7 @@ date: 2018-04-14T13:00:00+02:00
 description: Learn how to use the apollo-link module to set an authorization header when using the Apollo Client.
 categories: [snippet]
 tags: [javascript, graphql]
-images: [/img/apollo-logo-og.png]
+images: [/img/apollo.png]
 ---
 A GraphQL API often requires us to provide an authorization header to authenticate the request. How can we provide this authorization header using the popular [Apollo Client](https://www.apollographql.com/client) library?
 

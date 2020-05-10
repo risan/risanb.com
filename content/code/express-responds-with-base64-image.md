@@ -4,7 +4,7 @@ date: 2018-12-04T10:16:00+02:00
 description: Using Express to send response with base64 encoded image.
 categories: [snippet]
 tags: [javascript, node]
-images: [/img/express-logo-og.png]
+images: [/img/express.png]
 ---
 I want to create an endpoint that will respond with a 1x1 pixel PNG file. Instead of using the [`sendFile`](https://expressjs.com/en/4x/api.html#res.sendFile) method, I choose to use the base64 encoded representation since the file size is super small. This way I can avoid accessing the file system entirely.
 

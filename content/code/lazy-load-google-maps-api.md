@@ -4,7 +4,7 @@ date: 2019-04-26T19:31:00+02:00
 description: How to create a simple function to lazy load the Google Maps JavaScript API library.
 categories: [log]
 tags: [javascript, maps]
-images: [/img/google-maps-logo-og.png]
+images: [/img/google-maps.png]
 ---
 Yesterday I was combing through the [vue2-google-maps](https://github.com/xkjyeah/vue-google-maps) source code. It's a collection of Google Maps components for Vue. Then I found an interesting bit of how it loads the Google Maps JavaScript API lazily (check the [`src/manager.js`](https://github.com/xkjyeah/vue-google-maps/blob/vue2/src/manager.js) and the [`src/main.js`](https://github.com/xkjyeah/vue-google-maps/blob/vue2/src/main.js)).
 

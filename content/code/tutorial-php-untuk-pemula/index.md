@@ -5,7 +5,7 @@ date: 2018-04-27T10:00:00+02:00
 description: Tutorial dasar PHP untuk pemula. Pelajari dasar-dasar pemrograman PHP mulai dari variable, tipe data, operator, percabangan, perulangan, fungsi, hingga Closure.
 categories: [tutorial]
 tags: [php]
-images: [/img/logo-og.png]
+images: [/img/php.png]
 ---
 PHP—akronim rekursif dari *PHP: Hypertext Preprocessor*)—merupakan bahasa pemrograman untuk web yang mulanya dikembangkan oleh Rasmus Lerdorf pada tahun 1994. PHP berjalan di sisi server (peladen) dan umumnya digunakan untuk membuat aplikasi berbasis web yang dinamis.
 

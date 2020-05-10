@@ -4,7 +4,7 @@ date: 2018-10-10T00:10:00+02:00
 description: Things I learned from building my very first iOS game using the latest Swift version 4.2.
 categories: [log]
 tags: [swift]
-images: [code/building-my-first-ios-game/og.jpg]
+images: [/code/building-my-first-ios-game/og.jpg]
 ---
 Sunday night two weeks ago, I had nothing better to do. So I started googling for some iOS tutorial and landed on this amazing [video tutorial](https://www.raywenderlich.com/5993-your-first-ios-app) by Ray Wenderlich. It's quite exciting and easy to follow for a total beginner like me. I delved into Swift documentation before and got bored easily. 😝
 

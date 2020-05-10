@@ -4,7 +4,7 @@ date: 2018-04-14T10:00:00+02:00
 description: Notes and code snippets of Python that I've been collecting so far throughout the "Intro to Machine Learning" course.
 categories: [log]
 tags: [python, machine-learning]
-images: [/img/python-logo-og.png]
+images: [/img/python.png]
 ---
 I rarely use Python. I only have one repository at Github that is written in Python: [iris-flower-classifier](https://github.com/risan/iris-flower-classifier). And it was written two years ago!
 
