@@ -4,7 +4,7 @@ date: 2020-05-10T21:27:00+07:00
 description: Another day, another static site generator to switch to. The curse is real. Instead of writing more blog posts, I ended up messing up with the platform. I'm switching to Hugo now.
 categories: [log]
 tags: [hugo]
-images: [/img/hugo.jpg]
+images: [/img/hugo.png]
 ---
 Another day, another static site generator to switch to. The curse is real. Instead of writing more blog posts, I ended up messing up with the platform. It was once powered by [Jekyll](/code/new-blog/). It was once using a [custom static site generator](/code/i-create-my-own-static-site-generator/) that I wrote myself. It was once built on top of [Gatsby](https://github.com/risan/risanb.com/tree/gatsby). And now I'm switching to [Hugo](https://gohugo.io/)—the world's fastest static site generator. And I'm very happy with it.
 
