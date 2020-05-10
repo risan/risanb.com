@@ -236,3 +236,11 @@ Also, note that I don't pass the image quality parameter since I configure this 
 imaging:
   quality: 80
 ```
+
+## Commit the Cache Directory
+
+Hugo is super fast. But still, if you have tons of images to process, it could take some time to build. To speed up this build process, we could commit the generated cache directory in `/resources/_gen` into our git repository. So every time we build our site, if the images or any other assets are already processed before, Hugo will restore them from its cache rather than processing them again from scratch. When building the site, you can pass the `--gc` flag to remove unused cache files.
+
+```sh
+$ hugo --gc
+```
