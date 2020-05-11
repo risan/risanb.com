@@ -212,6 +212,11 @@ button:not(:disabled),
   margin-bottom: 1.4em;
 }
 
+.wysiwyg figure a {
+  display: flex;
+  justify-content: center;
+}
+
 .wysiwyg figure a:hover {
   border-bottom: none;
 }
@@ -274,4 +279,42 @@ button:not(:disabled),
 
 .embed-1by1::before{
   padding-top: 100%;
+}
+
+/* gallery */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -.2rem;
+}
+
+.gallery figure {
+  position: relative;
+  flex: 1 1 calc(50% - .4rem);
+  margin: .2rem !important;
+}
+
+.gallery figcaption {
+  display: none;
+  font-size: .65rem;
+  text-align: left;
+  width: 100%;
+  padding: .2rem .5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  background: rgba(60, 59, 56, 0.4);
+  position: absolute;
+  bottom: 0;
+}
+
+.gallery figure:hover figcaption {
+  display: block;
+}
+
+@media screen and (min-width: 769px) {
+  .gallery figure {
+    flex-basis: calc(33.3% - .4rem);
+  }
 }

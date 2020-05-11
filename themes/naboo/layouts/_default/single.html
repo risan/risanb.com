@@ -1,3 +1,9 @@
+{{ define "head" }}
+  {{- $photoswipe := resources.Get "photoswipe.css" -}}
+  {{- $photoswipeSkin := resources.Get "photoswipe-default-skin.css" -}}
+  {{- $photoswipeBundle := slice $photoswipe $photoswipeSkin | resources.Concat "photoswipe.css" | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $photoswipeBundle.Permalink }}">
+{{ end }}
 {{ define "main" }}
   <article class="wysiwyg">
     <header>
@@ -38,4 +44,10 @@
     {{ .Content }}
   </article>
   {{ partial "disqus.html" . }}
+  {{ partial "photoswipe.html" . }}
+  {{- $photoswipe := resources.Get "photoswipe.js" -}}
+  {{- $photoswipeUi := resources.Get "photoswipe-ui-default.js" -}}
+  {{- $photoswipeInit := resources.Get "photoswipe-init.js" -}}
+  {{- $photoswipeBundle := slice $photoswipe $photoswipeUi $photoswipeInit | resources.Concat "photoswipe.js" | minify | fingerprint -}}
+  <script src="{{ $photoswipeBundle.Permalink }}"></script>
 {{ end }}

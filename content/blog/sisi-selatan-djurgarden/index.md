@@ -12,6 +12,7 @@ Untuk mencapai Djurgården, saya menggunakan kapal feri dari Dermaga Slussen. Ta
 
 Siang itu saya menyusuri jalan setapak di sisi Selatan Djurgården. Dari Waldemarsudde, terus ke arah Timur melewati Taman Frisens dan Djurgårdens bokskog. Menyusuri bibir pantai, melewati Frihetens Port, Täcka Udden, hingga berakhir di Blockhusudden. Berikut foto-foto yang saya ambil di sepanjang jalan.
 
+{{<gallery>}}
 {{<img alt="Gröna Lund—taman bermain tertua di Swedia." src="DSC_7910.jpg">}}
 
 {{<img alt="Tram nomor 7 yang melayani rute T-Centralen-Waldemarsudde." src="DSC_7921.jpg">}}
@@ -45,3 +46,4 @@ Siang itu saya menyusuri jalan setapak di sisi Selatan Djurgården. Dari Waldema
 {{<img alt="Terminal Feri Nacka strand yang berada tepat di sebrang Blockhusudden." src="DSC_8076.jpg">}}
 
 {{<img alt="Perahu bermotor melintasi Teluk Saltsjön." src="DSC_8103.jpg">}}
+{{</gallery>}}

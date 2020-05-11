@@ -1,8 +1,12 @@
 {{- $img := .Page.Resources.GetMatch (.Get "src") -}}
+{{- $maxWidth := 1000 -}}
+{{- if .Parent -}}
+  {{- $maxWidth = 720 -}}
+{{- end -}}
 <figure>
-  <a href="{{ $img.Permalink }}">
-  {{- if gt $img.Width 1000 -}}
-    {{- $resize := $img.Resize "1000x" -}}
+  <a href="{{ $img.Permalink }}" data-size="{{ $img.Width }}x{{ $img.Height }}">
+  {{- if gt $img.Width $maxWidth -}}
+    {{- $resize := $img.Resize (printf "%dx" $maxWidth) -}}
     <img src="{{ $resize.Permalink }}" {{- with .Get "alt"}}alt="{{ . | plainify }}"{{- end }}>
   {{- else -}}
     <img src="{{ $img.Permalink }}" {{- with .Get "alt"}}alt="{{ . | plainify }}"{{- end }}>
