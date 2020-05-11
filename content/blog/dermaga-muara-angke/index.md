@@ -42,7 +42,7 @@ Kami pun berpamitan kepada mereka. Aku masih yakin kalau ada kapal yang langsung
 
 Kami pun berterima kasih dan beranjak pergi ke Pom Bensin. Kami berniat untuk memberitahu kawanan si Gondrong, tetapi mereka sudah tidak di ada tempat. Entah pergi kemana.
 
-\*\*\*
+{{<section-break>}}
 
 Ada sebuah Pom Bensin tepat bersebelahan dengan dermaga Muara Angke. Pom Bensin ini tampak diperuntukan untuk kapal-kapal. Ada sebuah mini market kecil, kamar mandi, dan mushola. Ya, ada mushola dan beberapa sejadahnya! Ah, kenapa semalam kami tidak bermalam di sini, pasti lebih nyaman.
 

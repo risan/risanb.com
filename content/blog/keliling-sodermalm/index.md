@@ -14,12 +14,13 @@ Jauh sebelum abad ke-17, di Södermalm hanya terdapat pedesaan dan lahan-lahan p
 
 Satu abad kemudian, Södermalm bertransformasi menjadi kawasan yang trendi dan menjadi pusat industri kreatif. Restoran, kafe, bar, dan kedai-kedai kopi organik; berjamur di setiap sudutnya. Toko-toko yang menjual piringan hitam, sepatu kets, papan lucur, hingga pernak-pernik antik; berderet di sepanjang jalan. Tak heran jika pada tahun 2014 Majalah Vogue menobatkan Södermalm sebagai salah satu kawasan paling nge-*hip* di seluruh dunia.
 
-\*\*\*
+{{<section-break>}}
 
 Hari Jumat kemarin saya menyempatkan diri untuk jalan-jalan mengelilingi Pulau Södermalm.
 
 Perjalanan saya mulai dari jantung Södermalm di Medborgarplatsen. Berjalan ke arah Barat menuju taman Tantolunden. Menyisiri teluk Årstaviken di sepanjang Jalan Ringvägen. Berbelok di taman Vitabergsparken di mana Gereja Sofia berdiri. Menikmati indahnya pemandangan Kota Stockholm dari ketinggian di Jalan Fjällgatan sebelum akhirnya berakhir di Stasiun Mariatorget.
 
+{{<gallery>}}
 {{<img alt="Menyulap ruas jalan yang ditutup menjadi lapak tambahan bagi restoran." src="dsc_2422.jpg">}}
 
 {{<img alt="Salah satu kafe di daerah Södermalm." src="dsc_2424.jpg">}}
@@ -41,3 +42,4 @@ Perjalanan saya mulai dari jantung Södermalm di Medborgarplatsen. Berjalan ke a
 {{<img alt="Suasana Jalan Urvädersgränd, tempat dimana musisi Swedia abad ke-18 Carl Michael Bellman tinggal (rumah berwarna jingga di turunan sebelah kanan)." src="dsc_2469.jpg">}}
 
 {{<img alt="Pemandangan dari Katarinahissen, nampak Balai Kota Stockholm di kejauhan." src="dsc_2474.jpg">}}
+{{</gallery>}}

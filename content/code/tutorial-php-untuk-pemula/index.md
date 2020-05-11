@@ -6792,7 +6792,7 @@ Hal yang tidak kalah penting lainnya adalah: Bahasa Inggris. Mayoritas artikel p
 
 Terakhir, perbanyaklah menulis kode! Karena ini merupakan cara yang paling efektif untuk mahir dalam suatu bahasa pemrograman.
 
-\*\*\*
+{{<section-break>}}
 
 Seluruh isi artikel ini dapat diakses secara bebas di [Github](https://github.com/risan/koding). Silakan buka [*issue* di Github](https://github.com/risan/koding/issues/new) atau komentar di bawah jika Anda menemukan kesalahan dalam artikel ini. Bila ada kritik atau saran, jangan ragu tuliskan pada kolom komentar di bawah.
 

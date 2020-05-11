@@ -14,7 +14,7 @@ Aku selalu membayangkan diriku bolak-balik membopong buku-buku dengan ransel jum
 
 Perpustakaan sederhana yang tak perlu mewah, tapi nyaman untuk siapa saja. Perpustakaan berdinding kayu yang diplitur mengkilat. Langit-langitnya tinggi dengan atap rumbia. Rak-rak bukunya berderet rapi di tiap sudut. Dindingnya ditempeli peta-peta, kosakata berbagai bahasa asing, beragam spesies flora dan fauna hingga foto-foto pahlawan dan tokoh dunia. Halamannya dirimbuni pepohonan yang teduh. Ah, pokoknya tempat yang menyenangkan untuk belajar dan bermain bagi anak-anak.
 
-\*\*\*
+{{<section-break>}}
 
 Lalu mimpiku itu tampak semakin nyata. Tadi siang, sewaktu aku berkunjung ke blog-nya [Maharsi Wahyu](http://journalkinchan.blogspot.com/)—sarjana akutansi yang juga bercita-cita untuk mempunyai sekolah gratis—aku menemukan *posting* berjudul "Di Bawah Langit Biru: Sebuah Intro". Pada *posting*-an tersebut, wanita yang ingin memiliki sebuah rumah di Kepulauan Banda itu menceritakan pengalamannya membuka perpustakaan di Lebak Banten, saat menjadi relawan di komunitas Book for Mountain (BFM).
 
@@ -24,7 +24,7 @@ BFM memiliki perhatian yang besar pada akses pendidikan yang tidak merata di neg
 
 Tak hanya buku, BFM juga memiliki agenda rutin yang unik. Ada "SekBer" atau Sekolah Berjalan, sebuah program bermain sambil belajar yang mengenalkan anak-anak pada: kesenian dan keterampilan, profesi, bumi dan luar angkasa hingga kesehatan dan tubuh manusia. Ada juga program "*volunturism*", program yang menggabungkan kegiatan melancong dengan kerja sosial. *Volunturism* memberikan kesempatan bagi para pelancong untuk tidak hanya menikmati keindahan alamnya, tetapi juga sekaligus memberikan kontribusi pada pendidikan anak-anak di pelosok.
 
-\*\*\*
+{{<section-break>}}
 
 Aku ingin bergabung dengan komunitas BFM ini. Segera setelah kontrakku sebagai *engineer* ini habis, akan kudedikasikan hidupku untuk pendidikan anak-anak di pelosok. Semoga tabunganku nanti cukup untuk membangun sebuah perpustakaan kecil di Banda, Sorong, Kei, Alor, Natuna atau Togean. Ya, akan kutinggalkan pekerjaanku. Aku ingin menghidupkan mimpiku, aku akan mengajar anak-anak disana dan merawat perpustakaanku.
 

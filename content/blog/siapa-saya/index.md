@@ -36,7 +36,7 @@ Karena itu saya akan berani untuk berterus terang, walaupun ada kemungkinan saya
 
 Kadang saya bertanya pada kenalan-kenalan saya "Siapakah kamu?" Seorang tokoh mahasiswa menjawab: "Saya adalah antek partai saya. Kebenaran ditentukan oleh DPP Partai."
 
-\*\*\*
+{{<section-break>}}
 
 Jadi siapa dirimu?
 

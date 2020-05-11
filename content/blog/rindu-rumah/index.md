@@ -12,7 +12,7 @@ Entah sudah berapa malam aku merindukan rumah. Merindukan hangatnya tempatku dib
 
 Aku tinggal di Kota Cimahi, sebuah kota kecil yang berbatasan dengan Kabupaten Bandung. Kota dengan tiga kecamatannya yang berada di kaki Gunung Tangkuban Parahu. Kota yang sejuk dan kerap mendapatkan penghargaan Adipura—meski ironisnya tragedi maut longsoran sampah terjadi juga di kota ini.
 
-\*\*\*
+{{<section-break>}}
 
 Aku rindu masakan ibu. Rindu melahap habis semua sajian yang beliau hidangkan. Rindu pada dingin yang kerap menyapa dari malam hingga pagi merekah. Rindu pada selimut tebal yang setia menemani malam-malamku meringkuk nyaman di tempat tidur. Rindu menonton kartun-kartun pagi bersama adik lelakiku. Bersantai sembari menikmati pisang goreng buatan ibu dengan kopi hitam pekat cap Aroma.
 

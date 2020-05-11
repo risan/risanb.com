@@ -12,6 +12,7 @@ Dari Medborgarplatsen saya cukup jalan kaki menyusuri jalan Götgatan hingga akh
 
 Seperti biasa Gamla Stan siang itu dipadati oleh wisatawan. Restoran-restoran, kafe-kafe, kedai-kedai es krim, toko-toko suvenir nampak ramai oleh pengunjung. Pemandu-pemandu wisata sibuk mengarahkan rombongannya menyusuri lorong-lorong di Gamla Stan. Remaja-remaja, anak-anak, hilir mudik sambil membawa es krim atau wafer di tangan mereka. Semua orang nampak menikmati cuaca yang hangat siang itu.
 
+{{<gallery>}}
 {{<img alt="StikkiNikki—kedai gelato organik yang populer di Kota Stockholm." src="DSC_7358.jpg">}}
 
 {{<img alt="Toko jaket kulit di jalan Götgatan, Slussen." src="DSC_7365.jpg">}}
@@ -41,3 +42,4 @@ Seperti biasa Gamla Stan siang itu dipadati oleh wisatawan. Restoran-restoran, k
 {{<img alt="M/S Viking Cinderella yang rutin berlayar antara Stockholm dan Mariehamn." src="DSC_7464.jpg">}}
 
 {{<img alt="Katarinahissen atau Elevator Katarina di Slussen." src="DSC_7468.jpg">}}
+{{</gallery>}}

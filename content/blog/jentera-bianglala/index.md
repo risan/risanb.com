@@ -18,7 +18,7 @@ Langkahku terus mengayun. Angin dingin berderu-deru mengiringi, seolah mengerti 
 
 Kakiku terus melangkah. Hujanpun mereda.
 
-\*\*\*
+{{<section-break>}}
 
 Aku berhenti di sebuah persimpangan jalan. Seorang laki-laki memberhentikanku.
 
@@ -30,7 +30,7 @@ Layaknya pasar malam yang lain, disini digelar berbagai permainan. Komidi putar,
 
 Perutku melilit. Aku memilih sate gajih yang ditawarkan seorang ibu sebagai penebus rasa laparku. Aku duduk disampingnya. Tidak banyak yang kuperbincangkan, kami memakai bahasa yang berbeda. Mataku hanya lekat memandang bara api yang beterbangan ke udara.
 
-\*\*\*
+{{<section-break>}}
 
 Aku masih duduk di samping ibu penjual sate yang tengah sibuk melayani pembelinya. Di hadapanku roda-roda Bianglala berputar penuh keceriaan. Warna-warni lampunya berkerlip menghiasi langit malam. Kotak-kotak pengeras suara melantunkan lagu-lagu gembira.
 

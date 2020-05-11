@@ -32,6 +32,7 @@ Dari atas truk mereka bernyanyi, bersorak, menyapa siapa saja yang mereka temui 
 
 Puas keliling kota, siswa-siswi itu pun akhirnya akan pulang ke rumah atau ke bar untuk melanjutkan pestanya bersama keluarga ataupun kawan-kawan.
 
+{{<gallery>}}
 {{<img alt="Truk yang mengangkut para siswa-siswi yang baru lulus gymnasium." src="dsc_2390.jpg">}}
 
 {{<img alt="Para siswa juga biasanya membawa ranting pohon Betula ke atas truk." src="dsc_2396.jpg">}}
@@ -47,3 +48,4 @@ Puas keliling kota, siswa-siswi itu pun akhirnya akan pulang ke rumah atau ke ba
 {{<img alt="2 x 3 = 5?" src="dsc_2415.jpg">}}
 
 {{<img alt="Banyak juga yang mengikuti iring-iringan konvoy dengan menggunakan kendaraan pribadi." src="dsc_2418.jpg">}}
+{{</gallery>}}

@@ -28,6 +28,7 @@ Armada-armadanya pun terawat dengan baik dan sangat nyaman. Dan yang paling pent
 
 Tentu kenyamanan sistem transportasi di Stockholm ini harus dibayar dengan kocek yang cukup dalam. Untuk orang dewasa, tiket transportasi untuk 30 hari harus ditebus dengan 860 kronor—hampir 1,3 juta rupiah. Sedangkan untuk pelajar dan lansia mendapat potongan; sehingga cukup membayar sebesar 590 Kronor—sekira 900 ribu rupiah (harga dan kurs per Mei 2019).
 
+{{<gallery>}}
 {{<img alt="Tunnelbana tengah melintas di daerah Gamla Stan." src="img_1373.jpg">}}
 
 {{<img alt="Kondisi di dalam salah satu gerbong Tunnelbana." src="img_2630.jpg">}}
@@ -35,6 +36,7 @@ Tentu kenyamanan sistem transportasi di Stockholm ini harus dibayar dengan kocek
 {{<img alt="Tram yang tengah parkir di Sergels Torg." src="dsc_0745.jpg">}}
 
 {{<img alt="Kapal feri tengah berlayar menuju Gamla Stan." src="dsc_1874.jpg">}}
+{{</gallery>}}
 
 ## Trotoar yang Layak
 
@@ -42,11 +44,13 @@ Hal lainnya yang membuat saya kagum adalah keberadaan trotoar yang layak untuk p
 
 Keberadaan trotoar yang baik ini berimbas pada tingginya jumlah pejalan kaki di Kota Stockholm. Dari data tahun 2012 lalu, 38% perjalanan di Kota Stockholm dilakukan dengan berjalan kaki. Angka ini relatif tinggi di antara kota-kota di Eropa lainnya. Bahkan untuk di pusat kota persentase perjalanan yang dilakukan dengan berjalan kaki ini mencapai hampir 54%.
 
+{{<gallery>}}
 {{<img alt="Trotoar yang luas dan jalur sepeda yang terpisah di sepanjang Strandvägen." src="dsc_0763.jpg">}}
 
 {{<img alt="Jalan kendaraan bermotor dan jalur sepeda yang dipisahkan oleh kanal Riddarholmskanalen." src="img_1421.jpg">}}
 
 {{<img alt="Para pesepeda melintasi Gamla Stan." src="img_5905.jpg">}}
+{{</gallery>}}
 
 ## Manajemen Pengolahan Sampah yang Baik
 
@@ -72,6 +76,7 @@ Warga dapat dengan mudah mengakses ruang terbuka hijau. Taman-taman kota yang as
 
 Wajar saja rasanya apabila Stockholm menjadi kota pertama yang menerima penghargaan *European Green Capital Award* pada tahun 2010 silam.
 
+{{<gallery>}}
 {{<img alt="Pengunjung tengah menikmati pemandangan di Hellasgården." src="20150516150239.jpg">}}
 
 {{<img alt="Rusa tengah merumput di Cagar Alam Judarskogen." src="dsc_0511.jpg">}}
@@ -81,5 +86,4 @@ Wajar saja rasanya apabila Stockholm menjadi kota pertama yang menerima pengharg
 {{<img alt="Pohon-pohon yang menguning di sepanjang kanal Djurgårdsbrunn." src="dsc_0993.jpg">}}
 
 {{<img alt="Kapal yang membawa pelancong melintasi kanal Djurgårdsbrunn." src="dsc_1045.jpg">}}
-
-
+{{</gallery>}}

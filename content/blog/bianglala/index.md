@@ -29,7 +29,7 @@ Degupannya keras menggema dalam rongga-rongga yang kini telah kosong tak bertuan
 Pikiranku kosong\
 Aku sepotong daging yang bisa berjalan tapi tak berjiwa
 
-\*\*\*
+{{<section-break>}}
 
 Di sana aku berhenti\
 Di jalan yang aku tidak tahu namanya

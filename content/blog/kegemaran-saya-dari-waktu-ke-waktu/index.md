@@ -12,13 +12,13 @@ Saat kecil saya sangat senang menggambar dan mewarnai, terutama dengan menggunak
 
 {{<img alt="Ford Model A tengah parkir di depan Stasiun Fruängen; modelnya mirip dengan mobil pada sampul buku mewarnai favorit saya." src="img_2058.jpg">}}
 
-\*\*\*
+{{<section-break>}}
 
 Saat sekolah dasar, saya sangat senang membaca. Bahkan saya sempat beberapa kali mendapat penghargaan sebagai peminjam buku terbanyak dari perpustakaan sekolah. Saat itu saya sangat senang membaca buku-buku berbau sains: tentang kisah para penemu, tentang ragam transportasi dan utamanya tentang luar angkasa. Saya juga gandrung dengan seri Lima Sekawan.
 
 Selain itu saya juga mulai senang *ngoprek* dan melakukan percobaan sains sederhana di rumah. Terima kasih pada guru IPA saya saat SD, Pak Djanu. Beliau memang selalu melakukan percobaan dengan alat peraga di kelas untuk menerangkan suatu pokok bahasan. Usai sekolah atau saat jam istirahat tiba, saya dan kawan-kawan kelas kerap *nonkrong* di laboratorium pribadinya. Saya masih ingat bagaimana lampu-lampu neon di ruang laboratorium beliau akan otomatis menyala saat ada orang yang masuk. Ketertarikan pada sains juga membuat saya ditunjuk Pak Djanu untuk mewakili sekolah dalam lomba cerdas-cermat IPA. *Alhamdulillah* tim sekolah kami juara sekotamdaya.
 
-\*\*\*
+{{<section-break>}}
 
 Menginjak Sekolah Menengah Pertama, saya mulai mencoba beragam hobi. Saya sempat mengoleksi mobil-mobil *diecast* yang biasanya saya dapatkan dari Indomaret. Beberapa tahun bersilang, mobil-mobil ini diambil alih dan dimainkan oleh adik laki-laki saya. Kini banyak dari koleksi mobil-mobilan ini yang hilang, rusak catnya, atau bengkok poros rodanya.
 
@@ -38,13 +38,13 @@ Hobi baca saya saat SMP pun beralih pada komik. Tiap tiga atau empat hari sekali
 
 Saat SMP pula Bapak membelikan saya satu set komputer. Mulanya saya hanya menggunakannya untuk bermain *game*, terlebih tak jauh dari sekolah ada penjual CD *game* komputer bajakan. Ketertarikan saya pada pemrograman juga tumbuh saat SMP, kala itu saya meminjam buku pemrograman Delphi dari saudara. Saya masih ingat pernah membuat program teks editor bermodal buku tentang Delphi tersebut. Teks editor sederhana itu saya beri nama RDF (akronim dari Reason da Freak 🙈).
 
-\*\*\*
+{{<section-break>}}
 
 Masuk SMA ketertarikan saya pada komputer kian bertambah. Mulanya saya sangat senang dengan desain grafis dan animasi. Beragam aplikasi pernah saya pelajari mulai dari Adobe Photoshop, CorelDRAW, Macromedia Flash, 3ds Max, hingga Maya dan After Effects. Karenanya tak jarang dimintai teman-teman untuk mendesain pin, pamflet, *slide* presentasi, hingga buku tahunan. Namun yang paling saya ingat adalah menerbitkan buletin mingguan bernama BULAT (Buletin Liga SMA Tiga) bersama kawan saya Taufik dan Aulia. Buletin independen dari kocek pribadi ini membahas liga bola antar kelas yang digelar tiap minggunya.
 
 Saat SMA juga saya mulai mengenal pemrograman web. Mulanya saya meminjam buku tentang pemrograman PHP dari teman saya yang super mahir dengan komputer: Rizky Prillian. Dari situ lah saya mulai tertarik membuat website dan mulai mengumpulkan buku-buku seputar pemrograman web. Buntutnya saat kelas dua saya dan kawan saya Wasil diikutkan lomba web sekolah yang diselanggarakan POLBAN. Masih ingat bagaimana saya menjelaskan pencegahan CSRF (*Cross-site Request Forgery*), XSS (*Cross-site Scripting*), hingga *session fixation* yang diterapkan pada website yang kami buat. Akhirnya kami pun berhasil menyabet juara satu, *Alhamdulillah*. Masih ingat juga saya gunakan hadiah lombanya untuk membeli *graphic card* 😛.
 
-\*\*\*
+{{<section-break>}}
 
 Masuk jenjang kuliah sebetulnya saya tidak terlalu sering berkutat dengan komputer. Pun begitu saya tetap paling senang mengikuti mata kuliah yang ada hubungannya dengan komputer dan pemrograman: algoritma, Java, pemrograman web, mikrokontroler, hingga bahasa *assembly*. Untuk tugas akhir saya pun membuat simulator *link* gelombang radio berbasis web.
 
@@ -56,7 +56,7 @@ Di samping itu saya pun mulai gemar menulis, terutama tentang cerita perjalanan 
 
 Minat baca saya saat kuliah pun bergeser ke novel. Mulai dari Laskar Pelangi, Supernova, *Lord of the Rings*, Abarat, hingga *The White Castle* karya Orhan Pamuk. Saya juga gandrung dengan tulisan-tulisan Pramoedya Ananta Toer dan Ahmad Tohari. Saya benar-benar menikmati penuturan mereka di tetralogi Pulau Buru, Arok Dedes, Ronggeng Dukuh Paruk, dan Lintang Kemukus Dini Hari.
 
-\*\*\*
+{{<section-break>}}
 
 Saat masuk dunia kerja, terlebih saat mulai berkarir sebagai *programmer*, semua hobi itu saya tinggalkan—kecuali *ngoding* di depan komputer tentunya. Saya jarang membaca buku selain buku pemrograman. Saya juga telah vakum menulis blog selama bertahun-tahun.
 

@@ -10,7 +10,7 @@ images: [/blog/ke-sukabumi/cover.jpg]
 
 Malam pun menjelang, gulita melingkupi langit Kota Sukabumi. Lampu-lampu kota berpendar redup, menyapa kami yang kelelahan. Jalanan kota begitu lengang, geliatnya perlahan hilang ditelan malam. Malam sudah terlampau larut. Tidak memungkinkan bagi kami untuk meneruskan perjalanan ke pesisir Selatan Sukabumi. Badan kami pun sudah terasa lengket dan rontok. Awalnya kami memutuskan untuk menginap di Mesjid, namun rayuan Mas Febri untuk menginap di rumah kerabatnya begitu sulit kami tolak. *Alhamdulillah*.
 
-\*\*\*
+{{<section-break>}}
 
 Dari Terminal Leuwipanjang kami memilih untuk naik bis ekonomi non-AC, "RJ" nama bisnya. Cukup nyaman. Meski di beberapa bagian joknya sudah sobek. Untuk mencapai Sukabumi sendiri kami hanya perlu membayar 15 ribu rupiah kepada sang kenek. Sangat murah.
 

@@ -14,7 +14,7 @@ images: [/blog/bersampan-di-sunda-kelapa/cover.jpg]
 
 Pria berbadan gempal pemilik sampan ini bernama Pak Oting. Kulitnya legam karena terlalu sering terbakar matahari. Matanya hitam berkilat-kilat. Pandangannya tajam. Senyumnya selalu terkembang, memperlihatkan gigi-gigi putihnya yang tersusun rapi. Pria asal Bugis ini sudah 30 tahun menawarkan jasa sampannya. Mengantar para pelancong mengelilingi Pelabuhan Sunda Kelapa. Ia hidup sendiri di Jakarta, sementara istri dan anak-anaknya menetap di Buton.
 
-\*\*\*
+{{<section-break>}}
 
 Waktu sudah menunjukan pukul tiga sore, namun matahari di atas Kota Jakarta seolah enggan berdamai dengan kami. Teriknya masih tersisa. Memaksa keringat menetes deras dari kening, ketiak hingga punggungku. Aku dan kekasihku duduk di pelataran Museum Fatahilah, memanjakan tungkai kaki kami yang lelah berjalan seharian.
 
@@ -32,7 +32,7 @@ Kami pun kembali menyusuri Kota Tua, berjalan terus ke arah Utara. Dengan bantua
 
 Tiba-tiba seorang bapak menawari kami untuk berkeliling pelabuhan dengan sampannya. Seketika aku teringat Kamga, pembawa acara Explore Indonesia itu juga menyusuri pelabuhan bersejarah ini dengan sampan. Aku tergoda tawarannya, kekasihku pun turut merestui. Dengan sedikit tawar-menawar, akhirnya kami menyutujui harga jasa sampannya.
 
-\*\*\*
+{{<section-break>}}
 
 Aku dan kekasihku sudah duduk berhadap-hadapan di tengah sampan. Sesekali sampan kecil kami yang tertambat di antara kapal-kapal besar itu berayun-ayun diterpa riak air. Pak Oting pun mulai mendayung, membawa sampan keluar dari himpitan kapal-kapal pengangkut barang itu. Tangannya yang kekar dengan mudah mendayung sampan yang hanya diisi olehku dan kekasihku. Sampan berwarna hijau—warna kesukaan kekasihku—ini pun perlahan melaju menyisiri tepian dermaga.
 
@@ -48,7 +48,7 @@ Sampan terus melaju perlahan, membelah perairan Sunda Kelapa yang kian mengeruh 
 
 Aku membayangkan bagaimana kapal-kapal layar besar dari Sumatera, Sulawesi, Cina, India hingga Arab berlabuh di pelabuhan ini. Membawa barang-barang dagangan seperti lada, pala, cengkeh, kopi, porselen, anggur, sutera hingga wangi-wangian. Pastilah dahulu pelabuhan ini sangat meriah.
 
-\*\*\*
+{{<section-break>}}
 
 "Nyanyi dong!" Pintaku pada gadis yang mahir bermain alat musik ini.
 

@@ -18,6 +18,7 @@ Awalnya saya hanya berencana untuk bersepeda hingga Södermalm, namun rupanya l
 
 {{<img alt="Rute dari rumah menuju Gamla Stan." src="cycling_route.png">}}
 
+{{<gallery>}}
 {{<img alt="Hornstull dilihat dari jembatan Liljeholmsbron." src="dsc_2558.jpg">}}
 
 {{<img alt="Apartemen-apartemen berdiri di sepanjang Hornstulls Strand." src="dsc_2559.jpg">}}
@@ -31,3 +32,4 @@ Awalnya saya hanya berencana untuk bersepeda hingga Södermalm, namun rupanya l
 {{<img alt="Suasana jalan Hornsgatan di Södermalm." src="dsc_2576.jpg">}}
 
 {{<img alt="Jalur sepeda dan pejalan kaki di sepanjang rute E4/E20 yang menuju Södertälje." src="dsc_2580.jpg">}}
+{{</gallery>}}

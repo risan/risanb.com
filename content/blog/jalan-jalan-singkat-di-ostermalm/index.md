@@ -14,6 +14,7 @@ Di ujung jalan Strandvägen, saya pun berbelok ke Pulau Djurgården. Banyak obje
 
 Jalan-jalan singkat saya pun berakhir di pulau ini. Menyebrang ke Gamla Stan dengan kapal feri sebelum akhirnya pulang kembali ke rumah.
 
+{{<gallery>}}
 {{<img alt="Suasana teluk Ladugårdslandsviken di jantung Kota Stockholm." src="dsc_2356.jpg">}}
 
 {{<img alt="Taman ria Gröna Lund tampak di kejauhan." src="dsc_2358.jpg">}}
@@ -23,3 +24,4 @@ Jalan-jalan singkat saya pun berakhir di pulau ini. Menyebrang ke Gamla Stan den
 {{<img alt="Wahana kättingflygaren di taman ria Gröna Lund." src="dsc_2371.jpg">}}
 
 {{<img alt="Gröna Lund dibuka pada akhir abad ke-19, menjadikannya taman ria tertua di Swedia." src="dsc_2372.jpg">}}
+{{</gallery>}}

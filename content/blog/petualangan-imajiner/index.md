@@ -14,7 +14,7 @@ Pacu Jawi atau balapan sapi ini memang menjadi hiburan atraktif yang selalu dina
 
 Satu, dua, tiga! Dengan sigap rahangku menggigit keras ekor Halilintar dan Guntur. Mereka melesat bak angin. Lumpur menciprat deras, menghambur ke udara. Suasana semakin riuh rendah. Penonton yang berjejer di sepanjang pematang sawah bersorak penuh keriangan. Di ujung sana, sebilah bambu tertancap ke dalam lumpur sebagai penanda garis *finish*. Bilah bambu itu terlihat dekat dan semakin dekat. Sampai akhirnya Guntur tiba-tiba merubah arah larinya. Tungkai-tungkai kakinya bergerak dengan liar. Aku pun tak mampu lagi mengendalikan arahnya. Bajak bergerak liar, aku terpelanting ke udara. Seketika sekelilingku seolah berubah menjadi sebuah adegan *slow motion* dalam sebuah film laga. Hening. Hingga akhirnya aku terperosok ke dalam kolam lumpur dan semuanya tiba-tiba menjadi gelap.
 
-\*\*\*
+{{<section-break>}}
 
 Gelap enggan pergi dari penglihatanku. Gulita, tanpa ada cahaya setitikpun. Namun ada hal lain yang berbeda. Aroma keringat bercampur lumpur kini terganti dengan bau asap yang menusuk hidung. Suara gemuruh tepuk-tangan penonton kini terganti dengan suara bising dari logam-logam yang beradu. Apa aku ada dalam kereta?
 
@@ -32,7 +32,7 @@ Pluit Mak Itam menyalak keras. Dari cerobongnya asap putih pekat membumbung ting
 
 Aku bergelayut di pintu gerbong. Kupejamkan mata. Kubiarkan segarnya udara Singkarak menampar-nampar kulit wajahku. Kubayangkan diriku bersampan. Mengail ikan di tengah Danau, berharap mendapatkan Ikan Bilih—ikan endemik yang hanya ada di Danau Singkarak. Mak Itam terus berdesis, mataku masih terpejam. Sejuk terasa kala angin tak henti-hentinya membelai wajahku, menerbangkan helai-helai rambutku yang mulai gondrong.
 
-\*\*\*
+{{<section-break>}}
 
 Mataku enggan jua terbuka. Bak seorang kekasih yang tengah merindu, kunikmati belaian demi belaian angin yang memulas mesra wajahku. Seolah menghipnotisku, lamat-lamat desis Mak Itam perlahan hilang. Tak ada lagi suara nyaring pluit. Tak ada lagi suara roda-roda besi yang beradu dengan bantalan rel. Tak ada lagi suara sekop yang tengah meraup-raup batu bara. Kini semuanya senyap, tergantikan debur halus ombak. Kubuka mata. Aku di pantai!
 

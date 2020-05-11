@@ -132,7 +132,7 @@ Aku hanya tersenyum tidak berkata apa-apa.
 
 "Sama-sama" Dokter itu membalas senyumanku dan kemudian berbalik menuju pintu.
 
-\*\*\*
+{{<section-break>}}
 
 Pintu kembali terbuka dan aku kembali menegakkan tubuh dan duduk di atas ranjang yang empuk ini. Bibi Ann masuk bersama Bill. Bibi Ann membawa baki yang terbuat dari kayu yang mengilap. Di atas baki itu terdapat sebuah gelas kaca berisi air putih dan sebuah mangkuk porselen yang besar berisi semacam sup berwarna putih kekuning-kuningan.
 
@@ -178,7 +178,7 @@ Bibi Ann duduk mendekat. Merapat di samping ranjang empukku.
 
 Kembali ku genggam sendok kayu dan mulai menyuapkan kembali sup healood yang sekarang tidak terlalu terasa mengerikan saat mimpi-mimpi mengerikan itu kembali menguasai pikiranku.
 
-\*\*\*
+{{<section-break>}}
 
 Matahari dengan sinar keemasannya menurun ke arah cakrawala. Semakin dalam dia turun semakin pudar warna keemasannya, digantikan oleh lembayung jingga yang berpendar. Sore hari, bukan pagi hari. Tidak kusangka aku telah berhasil menghabiskan seluruh isi mangkuk porselen itu. Beberapa saat yang lalu Bill pamit untuk pulang ke rumahnya.
 

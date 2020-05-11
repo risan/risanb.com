@@ -14,6 +14,7 @@ Di Stockholm sendiri, pagi ini suhu mencapai -6°C—relatif tidak sedingin hari
 
 Pada siang hari, salju sempat sempat berhenti. Saya pun menyempatkan diri untuk jalan-jalan ke Monteliusvägen. Monteliusvägen ini merupakan salah satu titik populer untuk mengambil foto di Stockholm. Ia berupa jalan setapak di tepi tebing, di mana kita bisa memandang lepas ke arah Danau Mälaren dan daerah-daerah di sekitarnya: Kungsholmen, Riddarholmen dan Gamla Stan.
 
+{{<gallery>}}
 {{<img alt="Salju yang perlahan menumpuk di sekitar perumahan." src="01-salju-di-perumahan.jpg">}}
 
 {{<img alt="Suasana di daerah Mariatorget." src="02-salju-di-mariatorget.jpg">}}
@@ -33,3 +34,4 @@ Pada siang hari, salju sempat sempat berhenti. Saya pun menyempatkan diri untuk 
 {{<img alt="Kungsholmen dilihat dari Monteliusvägen." src="09-salju-di-kungsholmen.jpg">}}
 
 {{<img alt="Gamla Stan dari kejauhan." src="10-salju-di-gamlastan.jpg">}}
+{{</gallery>}}

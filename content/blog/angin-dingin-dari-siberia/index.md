@@ -14,6 +14,7 @@ Di Stockholm sendiri, salju turun selama empat hari berturut-turut. Sejumlah dan
 
 Foto-foto berikut saya ambil Hari Kamis kemarin—hari terakhir salju turun secara berturut-turut minggu ini.
 
+{{<gallery>}}
 {{<img alt="Salju yang menumpuk di rumah-rumah warga." src="dsc_2020.jpg">}}
 
 {{<img alt="Bis yang beroperasi di tengah hujan salju." src="dsc_2022.jpg">}}
@@ -53,3 +54,4 @@ Foto-foto berikut saya ambil Hari Kamis kemarin—hari terakhir salju turun seca
 {{<img alt="Bus Hop-On Hop-Off yang membawa wisatawan keliling kota." src="dsc_2095.jpg">}}
 
 {{<img alt="Suasana di jembatan Strömbron, Stockholm." src="dsc_2099.jpg">}}
+{{</gallery>}}

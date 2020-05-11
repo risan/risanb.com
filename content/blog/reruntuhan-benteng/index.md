@@ -14,7 +14,7 @@ Aku masih saja malas mengangkat tubuhku, menyenderkannya pada dinding benteng ya
 
 Seketika punggungku membeku. Dingin luar biasa menyergap dari arah belakangku. Mataku pun terbelalak. Jantungku seolah mencelat dari dada ketika pandangku jatuh pada sosok asing yang tiba-tiba melayang tepat di sampingku.
 
-\*\*\*
+{{<section-break>}}
 
 Semua teori tentang hantu yang selama ini kupercayai runtuh seketika. Kubayangkan hantu itu berkulit hijau kusam dan bersisik. Mungkin wajahnya menyeringai mengerikan dengan sepasang taring kuning-besar yang mencuat dari kedua sudut bibirnya. Kubayangkan mata hantu itu besar, berwarna merah-menyala, menebar teror dan mimpi-mimpi buruk. Mungkin tubuhnya menjulang besar dengan hanya berbalut cawat putih.
 

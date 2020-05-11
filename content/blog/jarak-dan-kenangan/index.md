@@ -14,7 +14,7 @@ Jarak mungkin menghalangi keberadaanmu di sampingku, kehadiranku di sisimu. Raga
 
 Sayangku, Jarak memang sanggup memisahkan ragamu dari ragaku. Tapi sejauh apapun ia terbentang, ia tak akan pernah sanggup memisahkan kenanganmu bersamaku. Kenangan indah akan dirimu lah yang akan selalu membayang di sisiku. Menemaniku selalu.
 
-\*\*\*
+{{<section-break>}}
 
 Kau masih ingatkan episode *nyasar* hingga ke Kampung Luar Batang dahulu? Betapa tangguh dan sabarnya dirimu menemani aku yang ngotot ingin menyambangi Pelabuhan Sunda Kelapa. Di siang yang terik itu—ditambah perut yang kelaparan—bukannya pelabuhan yang kita temui, justru kita malah tersesat hingga ke perkampungan nelayan di Luar Batang. Pun begitu kau tetap tersenyum.
 
