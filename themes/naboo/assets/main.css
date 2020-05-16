@@ -215,6 +215,7 @@ button:not(:disabled),
 .wysiwyg figure > a {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .wysiwyg figure > a:hover {
