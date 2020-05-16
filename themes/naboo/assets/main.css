@@ -321,3 +321,15 @@ button:not(:disabled),
     display: block;
   }
 }
+
+.pswp a,
+.pswp a:link,
+.pspw a:visited {
+  color: #ccc;
+  text-decoration: underline;
+}
+
+.pswp a:hover,
+.pspw a:active {
+  color: #fff;
+}

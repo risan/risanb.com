@@ -3,6 +3,9 @@
 {{- if .Parent -}}
   {{- $maxWidth = 720 -}}
 {{- end -}}
+{{- if .Get "size" | eq "large" -}}
+  {{- $maxWidth = 1200 -}}
+{{- end -}}
 <figure>
   <a href="{{ $img.Permalink }}" data-size="{{ $img.Width }}x{{ $img.Height }}">
   {{- if gt $img.Width $maxWidth -}}
