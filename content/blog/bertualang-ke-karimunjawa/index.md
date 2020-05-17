@@ -115,6 +115,8 @@ Luas hutan bakau di Karimunjawa mencapai lebih dari 400 hektare. Di mana lebih d
 
 Adapun luas hutan hujan tropis dataran rendahnya mencapai hampir 1.300 hektare; yang tersusun dari setidaknya 170 spesies flora.[^6] Tiga spesies pohon yang dianggap keramat oleh sebagian masyarakat pun tumbuh di sini. Ada pohon [kalimasada](https://en.wikipedia.org/wiki/Cordia_subcordata) (*Cordia subcordata*), [stigi](https://en.wikipedia.org/wiki/Pemphis_acidula) (*Pemphis acidula*) dan juga [dewadaru](https://en.wikipedia.org/wiki/Eugenia_uniflora) (*Eugenia uniflora*). Karena dianggap memiliki kekuatan magis, ketiga pohon berbunga tersebut kerap digunakan sebagai bahan baku untuk pembuatan tasbih, tongkat, hingga gagang untuk keris.
 
+![Peta Kepulauan Karimunjawa dan area terumbu karangnya. (Sumber [ResearchGate](https://www.researchgate.net/figure/Map-of-islands-and-the-coral-reef-areas-within-Karimunjawa-National-Park-boundaries_fig2_271507746) oleh [Siham Afatta](https://www.researchgate.net/profile/Siham_Afatta) hasil modifikasi dari peta [Wildlife Conservation Society](https://www.wcs.org/))](Karimunjawa_Map.png)
+
 {{<gallery>}}
 {{<img alt="Warna-warni terumbu karang di perairan Karimunjawa. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15409583472/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Terumbu_Karang.jpg">}}
 
