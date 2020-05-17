@@ -35,7 +35,7 @@ Tentu kenyamanan sistem transportasi di Stockholm ini harus dibayar dengan kocek
 
 {{<img alt="Tram yang tengah parkir di Sergels Torg." src="dsc_0745.jpg">}}
 
-{{<img alt="Kapal feri tengah berlayar menuju Gamla Stan." src="dsc_1874.jpg">}}
+{{<img alt="Kapal feri tengah berlayar menuju Gamla Stan." src="dsc_1874.jpg" size="large">}}
 {{</gallery>}}
 
 ## Trotoar yang Layak
@@ -49,7 +49,7 @@ Keberadaan trotoar yang baik ini berimbas pada tingginya jumlah pejalan kaki di 
 
 {{<img alt="Jalan kendaraan bermotor dan jalur sepeda yang dipisahkan oleh kanal Riddarholmskanalen." src="img_1421.jpg">}}
 
-{{<img alt="Para pesepeda melintasi Gamla Stan." src="img_5905.jpg">}}
+{{<img alt="Para pesepeda melintasi Gamla Stan." src="img_5905.jpg" size="medium">}}
 {{</gallery>}}
 
 ## Manajemen Pengolahan Sampah yang Baik
@@ -85,5 +85,5 @@ Wajar saja rasanya apabila Stockholm menjadi kota pertama yang menerima pengharg
 
 {{<img alt="Pohon-pohon yang menguning di sepanjang kanal Djurgårdsbrunn." src="dsc_0993.jpg">}}
 
-{{<img alt="Kapal yang membawa pelancong melintasi kanal Djurgårdsbrunn." src="dsc_1045.jpg">}}
+{{<img alt="Kapal yang membawa pelancong melintasi kanal Djurgårdsbrunn." src="dsc_1045.jpg" size="medium">}}
 {{</gallery>}}

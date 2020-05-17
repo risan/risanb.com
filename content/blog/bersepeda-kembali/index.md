@@ -31,5 +31,5 @@ Awalnya saya hanya berencana untuk bersepeda hingga Södermalm, namun rupanya l
 
 {{<img alt="Suasana jalan Hornsgatan di Södermalm." src="dsc_2576.jpg">}}
 
-{{<img alt="Jalur sepeda dan pejalan kaki di sepanjang rute E4/E20 yang menuju Södertälje." src="dsc_2580.jpg">}}
+{{<img alt="Jalur sepeda dan pejalan kaki di sepanjang rute E4/E20 yang menuju Södertälje." src="dsc_2580.jpg" size="large">}}
 {{</gallery>}}

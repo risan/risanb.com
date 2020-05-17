@@ -128,11 +128,11 @@ Adapun luas hutan hujan tropis dataran rendahnya mencapai hampir 1.300 hektare; 
 
 {{<img alt="Bibit-bibit pohon dewadaru. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bibit_pohon_Dewadaru_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Bibit_pohon_Dewadaru_Karimun_Jawa.jpg">}}
 
-{{<img alt="Hutan bakau di Pulau Kemujan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/24940547178/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mangrove_Kemujan.jpg">}}
-
 {{<img alt="Rimbunnya hutan bakau di Kepulauan Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Legon_Lele_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Mangrove_Karimun_Jawa1.jpg">}}
 
 {{<img alt="Deretan pohon bakau yang tumbuh di pesesir Pulau Menyawakan. (Sumber [Flickr](https://www.flickr.com/photos/dany13/17329317461/) oleh [dany13](https://www.flickr.com/photos/dany13/))" src="Mangrove_Menyawakan_Island.jpg">}}
+
+{{<img alt="Hutan bakau di Pulau Kemujan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/24940547178/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mangrove_Kemujan.jpg" size="medium">}}
 {{</gallery>}}
 
 {{<section-break>}}
@@ -162,11 +162,11 @@ Karena dianggap jinak, para pengunjung pun dapat berenang bersama hiu-hiu yang a
 
 {{<img alt="Pulau Karimunjawa yang berbukit-bukit. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9467383244/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))" src="Karimunjawa_Island.jpg">}}
 
-{{<img alt="Pantai Legon Lele, sekira 5 km dari Alun-Alun Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mangrove_Karimun_Jawa1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Legon_Lele_Beach_Karimun_Jawa_3.jpg">}}
+{{<img alt="Mesjid Agung Karimunjawa dengan menaranya yang menjulang di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812651541/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mesjid_Agung_Karimunjawa.jpg">}}
 
 {{<img alt="Pantai Barakuda yang ada di sisi Timur Pulau Kemujan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Barakuda_Beach_2_Karimun_Jawa.jpg) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Barakuda_Beach_2_Karimun_Jawa.jpg">}}
 
-{{<img alt="Mesjid Agung Karimunjawa dengan menaranya yang menjulang di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812651541/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mesjid_Agung_Karimunjawa.jpg">}}
+{{<img alt="Pantai Legon Lele, sekira 5 km dari Alun-Alun Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mangrove_Karimun_Jawa1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Legon_Lele_Beach_Karimun_Jawa_3.jpg" size="medium">}}
 {{</gallery>}}
 
 {{<section-break>}}
@@ -204,11 +204,11 @@ Malam itu adalah malam terakhir kami di Pulau Karimunjawa. Lepas makan malam, ka
 
 {{<img alt="Deretan batu-batu besar di beberapa bagian Pantai Ujung Gelam. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_2.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_2.jpg">}}
 
-{{<img alt="Beberapa pohon kelapa condong ke lautan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_3.jpg">}}
-
 {{<img alt="Suasana saat matahari terbenam di Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sunset_in_Karimun_Jawa.jpg) oleh Amelia.angela2210)" src="Sunset_in_Karimun_Jawa.jpg">}}
 
 {{<img alt="Kawanan burung kembali ke sarangnya kala senja tiba. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15223316378/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Burung_Burung_Senja.jpg">}}
+
+{{<img alt="Beberapa pohon kelapa condong ke lautan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_3.jpg" size="medium">}}
 {{</gallery>}}
 
 {{<section-break>}}

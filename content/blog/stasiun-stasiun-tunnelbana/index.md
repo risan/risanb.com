@@ -22,7 +22,7 @@ Pada peron jalur biru, para pengunjung akan disambut dengan lukisan tanaman ramb
 
 {{<img alt="Dominasi warna biru di dinding Stasiun T-Centralen." src="DSC_7514.jpg">}}
 
-{{<img alt="Bagian bawah dari T-Centralen menjadi stasiun untuk kereta commuter." src="DSC_7488.jpg">}}
+{{<img alt="Bagian bawah dari T-Centralen menjadi stasiun untuk kereta commuter." src="DSC_7488.jpg" size="medium">}}
 {{</gallery>}}
 
 ## Kungsträdgården
@@ -36,7 +36,7 @@ Nama stasiunnya sendiri diambil dari nama taman yang berada tepat di pintu kelua
 
 {{<img alt="Stasiun Kungsträdgården yang berada di ujung jalur biru." src="DSC_7555.jpg">}}
 
-{{<img alt="Mosaik warna-warni di bagian atap." src="DSC_7588.jpg">}}
+{{<img alt="Mosaik warna-warni di bagian atap." src="DSC_7588.jpg" size="medium">}}
 {{</gallery>}}
 
 ## Rådhuset
@@ -62,7 +62,7 @@ Selain lukisan dan patung-patung, ketiga seniman menuliskan beragam pesan solida
 
 {{<img alt="Lukisan gajah purba di dinding peron." src="DSC_7696.jpg">}}
 
-{{<img alt="Poster dengan beragam bahasa." src="DSC_7674.jpg">}}
+{{<img alt="Poster dengan beragam bahasa." src="DSC_7674.jpg" size="medium">}}
 {{</gallery>}}
 
 ## Solna Centrum
@@ -76,7 +76,7 @@ Lewat lukisannya kedua seniman ini juga mengangkat isu penebangan hutan dan arus
 
 {{<img alt="Kereta melintas di Stasiun Sola Centrum." src="DSC_7756.jpg">}}
 
-{{<img alt="Suasana pedesaan yang sepi karena derasnya urbanisasi." src="DSC_7735.jpg">}}
+{{<img alt="Suasana pedesaan yang sepi karena derasnya urbanisasi." src="DSC_7735.jpg" size="medium">}}
 {{</gallery>}}
 
 ## Thorildsplan

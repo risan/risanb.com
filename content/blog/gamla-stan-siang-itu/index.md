@@ -41,5 +41,5 @@ Seperti biasa Gamla Stan siang itu dipadati oleh wisatawan. Restoran-restoran, k
 
 {{<img alt="M/S Viking Cinderella yang rutin berlayar antara Stockholm dan Mariehamn." src="DSC_7464.jpg">}}
 
-{{<img alt="Katarinahissen atau Elevator Katarina di Slussen." src="DSC_7468.jpg">}}
+{{<img alt="Katarinahissen atau Elevator Katarina di Slussen." src="DSC_7468.jpg" size="medium">}}
 {{</gallery>}}

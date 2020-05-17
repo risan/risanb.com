@@ -45,5 +45,5 @@ Siang itu saya menyusuri jalan setapak di sisi Selatan Djurgården. Dari Waldema
 
 {{<img alt="Terminal Feri Nacka strand yang berada tepat di sebrang Blockhusudden." src="DSC_8076.jpg">}}
 
-{{<img alt="Perahu bermotor melintasi Teluk Saltsjön." src="DSC_8103.jpg">}}
+{{<img alt="Perahu bermotor melintasi Teluk Saltsjön." src="DSC_8103.jpg" size="medium">}}
 {{</gallery>}}

@@ -33,5 +33,5 @@ Pada siang hari, salju sempat sempat berhenti. Saya pun menyempatkan diri untuk 
 
 {{<img alt="Kungsholmen dilihat dari Monteliusvägen." src="09-salju-di-kungsholmen.jpg">}}
 
-{{<img alt="Gamla Stan dari kejauhan." src="10-salju-di-gamlastan.jpg">}}
+{{<img alt="Gamla Stan dari kejauhan." src="10-salju-di-gamlastan.jpg" size="large">}}
 {{</gallery>}}

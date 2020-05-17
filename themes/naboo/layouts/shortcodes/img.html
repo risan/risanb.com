@@ -1,6 +1,9 @@
 {{- $img := .Page.Resources.GetMatch (.Get "src") -}}
 {{- $maxWidth := 1200 -}}
 {{- if .Parent -}}
+  {{- $maxWidth = 460 -}}
+{{- end -}}
+{{- if .Get "size" | eq "medium" -}}
   {{- $maxWidth = 720 -}}
 {{- end -}}
 {{- if .Get "size" | eq "large" -}}

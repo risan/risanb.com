@@ -23,5 +23,5 @@ Jalan-jalan singkat saya pun berakhir di pulau ini. Menyebrang ke Gamla Stan den
 
 {{<img alt="Wahana kättingflygaren di taman ria Gröna Lund." src="dsc_2371.jpg">}}
 
-{{<img alt="Gröna Lund dibuka pada akhir abad ke-19, menjadikannya taman ria tertua di Swedia." src="dsc_2372.jpg">}}
+{{<img alt="Gröna Lund dibuka pada akhir abad ke-19, menjadikannya taman ria tertua di Swedia." src="dsc_2372.jpg" size="medium">}}
 {{</gallery>}}

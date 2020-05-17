@@ -41,5 +41,5 @@ Perjalanan saya mulai dari jantung Södermalm di Medborgarplatsen. Berjalan ke a
 
 {{<img alt="Suasana Jalan Urvädersgränd, tempat dimana musisi Swedia abad ke-18 Carl Michael Bellman tinggal (rumah berwarna jingga di turunan sebelah kanan)." src="dsc_2469.jpg">}}
 
-{{<img alt="Pemandangan dari Katarinahissen, nampak Balai Kota Stockholm di kejauhan." src="dsc_2474.jpg">}}
+{{<img alt="Pemandangan dari Katarinahissen, nampak Balai Kota Stockholm di kejauhan." src="dsc_2474.jpg" size="medium">}}
 {{</gallery>}}
