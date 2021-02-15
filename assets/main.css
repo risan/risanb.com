@@ -189,8 +189,8 @@ hr.section-break::after {
 
 .gallery figure {
     position: relative;
-    flex: 1 1 calc(50% - .5rem);
-    margin: .25rem !important;
+    flex: 1 1 100%;
+    margin: .25rem 0 !important;
 }
 
 .gallery figcaption {
@@ -210,6 +210,13 @@ hr.section-break::after {
 
 .gallery figure:hover figcaption {
     display: block;
+}
+
+@media screen and (min-width: 461px) {
+    .gallery figure {
+        margin: .25rem !important;
+        flex-basis: calc(50% - .5rem);
+    }
 }
 
 @media screen and (min-width: 769px) {
