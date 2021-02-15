@@ -1,6 +1,0 @@
-<figure>
-  <a href="{{ .Destination | safeURL }}">
-    <img src="{{ .Destination | safeURL }}" {{- with .Text | plainify }}alt="{{ . }}"{{- end }}>
-  </a>
-  {{- with .Text | markdownify }}<figcaption>{{ . }}</figcaption>{{- end }}
-</figure>

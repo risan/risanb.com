@@ -5,6 +5,7 @@ date: 2018-06-09T07:35:00+02:00
 categories: [photos, travel]
 tags: [stockholm, swedia]
 images: [/blog/keliling-sodermalm/dsc_2469.jpg]
+gallery: true
 ---
 Södermalm merupakan salah satu pulau yang ada di Kota Stockholm, Swedia. Penduduk lokal biasa juga menyebutnya dengan Söder atau "Selatan". Ada juga yang menyebutnya dengan SoFo—singkatan dari *Söder om Folkungagatan* yang berarti "Sebelah Selatan jalan Folkungagatan".
 

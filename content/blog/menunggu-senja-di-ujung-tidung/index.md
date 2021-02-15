@@ -5,6 +5,7 @@ date: 2011-12-03T22:51:00+07:00
 categories: [travel]
 tags: [jakarta, indonesia, kuliah]
 images: [/blog/menunggu-senja-di-ujung-tidung/cover.jpg]
+gallery: true
 ---
 ![Menunggu Senja di Ujung Tidung](cover.jpg)
 

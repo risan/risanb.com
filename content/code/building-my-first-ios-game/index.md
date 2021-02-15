@@ -1,7 +1,6 @@
 ---
 title: Building My First iOS Game
 date: 2018-10-10T00:10:00+02:00
-description: Things I learned from building my very first iOS game using the latest Swift version 4.2.
 categories: [log]
 tags: [swift]
 images: [/code/building-my-first-ios-game/og.jpg]

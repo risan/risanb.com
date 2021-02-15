@@ -1,7 +1,6 @@
 ---
 title: Regenerator Runtime is not defined
 date: 2018-11-11T11:05:00+02:00
-description: Configuring Rollup and Babel to transform Async function into a backward compatible ES5 code.
 categories: [log]
 tags: [javascript]
 images: [/img/babel.png]

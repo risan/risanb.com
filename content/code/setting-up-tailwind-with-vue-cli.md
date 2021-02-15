@@ -1,7 +1,6 @@
 ---
 title: Setting Up Tailwind CSS with Vue CLI
 date: 2020-03-07T22:16:00+07:00
-description: A simple trick using axios to handle error response that uses 200 status code.
 categories: [snippet]
 tags: [vue, css]
 ---

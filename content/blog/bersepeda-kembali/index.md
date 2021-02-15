@@ -5,6 +5,7 @@ date: 2018-06-21T19:00:00+02:00
 categories: [journal]
 tags: [stockholm, swedia]
 images: [/blog/bersepeda-kembali/dsc_2570.jpg]
+gallery: true
 ---
 Meski cuaca mendung dan diramalkan akan hujan pada sore harinya, tiba-tiba saya memiliki dorangan impulsif untuk bersepeda hari ini. Hitung-hitung membakar lemak, mengingat postur badan saya yang kian bongsor.
 

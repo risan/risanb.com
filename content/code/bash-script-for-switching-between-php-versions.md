@@ -1,7 +1,6 @@
 ---
 title: Bash Script for Switching Between PHP Versions
 date: 2019-05-18T19:18:00+02:00
-description: A simple bash script for switching between multiple PHP versions that are installed using Homebrew.
 categories: [snippet]
 tags: [macos, php]
 ---

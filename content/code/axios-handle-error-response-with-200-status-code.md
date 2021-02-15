@@ -2,7 +2,6 @@
 title: "Axios: Handle Error Response with 200 Status Code"
 date: 2020-02-23T20:19:00+07:00
 lastmod: 2020-04-01T20:19:00+07:00
-description: A simple trick using axios to handle error response that uses 200 status code.
 categories: [snippet]
 tags: [javascript]
 ---

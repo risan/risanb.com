@@ -1,7 +1,6 @@
 ---
 title: Bundling Your JavaScript Library with Rollup
 date: 2018-11-04T02:51:00+02:00
-description: A step-by-step tutorial on how to bundle your JavaScript library using Rollup. You'll also learn how to publish those bundles to NPM.
 categories: [tutorial]
 tags: [javascript]
 images: [/img/rollup.png]

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='{{ .Params.LanguageCode | default $.Site.LanguageCode | default "en" }}'>
+<head>
+    <meta charset="utf-8">
+    <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | truncate 200 }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{- template "_internal/opengraph.html" . -}}
+    {{- template "_internal/twitter_cards.html" . -}}
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+    {{- $normalize := resources.Get "normalize.css" -}}
+    {{- $main := resources.Get "main.css" -}}
+    {{- $styles := slice $normalize $main | resources.Concat "styles.css" | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}">
+    {{- if .Params.gallery -}}
+        {{- $photoswipe := resources.Get "photoswipe.css" -}}
+        {{- $photoswipeSkin := resources.Get "photoswipe-default-skin.css" -}}
+        {{- $photoswipeBundle := slice $photoswipe $photoswipeSkin | resources.Concat "photoswipe.css" | minify | fingerprint -}}
+        <link rel="stylesheet" href="{{ $photoswipeBundle.Permalink }}">
+    {{- end -}}
+    <link rel=icon href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🍣</text></svg>'>
+    {{- block "head" . }}{{ end -}}
+</head>
+<body>
+<header>
+    <a href="/">
+        <strong>RISANB.COM</strong>
+    </a>
+    <nav>
+        <a href="/code/">Code</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+    </nav>
+</header>
+<main>{{ block "main" . }}{{ end }}</main>
+<footer>
+    <span>&copy; Risan Bagja 2021</span>
+    <nav>
+        <a href="https://github.com/risan">Github</a>
+        <a href="https://twitter.com/risanbagja">Twitter</a>
+        <a href="/index.xml">RSS</a>
+    </nav>
+</footer>
+{{- if .Params.gallery -}}
+    {{ partial "photoswipe.html" . }}
+    {{- $photoswipe := resources.Get "photoswipe.js" -}}
+    {{- $photoswipeUi := resources.Get "photoswipe-ui-default.js" -}}
+    {{- $photoswipeInit := resources.Get "photoswipe-init.js" -}}
+    {{- $photoswipeBundle := slice $photoswipe $photoswipeUi $photoswipeInit | resources.Concat "photoswipe.js" | minify | fingerprint -}}
+    <script src="{{ $photoswipeBundle.Permalink }}"></script>
+{{- end -}}
+</body>
+</html>

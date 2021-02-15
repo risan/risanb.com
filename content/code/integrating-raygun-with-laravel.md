@@ -1,7 +1,6 @@
 ---
 title: Integrating Raygun with Laravel
 date: 2020-06-07T22:15:00+07:00
-description: An easy way to add a Postmark's tag in Laravel.
 categories: [snippet]
 tags: [laravel, php]
 images: [/img/laravel.png]

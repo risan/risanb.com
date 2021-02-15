@@ -1,7 +1,6 @@
 ---
 title: How to Backup and Restore Your GPG Key
 date: 2020-01-11T23:13:00+07:00
-description: Learn how to backup and restore your GPG key.
 categories: [tutorial]
 tags: [macos]
 ---

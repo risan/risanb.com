@@ -1,7 +1,6 @@
 ---
 title: Switching to Hugo
 date: 2020-05-10T21:27:00+07:00
-description: Another day, another static site generator to switch to. The curse is real. Instead of writing more blog posts, I ended up messing up with the platform. I'm switching to Hugo now.
 categories: [log]
 tags: [hugo]
 images: [/img/hugo.png]

@@ -1,7 +1,6 @@
 ---
 title: "Vue.js: Implement Log In with Google Feature"
 date: 2020-11-08T20:28:00+07:00
-description: How to implement Google Sign-In feature within a Vue.js project.
 categories: [snippet]
 tags: [javascript, vue]
 images: [/img/vue.png]

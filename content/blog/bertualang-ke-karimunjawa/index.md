@@ -6,6 +6,7 @@ description: Pada akhir bulan Juli tahun 2011 silam, saya dan kedua kawan kuliah
 categories: [travel]
 tags: [jawa-tengah, indonesia, kuliah]
 images: [/blog/bertualang-ke-karimunjawa/Karimunjawa.jpg]
+gallery: true
 ---
 {{<img alt="Pulau Karimunjawa dan Pulau Kemujan dari udara. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15406744991/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Karimunjawa.jpg">}}
 

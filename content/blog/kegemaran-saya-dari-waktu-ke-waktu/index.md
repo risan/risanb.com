@@ -62,8 +62,9 @@ Saat masuk dunia kerja, terlebih saat mulai berkarir sebagai *programmer*, semua
 
 Sampai akhirnya beberapa minggu lalu saya membaca salah satu diskusi di [Hackernews](https://news.ycombinator.com/item?id=17274320) tentang mengatasi kejenuhan dalam bekerja sebagai *programmer*. Beberapa poin dari jawaban [@trcollinson](https://news.ycombinator.com/user?id=trcollinson) di *thread* tersebut menohok saya:
 
-> 2) through therapy I realized that I didn't have an identity outside of being a software developer. That's what was burning me out. I wasn't Tim the person who has a family and interests and develops software. I was Tim: software developer. The end. This turns out to be really bad. I had to remember who I am other than software developer. All I ever did was work or think about work or work on other things that were just like work.
-> 3) in discovering who I am I remembered my other passions in life. I spent more time with my family and enjoy the time more. I spend a little time with just myself and that is ok too. I enjoy hobbies (mine are recreational math, reading legal briefings (I'm aware this is weird), crocheting, and writing short stories). I do these by myself or with my kids and wife. It's nice.
+> through therapy I realized that I didn't have an identity outside of being a software developer. That's what was burning me out. I wasn't Tim the person who has a family and interests and develops software. I was Tim: software developer. The end. This turns out to be really bad. I had to remember who I am other than software developer. All I ever did was work or think about work or work on other things that were just like work.
+> 
+> in discovering who I am I remembered my other passions in life. I spent more time with my family and enjoy the time more. I spend a little time with just myself and that is ok too. I enjoy hobbies (mine are recreational math, reading legal briefings (I'm aware this is weird), crocheting, and writing short stories). I do these by myself or with my kids and wife. It's nice.
 
 Setelah saya menyelidiki diri sendiri, ternyata ada benarnya juga. Beberapa bulan ke belakang saya mudah jenuh saat *ngoding*. Padahal biasanya saya sangat betah menyelesaikan masalah pemrograman hingga berjam-jam lamanya. Mungkin ini ada kaitannya dengan saya yang tidak punya kegemaran lain diluar *ngoding*?
 

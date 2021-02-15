@@ -1,7 +1,6 @@
 ---
 title: Building a Web-App to Track My Expense on Google Sheets
 date: 2020-12-27T21:41:00+07:00
-description: I build a simple web-app to help me track my expenses, investments, and income on Google Sheets.
 categories: [log]
 tags: [javascript, vue]
 images: [/code/web-app-to-track-expense-on-google-sheets/cover.png]
@@ -22,17 +21,15 @@ You can check out the web-app at [balancesheet.netlify.app](https://balancesheet
 
 Here are some screenshots of this app. Note that these are coming from some randomly generated data, not my actual finance data.
 
-{{<gallery>}}
-{{<img alt="The homepage." src="homepage.png">}}
+![The homepage.](homepage.png)
 
-{{<img alt="Select the spreadsheet you want to use." src="select-spreadsheet.png">}}
+![Select the spreadsheet you want to use.](select-spreadsheet.png)
 
-{{<img alt="Programmatically copy the starter template into your own Google Drive." src="copy-template.png">}}
+![Programmatically copy the starter template into your own Google Drive.](copy-template.png)\
 
-{{<img alt="The expense form is a lot nicer now." src="expenses.png">}}
+![The expense form is a lot nicer now.](expenses.png)
 
-{{<img alt="Some charts to visualize your financial data." src="dashboard.png">}}
-{{</gallery>}}
+![Some charts to visualize your financial data.](dashboard.png)
 
 I used vanilla JavaScript to build the first version. Now the Balance Sheet is much more sophisticated in terms of its tech stacks:
 

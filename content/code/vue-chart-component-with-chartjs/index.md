@@ -492,7 +492,7 @@ Let's recreate the Vue application that once we've deleted before. Open up the `
 
 Also, add back the `src/App.vue` file again, this is where we'll put our Vue application root code.
 
-```markup
+```vue
 <template>
   <div class="box">
     <h2 class="title is-5">Monthly Sales Chart</h2>
@@ -525,7 +525,7 @@ Our chart should now be gone. It's just a title and someempty box now. Let's put
 
 Let's create a new Vue component for our monthly sales chart. Create a new file named 'MonthlySalesChart.vue' and store it within the `src/components` directory.
 
-```markup
+```vue
 <template>
   <canvas ref="myChart" width="500" height="300"></canvas>
 </template>
@@ -559,7 +559,7 @@ Also, notice how we're making use of the [`$refs`](https://vuejs.org/v2/api/#ref
 
 Now, go back to the `src/App.vue` file again. Let's register and use our new `MonthlySalesChart` component:
 
-```markup
+```vue
 <template>
   <div class="box">
     <h2 class="title is-5">Monthly Sales Chart</h2>
@@ -587,7 +587,7 @@ If things go well, we should see the line chart again:
 
 Let's take our Vue and Chart.js integration even further. We can abstract away the `MonthlySalesChart` component into a more general component: `LineChart`. Create a new file named `LineChart.vue` and store it within the `src/components` directory.
 
-```markup
+```vue
 <template>
   <canvas ref="myChart" :width="width" :height="height"></canvas>
 </template>
@@ -646,7 +646,7 @@ Notice how we turn every configurable value into a component's props:
 
 Let's modify our `src/component/MonthlySalesChart.vue` file to use this new `LineChart` component.
 
-```markup
+```vue
 <template>
   <line-chart
     :width="500"
@@ -684,7 +684,7 @@ If things go well, we should still have the same exact chart like before.
 
 Let's put back all previous datasets and Chart.js options to our `MonthlySalesChart.vue` file:
 
-```markup
+```vue
 <template>
   <line-chart
     :width="500"
@@ -755,7 +755,7 @@ We should now see the **Sales 2018** and the **Sales 2017** datasets again. The 
 
 Let's do some experiment with reactive datasets. Open up the `src/components/MonthlySalesChart.vue`. Then add two new checkboxes that will toggle which datasets to display on the chart.
 
-```markup
+```vue
 <template>
   <div>
     <div class="field is-grouped">

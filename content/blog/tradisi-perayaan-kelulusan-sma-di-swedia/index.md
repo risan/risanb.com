@@ -5,6 +5,7 @@ date: 2018-06-10T10:29:00+02:00
 categories: [writing]
 tags: [non-fiksi, swedia]
 images: [/blog/tradisi-perayaan-kelulusan-sma-di-swedia/dsc_2390.jpg]
+gallery: true
 ---
 Jika kamu mengunjungi Swedia di awal Bulan Juni, jangan kaget apabila mendapati iring-iringan truk yang mengangkut anak-anak muda keliling kota. Klakson bersahutan. Musik diputar keras. Mereka bersorak dan bernyanyi di sepanjang jalan. Ini merupakan tradisi perayaan kelulusan siswa-siswi *gymnasium*—setara sekolah menengah atas—di Swedia.
 

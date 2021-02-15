@@ -1,7 +1,7 @@
 ---
 title: Add Postmark's Tag in Laravel
 date: 2020-02-09T20:45:00+07:00
-description: An easy way to add a Postmark's tag in Laravel.
+description: An easy way to add a Postmark's tag in Larav
 categories: [snippet]
 tags: [laravel, php]
 images: [/img/laravel.png]

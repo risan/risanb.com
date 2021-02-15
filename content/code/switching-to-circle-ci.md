@@ -1,7 +1,6 @@
 ---
 title: Switching to Circle CI
 date: 2020-01-26T22:15:00+07:00
-description: Switching from Travis CI to Circle CI to run the test suites for my JavaScript project.
 categories: [log]
 tags: [devops]
 images: [/img/circleci.png]

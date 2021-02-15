@@ -1,7 +1,6 @@
 ---
 title: Installing SQL Server on macOS
 date: 2018-02-13T15:18:00+02:00
-description: Good news, everyone! October last year, SQL Server 2017 for Linux finally went into general availability. We can now install SQL Server on macOS through Docker.
 categories: [tutorial]
 tags: [devops, docker, macos]
 images: [/code/installing-sql-server-on-macos/og.jpg]

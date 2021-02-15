@@ -1,7 +1,6 @@
 ---
 title: How to Clear Nunjucks Cache
 date: 2019-01-14T21:01:00+02:00
-description: Learn how to clear Nunjucks compiled template cache.
 categories: [snippet]
 tags: [javascript, node]
 images: [/img/nunjucks.png]

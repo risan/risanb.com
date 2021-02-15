@@ -1,7 +1,6 @@
 ---
 title: Incorporating Vue UI with a Traditional Laravel Login Flow
 date: 2020-03-22T21:21:00+07:00
-description: A simple trick to incorporate Vue-based UI with a traditional session-based Laravel login flow.
 categories: [snippet]
 tags: [javascript, laravel, vue]
 ---

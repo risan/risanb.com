@@ -1,7 +1,6 @@
 ---
 title: Lazy Load Google Maps API
 date: 2019-04-26T19:31:00+02:00
-description: How to create a simple function to lazy load the Google Maps JavaScript API library.
 categories: [log]
 tags: [javascript, maps]
 images: [/img/google-maps.png]

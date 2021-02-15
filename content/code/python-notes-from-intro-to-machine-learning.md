@@ -1,7 +1,6 @@
 ---
 title: Python Notes from Intro to Machine Learning
 date: 2018-04-14T10:00:00+02:00
-description: Notes and code snippets of Python that I've been collecting so far throughout the "Intro to Machine Learning" course.
 categories: [log]
 tags: [python, machine-learning]
 images: [/img/python.png]

@@ -5,6 +5,7 @@ date: 2018-06-07T04:30:00+02:00
 categories: [journal]
 tags: [stockholm, swedia]
 images: [/blog/jalan-jalan-singkat-di-ostermalm/dsc_2356.jpg]
+gallery: true
 ---
 Minggu kemarin, saya sengaja jalan-jalan ke daerah Östermalm. Cuaca sangat cerah dan suhu hari itu begitu panas—sekira 27 hingga 30 derajat Celsius. Membuat kerongkongan kian kering di tengah jam puasa yang panjang.
 

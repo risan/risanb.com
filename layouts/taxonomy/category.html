@@ -1,0 +1,14 @@
+{{ define "title" }}Category: {{ .Title }} | {{ .Site.Title }}{{ end}}
+{{ define "main" }}
+<h1>Category: {{ .Title }}</h1>
+
+<ul>
+    {{ range .Pages }}
+    <li>
+        <a href="{{ .Permalink }}">
+            {{ .Title }}
+        </a>
+    </li>
+    {{ end }}
+</ul>
+{{ end }}
