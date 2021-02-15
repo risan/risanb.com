@@ -36,10 +36,6 @@ $ hugo -D
 
 The static files will be generated at the `public` directory.
 
-## Credits
-
-* The Earth icon by [Fauzan Adiima](https://iconscout.com/contributors/fauzanadiima).
-
 ## License
 
 MIT © [Risan Bagja Pradana](https://risanb.com)
