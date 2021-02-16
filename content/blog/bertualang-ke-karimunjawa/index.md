@@ -6,9 +6,8 @@ description: Pada akhir bulan Juli tahun 2011 silam, saya dan kedua kawan kuliah
 categories: [travel]
 tags: [jawa-tengah, indonesia, kuliah]
 images: [/blog/bertualang-ke-karimunjawa/Karimunjawa.jpg]
-gallery: true
 ---
-{{<img alt="Pulau Karimunjawa dan Pulau Kemujan dari udara. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15406744991/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Karimunjawa.jpg">}}
+![Pulau Karimunjawa dan Pulau Kemujan dari udara. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15406744991/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))](Karimunjawa.jpg)
 
 Sembilan tahun yang lalu—atau tepatnya pada akhir bulan Juli tahun 2011 silam, saya dan kedua kawan kuliah saya melancong ke Kepulauan Karimunjawa. Sembilan tahun tentu bukan waktu yang sebentar, banyak sekali detail perjalanan yang tidak dapat saya ingat. Belum lagi dokumentasi foto yang sangat minim. Saat itu kami bertiga kompak untuk meninggalkan *handphone* di tempat kami menginap. Maklum saja, dari setiap perjalanan ke pantai sebelumnya, ada saja *handphone* yang menjadi tumbal. Rusak tercebur ke dalam air.
 
@@ -22,7 +21,7 @@ Sorenya kami segera bertolak ke *pool* bus Bandung Express yang ada di Jalan Paj
 
 Tak jauh dari situ, kami juga melihat *pool* bus Nusantara. Di kemudian hari kami tahu bahwa bus Nusantara juga melayani rute Bandung-Jepara. Bahkan rutenya lewat tepat di depan gerbang Pelabuhan Kartini—pelabuhan menuju Karimunjawa. Dengan membayar 85 ribu, kita bisa mendapatkan makan malam dan armada bus yang relatif lebih bagus kala itu. Hal ini baru kami ketahui setelah kami berada di atas kapal feri yang tengah menuju Karimunjawa. Dari seorang penyelenggara tur wisata yang biasa membawa pengunjung dari Bandung ke Kepulauan Karimunjawa.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Jalur Pantura macet malam itu. Saat itu tepat tujuh hari menuju bulan Ramadan. Jadi maklum banyak proyek perbaikan jalan yang tengah *digeber* untuk menghadapi arus mudik. Hal ini membuat kami gelisah. Pasalnya kami harus mengejar kapal feri menuju Karimunjawa yang berangkat pukul 7:30. Padahal bila jalanan lancar saja, bus biasanya baru sampai Jepara pukul tujuh. Di tengah perjalanan bus kami juga terpaksa mengangkut penumpang dari bus lain yang mengalami kecelakaan lalu-lintas. Bus tersebut diseruduk sebuah truk dari belakang. Beruntung tidak ada yang terluka sedikit pun.
 
@@ -34,7 +33,7 @@ Di kejauhan petugas di dermaga melambai-lambaikan tangannya ke arah kami, memint
 
 Seperti sebuah keajaiban rasanya masih bisa mengejar kapal feri yang harusnya sudah pergi meninggalkan Pelabuhan Kartini beberapa saat yang lalu. Mungkin kami adalah penumpang terakhir yang naik ke atas kapal. Karena tak lama, Sang Nahkoda membunyikan klakson angin kapalnya. Kapal pun berlayar menuju lauatan lepas. Menuju Kepulauan Karimunjawa.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Kapal feri yang kami gunakan untuk menyebrang ke Karimunjawa bernama KMP Muria. Kapal yang dioperasikan oleh PT ASDP ini dibuat pada tahun 1996. Dengan panjang tak lebih dari 40 meter, kapal feri ini hanya memiliki volume kurang dari 420 *gross tonnage*.[^1] Ia bisa menampung sekira 300 penumpang. Dengan geladak dasarnya yang bisa menampung beberapa truk dan kendaraan penumpang lainnya. Kapal ini ditenagai oleh sepasang mesin yang masing-masing mampu memuntahkan tenaga sebesar 530 daya kuda. Dengan kecepatan maksimum hingga 7 knot, perjalanan Jepara-Karimunjawa bisa ditempuh dalam 6 hingga 7 jam.
 
@@ -44,7 +43,7 @@ Kala itu kapal cepat ke Karimunjawa pun sudah tersedia. KMC Kartini 1 namanya. K
 
 Sejak tahun 2012 ada juga kapal cepat Express Bahari yang dioperasikan PT Pelayaran Sakti Inti Makmur. Dengan waktu tempuh sekira 2 jam saja, kini kapal cepat Express Bahari melayani rute Jepara-Karimunjawa setiap harinya.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Di dalam kapal kami memutuskan untuk duduk di geladak dasar; yang sebenarnya ditujukan untuk kargo dan parkir kendaraan bermotor. Di sana kami bisa lebih bebas meregangkan otot dan tiduran. Kami bergantian pergi ke dek atas untuk cuci muka dan sarapan. Tidak banyak pilihan. Saya memesan Popmie dan secangkir kopi instan untuk mengisi perut yang kosong.
 
@@ -56,21 +55,19 @@ Di kapal kami juga berkenalan dengan Kang Apit. Beliau menyelenggarakan tur wisa
 
 Klakson angin kapal pun nyaring berbunyi. Pertanda kapal akan segera merapat di dermaga.
 
-{{<gallery>}}
-{{<img alt="Bangunan Kura-Kura Ocean Park yang berbentuk penyu di Pantai Kartini, Jepara. (Sumber [Wikimedia Commons](https://id.wikipedia.org/wiki/Berkas:Pantai_Kartini_Jepara.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Pantai_Kartini_Jepara.jpg">}}
+![Bangunan Kura-Kura Ocean Park yang berbentuk penyu di Pantai Kartini, Jepara. (Sumber [Wikimedia Commons](https://id.wikipedia.org/wiki/Berkas:Pantai_Kartini_Jepara.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Pantai_Kartini_Jepara.jpg)
 
-{{<img alt="Bayang-bayang Gunung Muria tampak di kejauhan. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9467399360/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))" src="Gunung_Muria.jpg">}}
+![Bayang-bayang Gunung Muria tampak di kejauhan. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9467399360/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))](Gunung_Muria.jpg)
 
-{{<img alt="KMP Muria tengah sandar di Pelabuhan Kartini Jepara. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KMP_Muria_Pelabuhan_Kartini_Jepara.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="KMP_Muria_Pelabuhan_Kartini_Jepara.jpg">}}
+![KMP Muria tengah sandar di Pelabuhan Kartini Jepara. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KMP_Muria_Pelabuhan_Kartini_Jepara.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](KMP_Muria_Pelabuhan_Kartini_Jepara.jpg)
 
-{{<img alt="KMP Siginjai di Dermaga Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KMP_Siginjai.jpg) oleh [Agathavidya](https://commons.wikimedia.org/wiki/User:Agathavidya))" src="KMP_Siginjai.jpg">}}
+![KMP Siginjai di Dermaga Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KMP_Siginjai.jpg) oleh [Agathavidya](https://commons.wikimedia.org/wiki/User:Agathavidya))](KMP_Siginjai.jpg)
 
-{{<img alt="Suasana dermaga utama Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Port_of_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Port_of_Karimun_Jawa.jpg">}}
+![Suasana dermaga utama Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Port_of_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Port_of_Karimun_Jawa.jpg)
 
-{{<img alt="Pulau Karimunjawa yang berbukit-bukit. (Sumber [Wikimedia Commons](https://id.wikipedia.org/wiki/Berkas:Karimun_Jawa_Island_view_from_Port_of_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Karimun_Jawa_Island_view_from_Port_of_Karimun_Jawa.jpg">}}
-{{</gallery>}}
+![Pulau Karimunjawa yang berbukit-bukit. (Sumber [Wikimedia Commons](https://id.wikipedia.org/wiki/Berkas:Karimun_Jawa_Island_view_from_Port_of_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Karimun_Jawa_Island_view_from_Port_of_Karimun_Jawa.jpg)
 
-{{<section-break>}}
+<hr class="section-break">
 
 Selama di Karimunjawa kami tinggal bersama keluarga Mas Saba. Bersama ayah dan ibu beliau. Keluarga Mas Saba benar-benar baik sekali kepada kami. Mereka memperlakukan kami seperti keluarganya sendiri. Kami ditempatkan di sebuah kamar yang berisi beberapa kasur kapuk lengkap dengan kelambunya. Makan dan minum pun disediakan oleh keluarga beliau. Rupanya Kang Apit pun saat pertama kali berkunjung ke Karimunjawa, ditampung oleh keluarga Mas Saba.
 
@@ -82,21 +79,19 @@ Pak Yitno sendiri pembawaannya ramah dan jenaka. Senyum selalu tersungging dari 
 
 Pak Yitno berprofesi sebagai nelayan. Sama seperti ayah Mas Saba, beliau juga sudah melanglang buana ke seantero perairan Nusantara. Suatu waktu juga beliau pernah menjadi seorang nelayan kompresor. Sebuah profesi yang sangat berbahaya. Beliau harus menyelam ke kedalaman dengan hanya mengandalkan asupan udara dari mesin kompresor yang biasa kita temui di tukang tambal ban. Padahal tak sedikit kasus nelayan kompresor yang mengalami kelumpuhan bahkan kematiaan akibat buruknya standard keamanan yang diterapkan. Tapi sekarang beliau lebih sering menjadi pemandu wisata. Beliau lah yang menemani kami dan rombongan Kang Apit untuk menjelajahi pulau-pulau yang ada di Karimunjawa.
 
-{{<gallery>}}
-{{<img alt="Suasana perkampungan di Pulau Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jl_Ahmad_Dahlan_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Jl_Ahmad_Dahlan_Karimun_Jawa.jpg">}}
+![Suasana perkampungan di Pulau Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jl_Ahmad_Dahlan_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Jl_Ahmad_Dahlan_Karimun_Jawa.jpg)
 
-{{<img alt="Rumah panggung milik warga di Karimunjawa. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812676361/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Rumah_Panggung.jpg">}}
+![Rumah panggung milik warga di Karimunjawa. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812676361/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Rumah_Panggung.jpg)
 
-{{<img alt="Banyak rumah warga yang terpasang parabola untuk menangkap siaran televisi. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948252147/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Rumah_Parabola.jpg">}}
+![Banyak rumah warga yang terpasang parabola untuk menangkap siaran televisi. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948252147/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Rumah_Parabola.jpg)
 
-{{<img alt="Warga tengah bercengraka di bawah rindangnya pohon. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948253817/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Warga_Bercengkrama.jpg">}}
+![Warga tengah bercengraka di bawah rindangnya pohon. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948253817/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Warga_Bercengkrama.jpg)
 
-{{<img alt="Peta Kepulauan Karimunjawa terpampang tak jauh dari alun-alun. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jalan_Pemuda_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Jalan_Pemuda_Karimun_Jawa.jpg">}}
+![Peta Kepulauan Karimunjawa terpampang tak jauh dari alun-alun. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jalan_Pemuda_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Jalan_Pemuda_Karimun_Jawa.jpg)
 
-{{<img alt="Suasana Alun-Alun Karimunjawa di malam hari. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948257247/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Alun_Alun_Karimunjawa.jpg">}}
-{{</gallery>}}
+![Suasana Alun-Alun Karimunjawa di malam hari. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948257247/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Alun_Alun_Karimunjawa.jpg)
 
-{{<section-break>}}
+<hr class="section-break">
 
 Karimunjawa terletak di lepas Laut Jawa. Sekira 80 kilometer di Barat Laut dari Kabupaten Jepara. Ia terdiri dari 27 gugusan pulau. Hanya lima pulau yang berpenghuni: Karimunjawa, Kemujan, Nyamuk, Parang dan Genting.
 
@@ -118,27 +113,25 @@ Adapun luas hutan hujan tropis dataran rendahnya mencapai hampir 1.300 hektare; 
 
 ![Peta Kepulauan Karimunjawa dan area terumbu karangnya. (Sumber [ResearchGate](https://www.researchgate.net/figure/Map-of-islands-and-the-coral-reef-areas-within-Karimunjawa-National-Park-boundaries_fig2_271507746) oleh [Siham Afatta](https://www.researchgate.net/profile/Siham_Afatta) hasil modifikasi dari peta [Wildlife Conservation Society](https://www.wcs.org/))](Karimunjawa_Map.png)
 
-{{<gallery>}}
-{{<img alt="Warna-warni terumbu karang di perairan Karimunjawa. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15409583472/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Terumbu_Karang.jpg">}}
+![Warna-warni terumbu karang di perairan Karimunjawa. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15409583472/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))](Terumbu_Karang.jpg)
 
-{{<img alt="Ikan giru—atau ikan badut—tengah bersembunyi di balik anemon. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15222682049/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Ikan_Giru.jpg">}}
+![Ikan giru—atau ikan badut—tengah bersembunyi di balik anemon. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15222682049/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))](Ikan_Giru.jpg)
 
-{{<img alt="Kondisi jalan yang menghubungkan Pulau Karimunjawa dan Pulau Kemujan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Road_to_Dewadaru_Airport_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Road_to_Dewadaru_Airport_Karimun_Jawa.jpg">}}
+![Kondisi jalan yang menghubungkan Pulau Karimunjawa dan Pulau Kemujan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Road_to_Dewadaru_Airport_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Road_to_Dewadaru_Airport_Karimun_Jawa.jpg)
 
-{{<img alt="Dari data BPS tahun 2017, total luas pesawahan di Karimunjawa hanya 18 hektare. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Paddy_fields_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Paddy_fields_Karimun_Jawa.jpg">}}
+![Dari data BPS tahun 2017, total luas pesawahan di Karimunjawa hanya 18 hektare. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Paddy_fields_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Paddy_fields_Karimun_Jawa.jpg)
 
-{{<img alt="Pohon dewadaru yang ada di Bandara Dewadaru Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mesua_ferrea_L._Dewadaru_Airport_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Dewadaru_Airport_Karimun_Jawa.jpg">}}
+![Pohon dewadaru yang ada di Bandara Dewadaru Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mesua_ferrea_L._Dewadaru_Airport_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Dewadaru_Airport_Karimun_Jawa.jpg)
 
-{{<img alt="Bibit-bibit pohon dewadaru. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bibit_pohon_Dewadaru_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Bibit_pohon_Dewadaru_Karimun_Jawa.jpg">}}
+![Bibit-bibit pohon dewadaru. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bibit_pohon_Dewadaru_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Bibit_pohon_Dewadaru_Karimun_Jawa.jpg)
 
-{{<img alt="Rimbunnya hutan bakau di Kepulauan Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Legon_Lele_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Mangrove_Karimun_Jawa1.jpg">}}
+![Rimbunnya hutan bakau di Kepulauan Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Legon_Lele_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Mangrove_Karimun_Jawa1.jpg)
 
-{{<img alt="Deretan pohon bakau yang tumbuh di pesesir Pulau Menyawakan. (Sumber [Flickr](https://www.flickr.com/photos/dany13/17329317461/) oleh [dany13](https://www.flickr.com/photos/dany13/))" src="Mangrove_Menyawakan_Island.jpg">}}
+![Deretan pohon bakau yang tumbuh di pesesir Pulau Menyawakan. (Sumber [Flickr](https://www.flickr.com/photos/dany13/17329317461/) oleh [dany13](https://www.flickr.com/photos/dany13/))](Mangrove_Menyawakan_Island.jpg)
 
-{{<img alt="Hutan bakau di Pulau Kemujan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/24940547178/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mangrove_Kemujan.jpg" size="medium">}}
-{{</gallery>}}
+![Hutan bakau di Pulau Kemujan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/24940547178/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Mangrove_Kemujan.jpg)
 
-{{<section-break>}}
+<hr class="section-break">
 
 Selama dua hari kami mengikuti tur *island hopping* bersama rombongan dari [Karjaw Vacation](https://karjawvacation.wordpress.com/) yang dikelola oleh Kang Apit. Hari pertama kami *snorkeling* di Pulau Tengah—pulau kecil yang berada di Timur Pulau Kemujan. Di sana kami juga makan siang dengan beragam jenis ikan laut segar yang dibakar langsung di tempat.
 
@@ -152,27 +145,25 @@ Karena dianggap jinak, para pengunjung pun dapat berenang bersama hiu-hiu yang a
 
 > Saya pribadi tidak mendukung ide penangkaran hewan non-ternak seperti ini. Apalagi bila hewan tersebut buas dan dilindungi. Biarkan hewan-hewan tersebut hidup bebas di habitat asalnya.
 
-{{<gallery>}}
-{{<img alt="Wisma Apung—penginapan sekaligus tempat penangkaran hiu di lepas Pulau Menjangan Besar. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pulau_Menjangan_Besar_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Wisma_Apung_Karimun_Jawa.jpg">}}
+![Wisma Apung—penginapan sekaligus tempat penangkaran hiu di lepas Pulau Menjangan Besar. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pulau_Menjangan_Besar_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Wisma_Apung_Karimun_Jawa.jpg)
 
-{{<img alt="Pulau Menjangan Besar. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Wisma_Apung_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Pulau_Menjangan_Besar_Karimun_Jawa.jpg">}}
+![Pulau Menjangan Besar. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Wisma_Apung_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Pulau_Menjangan_Besar_Karimun_Jawa.jpg)
 
-{{<img alt="Penangkaran hiu di Pulau Menjangan Besar. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9464585447/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))" src="Hiu_di_Penangkaran.jpg">}}
+![Penangkaran hiu di Pulau Menjangan Besar. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9464585447/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))](Hiu_di_Penangkaran.jpg)
 
-{{<img alt="Perahu-perahu yang mengangkut wisatawan di Karimunjawa (Sumber [Flickr](https://flickr.com/photos/davydemaline/9464593233/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))" src="Perahu_Pengunjung.jpg">}}
+![Perahu-perahu yang mengangkut wisatawan di Karimunjawa (Sumber [Flickr](https://flickr.com/photos/davydemaline/9464593233/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))](Perahu_Pengunjung.jpg)
 
-{{<img alt="Pemandangan dari Bukit Love—tampak Pulau Menjangan Besar dan Menjangan Kecil di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948242337/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Bukit_Love.jpg">}}
+![Pemandangan dari Bukit Love—tampak Pulau Menjangan Besar dan Menjangan Kecil di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/23948242337/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Bukit_Love.jpg)
 
-{{<img alt="Pulau Karimunjawa yang berbukit-bukit. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9467383244/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))" src="Karimunjawa_Island.jpg">}}
+![Pulau Karimunjawa yang berbukit-bukit. (Sumber [Flickr](https://flickr.com/photos/davydemaline/9467383244/) oleh [Davy Demaline](https://flickr.com/photos/davydemaline/))](Karimunjawa_Island.jpg)
 
-{{<img alt="Mesjid Agung Karimunjawa dengan menaranya yang menjulang di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812651541/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))" src="Mesjid_Agung_Karimunjawa.jpg">}}
+![Mesjid Agung Karimunjawa dengan menaranya yang menjulang di kejauhan. (Sumber [Flickr](https://flickr.com/photos/mariavanjesse/38812651541/) oleh [Ad Bercht](https://flickr.com/photos/mariavanjesse/))](Mesjid_Agung_Karimunjawa.jpg)
 
-{{<img alt="Pantai Barakuda yang ada di sisi Timur Pulau Kemujan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Barakuda_Beach_2_Karimun_Jawa.jpg) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Barakuda_Beach_2_Karimun_Jawa.jpg">}}
+![Pantai Barakuda yang ada di sisi Timur Pulau Kemujan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Barakuda_Beach_2_Karimun_Jawa.jpg) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Barakuda_Beach_2_Karimun_Jawa.jpg)
 
-{{<img alt="Pantai Legon Lele, sekira 5 km dari Alun-Alun Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mangrove_Karimun_Jawa1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Legon_Lele_Beach_Karimun_Jawa_3.jpg" size="medium">}}
-{{</gallery>}}
+![Pantai Legon Lele, sekira 5 km dari Alun-Alun Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mangrove_Karimun_Jawa1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Legon_Lele_Beach_Karimun_Jawa_3.jpg)
 
-{{<section-break>}}
+<hr class="section-break">
 
 Tur hari kedua dimulai dengan *snorkeling* di Pulau Menjangan Kecil. Pulau ini terletak di Barat Daya dermaga utama Karimunjawa, tak jauh dari Pulau Menjangan Besar. Perairan di pulau ini menjadi salah satu lokasi favorit untuk menyelam dan *snorkeling*. Dengan rata-rata jarak pandang di dalam perairannya yang mencapai 10 meter, kita bisa dengan leluasa menikmati keindahan alam bawah lautnya. Kawanan kakap dan [ikan ekor kuning](https://en.wikipedia.org/wiki/Caesionidae) bisa kita temui di sini.[^10]
 
@@ -194,27 +185,25 @@ Hampir tidak terdengar obrolan di antara kami. Hanya deru motor kapal dan debur 
 
 Malam itu adalah malam terakhir kami di Pulau Karimunjawa. Lepas makan malam, kami duduk-duduk di dermaga. Kami kembali terpukau. Milyaran bintang bertebaran di langit malam itu. Beberapa kali kami melihat bintang jatuh yang melintas di angkasa. Dengan mata telanjang, untuk pertama kalinya kami melihat bentangan cakram Galaksi Bimasakti. Tak pernah kami melihat bintang sebanyak itu di langit.
 
-{{<gallery>}}
-{{<img alt="Pulau Menjangan Kecil. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pulau_surga_tersembunyi.jpg) oleh Suha Aisyah)" src="Pulau_Menjangan_Kecil.jpg">}}
+![Pulau Menjangan Kecil. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Pulau_surga_tersembunyi.jpg) oleh Suha Aisyah)](Pulau_Menjangan_Kecil.jpg)
 
-{{<img alt="Pulau Geleang di kejauhan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Geleang_Island_Karimun_Jawa_2.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Geleang_Island_Karimun_Jawa_2.jpg">}}
+![Pulau Geleang di kejauhan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Geleang_Island_Karimun_Jawa_2.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Geleang_Island_Karimun_Jawa_2.jpg)
 
-{{<img alt="Suasana di Pulau Cemara Kecil yang tenang. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cemara_Kecil_Island_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Cemara_Kecil_Island_Karimun_Jawa.jpg">}}
+![Suasana di Pulau Cemara Kecil yang tenang. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cemara_Kecil_Island_Karimun_Jawa.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Cemara_Kecil_Island_Karimun_Jawa.jpg)
 
-{{<img alt="Hamparan pasir putih di ujung Pulau Cemara Kecil. (Sumber [Pexels](https://www.pexels.com/photo/beach-jawa-karimun-pantai-944492/) oleh [Alief Baldwin](https://www.pexels.com/@alief-baldwin-325760))" src="Cemara_Kecil_Island.jpg">}}
+![Hamparan pasir putih di ujung Pulau Cemara Kecil. (Sumber [Pexels](https://www.pexels.com/photo/beach-jawa-karimun-pantai-944492/) oleh [Alief Baldwin](https://www.pexels.com/@alief-baldwin-325760))](Cemara_Kecil_Island.jpg)
 
-{{<img alt="Suasana Pantai Ujung Gelam. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_1.jpg">}}
+![Suasana Pantai Ujung Gelam. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_1.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Ujung_Gelam_Beach_Karimun_Jawa_1.jpg)
 
-{{<img alt="Deretan batu-batu besar di beberapa bagian Pantai Ujung Gelam. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_2.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_2.jpg">}}
+![Deretan batu-batu besar di beberapa bagian Pantai Ujung Gelam. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_2.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Ujung_Gelam_Beach_Karimun_Jawa_2.jpg)
 
-{{<img alt="Suasana saat matahari terbenam di Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sunset_in_Karimun_Jawa.jpg) oleh Amelia.angela2210)" src="Sunset_in_Karimun_Jawa.jpg">}}
+![Suasana saat matahari terbenam di Karimunjawa. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sunset_in_Karimun_Jawa.jpg) oleh Amelia.angela2210)](Sunset_in_Karimun_Jawa.jpg)
 
-{{<img alt="Kawanan burung kembali ke sarangnya kala senja tiba. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15223316378/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))" src="Burung_Burung_Senja.jpg">}}
+![Kawanan burung kembali ke sarangnya kala senja tiba. (Sumber [Flickr](https://flickr.com/photos/18628926@N00/15223316378/) oleh [Tiak.](https://flickr.com/photos/18628926@N00/))](Burung_Burung_Senja.jpg)
 
-{{<img alt="Beberapa pohon kelapa condong ke lautan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))" src="Ujung_Gelam_Beach_Karimun_Jawa_3.jpg" size="medium">}}
-{{</gallery>}}
+![Beberapa pohon kelapa condong ke lautan. (Sumber [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ujung_Gelam_Beach_Karimun_Jawa_3.JPG) oleh [Midori](https://commons.wikimedia.org/wiki/User:Midori))](Ujung_Gelam_Beach_Karimun_Jawa_3.jpg)
 
-{{<section-break>}}
+<hr class="section-break">
 
 Esoknya kami harus pulang meninggalkan Karimunjawa. Rencananya kami akan mengunjungi Semarang dan Yogyakarta sebelum kembali ke Bandung. Kami kembali menggunakan kapal KMP Muria untuk menyebrang ke Jepara. Belajar dari tragedi sebelumnya, kali ini saya dan Gita sudah dipersenjatai dengan Antimo—obat anti mabuk. Kami minum satu tablet obat anti mabuk tersebut sebelum naik ke atas kapal. Hanya Zaki yang tidak minum—ia lebih tangguh menghadapi goyangan kapal daripada kami berdua.
 

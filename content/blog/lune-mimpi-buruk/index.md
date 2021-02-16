@@ -38,7 +38,7 @@ Selesai minum obat, kusimpan kembali piring dan gelas yang sudah kosong itu ke a
 
 Cukup lama aku melihat ke luar jendela. Tampak orang-orang hilir mudik berbelanja di bawah lampion-lampion yang warna-warni. Caldera merupakan salah satu pusat perbelanjaan yang populer di kalangan para pelancong. Sejumlah toko menjual komoditas khas daerah kami: manisan kelapa, kalung-kalung kerang, perlengkapan berlayar, bola angin, daging kelelawar, alat-alat memancing, ikan-ikan kering dan segala hal berbau kepulauan. Lama kelamaan mataku terasa berat. Kubaringkan kembali badanku sambil memeluk bantal.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Kabut tebal yang pekat dan dingin mengelilingiku. Nafasku yang memburu membentuk uap-uap putih seperti asap cerutu yang keluar dari mulutku. Tetesan-tetesan air hujan yang dingin membuat badanku menggigil. Pandangan mataku tidak lebih dari lima langkah. Kabut ini benar-benar merepotkan.
 
@@ -144,7 +144,7 @@ Kudengar lolongan keras dari lorong di belakangku: serigala itu masih mengejarku
 
 Bola-bola cahaya merah yang redup berjejalan memenuhi lorong pengap itu. Seperti bola-bola mata dari monster bawah tanah. Kedua kakiku terus mengayun, kemudian terdengar lolongan keras dari arah belakang. Sesaat kemudian gemuruh yang mengerikan bergema di lorong. Tubuhku terhempas dan tersentak ke depan.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Tetesan keringat dingin menggenang di keningku yang berdenyut-denyut. Kepalaku kembali terasa perih. Dengan nafas yang terburu-buru kutegakan tubuh. Mimpi buruk rupanya. Mimpi yang sama.
 

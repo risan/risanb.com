@@ -22,7 +22,7 @@ Sesampainya di RSCM, Supriono kembali menjelaskan bahwa putrinya Khaerunisa suda
 
 "Saya hanya sekali membawa Khaerunisa ke Puskesmas. Saya sudah tidak punya uang lagi untuk membawanya ke Puskesmas. Meski biaya berobat ke puskesmas hanya 4 ribu rupiah, saya tidak sanggup membayarnya. Saya hanya seorang pemulung kardus, gelas dan botol-botol plastik, penghasilan saya pun tak seberapa, paling hanya 10 ribu rupiah per hari." Tutur Supriono yang tinggal bersama kedua anaknya di kolong perlintasan kereta di Cikini.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Tidak kuasa lagi menahan penyakitnya, gadis kecil bernama Khaerunisa itu akhirnya dipanggil sang Khalik. Balita yang belum genap berumur empat tahun itu menutup usianya di dalam gerobak berkarat yang biasa digunakan ayahnya untuk menyambung nyawa.
 
@@ -44,7 +44,7 @@ Di RSCM Supriono hanya terduduk pasrah menunggu jenazah putrinya selesai diautop
 
 Lagi-lagi karena tidak mempunyai uang, Supriono terpaksa berjalan menggandeng Musriski sambil menggendong Khaerunisa. Warga yang merasa iba kepadanya kemudian memberikan uang alakadarnya untuk ongkos ke Bogor. Para pedagang di RSCM juga memberikan Supriono dan Muriski air minum sebagai bekal perjalanan.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Cerita di atas terinspirasi dari kisah nyata. Kisah tersebut saya baca di koran Warta Kota. Kejadiannya terjadi tanggal 5 Juni 2008. Sebuah fakta memilukan yang saya coba tuliskan kembali dengan kata-kata saya pribadi.
 

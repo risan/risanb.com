@@ -60,7 +60,7 @@ $ yarn serve
 
 Once the development server is running, open the [localhost:8080](http://localhost:8080) address on your browser. You should see your Vue project.
 
-{{<img alt="Vue CLI new project starter" src="01-vue-cli-project.png">}}
+![Vue CLI new project starter](01-vue-cli-project.png)
 
 Press `CTRL + c` to stop the development server. We're going to code from scratch, so we won't need any of the provided boilerplate code on `src` directory. Let's delete them!
 
@@ -143,7 +143,7 @@ $ yarn serve
 
 You should now see your line chart plotted on the browser!
 
-{{<img alt="Our First Line Chart" src="02-first-line-chart.png">}}
+![Our First Line Chart](02-first-line-chart.png)
 
 Note that even though we set the `width` to `500` and the `height` to `300`, the generated chart will occupy the entire screen. That's because, by default, Chart.js will generate a responsive chart that will occupy its parent container. You may also notice that even though it's stretched out, by default Chart.js will still maintain the original aspect ratio (5:3).
 
@@ -221,7 +221,7 @@ new Chart(document.getElementById('my-chart'), {
 
 Now, if we visit the project's URL, we should see the similar result:
 
-{{<img alt="With Multiple Datasets" src="03-multiple-datasets.png">}}
+![With Multiple Datasets](03-multiple-datasets.png)
 
 ### Configuring Our Line Chart
 
@@ -260,7 +260,7 @@ rgba(red, green, blue, alpha)
 
 If we check our project on the browser, we should now have a colorful chart like this:
 
-{{<img alt="Colorful Chart" src="04-colorful-chart.png">}}
+![Colorful Chart](04-colorful-chart.png)
 
 #### Configuring the Y-Axis Label
 
@@ -286,7 +286,7 @@ new Chart(document.getElementById('my-chart'), {
 
 Our line chart should now look like the following image.
 
-{{<img alt="Starts at Zero" src="05-starts-at-zero.png">}}
+![Starts at Zero](05-starts-at-zero.png)
 
 Also, wouldn't it be nice if we can put some dollar or other currency symbols on the y-axis? Let's put it then! But first, let's pull another library for number formatting: [Numeral.js](http://numeraljs.com). So we don't have to deal with the currency formatting on this tutorial 😛.
 
@@ -323,13 +323,13 @@ new Chart(document.getElementById('my-chart'), {
 
 The y-axis label should now have the currency symbol. Read more about all available [axes configuration](http://www.chartjs.org/docs/latest/axes/) and [labelling](http://www.chartjs.org/docs/latest/axes/labelling.html).
 
-{{<img alt="Formatting the Axis Label" src="06-format-axis-label.png">}}
+![Formatting the Axis Label](06-format-axis-label.png)
 
 #### Configuring the Tooltip
 
 Even though we already formatted the y-axis label, but if you hover or click on any of the data points, the displayed y-axis value is still not formatted.
 
-{{<img alt="Y-Axis Value is Not Formatted on Tooltip" src="07-default-tooltip.png">}}
+![Y-Axis Value is Not Formatted on Tooltip](07-default-tooltip.png)
 
 To get around this, we have to provide a function to the `tooltips.callbacks.label` options like this:
 
@@ -367,7 +367,7 @@ This `label` callback, received two arguments:
 
 If we check our project on the browser again, we should now have a nicely formatted data displayed on our tooltip.
 
-{{<img alt="Nicely Formatted Tooltip Data" src="08-formatted-tooltip.png">}}
+![Nicely Formatted Tooltip Data](08-formatted-tooltip.png)
 
 In our case, wouldn't it be nice if the tooltip can also display the sales amount from both of the datasets? To achieve this, we simply have to set the tooltip's `mode` to `index`:
 
@@ -393,7 +393,7 @@ new Chart(document.getElementById('my-chart'), {
 
 Now, when we hover to some data point, the tooltip should now display the sales amount from both datasets. Read more about all available [tooltip configuration](http://www.chartjs.org/docs/latest/configuration/tooltip.html) and [interaction modes](http://www.chartjs.org/docs/latest/general/interactions/modes.html#interaction-modes).
 
-{{<img alt="Nicely Formatted Tooltip Data" src="09-tooltip-index-mode.png">}}
+![Nicely Formatted Tooltip Data](09-tooltip-index-mode.png)
 
 ### Making it Prettier
 
@@ -453,7 +453,7 @@ Open the `public/index.html` file again, and let's add some simple [navbar](http
 
 I won't go into detail. It just some basic Bulma UI elements. Now we should have some decent looking layout.
 
-{{<img alt="Prettier with Bulma" src="10-prettier-with-bulma.png">}}
+![Prettier with Bulma](10-prettier-with-bulma.png)
 
 ## Integrating Chart.js into Vue
 
@@ -519,7 +519,7 @@ new Vue({
 
 Our chart should now be gone. It's just a title and someempty box now. Let's put back our chart!
 
-{{<img alt="Empty Vue App" src="11-empty-vue-app.png">}}
+![Empty Vue App](11-empty-vue-app.png)
 
 ### The Monthly Sales Chart Component
 
@@ -581,7 +581,7 @@ export default {
 
 If things go well, we should see the line chart again:
 
-{{<img alt="Monthly Sales Chart Component" src="12-monthly-sales-chart-component.png">}}
+![Monthly Sales Chart Component](12-monthly-sales-chart-component.png)
 
 ## The Line Chart Component
 
@@ -749,7 +749,7 @@ export default {
 
 We should now see the **Sales 2018** and the **Sales 2017** datasets again. The chart that we used to have: two different colors, currency formatted y-axis, and tooltip!
 
-{{<img alt="A Complete Monthly Sales Chart" src="13-vue-chart-full-config.png">}}
+![A Complete Monthly Sales Chart](13-vue-chart-full-config.png)
 
 ## Reactive Chart
 
@@ -832,7 +832,7 @@ export default {
 
 Open up your project on the browser. You should now see two checkboxes. What happens when you toggle both of these checkboxes? Nothing. If you have the [Vue Devtools](https://github.com/vuejs/vue-devtools) installed on your browser you could see that the `datasets` props on the `LineChart` component is indeed updated following these two checkboxes. But that won't trigger the underlying Chart.js to redraw the chart. Let's fix this!
 
-{{<img alt="The Chart Is Not Updated" src="the-chart-is-not-updated.gif">}}
+![The Chart Is Not Updated](the-chart-is-not-updated.gif)
 
 Edit the `src/components/LineChart.vue` file:
 
@@ -887,7 +887,7 @@ If the `datasets` prop is changed. We simply replace the `data.datasets` propert
 
 Now if you try to toggle the checkbox, the chart should be updated accordingly.
 
-{{<img alt="Togglable Chart Datasets" src="togglable-chart-datasets.gif">}}
+![Togglable Chart Datasets](togglable-chart-datasets.gif)
 
 Before the `LineChart` component instance is destroyed, it's a good practice to clear up all the object references and all the event listeners attached to the Chart.js instance. We can do so by calling the `destroy()` method on the Chart.js instance:
 

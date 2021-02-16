@@ -131,7 +131,7 @@ The first parameter is the DOM element where the map will be displayed. In our c
 
 Now if we open up our page in the browser, we should see our map is successfully loaded like this:
 
-{{<img alt="Our map is loaded on the page" src="01-google-maps.png">}}
+![Our map is loaded on the page](01-google-maps.png)
 
 ## Adding Marker to Your Map
 
@@ -160,7 +160,7 @@ It accepts a single argument: an object of marker's options. The `map` property 
 
 We should now see the marker placed on the map.
 
-{{<img alt="Marker on the map" src="02-google-maps-with-marker.png">}}
+![Marker on the map](02-google-maps-with-marker.png)
 
 ## Get User's Location
 
@@ -229,7 +229,7 @@ navigator.geolocation.getCurrentPosition(
 
 Open our page in the browser. It will ask your permission to get your current location. Click **Allow** to give it permission and proceed.
 
-{{<img alt="Permission to get your location" src="03-want-to-konw-your-location.png">}}
+![Permission to get your location](03-want-to-konw-your-location.png)
 
 > ⚠️ Geolocation API is only available in HTTPS
 >
@@ -237,13 +237,13 @@ Open our page in the browser. It will ask your permission to get your current lo
 
 If it's successful, you'll get your location printed on the console similar to this:
 
-{{<img alt="Location is successfully retrieved" src="04-location-retrieved-successfully.png">}}
+![Location is successfully retrieved](04-location-retrieved-successfully.png)
 
 ### Simulating User's Location on Chrome
 
 On Chrome, we can simulate the user's location. Open up your developer tools. Click on the three-vertical-dots button on the top-right of your developer tools screen. Click on **More tools** >> **Sensors** menu. It will bring a new tab named **Sensors** where you can easily override the position.
 
-{{<img alt="Sensors tab" src="05-sensors-tab.png">}}
+![Sensors tab](05-sensors-tab.png)
 
 There's also some presets for various city locations that we can choose from. Select some cities and reload the page, you should get the city's location printed on the console.
 
@@ -251,7 +251,7 @@ There's also some presets for various city locations that we can choose from. Se
 
 From the `Sensors` tab, you can also simulate the position unavailable error. From the drop-down select `Location unavailable` option and reload the page. You'll get an alert like this:
 
-{{<img alt="Location unavailable error" src="06-location-unavailable-error.png">}}
+![Location unavailable error](06-location-unavailable-error.png)
 
 We only got the error `code`, but the `message` property is empty. Apparently, the specification already specifies that this `message` property is for debugging only and not to be shown directly to the user. That's why we should rely on the `code` and provide our own error message instead.
 
@@ -553,7 +553,7 @@ function init() {
 
 Now we should get a nice user's coordinate and error at the bottom of the map.
 
-{{<img alt="Google Maps Geolocation Example" src="07-geolocation-example.gif">}}
+![Google Maps Geolocation Example](07-geolocation-example.gif)
 
 You can check out the [live demo](https://google-maps-geolocation.bitballoon.com/) and play around with it. You can also get the source for this tutorial on Github: [google-maps-geolocation-example](https://github.com/risan/google-maps-geolocation-example).
 

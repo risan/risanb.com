@@ -14,7 +14,7 @@ Sama halnya dengan Bumi Manusia, Arok Dedes rupanya merupakan karya tetralogi ya
 
 Novel ini tidak menceritakan tentang kutukan keris Empu Gandring yang akan jatuh tujuh turunan. Jauh dari semua kesan magis atau mistis, roman ini justru menceritakannya dengan sangat realistis. Tentang bagaimana siasat-siasat cerdik nan licik dijalankan untuk mengkudeta si pemilik singgasana.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Tunggul Ametung adalah seorang Sudra, seorang anak petani. Seorang perusuh dan pemimpin pemberontakan yang kemudian diangkat menjadi Akuwu di Tumapel oleh Kerajaan Kediri. Bersama Raja Kediri saat itu: Sri Kertajaya ia kembali melakukan praktik perbudakan yang telah lama hilang sejak zaman Erlangga. Rakyat menjadi sengsara. Tak sedikit sanak keluarga mereka dipaksa untuk bekerja sebagai budak. Menjadi pelayan di pekuwuan atau menjadi pendulang di tambang-tambang emas tanpa upah. Belum lagi pemerintahannya yang korup selalu menindas rakyat-rakyat kecil dan menetapkan upeti yang sangat memberatkan.
 

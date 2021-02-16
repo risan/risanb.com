@@ -5,7 +5,6 @@ date: 2018-06-14T08:35:00+02:00
 categories: [writing]
 tags: [swedia]
 images: [/blog/enam-hal-yang-mengagumkan-dari-swedia/dsc_0104.jpg]
-gallery: true
 ---
 Nyaris empat tahun berlalu sejak pertama kali saya menginjakan kaki di tanah Swedia. Sebelumnya saya bahkan tidak pernah berpelesir jauh hingga ke luar negeri. Paspor pun sebetulnya baru saya miliki beberapa minggu menjelang keberangkatan ke Swedia. Karenanya banyak hal baru yang membuat saya berdecak kagum saat tinggal di negeri Skandinavia ini.
 
@@ -17,7 +16,7 @@ Saya jarang menemukan sampah yang berserakan di jalanan, trotoar, ataupun di tem
 
 Pun begitu, di Kota Stockholm saya juga sering menemukan puntung-puntung rokok berserak di tepian rel kereta. Elevator di stasiun kereta bawah tanah juga kerap bau pesing—terutama di akhir pekan.
 
-{{<img alt="Suasana di Jalan Hornsgatan, Stockholm." src="img_2123.jpg">}}
+![Suasana di Jalan Hornsgatan, Stockholm](img_2123.jpg)
 
 ## Sistem Transportasi yang Baik
 
@@ -29,15 +28,13 @@ Armada-armadanya pun terawat dengan baik dan sangat nyaman. Dan yang paling pent
 
 Tentu kenyamanan sistem transportasi di Stockholm ini harus dibayar dengan kocek yang cukup dalam. Untuk orang dewasa, tiket transportasi untuk 30 hari harus ditebus dengan 860 kronor—hampir 1,3 juta rupiah. Sedangkan untuk pelajar dan lansia mendapat potongan; sehingga cukup membayar sebesar 590 Kronor—sekira 900 ribu rupiah (harga dan kurs per Mei 2019).
 
-{{<gallery>}}
-{{<img alt="Tunnelbana tengah melintas di daerah Gamla Stan." src="img_1373.jpg">}}
+![Tunnelbana tengah melintas di daerah Gamla Stan.](img_1373.jpg)
 
-{{<img alt="Kondisi di dalam salah satu gerbong Tunnelbana." src="img_2630.jpg">}}
+![Kondisi di dalam salah satu gerbong Tunnelbana.](img_2630.jpg)
 
-{{<img alt="Tram yang tengah parkir di Sergels Torg." src="dsc_0745.jpg">}}
+![Tram yang tengah parkir di Sergels Torg.](dsc_0745.jpg)
 
-{{<img alt="Kapal feri tengah berlayar menuju Gamla Stan." src="dsc_1874.jpg" size="large">}}
-{{</gallery>}}
+![Kapal feri tengah berlayar menuju Gamla Stan.](dsc_1874.jpg)
 
 ## Trotoar yang Layak
 
@@ -45,13 +42,11 @@ Hal lainnya yang membuat saya kagum adalah keberadaan trotoar yang layak untuk p
 
 Keberadaan trotoar yang baik ini berimbas pada tingginya jumlah pejalan kaki di Kota Stockholm. Dari data tahun 2012 lalu, 38% perjalanan di Kota Stockholm dilakukan dengan berjalan kaki. Angka ini relatif tinggi di antara kota-kota di Eropa lainnya. Bahkan untuk di pusat kota persentase perjalanan yang dilakukan dengan berjalan kaki ini mencapai hampir 54%.
 
-{{<gallery>}}
-{{<img alt="Trotoar yang luas dan jalur sepeda yang terpisah di sepanjang Strandvägen." src="dsc_0763.jpg">}}
+![Trotoar yang luas dan jalur sepeda yang terpisah di sepanjang Strandvägen](dsc_0763.jpg)
 
-{{<img alt="Jalan kendaraan bermotor dan jalur sepeda yang dipisahkan oleh kanal Riddarholmskanalen." src="img_1421.jpg">}}
+![Jalan kendaraan bermotor dan jalur sepeda yang dipisahkan oleh kanal Riddarholmskanalen](img_1421.jpg)
 
-{{<img alt="Para pesepeda melintasi Gamla Stan." src="img_5905.jpg" size="medium">}}
-{{</gallery>}}
+![Para pesepeda melintasi Gamla Stan](img_5905.jpg)
 
 ## Manajemen Pengolahan Sampah yang Baik
 
@@ -61,13 +56,13 @@ Masyarakat Swedia memang sudah terbiasa memisahkan sampah-sampah yang dapat di d
 
 Umumnya di stasiun daur ulang ini terdapat beberapa bak terpisah untuk beragam jenis sampah. Ada bak untuk sampah plastik, sampah kemasan karton, botol kaca bening, botol kaca berwarna, logam, serta bak untuk majalah dan koran. Bahkan di beberapa stasiun daur ulang ada juga bak khusus untuk alat-alat elektronik, bohlam, baterai, hingga furnitur.
 
-{{<img alt="Tempat penyortiran sampah daur ulang di salah satu apartemen." src="2015108190039.jpg">}}
+![Tempat penyortiran sampah daur ulang di salah satu apartemen.](2015108190039.jpg)
 
 ## Air Keran yang Dapat Diminum
 
 Satu hal lainnya yang sangat saya nikmati adalah: air keran yang dapat diminum langsung! Air minum yang dialirkan ke rumah-rumah warga ini berasal dari Danau Mälaren yang kemudian diolah di dua fasilitas pengolahan air milik *Stockholm Vatten och Avfall* di Norsborg dan Lovö. Setiap tahunnya lebih dari seribu sample acak diambil dan diteliti dari pelanggan untuk menjaga kualitas air minum.
 
-{{<img alt="Kota Stockholm dan danau Mälaren-nya." src="dsc_0104.jpg">}}
+![Kota Stockholm dan danau Mälaren-nya.](dsc_0104.jpg)
 
 ## Kota yang Hijau nan Asri
 
@@ -77,14 +72,12 @@ Warga dapat dengan mudah mengakses ruang terbuka hijau. Taman-taman kota yang as
 
 Wajar saja rasanya apabila Stockholm menjadi kota pertama yang menerima penghargaan *European Green Capital Award* pada tahun 2010 silam.
 
-{{<gallery>}}
-{{<img alt="Pengunjung tengah menikmati pemandangan di Hellasgården." src="20150516150239.jpg">}}
+![Pengunjung tengah menikmati pemandangan di Hellasgården.](20150516150239.jpg)
 
-{{<img alt="Rusa tengah merumput di Cagar Alam Judarskogen." src="dsc_0511.jpg">}}
+![Rusa tengah merumput di Cagar Alam Judarskogen.](dsc_0511.jpg)
 
-{{<img alt="Warga tengah memancing di kanal Djurgårdsbrunn." src="dsc_0867.jpg">}}
+![Warga tengah memancing di kanal Djurgårdsbrunn.](dsc_0867.jpg)
 
-{{<img alt="Pohon-pohon yang menguning di sepanjang kanal Djurgårdsbrunn." src="dsc_0993.jpg">}}
+![Pohon-pohon yang menguning di sepanjang kanal Djurgårdsbrunn.](dsc_0993.jpg)
 
-{{<img alt="Kapal yang membawa pelancong melintasi kanal Djurgårdsbrunn." src="dsc_1045.jpg" size="medium">}}
-{{</gallery>}}
+![Kapal yang membawa pelancong melintasi kanal Djurgårdsbrunn.](dsc_1045.jpg)

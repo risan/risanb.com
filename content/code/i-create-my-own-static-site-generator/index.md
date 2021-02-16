@@ -209,7 +209,7 @@ self.addEventListener('activate', event => {
 
 I'm really happy with my current blog setup. The look and feel are still simple. The performance is also better. It easily scored 100 on almost every [Lighthouse](https://developers.google.com/web/tools/lighthouse/) matrix categories.
 
-{{<img alt="It scored 100 on almost every Lighthouse matrix" src="lighthouse-report.png">}}
+![It scored 100 on almost every Lighthouse matrix](lighthouse-report.png)
 
 Hopefully, I don't easily seduce by the Dark Side again and put my effort on the writing part instead 🤞. There are also two more things that I haven't covered here:
 

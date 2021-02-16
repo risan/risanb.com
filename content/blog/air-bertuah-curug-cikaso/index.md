@@ -12,7 +12,7 @@ Di kursi belakang, jari-jemarinya yang halus menggenggam tempurung lutut kananku
 
 Di depan, Pak Bonang dengan liar memelintir setir ke kiri dan kanan. Membawa elf-nya meliuk-liuk deras di perbukitan. Elf berguncang keras. Melibas tikungan demi tikungan dengan kecepatan penuh. Sementara itu gadis asing berparas cantik di sampingkku ini masih enggan melepas genggamannya, malah semakin keras ia genggam. Tak jarang pula ia menyenderkan tubuhnya ke arahku, kala elf berbelok tajam ke kiri. Padahal aku sangat yakin, kalau laki-laki di samping kanannya itu adalah kekasihnya. "Seampuh inikah air dari Curug Cikaso?", tanyaku dalam hati. Wejangan si Kakek siang tadi, nyata terbukti: meminum air Curug Cikaso mudah mendatangkan jodoh!
 
-{{<section-break>}}
+<hr class="section-break">
 
 Siang belum juga genap, Pak Budi yang ramah dan gemar bercerita ini sudah men-*drop* kami di pintu gerbang Curug Cikaso. Kami yang masih setengah mengantuk karena perjalanan yang lumayan jauh, segera menghambur keluar dari angkot. Loketnya sangat sederhana, hanya sebuah pos yang diberi meja untuk pembelian karcis. Pengunjung diberi dua opsi untuk mencapai lokasi Curug Cikaso. Pertama dengan membayar 80 ribu rupiah untuk menyewa satu perahu menyisiri sungai Cikaso. Kedua dengan membayar 5 ribu rupiah per-orang untuk berjalan kaki menyisiri pematang sawah. Kami memilih opsi kedua. Kami pun didampingi seorang *guide* yang ditugasi untuk mengantar dan mengawasi pengunjung selama di Curug Cikaso. Pendampingan ini ditujukan untuk menghindari hal-hal yang tidak diinginkan.
 
@@ -32,7 +32,7 @@ Atas wejangan si Kakek, kami tidak berenang di aliran air terjun yang paling bes
 
 Meski paling kecil, alirannya tetap saja deras. Kolam yang dibentuk di bawah alirannya pun masih tetap dalam, mungkin sekitar 2 atau 3 meter. Di dasar kolamnya banyak terdapat batu-batu besar dan batang-batang pohon mati untuk pijakan, jadi tidak perlu khawatir bila lelah berenang saat mencapai aliran air terjun.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Meski tidak percaya, kami tetap saja ingin mencoba minum langsung dari aliran Curug Cikaso. Airnya jernih, rasanya tawar dan tidak berbau. Persis seperti air mineral dalam kemasan. Aku bahkan ketagihan akan segarnya air curug ini. Sambil berpijak di bebatuan, kubuka rahangku lebar-lebar, mencoba menangkap tetesan air curug sebanyak-banyaknya. Sejuk terasa kala tegukan demi tegukan air Sungai Cikaso terus mengalir ke kerongkonganku. Soal jodoh? Itu sih bonus.
 

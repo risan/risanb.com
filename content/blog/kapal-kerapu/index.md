@@ -12,7 +12,7 @@ Awalnya kami sempat ragu dengan ajakan Dip dan kawan-kawannya untuk pulang denga
 
 Namun akhirnya kami luluh juga, setelah Pak Taufik mewanti-wanti jika Ojek Kapal belum tentu ada yang ke Muara Angke esok hari. Kata Pak Taufik, biasanya hari Sabtu pengunjung yang bertandang ke Pulau Tidung bisa mencapai ribuan, sehingga Ojek Kapal hanya melayani rute keberangkatan saja. Kami pun diajak Pak Taufik untuk bertandang ke rumah Kakaknya yang biasa mengurusi Kapal Kerapu. Kakak Pak Taufik lah yang menyuruh kami untuk menjejerkan tas di depan loket dermaga pukul 6 pagi esok. Beliau menuturkan kalau jatah penumpang Kapal Kerapu dibatasi bagi penumpang yang bukan warga Pulau Tidung. Siapa cepat dia dapat tambahnya.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Keesokan harinya kami yang sudah membariskan tas sejak subuh, berhasil mendapatkan tiket Kapal Kerapu. Ternyata betul apa kata Pak Taufik, belasan Ojek Kapal berdatangan dari seluruh penjuru. Penumpangnya membludak memenuhi dermaga, sangat kontras dengan saat kedatangan kami ke pulau ini. Jalanan Pulau Tidung yang tadinya lengang, kini dipadati para pengunjung yang mengayuh sepeda sewaannya. Beruntung kami mengunjungi pulau ini pada hari kerja.
 

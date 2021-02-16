@@ -14,7 +14,7 @@ Seorang kakek berbalut singlet putih tengah khusyuk berjongkok di bawah pancuran
 
 Tak lama kemudian si kakek berdiri dan duduk di bibir kolam. Ia lantas mengambil gelas air-mineral-kemasan yang telah kosong di sampingnya. Gelas tersebut kemudian ia isi dengan air yang keluar dari mulut pipa. Sejurus kemudian ia tegak air dalam gelas tersebut. *Gile*!
 
-{{<section-break>}}
+<hr class="section-break">
 
 Malam sudah terlanjur tiba saat kaki-kaki kami menjejak Kota Bogor. Lampu-lampu merkuri berpendar merah-kejinggaan, mewarnai jalan-jalan arteri di Kota Hujan. Sementara di Terminal Baranangsiang, gelap merajalela. Lampu-lampu mati tak berfungsi. Di bawah temaram calo-calo tanpa lelah berorasi, merayu, membujuk, memaksa para calon penumpang yang kelelahan. "Bandung-Bandung-Bandung?" atau "Lebak Bulus-Lebak Bulus-Lebak Bulus?" atau juga "Sukabumi-Sukabumi-Sukabumi?"
 
@@ -22,7 +22,7 @@ Saat itu kami tidak tahu akan menginap dimana. Rencana mendadak ke Bogor ini mun
 
 Lunas mengisi perut, aku dan teman-teman pun mencari penginapan: Mesjid Raya Bogor! Sebetulnya salah satu kerabat kami punya keluarga di Bogor, tapi karena sudah terlalu larut kami pun mengurungkan niat untuk ikut bermalam di sana. Setelah menitipkan KTP, kami pun diperbolehkan bermalam oleh pengurus mesjid.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Setelah bertanya kesana-kemari, akhirnya rute perjalanan kami ke Gunung Pancar menjadi jelas. Dari Bogor kami menggunakan bis Damri ke Sentul. Dari Sentul dilanjutkan jalan kaki beberapa menit hingga pertigaan Cikole. Dari pertigaan Cikole kita tinggal menyewa angkot ke Gunung Pancar.
 
@@ -30,7 +30,7 @@ Obyek Gunung Pancar sendiri aku ketahui kala beberapa hari sebelumnya menonton a
 
 Nah, rupanya di Gunung Pancar terdapat dua pemandian air panas: yang mahal dan yang murah meriah. Yang kulihat di televisi adalah pemandian air panas yang mahal. Menimbang keuangan kami yang hampir pailit, kami pun memilih pemandian air panas yang murah dan terletak lebih jauh.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Tak disangka fasilitas di pemandian air panas seharga 10 ribu rupiah ini sangat jauh dengan fasilitas yang ditawarkan di pemandian tetangganya. Hanya ada dua kolam pemandian air panas dan salah satunya rusak. Kolamnya terbuat dari semen dengan cat merah. Ukuran kolamnya pun kecil, mungkin tak sampai 5×3 meter. Di pojok kolam sebuah pipa mengalirkan air panas dari balik bukit-bukit yang dirindangi pohon pinus. Atap-atap asbes dengan tiang kayu menutupi sebagian mulut kolam. Sangat tidak terurus. Untung saja kolamnya bersih tanpa ada sampah sedikit pun.
 

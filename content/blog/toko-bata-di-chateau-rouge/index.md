@@ -12,4 +12,4 @@ Sampai akhirnya di musim panas tahun 2015—dalam perjalanan mencari gerai KFC�
 
 Perusahaan pembuat sepatu ini sudah berdiri sejak 1894—lebih dari 120 tahun yang lalu. Bermula dari kota Zlín yang kala itu masih berada dalam wilayah kerajaan Austria-Hongaria (sekarang bagian dari Republik Ceko). Merek Bata sendiri diambil dari nama pendirinya Tomáš Baťa. Bukan dari batu bata seperti yang saya duga sebelumnya.
 
-![Toko Bata di Château Rouge](./toko-bata.jpg)
+![Toko Bata di Château Rouge](toko-bata.jpg)

@@ -14,7 +14,7 @@ Dan adik-adikku di belakang,\
 Tapi satu tugas kita semua,\
 Menanamkan benih-benih kejantanan yang telah kau rintis
 
-{{<section-break>}}
+<hr class="section-break">
 
 Kita semua adalah alat dari arus sejarah yang besar\
 Kita adalah alat dari derap kemajuan semua;\

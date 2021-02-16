@@ -10,7 +10,7 @@ images: [/blog/si-lumba-lumba/cover.jpg]
 
 "Itu Lumba-Lumba!", teriak kami yang tengah terombang-ambing di atas kapal. Sekelompok ikan lumba-lumba melesat cepat di dekat permukaan air. Sesekali mereka melompat ke udara. Mereka berenang mengiringi kapal kami, seolah ingin memamerkan kemahirannya beratraksi di dalam air. Semasa kecil aku hanya bisa melihat mereka beratraksi di kolam mini dalam sebuah pertunjukan, kini kami bisa menyaksikannya langsung di lautan. Kami berdecak kagum, seolah tidak percaya di lepas Teluk Jakarta kami masih bisa menemui mamalia yang pintar ini.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Malam menjelang. Angin berhembus seiring ombak yang pecah di kejauhan. Aku, keempat kawanku dan dua pasang mahasiswa lain dari Jakarta tengah duduk-duduk santai di ruang tengah pondokan Pak Taufik. Ditemani Pak Taufik, kami berbincang tentang persiapan *snorkeling* esok hari. Pak Taufik membantu kami mencarikan perahu dan peralatan *snorkeling* yang kami butuhkan.
 
@@ -20,7 +20,7 @@ Tuntas persoalan perahu, Pak Taufik membawa kami ke rumah Bang Syahbani. Bang Sy
 
 Semua persiapan sudah lengkap. Kami sudah siap untuk ber-*snorkeling* ria esok pagi.
 
-{{<section-break>}}
+<hr class="section-break">
 
 Pagi merekah. Hari itu langit tampak cerah. Hanya ada awan-awan tipis yang bergerak beriringan di batas cakrawala. Angin segar memulas-mulas wajah kami yang sedari tadi sudah duduk-duduk di atas perahu nelayan. Kami sudah tidak sabar mengarungi birunya lautan luas.
 

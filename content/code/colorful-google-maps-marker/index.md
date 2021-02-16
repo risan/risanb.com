@@ -8,7 +8,7 @@ images: [/img/google-maps.png]
 ---
 When we're using the Google Maps API and adding a marker into our map instance, by default we'll end up with this red pin figure.
 
-{{<img alt="The default Google Maps marker" src="default-marker.jpg">}}
+![The default Google Maps marker](default-marker.jpg)
 
 However, when we're displaying a bunch of markers that can be grouped into different categories, it's useful that each marker category has a different visual cue. In the past, I usually use a PNG image to replace the default marker; where each category has different image URL. We can pass the image URL to the `icon` property like so:
 
@@ -70,4 +70,4 @@ const marker = new google.maps.Marker({
 
 Our marker's color is easily configurable now. No need to edit the image when we need to change the marker's color.
 
-{{<img alt="Colorful Markers" src="colorful-markers.jpg">}}
+![Colorful Markers](colorful-markers.jpg)

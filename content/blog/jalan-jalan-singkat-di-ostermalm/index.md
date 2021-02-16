@@ -5,7 +5,6 @@ date: 2018-06-07T04:30:00+02:00
 categories: [journal]
 tags: [stockholm, swedia]
 images: [/blog/jalan-jalan-singkat-di-ostermalm/dsc_2356.jpg]
-gallery: true
 ---
 Minggu kemarin, saya sengaja jalan-jalan ke daerah Östermalm. Cuaca sangat cerah dan suhu hari itu begitu panas—sekira 27 hingga 30 derajat Celsius. Membuat kerongkongan kian kering di tengah jam puasa yang panjang.
 
@@ -15,14 +14,12 @@ Di ujung jalan Strandvägen, saya pun berbelok ke Pulau Djurgården. Banyak obje
 
 Jalan-jalan singkat saya pun berakhir di pulau ini. Menyebrang ke Gamla Stan dengan kapal feri sebelum akhirnya pulang kembali ke rumah.
 
-{{<gallery>}}
-{{<img alt="Suasana teluk Ladugårdslandsviken di jantung Kota Stockholm." src="dsc_2356.jpg">}}
+![Suasana teluk Ladugårdslandsviken di jantung Kota Stockholm.](dsc_2356.jpg)
 
-{{<img alt="Taman ria Gröna Lund tampak di kejauhan." src="dsc_2358.jpg">}}
+![Taman ria Gröna Lund tampak di kejauhan.](dsc_2358.jpg)
 
-{{<img alt="Bus amfibi yang membawa wisatawan keliling Kota Stockholm." src="dsc_2364.jpg">}}
+![Bus amfibi yang membawa wisatawan keliling Kota Stockholm.](dsc_2364.jpg)
 
-{{<img alt="Wahana kättingflygaren di taman ria Gröna Lund." src="dsc_2371.jpg">}}
+![Wahana kättingflygaren di taman ria Gröna Lund.](dsc_2371.jpg)
 
-{{<img alt="Gröna Lund dibuka pada akhir abad ke-19, menjadikannya taman ria tertua di Swedia." src="dsc_2372.jpg" size="medium">}}
-{{</gallery>}}
+![Gröna Lund dibuka pada akhir abad ke-19, menjadikannya taman ria tertua di Swedia.](dsc_2372.jpg)

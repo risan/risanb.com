@@ -32,7 +32,7 @@ Sementara untuk kuahnya, kita perlu mencapurkan bahan-bahan berikut:
 * 1/2 sendok makan mirin; dan
 * 1/2 sendok makan gula.
 
-{{<img alt="Bahan-bahan untuk membuat Oyakodon." src="img_2920.jpg">}}
+![Bahan-bahan untuk membuat Oyakodon.](img_2920.jpg)
 
 ## Cara Memasak Oyakodon
 
@@ -44,4 +44,4 @@ Langkah untuk memasaknya pun tidak merepotkan:
 4. Kemudian tuangkan hasil kocokan telur ayam, masak hingga telur setengah matang (bila ragu dengan kualitas telur, masak hingga benar-benar matang);
 5. Angkat dan tuangkan masakan di atas nasi panas. Jangan lupa taburkan potongan daun bawang untuk menambah cita rasa.
 
-{{<img alt="Oyakodon siap untuk dinikmati!" src="img_2926.jpg">}}
+![Oyakodon siap untuk dinikmati!](img_2926.jpg)

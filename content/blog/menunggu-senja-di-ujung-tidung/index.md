@@ -5,7 +5,6 @@ date: 2011-12-03T22:51:00+07:00
 categories: [travel]
 tags: [jakarta, indonesia, kuliah]
 images: [/blog/menunggu-senja-di-ujung-tidung/cover.jpg]
-gallery: true
 ---
 ![Menunggu Senja di Ujung Tidung](cover.jpg)
 
@@ -25,19 +24,17 @@ Tidak lama meliuk-liuk di dalam hutan, akhirnya kami pun sampai di ujung paling 
 
 Tidak jauh dari ujung pulau, di sebelah Utara hutan terdapat pantai yang cukup landai. Di pinggirnya tumbuh rerumputan hijau dan pohon-pohon kelapa. Ombaknya pun sangat tenang, bergulung menyisir pasir pantai yang lembut. Di lepas pantai tampak pohon-pohon bakau berkololoni membentuk pulau-pulau kecil di tengah lautan.
 
-{{<gallery>}}
-{{<img alt="Bersepeda menuju ujung Barat Pulau Tidung." src="01-bersepeda-mengejar-sunset.jpg">}}
+![Bersepeda menuju ujung Barat Pulau Tidung.](01-bersepeda-mengejar-sunset.jpg)
 
-{{<img alt="L-O-V-E ❤️" src="02-siluet.jpg">}}
+![L-O-V-E ❤️](02-siluet.jpg)
 
-{{<img alt="Tiduran di tepi pantai." src="03-tidur-di-tepi-pantai.jpg">}}
+![Tiduran di tepi pantai.](03-tidur-di-tepi-pantai.jpg)
 
-{{<img alt="Febri menatap lautan lepas." src="04-menatap-lautan-luas.jpg">}}
+![Febri menatap lautan lepas.](04-menatap-lautan-luas.jpg)
 
-{{<img alt="Langit senja yang keemasan." src="05-langit-senja-keemasan.jpg">}}
+![Langit senja yang keemasan.](05-langit-senja-keemasan.jpg)
 
-{{<img alt="Mentari perlahan tenggelam." src="06-mentari-perlahan-tenggelam.jpg">}}
-{{</gallery>}}
+![Mentari perlahan tenggelam.](06-mentari-perlahan-tenggelam.jpg)
 
 Mentari semakin condong ke Barat. Semburat jingganya menyeruak mewarnai langit senja. Aku duduk di atas batang pohon yang sudah mati, membiarkan kakiku dijilati ombak, membiarkan wajahku dibelai tiupan angin. Mentari pun tergelincir, tertelan cakrawala, tenggelam di lautan. Kini petang menjelang, kami pun beranjak pulang.
 
