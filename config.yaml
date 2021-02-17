@@ -1,7 +1,6 @@
 baseURL: "https://risanb.com/"
 title: Risan Bagja Pradana
 languageCode: en
-googleAnalytics: UA-27136969-15
 markup:
   goldmark:
     renderer:
@@ -13,4 +12,5 @@ imaging:
 params:
   description: My name is Risan Bagja Pradana and I love playing with the computer. This website is an archive of my thoughts. I blog about programming stuff, my daily life, my traveling experiences, and other random things.
   images: [/img/risan-og.jpg]
+  cloudflareAnalytics: aeac8266c43a442d9d54081840ad9b3a
 
