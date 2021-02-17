@@ -1,0 +1,9 @@
+<ul class="page-list">
+    {{ range index .Site.Data.bookmarks "links" }}
+    <li>
+        <a href="{{ .url }}">{{ .title }}</a>
+        <p>{{ .description }}</p>
+        <time datetime='{{ dateFormat "2006-01-02T15:04:05Z07:00" .read_at }}'>Read at {{ dateFormat "02 January 2006" .read_at }}</time>
+    </li>
+    {{ end }}
+</ul>

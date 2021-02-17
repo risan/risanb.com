@@ -1,15 +1,17 @@
 {{ define "main" }}
 <article>
     <h1>{{ .Title }}</h1>
-    {{- if gt .Lastmod .Date -}}
+    <p>
+        {{- if gt .Lastmod .Date -}}
         Updated on <time datetime='{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Lastmod.Format "02 January 2006" }}</time>
-    {{- else -}}
+        {{- else -}}
         <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
-    {{- end -}}
+        {{- end -}}
+    </p>
     {{ .Content }}
-    {{- if (or .Params.categories .Params.tags .NextInSection .PrevInSection) -}}
+    {{- if (and (in (slice "blog" "code") .Type) (or .Params.categories .Params.tags .NextInSection .PrevInSection)) -}}
     <footer>
-        <ul style="margin-top: 3rem;">
+        <ul>
             {{- with .Params.categories }}
             <li>
                 <span>Categories:&nbsp;</span>
