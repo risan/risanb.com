@@ -7,6 +7,7 @@
         <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
     {{- end -}}
     {{ .Content }}
+    {{- if (or .Params.categories .Params.tags .NextInSection .PrevInSection) -}}
     <footer>
         <ul style="margin-top: 3rem;">
             {{- with .Params.categories }}
@@ -39,5 +40,6 @@
             {{- end -}}
         </ul>
     </footer>
+    {{- end -}}
 </article>
 {{ end }}
