@@ -1,26 +1,32 @@
-{{ define "title" }}{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}
-{{ define "main" }}
-{{ .Content }}
+{{- define "title" }}{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}{{ end -}}
+{{- define "main" -}}
+<section>
+    {{- .Content -}}
+</section>
 
-<h2>Recent Posts from Code:</h2>
-<ul class="page-list">
-    {{ range first 5 (where .Site.RegularPages "Section" "code") }}
-    <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <p>{{ .Summary | truncate 200 }}</p>
-        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
-    </li>
-    {{ end }}
-</ul>
+<section>
+    <h2>Recent Posts from Code:</h2>
+    <ul class="page-list">
+        {{- range first 5 (where .Site.RegularPages "Section" "code") -}}
+        <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <p>{{ .Summary | truncate 200 }}</p>
+            <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
+        </li>
+        {{- end -}}
+    </ul>
+</section>
 
-<h2>Recent Posts from Blog:</h2>
-<ul class="page-list">
-    {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
-    <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <p>{{ .Summary | truncate 200 }}</p>
-        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
-    </li>
-    {{ end }}
-</ul>
-{{ end }}
+<section>
+    <h2>Recent Posts from Blog:</h2>
+    <ul class="page-list">
+        {{- range first 5 (where .Site.RegularPages "Section" "blog") -}}
+        <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <p>{{ .Summary | truncate 200 }}</p>
+            <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
+        </li>
+        {{- end -}}
+    </ul>
+</section>
+{{- end -}}
