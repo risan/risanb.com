@@ -5,8 +5,6 @@ lastmod: 2021-02-18T21:04:00+07:00
 categories: [log]
 tags: [logbook]
 ---
-<time datetime="2021-02-18T21:04:00Z07:00">18 February 2021</time>
-
 ### List Pages with Specific Tag on Hugo
 
 We can combine the `range` and the `where` functions on Hugo to get a list of pages with some specific tag. Let say we want to get the first 5 recent pages that contain the `logbook` tag, we can achieve it like this:
