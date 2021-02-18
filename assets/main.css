@@ -66,9 +66,7 @@ img {
 }
 
 hr {
-    border-color: #26232c;
-    border-style: dashed;
-    border-width: 2px;
+    border: 1px solid #26232c;
 }
 
 hr.section-break {
