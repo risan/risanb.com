@@ -1,8 +1,18 @@
 ---
 title: "Journal: 2021 February"
-date: 2021-02-18T21:41:00+07:00
+date: 2021-02-20T22:12:00+07:00
 categories: [journal]
 ---
+### Hari Soto Nasional
+
+Baru tahu kalau tanggal 20 Februari rupanya diperingati sebagai hari soto nasional. Kebetulan sehari sebelumnya menonton video [liputan tentang soto Lamongan](https://www.youtube.com/watch?v=FpFc2YT6shM) di Youtube. Banyak penjual soto Lamongan berasal dari Desa Siman di Kabupaten Lamongan. Salah satu pionirnya bercerita bahwa cikal bakal resep sotonya bermula dari soto Madura. Bedanya kalau soto Madura menggunakan daging sapi, sedangkan soto Lamongan mengandalkan irisan daging ayam.
+
+Karena ragam soto di Indonesia, saya jadi *kepikiran* juga tentang kerupuk. Indonesia memiliki beragam jenis kerupuk. Ada kerupuk udang, kerupuk rambak, kerupuk melarat, kerupuk melinjo, kerupuk Palembang, kerupuk mie, kerupuk bawang, sampai kerupuk jengkol pun ada. Di Swedia paling *banter* saya hanya pernah makan satu jenis kerupuk: *prawn cracker* berwarna putih yang biasa ditemukan di toko Asia.
+
+<hr>
+
+<time datetime="2021-02-18T21:41:00Z07:00">18 February 2021</time>
+
 ### Fire Pink - Episode Paling Emosional dalam Ozark
 
 Serial Ozark season ke-3 menjadi teman saya bersepeda *indoor* saat ini. Episode ke-9 dengan judul "[Fire Pink](https://www.imdb.com/title/tt9108686/)" menjadi episode paling emosional bagi saya sejauh ini. Episode ini dibuka dengan monolog Ben Davis di dalam sebuah taksi. Ia baru saja berhasil keluar dari rumah sakit jiwa. Ia meracau soal mimpi-mimpi buruk dan kegelisahannya. Sudah lama Ben divonis mengidap Bipolar, namun ia selalu menolak perawatan.
