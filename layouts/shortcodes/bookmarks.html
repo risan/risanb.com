@@ -1,9 +1,13 @@
 <ul class="page-list">
-    {{ range index .Site.Data.bookmarks (.Get 0) "links" }}
+    {{ range index .Site.Data.bookmarks (.Get "type") "links" }}
     <li>
         <a href="{{ .url }}">{{ .title }}</a>
         {{- with .description }}<p>{{ . }}</p>{{ end -}}
-        {{- with .read_at }}<time datetime='{{ dateFormat "2006-01-02T15:04:05Z07:00" . }}'>Read at {{ dateFormat "02 January 2006" . }}</time>{{ end -}}
+        {{- with .date -}}
+        <time datetime='{{ dateFormat "2006-01-02T15:04:05Z07:00" . }}'>
+            {{- with $.Get "date-prefix" }}{{ . }}&nbsp;{{ end -}}{{- dateFormat "02 January 2006" . -}}
+        </time>
+        {{ end -}}
     </li>
     {{ end }}
 </ul>

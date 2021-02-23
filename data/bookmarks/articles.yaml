@@ -1,11 +1,18 @@
 links:
+  - url: https://kjzz.org/content/1660988/whistleblowers-software-bug-keeping-hundreds-inmates-arizona-prisons-beyond-release
+    title: "Whistleblowers: Software Bug Keeping Hundreds Of Inmates In Arizona Prisons Beyond Release Dates"
+    description: In 2019, senate bill 1310 was signed, allowing certain inmates of non-violence offenses to earn
+      additional release credits. However, the software used by the correction facilities, presently unable to account
+      for that change.
+    tags: [social]
+    date: 2021-02-22
   - url: https://www.macleans.ca/society/science/scientists-mrna-covid-vaccines/
     title: Researchers looking for mRNA were ridiculed by colleagues. Luckily, that didn’t stop them.
     description: The stories and struggles of some amazing researchers in paving the way to our understanding of mRNA.
       It was not an easy journey. Fundings were lacking. Their efforts were mocked. Their findings were met by
       skepticism. Now mRNA vaccine might help us out of this COVID-19 pandemic.
     tags: [science]
-    read_at: 2021-02-20
+    date: 2021-02-20
   - url: https://tirto.id/sisi-lain-eduard-douwes-dekker-pejabat-yang-tak-pernah-blusukan-gan6
     title: "Sisi Lain Eduard Douwes Dekker: Pejabat yang Tak Pernah \"Blusukan\""
     description: Eduard Douwes Dekker menjabat asisten Residen Lebak kurang dari 3 bulan saja. Karena ketidakpahammnya
@@ -13,33 +20,33 @@ links:
       memutasinya ke Ngawi, namun ia memilih untuk mengundurkan diri. Empat tahun berselang ia menerbitkan karyanya
       "Max Havelaar" dibawah nama Multatuli.
     tags: [history]
-    read_at: 2021-02-19
+    date: 2021-02-19
   - url: https://arstechnica.com/tech-policy/2021/02/citibank-just-got-a-500-million-lesson-in-the-importance-of-ui-design/
     title: Citibank just got a $500 million lesson in the importance of UI design
     description: Citibank sent out almost $900 million to the creditors, due to a confusing UI design. The judge ruled
       that the creditors don't have to wire back the money, because it was considered an early loan repayment.
     tags: [interesting]
-    read_at: 2021-02-19
+    date: 2021-02-19
   - url: https://graydon2.dreamwidth.org/193447.html
     title: Always Bet on Text (2014)
     description: Text is a powerful and flexible medium of communication. It can convey ideas with a precisely
       controlled level of ambiguity and precision.
     tags: [writing]
-    read_at: 2021-02-18
+    date: 2021-02-18
   - url: https://games.greggman.com/game/done-with-stackoverflow/
     title: Done Answering Questions Stack Overflow
     description: Gregg Tavares spent the last 9 years answering questions on StackOverflow. He had over 1900 answers on
       that site. Yet, some moderators think that the links he'd been leaving are considered spam.
     tags: [code]
-    read_at: 2021-02-17
+    date: 2021-02-17
   - url: https://kisahkilatkiamat.wordpress.com/2020/06/13/normal-baru-muhamad-wahyudi/
     title: "\"Normal Baru\" – Muhamad Wahyudi"
     description: Saat pandemi berakhir, akankah kita kembali ke kehidupan kita yang semula?
     tags: [fiction]
-    read_at: 2021-02-16
+    date: 2021-02-16
   - url: https://raisakamila.wordpress.com/2020/12/17/cerita-tentang-hari-hari-sebelum-hari-ini/
     title: Cerita Tentang Hari-Hari Sebelum Hari Ini
     description: Perjalanan batin seorang perempuan Aceh. Bagaimana perasaan terisolir karena konflik senjata yang ia
       alami semasa kanak-kanak kini bertransformasi dalam wujud yang lain.
     tags: [writing]
-    read_at: 2021-02-16
+    date: 2021-02-16

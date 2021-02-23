@@ -1,11 +1,11 @@
 ---
 title: Interesting Stuff on the Web
-date: 2021-02-20T21:27:00+0700
+date: 2021-02-23T19:24:00+0700
 ---
-## Articles
+## Interesting Articles
 
-{{<bookmarks "articles">}}
+{{<bookmarks type="articles" date-prefix="Read at">}}
 
-## Fun
+## Fun Stuff
 
-{{<bookmarks "fun">}}
+{{<bookmarks type="fun">}}
