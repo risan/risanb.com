@@ -10,4 +10,4 @@ Years later, my passion for computer programming is stronger than ever. Now I'm 
 
 This website serves as an archive for my thoughts. Sometimes I write about [programming stuff](/code/). But most of the time I blog about my daily life, my traveling experiences, or any random stuff that comes to my mind.
 
-![This me pretending to work outdoor on a cold summer day (I hate it).](work-outdoor.jpg)
+![This is me pretending to work outdoor on a cold summer day (I hate it).](work-outdoor.jpg)
