@@ -1,12 +1,10 @@
 ---
 lang: id
-title: Puisi dan Kata-Kata
+title: Belantara
 date: 2021-04-18T22:11:00+07:00
 categories: [writing]
 tags: [puisi]
 ---
-## Belantara
-
 Suara-suara nyaring\
 Derap-derap langkah yang ritmis\
 Angin ribut, riuh berganti\
