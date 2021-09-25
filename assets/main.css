@@ -32,6 +32,7 @@ body {
 
 a {
     color: #00ffea;
+    text-decoration: none;
 }
 
 a:hover {
@@ -126,22 +127,36 @@ footer {
     border-top: 1px solid #312d39;
 }
 
+/* page list */
 .page-list {
-    list-style-type: none;
-    padding-left: 0;
+    list-style-type: square;
+    padding-left: 1.5rem;
 }
 
 .page-list li:not(:last-child) {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px dashed #26232c;
+    margin-bottom: .5rem;
 }
 
-.page-list p {
-    margin: 0;
-}
 .page-list time {
     color: #95939c;
+    display: none;
+}
+
+@media screen and (min-width: 640px) {
+    .page-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .page-list li {
+        display: flex;
+    }
+
+    .page-list time {
+        flex-shrink: 0;
+        display: block;
+        margin-right: .5rem;
+    }
 }
 
 /* embed */

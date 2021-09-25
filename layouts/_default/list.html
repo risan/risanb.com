@@ -2,15 +2,14 @@
 {{ .Content }}
 
 {{ range .Pages.GroupByDate "2006" }}
-    <h2>{{ .Key }}</h2>
-    <ul class="page-list">
-        {{ range .Pages }}
-        <li>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <p>{{ .Summary | truncate 200 }}</p>
-            <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "02 January 2006" }}</time>
-        </li>
-        {{ end }}
-    </ul>
+<h2>{{ .Key }}</h2>
+<ul class="page-list">
+    {{ range .Pages }}
+    <li>
+        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "Jan 02" }}</time>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+</ul>
 {{ end }}
 {{ end }}
