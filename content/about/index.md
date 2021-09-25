@@ -19,4 +19,4 @@ Years later, my passion for computer programming is stronger than ever. Now I'm 
 
 This website serves as an archive for my thoughts. Sometimes I write about [programming stuff](/code/). But most of the time I blog about my [daily life](/categories/journal/), my [traveling](/categories/travel/) experiences, or any [random stuff](/categories/writing/) that comes to my mind. I occasionally posted some [photos](/categories/photos/) too.
 
-This website is generated using [Hugo](https://gohugo.io/) and hosted for free on [Vercel](https://vercel.com/). You can check out the entire source code on [Github](https://github.com/risan/risanb.com).
+This website is generated using [Hugo](https://gohugo.io/) and hosted for free on [Cloudflare Pages](https://pages.cloudflare.com/). You can check out the entire source code on [Github](https://github.com/risan/risanb.com).
