@@ -5,7 +5,7 @@ categories: [tutorial]
 tags: [javascript]
 images: [/img/rollup.png]
 ---
-Similar to Webpack or Browserify, [Rollup](https://rollupjs.org) is a module bundler for JavaScript. It allows us to use the modern ES module system and transform it into another module system: CommonJS, AMD, or the UMD. It can also bundle our module and wrap it inside the IIFE (Immediately-Invoked Function Expression).
+Similar to Webpack or Browserify, [Rollup](https://rollupjs.org) is a module bundler for JavaScript. It allows us to use the modern ES module system and transform it into another module system: CommonJS, AMD, the UMD. It can also bundle our module and wrap it inside the IIFE (Immediately-Invoked Function Expression).
 
 Though people usually use Rollup to bundle a library. It's possible to bundle an application too.
 
@@ -41,14 +41,14 @@ const eat = food => console.log(`I eat ${food}.`);
 export default eat;
 ```
 
-It just a simple function that will print `I eat something` on the console or the terminal. Save the file as `main.js`. On the terminal type the following command to transform our ES module into a CommonJS module:
+It is just a simple function that will print `I eat something` on the console or the terminal. Save the file as `main.js`. On the terminal type the following command to transform our ES module into a CommonJS module:
 
 ```bash
 $ rollup main.js --file bundle.js --format cjs
 ```
 
 * `--file`: The path for the output file
-* `--format`: The targetted output format, in our case the `cjs` is for the CommonJS module.
+* `--format`: The targeted output format, in our case the `cjs` is for the CommonJS module.
 
 Along with the `main.js` file, we should now have the `bundle.js` file. If we open the `bundle.js` file, we'll see that our `eat` function is now using the CommonJS module.
 
@@ -67,7 +67,7 @@ If you're familiar with Node.js, that's how you usually export a module.
 
 Rollup offers five output formats for your bundle:
 
-* `cjs`: The CommonJS module that typically targetted for the Node.js environment.
+* `cjs`: The CommonJS module that typically targeted for the Node.js environment.
 * `amd`: The AMD module which usually used in the browser.
 * `umd`: The UMD module which often use to target both the Node.js and the browser environments.
 * `es`: The ES module itself.
@@ -438,11 +438,11 @@ module.exports = eatFruit;
 
 Even though we're not using them, we ended up having both `FAST_FOODS` and `randomFastFood` in our bundle file.
 
-There's [another three-shaking gotcha](#another-three-shaking-gotcha) explained on the next section that you should be aware of.
+There's [another three-shaking gotcha](#another-three-shaking-gotcha) explained in the next section that you should be aware of.
 
 ## Importing NPM Package
 
-We often need to pull a third party library from NPM. For our example, let's pull the `lodash` library. Within the project directory, type the following command to create an empty `package.json` file:
+We often need to pull a third-party library from NPM. For our example, let's pull the `lodash` library. Within the project directory, type the following command to create an empty `package.json` file:
 
 ```bash
 $ echo {} > package.json
@@ -509,7 +509,7 @@ lodash-es (imported by src/food.js)
 created dist/cjs.js in 32ms
 ```
 
-If you check the generated `dist/cjs.js` file, you'll see that the lodash code is not included. It simply `require` the `lodash-es` module.
+If you check the generated `dist/cjs.js` file, you'll see that the lodash code is not included. It is simply `require` the `lodash-es` module.
 
 ```js
 'use strict';
@@ -528,9 +528,9 @@ module.exports = eatFruit;
 
 The bundle will still work if the user of your library happens to have `lodash-es` installed on their project. Of course, it's not a reliable approach to build a library. So how can we solve this?
 
-### Resolving Third Party Modules with Plugin
+### Resolving Third Party-Modules with Plugin
 
-Luckily, there's already a plugin to assist Rollup resolving any third party modules installed through NPM: [`rollup-plugin-node-resolve`](https://github.com/rollup/rollup-plugin-node-resolve). Let's install this plugin as our dev-dependency:
+Luckily, there's already a plugin to assist Rollup in resolving any third-party modules installed through NPM: [`rollup-plugin-node-resolve`](https://github.com/rollup/rollup-plugin-node-resolve). Let's install this plugin as our dev-dependency:
 
 ```bash
 $ npm install rollup-plugin-node-resolve -D
@@ -565,13 +565,13 @@ $ rollup -c
 
 There's no warning message this time! If you check the generated `dist/cjs.js` file, you should find the lodash code in the bundle.
 
-But wait, why is there so many lodash codes in our bundle file? Though we only import the `random` function. 🤔
+But wait, why are there so many lodash codes in our bundle file? Though we only import the `random` function. 🤔
 
 ### Another Three-Shaking Gotcha
 
 Performing static analysis in a dynamic programming language like JavaScript is hard. Rollup has to be careful in removing any unused code to guarantee that the final bundle still works correctly.
 
-If an imported module appears to have some side-effects, Rollup needs to be conservative and includes those side-effects. Even though it may be a false positive, just like in our lodash case above.
+If an imported module appears to have some side effects, Rollup needs to be conservative and includes those side-effects. Even though it may be a false positive, just like in our lodash case above.
 
 In our lodash case, we can get around this by importing the submodule instead:
 
@@ -746,7 +746,7 @@ const eatFruit = () => console.log(`I eat ${randomFruit()}.`);
 module.exports = eatFruit;
 ```
 
-If we choose to generate the `umd` or `iife` format, we have to specify the `global` option too. This option tells Rollup on how to access that peer dependency.
+If we choose to generate the `umd` or `iife` format, we have to specify the `global` option too. This option tells Rollup how to access that peer dependency.
 
 ```js
 // rollup.config.js
@@ -826,9 +826,9 @@ $ npm install @babel/core @babel/preset-env rollup-plugin-babel -D
 $ yarn add @babel/core @babel/preset-env rollup-plugin-babel -D
 ```
 
-With `@babel/preset-env`, we can easily target the minimum environments and don't need to choose the Babel's plugins manually. The `rollup-plugin-babel` is the required plugin for Babel integration with Rollup.
+With `@babel/preset-env`, we can easily target the minimum environments and don't need to choose Babel's plugins manually. The `rollup-plugin-babel` is the required plugin for Babel integration with Rollup.
 
-Next, let's create a `.babelrc` config file. Store it within the `src` directory instead of the project root directory. This way we can have different babel configuration for other parts, like tests.
+Next, let's create a `.babelrc` config file. Store it within the `src` directory instead of the project root directory. This way we can have different babel configurations for other parts, like tests.
 
 ```json
 {
@@ -851,7 +851,7 @@ We set the `modules` to `false` to prevent Babel from transforming any ES module
 
 We also set the minimum Node version to `4`. If we don't set the `targets` option, it will work exactly the same as using `@babel/preset-es2015`, `@babel/preset-es2016`, and `@babel/preset-es2017` together.
 
-> This year, Node version 4 is already in the end-of-life. We targetted this version just to see the transformation made by Babel.
+> Node version 4 is already in the end-of-life. We targeted this version just to see the transformation made by Babel.
 
 Lastly, we need to register the `rollup-plugin-babel` plugin within the `rollup.config.js` file:
 
@@ -1013,7 +1013,7 @@ Run the Rollup command again:
 $ rollup -c
 ```
 
-Check the generated bundles. Both the `cjs` and the `umd` format are using ES5 syntax. That's because of our query on `.browerslistrc` are applied both to the `cjs` and `umd` output. Some of the browsers from that query are still not supporting `const` and arrow function syntax that we use. You can check all of the browsers that matched our query on this website: [browserl.ist](https://browserl.ist/?q=last+1+version%2C%3E+5%25%2C+not+dead).
+Check the generated bundles. Both the `cjs` and the `umd` format are using ES5 syntax. That's because our query on `.browerslistrc` are applied both to the `cjs` and `umd` output. Some of the browsers from that query are still not supporting `const` and arrow function syntax that we use. You can check all of the browsers that matched our query on this website: [browserl.ist](https://browserl.ist/?q=last+1+version%2C%3E+5%25%2C+not+dead).
 
 So how can we use a different `browserslist` query for `cjs` and `umd` format? For the CommonJS format we want to use:
 
@@ -1214,9 +1214,9 @@ npm i rollup -D
 yarn add rollup -D
 ```
 
-All this time we use the globally installed `rollup` to bundle our library. It's not the right approach. Other people might contribute to our library. It's possible that they have different Rollup version, or even worse they might not have Rollup installed at all.
+All this time we use the globally installed `rollup` to bundle our library. It's not the right approach. Other people might contribute to our library. It's possible that they have a different Rollup version, or even worse they might not have Rollup installed at all.
 
-We might also use a CI pipeline to automate package publishing. And the server might not have Rollup installed. This way we can make sure every contributor or the CI server use the same version of Rollup.
+We might also use a CI pipeline to automate package publishing. And the server might not have Rollup installed. This way we can make sure every contributor or the CI server uses the same version of Rollup.
 
 ### Update Our package.json File
 
@@ -1412,7 +1412,7 @@ Note that the `node_modules` directory will be ignored automatically, so we don'
 
 To publish a package, you must be registered as an [NPM](https://www.npmjs.com) user. If you're not a user create a new account here: [NPM Sign Up](https://www.npmjs.com/signup).
 
-Next, login to NPM using your terminal:
+Next, log in to NPM using your terminal:
 
 ```bash
 $ npm login
@@ -1467,7 +1467,7 @@ Congratulation 🎉 You've made it until the end! Let's recap what you've learne
 * Rollup offers various output formats:  `amd`, `cjs`, `es`, `umd`, and `iife`.
 * We can configure Rollup through a configuration file.
 * Rollup has a tree-shaking feature that can eliminate unused code from the final bundle.
-* Many plugins available to extend Rollup capability, we tried several of them: resolving external NPM package, transforming CommonJS module, integration with Babel, and plugin for minifying the bundle.
+* Many plugins are available to extend Rollup capability, we tried several of them: resolving external NPM package, transforming CommonJS module, integration with Babel, and plugin for minifying the bundle.
 * We also learn how to publish our package to NPM registry.
 
 You can get the source code for this tutorial on my Github repository: [github.com/risan/eat-fruit](https://github.com/risan/eat-fruit). And don't forget to check out the official [Rollup guide](https://rollupjs.org/guide/en).
