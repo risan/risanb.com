@@ -1,7 +1,7 @@
 ---
 title: MySQL Database Character Encoding
 date: 2017-05-07T15:40:00+02:00
-categories: [log]
+categories: [snippet]
 tags: [devops]
 ---
 Query to show MySQL database character encoding:

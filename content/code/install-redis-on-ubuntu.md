@@ -1,7 +1,7 @@
 ---
 title: Install Redis on Ubuntu
 date: 2017-09-16T13:52:00+02:00
-categories: [log]
+categories: [tutorial]
 tags: [devops]
 ---
 Install required packages:

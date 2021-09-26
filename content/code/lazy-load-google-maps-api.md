@@ -1,7 +1,7 @@
 ---
 title: Lazy Load Google Maps API
 date: 2019-04-26T19:31:00+02:00
-categories: [log]
+categories: [tutorial]
 tags: [javascript, maps]
 images: [/img/google-maps.png]
 ---
