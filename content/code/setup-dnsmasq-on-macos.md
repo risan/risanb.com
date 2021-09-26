@@ -4,7 +4,6 @@ date: 2017-03-17T22:01:00+02:00
 categories: [tutorial]
 tags: [macos]
 ---
-
 Install the dnsmasq package:
 
 ```bash
