@@ -30,7 +30,7 @@ import { TaskCollection } from './TaskCollection';
 
 let myTasks = new TaskCollection([
   'Learn Javascript',
-  'Least ES 2015 Modules'
+  'Learn ES2015 Modules'
 ]);
 ```
 
@@ -113,7 +113,7 @@ import TaskCollection, { foo } from './TaskCollection';
 
 ## Rollup JS
 
-ES 2015 module is great, but currently it’s not supported on most browser, we still need a javascript module bundler, one of them is [Rollup.js](http://rollupjs.org/)
+ES2015 module is great, but currently it’s not supported on most browser, we still need a javascript module bundler, one of them is [Rollup.js](http://rollupjs.org/)
 
 ### Installing Rollup
 
