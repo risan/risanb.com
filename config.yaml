@@ -6,7 +6,7 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    style: dracula
+    style: monokai
 imaging:
   quality: 80
 params:
