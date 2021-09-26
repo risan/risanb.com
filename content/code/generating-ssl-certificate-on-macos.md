@@ -1,7 +1,7 @@
 ---
 title: Generating SSL Certificate on macOS
 date: 2017-02-03T21:38:00+02:00
-categories: [snippet]
+categories: [tutorial]
 tags: [macos]
 ---
 Even when you develop your website locally, sometimes you still need to access it through an HTTPS connection. These are 4 simple steps to generate an SSL certificate on your macOS. In this example, I'm using my Nginx installation directory to store the generated files: `/usr/local/etc/nginx`.

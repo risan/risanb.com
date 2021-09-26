@@ -1,7 +1,7 @@
 ---
 title: Setup Dnsmasq on macOS
 date: 2017-03-17T22:01:00+02:00
-categories: [snippet]
+categories: [tutorial]
 tags: [macos]
 ---
 
