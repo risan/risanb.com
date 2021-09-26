@@ -2,7 +2,7 @@
 title: Hello Ansible
 date: 2017-09-16T13:57:00+02:00
 categories: [tutorial]
-tags: [devops]
+tags: [devops, macos]
 ---
 ## Installation on macOS
 
