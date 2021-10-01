@@ -6,7 +6,7 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    style: monokai
+    style: native
 imaging:
   quality: 80
 params:

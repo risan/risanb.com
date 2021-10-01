@@ -19,24 +19,25 @@
     {{- block "head" . }}{{ end -}}
 </head>
 <body>
-<header>
-    <a href="/">
-        <strong>RISANB.COM</strong>
-    </a>
+<header class="header">
+    <img class="logo" src="/img/starwars.gif" alt="Obi-Wan vs Darth Vader">
     <nav>
-        <a href="/code/">Code</a>
-        <a href="/blog/">Blog</a>
+        <a href="/">Home</a> /
+        <a href="/code/">Code</a> /
+        <a href="/blog/">Blog</a> /
         <a href="/about/">About</a>
     </nav>
 </header>
-<main>{{ block "main" . }}{{ end }}</main>
-<footer>
-    <span>&copy; Risan Bagja 2021</span>
+<img src="/img/border-rainbow.gif" alt="Animated Rainbow Border">
+<main class="main">{{ block "main" . }}{{ end }}</main>
+<footer class="footer">
+    <span>&copy; Risan Bagja {{ now.Year }}</span>
     <nav>
         <a href="https://github.com/risan">Github</a>
         <a href="https://twitter.com/risanbagja">Twitter</a>
         <a href="/index.xml">RSS</a>
     </nav>
 </footer>
+{{- block "scripts" . }}{{ end -}}
 </body>
 </html>

@@ -1,15 +1,49 @@
 {{ define "main" }}
 {{ .Content }}
 
-{{ range .Pages.GroupByDate "2006" }}
-<h2>{{ .Key }}</h2>
-<ul class="page-list">
-    {{ range .Pages }}
-    <li>
-        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "Jan 02" }}</time>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    </li>
-    {{ end }}
-</ul>
+<div x-data="pageList">
+    <input type="search" placeholder="Search title..." x-model.debounce.150ms="search" x-cloak>
+
+    <div class="button-tags" x-cloak>
+        <button class="button-tag" :class="{ 'active': selectedTags.length === 0 }" @click="selectedTags = []">All Tags</button>
+        <template x-for="tag in tags" :key="tag">
+            <button x-text="tag" class="button-tag" :class="{ 'active': selectedTags.includes(tag) }" @click="toggleTag(tag)"></button>
+        </template>
+    </div>
+
+    <ul class="page-list" x-show="filteredItems !== null && filteredItems.length > 0" x-cloak>
+        <template x-for="item in filteredItems" :key="item.url">
+            <li>
+                <time :datetime="item.date" x-text="item.dateStr"></time>
+                <a :href="item.url" x-text="item.title"></a>
+            </li>
+        </template>
+    </ul>
+
+    <p class="no-results" x-show="filteredItems !== null && filteredItems.length === 0" x-cloak>
+        No titles matched the given criteria.
+        <a href="/" @click.prevent="() => { search = ''; selectedTags = []; }">Show All.</a>
+    </p>
+
+    <div x-show="filteredItems === null">
+        {{ range .Pages.GroupByDate "2006" }}
+        <h2>{{ .Key }}</h2>
+        <ul class="page-list">
+            {{ range .Pages }}
+            <li data-tags='{{ with .Params.tags }}{{ delimit . "," }}{{ end -}}'>
+                <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "Jan 02" }}</time>
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+            {{ end }}
+        </ul>
+        {{ end }}
+    </div>
+</div>
 {{ end }}
+
+{{ define "scripts" }}
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.3.3/dist/cdn.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
+{{- $list := resources.Get "list.js" | minify | fingerprint -}}
+<script src="{{ $list.Permalink }}"></script>
 {{ end }}
