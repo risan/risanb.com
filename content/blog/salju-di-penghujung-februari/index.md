@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Salju di Penghujung Februari
 date: 2018-02-27T12:16:00+02:00
 categories: [journal, photos]

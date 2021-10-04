@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Night at Museum
 date: 2007-03-20T19:12:00+07:00
 categories: [writing]

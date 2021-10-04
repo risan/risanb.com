@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Goa Batu Hapu
 date: 2011-11-16T07:22:00+07:00
 categories: [travel]

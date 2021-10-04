@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Bianglala
 date: 2010-08-13T19:24:00+07:00
 categories: [writing]

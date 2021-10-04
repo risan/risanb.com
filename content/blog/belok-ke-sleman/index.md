@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Belok ke Sleman
 date: 2011-11-08T20:01:00+07:00
 categories: [travel]

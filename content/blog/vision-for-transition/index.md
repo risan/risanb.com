@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Vision for Transition
 date: 2007-03-20T17:48:00+07:00
 categories: [writing]

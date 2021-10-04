@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Negeri Pala
 date: 2013-02-16T13:07:00+07:00
 categories: [writing]

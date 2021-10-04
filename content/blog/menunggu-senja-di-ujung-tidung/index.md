@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Menunggu Senja di Ujung Tidung
 date: 2011-12-03T22:51:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Jalan-Jalan Singkat di Östermalm
 date: 2018-06-07T04:30:00+02:00
 categories: [journal]

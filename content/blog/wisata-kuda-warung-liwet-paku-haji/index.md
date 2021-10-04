@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Wisata Kuda & Warung Liwet Paku Haji
 date: 2007-03-20T17:30:00+07:00
 categories: [journal]

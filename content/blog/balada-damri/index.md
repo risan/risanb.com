@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Balada Damri
 date: 2011-12-08T07:00:00+07:00
 categories: [travel]

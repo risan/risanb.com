@@ -1,15 +1,17 @@
 baseURL: "https://risanb.com/"
-title: Risan Bagja Pradana
+title: Risan Bagja
 languageCode: en
 markup:
   goldmark:
     renderer:
       unsafe: true
   highlight:
-    style: native
+    style: perldoc
 imaging:
   quality: 80
 params:
-  description: My name is Risan Bagja Pradana and I love playing with the computer. This website is an archive of my thoughts. I blog about programming stuff, my daily life, my traveling experiences, and other random things.
+  description: >
+    My name is Risan Bagja Pradana and I love playing with the computer. This website is an archive of my thoughts.
+    I blog about programming stuff, my daily life, my traveling experiences, and other random things.
   images: [/img/risan-og.jpg]
 

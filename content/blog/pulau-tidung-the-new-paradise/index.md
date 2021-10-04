@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pulau Tidung, The New Paradise
 date: 2011-12-01T07:00:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Arti Angka Sembilan
 date: 2010-09-07T14:31:00+07:00
 categories: [writing]

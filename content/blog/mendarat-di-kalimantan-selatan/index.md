@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Mendarat di Kalimantan Selatan
 date: 2011-11-11T07:11:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tentang Kemerdekaan
 date: 2010-09-07T14:59:00+07:00
 categories: [writing]

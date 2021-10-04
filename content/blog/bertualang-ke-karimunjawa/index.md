@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Bertualang ke Karimunjawa
 date: 2020-05-17T00:23:00+07:00
 description: Pada akhir bulan Juli tahun 2011 silam, saya dan kedua kawan kuliah saya melancong ke Kepulauan Karimunjawa. Kepulauan ini terletak di lepas Laut Jawa. Sekira 80 kilometer di Barat Laut dari Kabupaten Jepara. Ia terdiri dari 27 gugusan pulau.

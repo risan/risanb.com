@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Dahulu
 date: 2010-03-14T04:59:00+07:00
 categories: [writing]

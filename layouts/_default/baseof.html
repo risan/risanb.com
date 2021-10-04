@@ -8,9 +8,7 @@
     {{- template "_internal/opengraph.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-    {{ with .OutputFormats.Get "rss" -}}
-    {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-    {{ end -}}
+    {{- with .OutputFormats.Get "rss" }}{{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}{{ end -}}
     {{- $normalize := resources.Get "normalize.css" -}}
     {{- $main := resources.Get "main.css" -}}
     {{- $styles := slice $normalize $main | resources.Concat "styles.css" | minify | fingerprint -}}
@@ -20,22 +18,43 @@
 </head>
 <body>
 <header class="header">
-    <img class="logo" src="/img/starwars.gif" alt="Obi-Wan vs Darth Vader">
-    <nav>
-        <a href="/">Home</a> /
-        <a href="/code/">Code</a> /
-        <a href="/blog/">Blog</a> /
-        <a href="/about/">About</a>
-    </nav>
+    <div class="container">
+        <h1 class="header-title">
+            <a href="/">{{ .Site.Title }}</a>
+        </h1>
+        <nav class="header-nav">
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/code/">Code</a>
+                </li>
+                <li>
+                    <a href="/blog/">Blog</a>
+                </li>
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </header>
-<img src="/img/border-rainbow.gif" alt="Animated Rainbow Border">
-<main class="main">{{ block "main" . }}{{ end }}</main>
-<footer class="footer">
+<main class="main container">{{ block "main" . }}{{ end }}</main>
+<footer class="footer container">
     <span>&copy; Risan Bagja {{ now.Year }}</span>
-    <nav>
-        <a href="https://github.com/risan">Github</a>
-        <a href="https://twitter.com/risanbagja">Twitter</a>
-        <a href="/index.xml">RSS</a>
+    <nav class="footer-nav">
+        <ul>
+            <li>
+                <a href="https://github.com/risan">Github</a>
+            </li>
+            <li>
+                <a href="https://twitter.com/risanbagja">Twitter</a>
+            </li>
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+        </ul>
     </nav>
 </footer>
 {{- block "scripts" . }}{{ end -}}

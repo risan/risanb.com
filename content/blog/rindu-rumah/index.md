@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Rindu Rumah
 date: 2013-02-06T09:00:00+07:00
 categories: [journal]

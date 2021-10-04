@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Island of the Apes
 date: 2011-11-16T08:52:00+07:00
 categories: [travel]

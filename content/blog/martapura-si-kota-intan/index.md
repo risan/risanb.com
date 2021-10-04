@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Martapura si Kota Intan
 date: 2011-11-16T10:34:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Gunung Pancar
 date: 2012-07-09T23:30:00+07:00
 categories: [travel]

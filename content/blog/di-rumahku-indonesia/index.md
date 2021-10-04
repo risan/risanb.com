@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Di Rumahku, Indonesia
 date: 2012-03-04T13:00:00+07:00
 categories: [writing]

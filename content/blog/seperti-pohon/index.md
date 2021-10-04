@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Seperti Pohon
 date: 2013-02-09T13:41:00+07:00
 categories: [writing]

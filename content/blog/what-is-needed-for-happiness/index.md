@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: What Is Needed for Happiness?
 date: 2012-10-13T06:00:00+07:00
 categories: [writing]

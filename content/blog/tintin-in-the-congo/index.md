@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tintin in the Congo
 date: 2013-02-15T13:39:00+07:00
 categories: [journal]

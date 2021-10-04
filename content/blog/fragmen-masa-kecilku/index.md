@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Fragmen Masa Kecilku
 date: 2013-02-11T13:23:00+07:00
 categories: [journal]

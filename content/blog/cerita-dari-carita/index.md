@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Cerita dari Carita
 date: 2011-11-17T07:20:00+07:00
 categories: [travel]

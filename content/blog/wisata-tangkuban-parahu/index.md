@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Wisata Tangkuban Parahu
 date: 2011-11-16T11:53:00+07:00
 categories: [travel]

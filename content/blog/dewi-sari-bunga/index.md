@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Dewi Sari Bunga
 date: 2012-03-13T13:00:00+07:00
 categories: [travel]

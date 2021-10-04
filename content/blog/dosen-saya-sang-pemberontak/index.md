@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Dosen Saya, Sang Pemberontak
 date: 2010-09-17T13:09:00+07:00
 categories: [journal]

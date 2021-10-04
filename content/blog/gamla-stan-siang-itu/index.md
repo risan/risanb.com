@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Gamla Stan Siang Itu
 date: 2019-05-12T20:20:00+02:00
 categories: [photos, travel]

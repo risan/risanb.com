@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pencarian Blog Lama
 date: 2013-02-15T15:07:00+07:00
 categories: [journal]

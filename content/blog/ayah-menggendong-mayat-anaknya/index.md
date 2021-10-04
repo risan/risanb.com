@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Ayah Menggendong Mayat Anaknya
 date: 2010-09-15T16:01:00+07:00
 categories: [writing]

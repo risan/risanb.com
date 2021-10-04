@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Thermometer
 date: 2010-09-02T14:10:00+07:00
 categories: [writing]

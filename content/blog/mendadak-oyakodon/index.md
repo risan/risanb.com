@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Mendadak Oyakodon
 date: 2018-07-05T23:37:00+02:00
 categories: [journal]

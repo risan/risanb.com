@@ -1,5 +1,5 @@
-{{ define "main" }}
-<article>
+{{- define "main" -}}
+<article class="post">
     <h1>{{ .Title }}</h1>
     <p>
         {{- if gt .Lastmod .Date -}}
@@ -10,7 +10,7 @@
     </p>
     {{ .Content }}
     {{- if (and (in (slice "blog" "code") .Type) (or .Params.categories .Params.tags .NextInSection .PrevInSection)) -}}
-    <footer>
+    <footer class="post-footer">
         <ul>
             {{- with .Params.categories }}
             <li>
@@ -44,4 +44,4 @@
     </footer>
     {{- end -}}
 </article>
-{{ end }}
+{{- end -}}

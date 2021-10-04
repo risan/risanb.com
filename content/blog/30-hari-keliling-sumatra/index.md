@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: 30 Hari Keliling Sumatra
 date: 2013-02-03T09:41:00+07:00
 categories: [writing]

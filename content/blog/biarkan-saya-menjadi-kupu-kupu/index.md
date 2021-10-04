@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Biarkan Saya Menjadi Kupu-Kupu
 date: 2010-08-13T16:13:00+07:00
 categories: [writing]

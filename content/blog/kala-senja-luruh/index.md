@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Kala Senja Luruh
 date: 2012-10-10T13:00:00+07:00
 categories: [writing]

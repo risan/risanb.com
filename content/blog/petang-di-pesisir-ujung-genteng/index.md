@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Petang di Pesisir Ujung Genteng
 date: 2012-03-01T13:00:00+07:00
 categories: [travel]

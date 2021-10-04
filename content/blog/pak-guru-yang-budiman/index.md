@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pak Guru yang Budiman
 date: 2010-02-28T17:44:00+07:00
 categories: [journal]

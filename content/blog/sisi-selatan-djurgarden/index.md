@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Sisi Selatan Djurgården
 date: 2019-05-27T04:44:00+02:00
 categories: [photos]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Untung Gak Dateng
 date: 2007-03-27T18:35:00+07:00
 categories: [journal]

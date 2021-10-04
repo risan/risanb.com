@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tujuh Makna Ironi
 date: 2010-03-02T19:48:00+07:00
 categories: [writing]

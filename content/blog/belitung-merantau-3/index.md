@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: "BM3: Belitung Merantau 3"
 date: 2011-11-04T14:38:00+07:00
 categories: [journal]

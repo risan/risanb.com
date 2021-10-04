@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Foi Moi!
 date: 2012-10-10T12:08:00+07:00
 categories: [journal]

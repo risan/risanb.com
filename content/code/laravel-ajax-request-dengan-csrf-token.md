@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Laravel AJAX Request dengan CSRF Token
 date: 2014-01-27T20:00:00+07:00
 categories: [snippet]

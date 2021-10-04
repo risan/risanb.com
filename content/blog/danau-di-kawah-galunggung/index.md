@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Danau di Kawah Galunggung
 date: 2011-12-06T13:00:00+07:00
 categories: [travel]

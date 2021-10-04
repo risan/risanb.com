@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Menapaki Jejak Kesultanan Yogyakarta
 date: 2011-11-22T07:00:00+07:00
 categories: [travel]

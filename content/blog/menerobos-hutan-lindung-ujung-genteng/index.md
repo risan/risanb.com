@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Menerobos Hutan Lindung Ujung Genteng
 date: 2011-12-11T08:00:00+07:00
 categories: [travel]

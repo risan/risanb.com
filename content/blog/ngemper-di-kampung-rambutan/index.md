@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Ngemper di Kampung Rambutan
 date: 2011-11-27T07:00:00+07:00
 categories: [travel]

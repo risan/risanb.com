@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Asyiknya Kuliah di Bandung
 date: 2010-09-05T13:08:00+07:00
 categories: [journal]

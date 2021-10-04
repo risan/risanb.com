@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Bersampan di Sunda Kelapa
 date: 2013-02-06T10:00:00+07:00
 categories: [travel]

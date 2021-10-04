@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tintin in the Land of Soviets
 date: 2013-02-10T13:11:00+07:00
 categories: [writing]

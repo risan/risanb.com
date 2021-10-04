@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pertama Kali Naik Kereta Ekonomi
 date: 2011-11-08T16:05:00+07:00
 categories: [travel]

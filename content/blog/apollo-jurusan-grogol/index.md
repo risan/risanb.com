@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Apollo Jurusan Grogol
 date: 2011-11-27T08:00:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Lune Bab 3 – Mimpi Buruk
 date: 2009-12-26T17:00:00+07:00
 categories: [writing]

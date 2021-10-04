@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: "Hotel Wilis, Hotel Super Murah di Jogja"
 date: 2011-11-08T19:22:00+07:00
 categories: [travel]

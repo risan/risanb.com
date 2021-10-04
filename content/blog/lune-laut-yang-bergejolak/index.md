@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Lune Bab 1 – Laut yang Bergejolak
 date: 2009-12-24T22:18:00+07:00
 categories: [writing]

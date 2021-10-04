@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Sepatu Dahlan
 date: 2013-01-15T13:49:00+07:00
 categories: [writing]

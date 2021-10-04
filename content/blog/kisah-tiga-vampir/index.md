@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Kisah Tiga Vampir
 date: 2010-09-01T16:45:00+07:00
 categories: [writing]

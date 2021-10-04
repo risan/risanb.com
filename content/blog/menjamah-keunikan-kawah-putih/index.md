@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Menjamah Keunikan Kawah Putih
 date: 2011-11-18T08:34:00+07:00
 categories: [travel]

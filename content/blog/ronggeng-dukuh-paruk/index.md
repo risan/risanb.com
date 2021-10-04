@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Ronggeng Dukuh Paruk
 date: 2013-01-20T13:17:00+07:00
 categories: [writing]

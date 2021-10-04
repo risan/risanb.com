@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Jalan-Jalan di Malioboro
 date: 2011-11-08T19:55:00+07:00
 categories: [travel]

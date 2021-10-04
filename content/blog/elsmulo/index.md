@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Elsmulo
 date: 2010-08-08T16:09:00+07:00
 categories: [journal]

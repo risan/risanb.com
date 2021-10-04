@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pulau Biawak, The Land of Dragons
 date: 2011-11-26T07:00:00+07:00
 categories: [travel]

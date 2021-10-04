@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: An Ode to Perangkonero
 date: 2013-02-06T08:00:00+07:00
 categories: [journal]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Sepenggalan Nafas
 date: 2013-03-17T13:10:00+07:00
 categories: [writing]

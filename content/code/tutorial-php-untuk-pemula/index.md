@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tutorial PHP untuk Pemula
 date: 2018-04-27T10:00:00+02:00
 description: Tutorial dasar PHP untuk pemula. Pelajari dasar-dasar pemrograman PHP mulai dari variable, tipe data, operator, percabangan, perulangan, fungsi, hingga Closure.

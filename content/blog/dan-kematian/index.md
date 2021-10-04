@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Dan Kematian
 date: 2013-02-05T13:00:00+07:00
 categories: [writing]

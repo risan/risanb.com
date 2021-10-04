@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Belantara
 date: 2021-04-18T22:11:00+07:00
 categories: [writing]

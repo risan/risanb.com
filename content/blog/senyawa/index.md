@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Senyawa
 date: 2012-10-12T06:00:00+07:00
 categories: [writing]

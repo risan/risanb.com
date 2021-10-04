@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Loncat dari Jembatan Cinta
 date: 2011-11-30T09:00:00+07:00
 categories: [travel]

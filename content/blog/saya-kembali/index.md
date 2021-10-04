@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Saya Kembali
 date: 2012-02-29T13:00:00+07:00
 categories: [journal]

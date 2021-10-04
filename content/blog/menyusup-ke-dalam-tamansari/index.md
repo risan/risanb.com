@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Menyusup ke Dalam Tamansari
 date: 2011-11-22T09:00:00+07:00
 categories: [travel]

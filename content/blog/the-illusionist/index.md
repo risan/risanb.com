@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: The Illusionist
 date: 2007-03-20T19:38:00+07:00
 categories: [writing]

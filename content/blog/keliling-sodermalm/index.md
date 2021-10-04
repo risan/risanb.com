@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Keliling Södermalm
 date: 2018-06-09T07:35:00+02:00
 categories: [photos, travel]

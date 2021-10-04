@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Di Tepian Malam
 date: 2013-02-05T14:00:00+07:00
 categories: [writing]

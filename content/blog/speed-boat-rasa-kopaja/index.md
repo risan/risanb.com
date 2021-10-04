@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Speed Boat Rasa Kopaja
 date: 2011-11-17T08:54:00+07:00
 categories: [travel]

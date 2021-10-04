@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Angin Dingin dari Siberia
 date: 2018-03-04T01:37:00+02:00
 categories: [photos]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Dufan, Taman Ria Favorit
 date: 2011-11-18T07:00:00+07:00
 categories: [travel]

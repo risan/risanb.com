@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Bahlul dan Budak yang Takut Laut
 date: 2010-09-08T14:48:00+07:00
 categories: [writing]

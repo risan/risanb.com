@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Biasa Dipanggil Yanti
 date: 2010-09-13T12:49:00+07:00
 categories: [writing]

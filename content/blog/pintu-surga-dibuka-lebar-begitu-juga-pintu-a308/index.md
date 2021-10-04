@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pintu Surga Dibuka Lebar, Begitu juga Pintu A308
 date: 2010-09-05T14:24:00+07:00
 categories: [journal]

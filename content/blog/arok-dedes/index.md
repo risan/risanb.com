@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Arok Dedes
 date: 2013-01-24T13:20:00+07:00
 categories: [writing]

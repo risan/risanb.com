@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Jentera Bianglala
 date: 2011-11-24T13:00:00+07:00
 categories: [writing]

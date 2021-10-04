@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Toko Bata di Château Rouge
 date: 2020-12-19T20:24:00+07:00
 categories: [travel]

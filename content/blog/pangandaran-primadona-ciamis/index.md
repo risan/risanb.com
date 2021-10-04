@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Pangandaran, Primadona Ciamis
 date: 2011-11-19T23:48:00+07:00
 categories: [travel]

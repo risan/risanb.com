@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Indonesia yang Bukan Indonesia
 date: 2013-02-02T09:14:00+07:00
 categories: [writing]

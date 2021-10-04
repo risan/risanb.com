@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Hari Pertama di Stockholm
 date: 2019-05-04T11:51:00+02:00
 categories: [journal]

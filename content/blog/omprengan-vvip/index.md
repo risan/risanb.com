@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Omprengan VVIP
 date: 2011-11-26T08:00:00+07:00
 categories: [travel]

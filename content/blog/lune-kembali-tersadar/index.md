@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Lune Bab 2 – Kembali Tersadar
 date: 2009-12-25T23:36:00+07:00
 categories: [writing]

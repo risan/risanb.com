@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Di Atas KA Kahuripan
 date: 2011-11-08T16:39:00+07:00
 categories: [travel]

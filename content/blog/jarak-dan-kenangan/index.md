@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Jarak dan Kenangan
 date: 2012-10-15T06:00:00+07:00
 categories: [journal]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Jejak Sejarah Kota Gudeg
 date: 2011-11-20T09:00:00+07:00
 categories: [travel]

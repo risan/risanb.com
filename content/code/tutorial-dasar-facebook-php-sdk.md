@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tutorial Dasar Facebook PHP SDK
 date: 2014-01-29T20:00:00+07:00
 categories: [tutorial]

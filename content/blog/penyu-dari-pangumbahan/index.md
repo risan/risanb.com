@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Penyu dari Pangumbahan
 date: 2011-12-11T09:00:00+07:00
 categories: [travel]

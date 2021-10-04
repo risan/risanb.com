@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Bersepeda Kembali
 date: 2018-06-21T19:00:00+02:00
 categories: [journal]

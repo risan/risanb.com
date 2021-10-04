@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tradisi Perayaan Kelulusan SMA di Swedia
 date: 2018-06-10T10:29:00+02:00
 categories: [writing]

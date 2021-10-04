@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Persib Aing Pisan
 date: 2007-03-27T17:07:00+07:00
 categories: [journal]

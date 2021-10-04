@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Potongan Syair Laila Majnun
 date: 2010-09-05T14:10:00+07:00
 categories: [writing]

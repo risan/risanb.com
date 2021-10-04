@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Aku Ingin Petualangan
 date: 2012-03-11T13:00:00+07:00
 categories: [writing]

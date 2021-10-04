@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Kopi Campur Arang
 date: 2011-11-23T07:06:00+07:00
 categories: [travel]

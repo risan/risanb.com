@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Semalam di Sukabumi
 date: 2011-12-09T13:00:00+07:00
 categories: [travel]

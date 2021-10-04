@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Negeri Saleman, Negeri Penuh Pesona
 date: 2012-03-05T13:00:00+07:00
 categories: [travel]

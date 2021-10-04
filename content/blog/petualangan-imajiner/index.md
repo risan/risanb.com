@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Petualangan Imajiner
 date: 2012-06-19T22:29:00+07:00
 categories: [writing]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Mencari Surga Tersembunyi
 date: 2011-12-10T13:00:00+07:00
 categories: [travel]

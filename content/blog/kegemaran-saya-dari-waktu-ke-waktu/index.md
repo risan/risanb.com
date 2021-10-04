@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Kegemaran Saya dari Waktu ke Waktu
 date: 2018-07-08T05:44:00+02:00
 categories: [journal]

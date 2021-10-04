@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: "Masangin: Berjalan tanpa Melihat!"
 date: 2011-11-22T08:00:00+07:00
 categories: [travel]

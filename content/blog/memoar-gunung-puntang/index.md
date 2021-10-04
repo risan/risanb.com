@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Memoar Gunung Puntang
 date: 2011-11-16T19:56:00+07:00
 categories: [travel]

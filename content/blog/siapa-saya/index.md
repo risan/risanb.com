@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Siapa Saya?
 date: 2010-03-01T15:06:00+07:00
 categories: [writing]

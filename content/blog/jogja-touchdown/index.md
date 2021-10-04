@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: "Jogja: Touchdown!"
 date: 2011-11-08T17:03:00+07:00
 categories: [travel]

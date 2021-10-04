@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Hikayat Lahirnya Kerajaan-Kerajaan di Maluku
 date: 2013-02-17T13:00:00+07:00
 categories: [writing]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Realtime Notification using PHP and Pusher
 date: 2014-01-27T19:00:00+07:00
 categories: [tutorial]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Sisi Lain Tangkuban Parahu
 date: 2011-11-16T12:17:00+07:00
 categories: [travel]

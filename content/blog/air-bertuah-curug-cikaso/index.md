@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Air Bertuah Curug Cikaso
 date: 2012-05-20T21:22:00+07:00
 categories: [travel]

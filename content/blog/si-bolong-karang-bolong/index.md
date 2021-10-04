@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Si Bolong Karang Bolong
 date: 2011-11-17T06:13:00+07:00
 categories: [travel]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Tanah Lot Amanda Ratu
 date: 2012-03-14T13:00:00+07:00
 categories: [travel]

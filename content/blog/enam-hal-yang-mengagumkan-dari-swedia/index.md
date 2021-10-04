@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Enam Hal yang Mengagumkan dari Swedia
 date: 2018-06-14T08:35:00+02:00
 categories: [writing]

@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Lovely Night, Lonely Bus
 date: 2010-09-13T13:55:00+07:00
 categories: [writing]

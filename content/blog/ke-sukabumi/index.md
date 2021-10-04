@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Ke Sukabumi!
 date: 2011-12-08T08:00:00+07:00
 categories: [travel]

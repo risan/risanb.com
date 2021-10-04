@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: "Sosrowijayan: Pusatnya Penginapan Murah"
 date: 2011-11-20T08:00:00+07:00
 categories: [travel]

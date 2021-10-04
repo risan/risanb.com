@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Ada yang Begituan di Vredeburg
 date: 2011-11-22T10:00:00+07:00
 categories: [travel]

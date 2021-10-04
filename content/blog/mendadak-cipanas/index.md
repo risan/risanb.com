@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Mendadak Cipanas
 date: 2011-11-08T14:38:00+07:00
 categories: [travel]

@@ -25,7 +25,7 @@ Here are some screenshots of this app. Note that these are coming from some rand
 
 ![Select the spreadsheet you want to use.](select-spreadsheet.png)
 
-![Programmatically copy the starter template into your own Google Drive.](copy-template.png)\
+![Programmatically copy the starter template into your own Google Drive.](copy-template.png)
 
 ![The expense form is a lot nicer now.](expenses.png)
 

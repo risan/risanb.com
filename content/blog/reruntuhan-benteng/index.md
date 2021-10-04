@@ -1,5 +1,5 @@
 ---
-lang: id
+languageCode: id
 title: Reruntuhan Benteng
 date: 2013-02-06T07:00:00+07:00
 categories: [writing]
