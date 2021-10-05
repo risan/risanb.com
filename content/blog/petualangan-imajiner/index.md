@@ -5,6 +5,7 @@ date: 2012-06-19T22:29:00+07:00
 categories: [writing]
 tags: [fiksi]
 images: [/blog/petualangan-imajiner/cover.jpg]
+featured: true
 ---
 ![Petualangan Imajiner](cover.jpg)
 

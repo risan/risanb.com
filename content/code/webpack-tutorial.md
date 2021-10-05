@@ -7,6 +7,7 @@ date: 2017-08-06T21:00:00+02:00
 categories: [tutorial]
 tags: [javascript, webpack]
 images: [/img/webpack.png]
+featured: true
 ---
 {{<toc>}}
 

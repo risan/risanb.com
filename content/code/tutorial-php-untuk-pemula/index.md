@@ -6,6 +6,7 @@ description: Tutorial dasar PHP untuk pemula. Pelajari dasar-dasar pemrograman P
 categories: [tutorial]
 tags: [php]
 images: [/img/php.png]
+featured: true
 ---
 PHP—akronim rekursif dari *PHP: Hypertext Preprocessor*)—merupakan bahasa pemrograman untuk web yang mulanya dikembangkan oleh Rasmus Lerdorf pada tahun 1994. PHP berjalan di sisi server (peladen) dan umumnya digunakan untuk membuat aplikasi berbasis web yang dinamis.
 

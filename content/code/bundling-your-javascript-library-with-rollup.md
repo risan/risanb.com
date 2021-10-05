@@ -4,6 +4,7 @@ date: 2018-11-04T02:51:00+02:00
 categories: [tutorial]
 tags: [javascript]
 images: [/img/rollup.png]
+featured: true
 ---
 Similar to Webpack or Browserify, [Rollup](https://rollupjs.org) is a module bundler for JavaScript. It allows us to use the modern ES module system and transform it into another module system: CommonJS, AMD, the UMD. It can also bundle our module and wrap it inside the IIFE (Immediately-Invoked Function Expression).
 

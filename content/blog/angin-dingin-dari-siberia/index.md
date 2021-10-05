@@ -5,6 +5,7 @@ date: 2018-03-04T01:37:00+02:00
 categories: [photos]
 tags: [stockholm, swedia]
 images: [/blog/angin-dingin-dari-siberia/dsc_2027.jpg]
+featured: true
 ---
 Sepanjang minggu ini, berita seputar "The Beast from the East" mewarnai harian-harian di Eropa. Pasalnya angin dingin dari Siberia berhembus ke seantero daratan Eropa. Angin kencang disertai badai salju menerpa kota-kota di Eropa, mulai dari Moskow di Utara hingga jauh ke Roma di Selatan.
 

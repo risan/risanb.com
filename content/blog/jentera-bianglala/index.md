@@ -5,6 +5,7 @@ date: 2011-11-24T13:00:00+07:00
 categories: [writing]
 tags: [prosa]
 images: [/blog/jentera-bianglala/cover.jpg]
+featured: true
 ---
 ![Jentera Bianglala](cover.jpg)
 

@@ -4,6 +4,7 @@ date: 2019-05-18T22:38:00+02:00
 categories: [writing]
 tags: [non-fiksi, stockholm, swedia]
 images: [/blog/stasiun-stasiun-tunnelbana/DSC_7555.jpg]
+featured: true
 ---
 *Tunnelbana* atau kereta bawah tanah merupakan salah satu moda transportasi andalan di Kota Stockholm. Moda transportasi ini tercatat mengangkut lebih dari 350 juta penumpang pada tahun 2017—menempatkannya pada posisi ke-36 sebagai sistem kereta bawah tanah tersibuk di dunia.
 

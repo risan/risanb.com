@@ -4,6 +4,7 @@ date: 2021-05-21T21:05:00+07:00
 categories: [journal]
 tags: [sinopsis, buku]
 images: [/blog/membaca-kembali/20210517_210702.jpg]
+featured: true
 ---
 Minat membaca buku saya meredup sejak bergelut di dunia pemrograman beberapa tahun terakhir. Yang saya baca praktis hanya seputar pemrograman. Sambil sesekali membaca buku *self help*—yang seringkali efek positifnya berbekas beberapa hari saja. Ditambah derasnya arus informasi zaman kiwari. Kian terbiasa membaca artikel-artikel pendek dari media daring. Melihat buku beberapa ratus halaman saja, malas rasanya. Padahal dahulu saya cukup getol melahap beragam jenis buku.
 

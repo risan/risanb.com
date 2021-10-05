@@ -5,6 +5,7 @@ description: When is the last time you created your SSH key? If you're still usi
 categories: [tutorial]
 tags: [devops, macos, linux]
 images: [/code/upgrade-ssh-key-to-ed25519/og.jpg]
+featured: true
 ---
 If you're a DevOps engineer or a web developer, there's a good chance that you're already familiar and using the SSH key authentication on a daily basis. Whether it's for logging into the remote server or when pushing your commit to the remote repository. It provides us with better security than the traditional password-based authentication.
 

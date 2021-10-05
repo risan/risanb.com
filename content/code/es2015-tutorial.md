@@ -7,6 +7,7 @@ date: 2017-03-25T00:10:00+02:00
 categories: [tutorial]
 tags: [javascript]
 images: [/img/javascript.png]
+featured: true
 ---
 {{<toc>}}
 
