@@ -11,7 +11,7 @@
     {{ .Content }}
     {{- if (and (in (slice "blog" "code") .Type) (or .Params.categories .Params.tags .NextInSection .PrevInSection)) -}}
     <footer class="post-footer">
-        <ul>
+        <ul class="basic-list">
             {{- with .Params.categories }}
             <li>
                 <span>Categories:&nbsp;</span>

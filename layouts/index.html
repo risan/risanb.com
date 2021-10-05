@@ -6,7 +6,7 @@
 
 <section>
     <h2>Recent Posts from Code:</h2>
-    <ul class="page-list">
+    <ul class="basic-list">
         {{- range first 7 (where .Site.RegularPages "Section" "code") -}}
         <li>
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -17,7 +17,7 @@
 
 <section>
     <h2>Recent Posts from Blog:</h2>
-    <ul class="page-list">
+    <ul class="basic-list">
         {{- range first 7 (where .Site.RegularPages "Section" "blog") -}}
         <li>
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>

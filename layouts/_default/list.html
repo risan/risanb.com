@@ -3,7 +3,7 @@
 
 {{- range .Pages.GroupByDate "2006" -}}
 <h2>{{ .Key }}</h2>
-<ul class="page-list">
+<ul class="basic-list">
     {{- range .Pages -}}
     <li>
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>

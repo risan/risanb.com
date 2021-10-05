@@ -183,6 +183,11 @@ pre code {
     color: blue;
 }
 
+.basic-list {
+    padding-left: 1.25rem;
+    list-style-type: square;
+}
+
 /* single */
 .post-footer {
     border-top: 2px solid beige;
