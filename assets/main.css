@@ -28,6 +28,14 @@ body {
     box-sizing: border-box;
 }
 
+h1 {
+    line-height: 1.15;
+}
+
+h2 {
+    line-height: 1.25;
+}
+
 a {
     color: blue;
     text-decoration: none;
