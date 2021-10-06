@@ -6,7 +6,7 @@
 
 <section>
     <h2>Featured Posts from Code:</h2>
-    <ul class="basic-list">
+    <ul class="list-basic">
         {{- range where (where .Site.RegularPages "Section" "code") "Params.featured" true -}}
         <li>
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -17,7 +17,7 @@
 
 <section>
     <h2>Featured Posts from Blog:</h2>
-    <ul class="basic-list">
+    <ul class="list-basic">
         {{- range where (where .Site.RegularPages "Section" "blog") "Params.featured" true -}}
         <li>
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>

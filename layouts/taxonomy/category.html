@@ -2,7 +2,7 @@
 {{ define "main" }}
 <h1>Category: {{ .Title }}</h1>
 
-<ul class="basic-list">
+<ul class="list-basic">
     {{ range .Pages }}
     <li>
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>

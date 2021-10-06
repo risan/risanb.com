@@ -146,6 +146,7 @@ pre code {
 .header .container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -161,17 +162,8 @@ pre code {
     text-transform: uppercase;
 }
 
-.header-nav ul,
-.footer-nav ul{
-    display: flex;
-    flex-wrap: wrap;
-    gap: .25rem 1rem;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.header-nav a {
+.header-nav a,
+.header-nav li::after {
     color: #fff;
 }
 
@@ -191,9 +183,27 @@ pre code {
     color: blue;
 }
 
-.basic-list {
+.list-basic {
     padding-left: 1.25rem;
     list-style-type: square;
+}
+
+.list-slash-separated {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-slash-separated li {
+    display: flex;
+}
+
+.list-slash-separated li:not(:last-child)::after {
+    content: '/';
+    margin-right: .375rem;
+    margin-left: .375rem;
 }
 
 /* single */
