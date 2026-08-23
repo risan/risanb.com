@@ -1,6 +1,8 @@
 baseURL: "https://risanb.com/"
 title: Risan Bagja
-languageCode: en
+locale: en
+# Hugo 0.94 started title-casing list titles; keep taxonomy terms as authored.
+capitalizeListTitles: false
 markup:
   goldmark:
     renderer:

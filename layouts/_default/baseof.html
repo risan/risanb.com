@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='{{ .Params.LanguageCode | default $.Site.LanguageCode | default "en" }}'>
+<html lang='{{ .Params.LanguageCode | default .Site.Language.Lang | default "en" }}'>
 <head>
     <meta charset="utf-8">
     <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
