@@ -1,2 +1,8 @@
 .idea
 public
+.hugo_build.lock
+
+# Hugo's generated resource cache. Hugo 0.165 changed the cache key format, so
+# the copy that used to be committed here is never read; every build rebuilds
+# these files from content and derives the same names.
+/resources/

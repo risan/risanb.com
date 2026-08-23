@@ -1,10 +1,14 @@
 <figure>
     <a href="{{ .Destination | safeURL }}">
+        {{- $src := .Destination -}}
         {{- $img := .Page.Resources.GetMatch .Destination -}}
-        {{- if gt $img.Width 1080 -}}
-            {{- $img = $img.Resize "1080x" -}}
+        {{- with $img -}}
+            {{- if gt .Width 1080 -}}
+                {{- $img = .Resize "1080x" -}}
+            {{- end -}}
+            {{- $src = $img.Permalink -}}
         {{- end -}}
-        <img src="{{ $img.Permalink | safeURL }}" {{- with .Text | plainify }} alt="{{ . }}"{{ end -}} {{- with .Title }} title="{{ . }}"{{ end -}}>
+        <img src="{{ $src | safeURL }}" {{- with .Text | plainify }} alt="{{ . }}"{{ end -}} {{- with .Title }} title="{{ . }}"{{ end -}}>
     </a>
-    {{- with .Text | markdownify }}<figcaption>{{ . }}</figcaption>{{ end -}}
+    {{- with .Text }}<figcaption>{{ . | safeHTML }}</figcaption>{{ end -}}
 </figure>

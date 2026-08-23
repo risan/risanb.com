@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and check site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Resolve pinned Hugo version
+        id: hugo
+        run: |
+          version="$(awk '$1 == "hugo" { print $2 }' .tool-versions)"
+          if [ -z "$version" ]; then
+            echo "::error::no hugo version found in .tool-versions"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Install Hugo ${{ steps.hugo.outputs.version }} (extended)
+        env:
+          VERSION: ${{ steps.hugo.outputs.version }}
+        run: |
+          url="https://github.com/gohugoio/hugo/releases/download/v${VERSION}/hugo_extended_${VERSION}_linux-amd64.tar.gz"
+          curl --fail --silent --show-error --location "$url" -o /tmp/hugo.tar.gz
+          tar -xzf /tmp/hugo.tar.gz -C /tmp hugo
+          sudo install /tmp/hugo /usr/local/bin/hugo
+          hugo version
+
+      # --panicOnWarning turns deprecation notices into build failures, so a
+      # future Hugo release cannot quietly change how the site renders.
+      - name: Build
+        run: hugo --minify --panicOnWarning --printPathWarnings
+
+      - name: Check pages and internal links
+        run: python3 scripts/check-site.py public
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: site
+          path: public
+          retention-days: 7
