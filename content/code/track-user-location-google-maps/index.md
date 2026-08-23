@@ -469,7 +469,7 @@ The `watchPosition()` will be called every time the position of the device chang
 id = navigator.geolocation.watchPosition(success[, error[, options]])
 ```
 
-The `watchPosition()` accepts three parameters, it exactly the identical parameters like the one provided for [`getCurrentPosition()`](#using-the-getcurrentposition-Method). The only difference is the `error` callback is optional for the `watchPosition()`.
+The `watchPosition()` accepts three parameters, it exactly the identical parameters like the one provided for [`getCurrentPosition()`](#using-the-getcurrentposition-method). The only difference is the `error` callback is optional for the `watchPosition()`.
 
 It also returns an `id` like `setTimeout()` or `setInteval()` functions. This `id` can be used to stop tracking user's location with [`clearWatch()`](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/clearWatch) method.
 

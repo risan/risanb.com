@@ -3355,7 +3355,7 @@ Number: 3
 Number: 4
 ```
 
-Meski diperbolehkan, panduan [PSR-2](#https://www.php-fig.org/psr/psr-2/#54-for) menganjurkan untuk selalu menggunakan versi dengan kurung kurawal (`{...}`). Pun begitu, gaya penulisan seperti ini acap kali kita temukan pada templat-templat Wordpress.
+Meski diperbolehkan, panduan [PSR-2](https://www.php-fig.org/psr/psr-2/#54-for) menganjurkan untuk selalu menggunakan versi dengan kurung kurawal (`{...}`). Pun begitu, gaya penulisan seperti ini acap kali kita temukan pada templat-templat Wordpress.
 
 ### Tiga Ekspresi dalam Perulangan For Bersifat Opsional
 
@@ -6211,7 +6211,7 @@ print_r($yoda);
 
 #### Menambahkan Elemen Baru di Awal dengan array_unshift
 
-Fungsi [`array_unshift`](https://secure.php.net/manual/en/function.array-unshift.php) hampir sama dengan [`array_push`](#menggunakan-fungsi-array_push). Hanya saja dengan `array_unshift`, elemen akan ditambahkan pada bagian awal dari *array*.
+Fungsi [`array_unshift`](https://secure.php.net/manual/en/function.array-unshift.php) hampir sama dengan [`array_push`](#menambahkan-elemen-baru-di-akhir-dengan-array_push). Hanya saja dengan `array_unshift`, elemen akan ditambahkan pada bagian awal dari *array*.
 
 ```php
 int array_unshift( array &$array [, mixed $...])

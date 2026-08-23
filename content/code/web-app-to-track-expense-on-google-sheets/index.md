@@ -15,7 +15,7 @@ So I built a simple web-app that will programmatically append a new record to my
 
 ![Balance Sheet v1.](v1.png)
 
-Last week I decided to start [building more stuff again](/blog/lets-build-stuff-again/). So why not start with ramping up this expense tracking app? I named this app "Balance Sheet" simply because it's the name I use for my spreadsheet. Besides expenses, I also track my income and investments on Google Sheets. I built the form only for spending because that was the one that I use more often.
+Last week I decided to start [building more stuff again](/code/lets-build-stuff-again/). So why not start with ramping up this expense tracking app? I named this app "Balance Sheet" simply because it's the name I use for my spreadsheet. Besides expenses, I also track my income and investments on Google Sheets. I built the form only for spending because that was the one that I use more often.
 
 You can check out the web-app at [balancesheet.netlify.app](https://balancesheet.netlify.app/). Note that you will get a warning from Google because this app is not verified yet. I do not use any database. This app works directly with the Google Sheets and Google Drive APIs. I can guarantee you that this app won't collect any of your data. You can always check your Network tab and see that it will only send XHR to the Google API endpoint. To proceed, you can click on the "Advanced" button, then continue to open this website.
 
