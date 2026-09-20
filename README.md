@@ -23,12 +23,14 @@ paths unchanged, so no technical post needed a redirect.
 
 ## Requirements
 
-Node 20.3+ (see `.tool-versions`). npm.
+Node 20.3+ (see `.node-version`). npm.
 
-Hugo is no longer required. `.tool-versions` pins **Node only** — Workers Builds
-installs every tool listed there via asdf/mise, so a leftover `hugo` entry makes
-the build fail before it starts with `Failed: error occurred while installing
-tools or dependencies`.
+Hugo is no longer required.
+
+`.tool-versions` is deliberately **absent**. Workers Builds detects that file and
+tries to install its contents, but the build image only supports `NODE_VERSION`,
+`.nvmrc` and `.node-version` — a `.tool-versions` file fails the build before it
+starts with `Failed: error occurred while installing tools or dependencies`.
 
 ## Commands
 
