@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('code');
+
+// Code-site categories only. Hugo lumped both sections' terms into one
+// /categories/ index; after the split each site shows its own.
+const terms = new Map<string, number>();
+for (const post of posts) {
+  for (const c of post.data.categories) terms.set(c, (terms.get(c) ?? 0) + 1);
+}
+const sorted = [...terms.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<BaseLayout title="Categories | Risan Bagja" description="Browse posts by category.">
+  <div class="page-head">
+    <h1>Categories</h1>
+  </div>
+
+  <section class="section-block">
+    <h2>{sorted.length} categories</h2>
+    <ul class="entry-list">
+      {
+        sorted.map(([name, count]) => (
+          <li>
+            <a href={`/categories/${name}/`}>
+              <span class="title">{name}</span>
+              <span class="meta">{count} {count === 1 ? 'post' : 'posts'}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

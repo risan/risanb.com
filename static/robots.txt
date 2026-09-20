@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# The personal/essay half of the site now lives on its own domain.
+Sitemap: https://risanb.com/sitemap-index.xml

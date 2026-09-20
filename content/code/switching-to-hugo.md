@@ -142,7 +142,7 @@ Note that we call the `markdownify` function for the caption. So we can still us
 
 ## Group Post by Year
 
-As you might have noticed on [`/code`](/code/) and [`/blog`](/blog/) sections, I group the posts on those sections by year. To do that our `list.html` file should look like this:
+As you might have noticed on [`/code`](/code/) and [`/blog`](https://blog.risanb.com/) sections, I group the posts on those sections by year. To do that our `list.html` file should look like this:
 
 ```go-html-template
 {{ define "main" }}

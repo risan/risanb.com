@@ -1,0 +1,771 @@
+/* ============================================================================
+   risanb.com — "Technical Monograph"
+   A printed-engineering-journal treatment: warm newsprint, serif throughout,
+   hairline rules, one clay accent. See docs/design.md for the rationale.
+   ========================================================================== */
+
+/* Self-hosted variable fonts. No third-party CDN request, no FOIT. */
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
+
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #fbf9f5;
+  --color-sunk: #f3efe7;
+  --color-ink: #1b1c1d;
+  --color-muted: #6b6862;
+  --color-rule: #e4ded3;
+  --color-accent: #c8502e;
+
+  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  --measure: 66ch;
+}
+
+:root {
+  --paper: #fbf9f5;
+  --sunk: #f3efe7;
+  --ink: #1b1c1d;
+  --ink-muted: #6b6862;
+  --rule: #e4ded3;
+  --accent: #c8502e;
+  --accent-soft: #e0a48f;
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  line-height: 1.7;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 3px;
+}
+
+::selection {
+  background: #f2d9cd;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  background: var(--paper);
+  border: 1px solid var(--accent);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* --------------------------------------------------------------- header --- */
+
+header.site {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+header.site .bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 22px 0;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand em {
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+nav.top {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+nav.top a {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+nav.top a:hover {
+  color: var(--ink);
+}
+nav.top a[aria-current='page'] {
+  color: var(--accent);
+}
+
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 3px 7px;
+  background: none;
+  cursor: pointer;
+}
+.kbd:hover {
+  color: var(--ink);
+  border-color: var(--ink-muted);
+}
+
+/* --------------------------------------------------------------- layout --- */
+
+.grid {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 64px;
+  padding-top: 72px;
+  padding-bottom: 40px;
+}
+
+/* Posts without h2 headings have no rail — let the article use the full width. */
+.grid--no-toc {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ------------------------------------------------------------------ toc --- */
+
+.rail {
+  position: sticky;
+  top: 104px;
+  align-self: start;
+}
+
+.rail h2 {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.rail ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: toc;
+}
+
+.rail li {
+  counter-increment: toc;
+  margin: 0 0 11px;
+}
+
+.rail a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 6px;
+}
+.rail a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--rule);
+  font-size: 0.6875rem;
+}
+.rail a:hover {
+  color: var(--ink);
+}
+.rail a.active {
+  color: var(--accent);
+}
+.rail a.active::before {
+  color: var(--accent);
+}
+
+/* -------------------------------------------------------------- article --- */
+
+article {
+  max-width: var(--measure);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+}
+.eyebrow .dot {
+  color: var(--rule);
+}
+.eyebrow a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5.2vw, 3.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  margin: 20px 0 0;
+  text-wrap: balance;
+}
+
+.dek {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3125rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  margin: 22px 0 0;
+  max-width: 56ch;
+}
+
+.rule {
+  height: 1px;
+  background: var(--rule);
+  margin: 44px 0 40px;
+}
+
+/* Body headings. The section numeral hangs in the margin like a monograph.
+   Numbered via CSS counters so the rendered markdown needs no injected markup. */
+.prose {
+  counter-reset: section;
+}
+
+.prose h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 64px 0 0;
+  scroll-margin-top: 96px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: baseline;
+  counter-increment: section;
+}
+
+.prose h2::before {
+  content: counter(section, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.prose h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  margin: 38px 0 0;
+  scroll-margin-top: 96px;
+}
+
+.prose p {
+  margin: 22px 0 0;
+}
+
+/* Drop cap on the article's opening paragraph only. Scoped to .post-body so it
+   doesn't land on the eyebrow, which is also a <p> but sits above the h1. */
+.post-body > p:first-of-type {
+  margin-top: 34px;
+}
+.post-body > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.9rem;
+  line-height: 0.82;
+  font-weight: 400;
+  color: var(--accent);
+  margin: 0.06em 0.09em 0 0;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.35em;
+  margin: 22px 0 0;
+}
+.prose li {
+  margin: 8px 0;
+}
+.prose li::marker {
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--sunk);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.1em 0.34em;
+}
+
+.prose blockquote {
+  margin: 40px 0;
+  padding: 0 0 0 26px;
+  border-left: 2px solid var(--accent);
+  font-size: 1.375rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+.prose blockquote p {
+  margin: 0;
+}
+
+.prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--rule);
+  margin: 48px 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0 0;
+  font-size: 1rem;
+}
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.prose th {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Figures. Mirrors Hugo's render hook: <figure><img><figcaption></figure>. */
+.prose figure {
+  margin: 40px 0;
+}
+.prose figure img {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+.prose figcaption {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+  margin-top: 14px;
+}
+
+/* --------------------------------------------------- expressive code ----- */
+
+/* Recolour Expressive Code to sit inside the newsprint palette rather than
+   fight it. Structure (frames, copy button, line numbers) is left to EC. */
+.expressive-code {
+  --ec-frm-edBg: var(--sunk);
+  --ec-frm-trmBg: var(--sunk);
+  --ec-frm-frameBoxEdBrdCol: var(--rule);
+  --ec-frm-edTabBrdCol: var(--rule);
+  --ec-frm-trmTtbBg: var(--sunk);
+  --ec-frm-trmTtbBrdBtmCol: var(--rule);
+  --ec-frm-trmTtbFg: var(--ink-muted);
+  --ec-frm-edTabBarBg: var(--sunk);
+  --ec-frm-edTabBarBrdBtmCol: var(--rule);
+  --ec-frm-edTabBarFg: var(--ink-muted);
+  --ec-frm-edActTabBg: var(--sunk);
+  --ec-frm-edActTabFg: var(--ink);
+  --ec-frm-edActTabIndBtmCol: var(--accent);
+  --ec-frm-edActTabIndTopCol: var(--accent);
+  --ec-frm-trmBtnBrdCol: var(--rule);
+  --ec-frm-trmBtnFg: var(--ink-muted);
+  --ec-frm-edBtnBrdCol: var(--rule);
+  --ec-frm-edBtnFg: var(--ink-muted);
+  --ec-frm-trmTtbDotsFg: #cfc7b8;
+  --ec-frm-inlBtnBrdCol: var(--rule);
+  --ec-brdRad: 4px;
+  --ec-codeFontFml: var(--font-mono);
+  --ec-uiFontFml: var(--font-mono);
+  --ec-uiFontSize: 0.6875rem;
+  --ec-codeFontSize: 0.8125rem;
+  --ec-codeLineHt: 1.75;
+  --ec-frm-shadow: none;
+}
+
+.prose .expressive-code {
+  margin: 34px 0;
+}
+
+/* -------------------------------------------------------------- postfoot -- */
+
+.post-foot {
+  margin-top: 72px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+
+.post-foot dl {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px 20px;
+  margin: 0;
+}
+.post-foot dt {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding-top: 3px;
+}
+.post-foot dd {
+  margin: 0;
+  font-size: 1rem;
+}
+.post-foot dd a {
+  text-decoration: none;
+}
+.post-foot dd a:hover {
+  text-decoration: underline;
+}
+
+.nextprev {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 22px;
+}
+.nextprev .item {
+  display: grid;
+  gap: 6px;
+}
+.nextprev .label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.nextprev a {
+  font-family: var(--font-serif);
+  font-size: 1.3125rem;
+  color: var(--ink);
+  text-decoration: none;
+  text-wrap: balance;
+}
+.nextprev a:hover {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------- list pages ---- */
+
+.page-head {
+  padding: 72px 0 0;
+  max-width: var(--measure);
+}
+
+.page-head h1 {
+  margin-top: 0;
+}
+
+.page-head .lede {
+  font-size: 1.1875rem;
+  color: var(--ink-muted);
+  margin: 22px 0 0;
+}
+
+.year-group {
+  margin-top: 56px;
+}
+
+.year-group h2 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--ink-muted);
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.entry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry-list li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.entry-list a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 18px 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.entry-list .title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.entry-list a:hover .title {
+  color: var(--accent);
+}
+
+.entry-list .meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------- home page ---- */
+
+.home-intro {
+  max-width: var(--measure);
+  padding: 72px 0 0;
+}
+.home-intro p {
+  margin: 22px 0 0;
+}
+
+.section-block {
+  margin-top: 72px;
+}
+.section-block > h2 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* -------------------------------------------------------------- footer --- */
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  margin-top: 96px;
+}
+
+footer.site .bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 26px 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+footer.site nav {
+  display: flex;
+  gap: 24px;
+}
+footer.site a {
+  color: var(--ink-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+footer.site a:hover {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- 404 ---- */
+
+.notfound {
+  padding: 120px 0;
+  max-width: var(--measure);
+}
+.notfound .code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+.notfound h1 {
+  margin-top: 18px;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 940px) {
+  .wrap {
+    padding: 0 22px;
+  }
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 40px;
+    padding-bottom: 0;
+  }
+  .rail {
+    position: static;
+    margin-bottom: 40px;
+  }
+  .rail ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+  }
+  .rail li {
+    margin: 0;
+  }
+  article {
+    max-width: none;
+  }
+  header.site .bar {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px 0;
+  }
+  h1 {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+  }
+  .dek {
+    font-size: 1.1875rem;
+  }
+  .post-body > p:first-of-type::first-letter {
+    font-size: 3.1rem;
+  }
+  .post-foot dl {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .post-foot dt {
+    padding-top: 16px;
+  }
+  .page-head,
+  .home-intro {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .kbd {
+    display: none;
+  }
+  .eyebrow {
+    font-size: 0.625rem;
+    gap: 8px;
+  }
+  .rail ol {
+    gap: 4px 16px;
+  }
+  .rail a {
+    grid-template-columns: 18px 1fr;
+    font-size: 0.6875rem;
+  }
+  .prose blockquote {
+    font-size: 1.125rem;
+    padding-left: 18px;
+  }
+  .expressive-code {
+    --ec-codeFontSize: 0.75rem;
+  }
+  .entry-list a {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  footer.site .bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

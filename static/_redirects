@@ -1,0 +1,67 @@
+# Redirect map for the risanb.com / blog.risanb.com split.
+#
+# Read by Cloudflare Workers static assets at deploy time (dist/_redirects), and
+# parsed by scripts/check-site.mjs which fails the build if a rule would shadow a
+# page the site actually serves, or if an indexed URL is left uncovered.
+#
+# 301 is stated explicitly on every line. The platform defaults to 302 when the
+# status is omitted, and a 302 does NOT transfer ranking the way a 301 does --
+# which is the entire point of this file.
+#
+# ORDER: static rules first, then the single splat rule last. Cloudflare
+# documents that static redirects must precede dynamic ones. The rules below are
+# disjoint so either order resolves identically today, but precedence is applied
+# top-down and a future rule could quietly become unreachable -- so keep the
+# `/blog/*` splat at the bottom of this file.
+#
+# These redirects are applied by the static-assets layer. They are SKIPPED for
+# any request a Worker script handles, which is why wrangler.jsonc deliberately
+# defines no `main` script and no `run_worker_first`.
+#
+# Derived from the 250 URLs in https://risanb.com/sitemap.xml (captured 2026-09-21,
+# snapshotted in scripts/legacy-urls.txt). Each is either served by the new
+# build or redirected here; none is dropped.
+#
+#   /categories/<blog-term>/ -> blog.risanb.com/...       (4 rules)
+#   /tags/<blog-term>/       -> blog.risanb.com/...       (25 rules)
+#   /blog/*                  -> blog.risanb.com/:splat    (143 URLs, 1 rule)
+#
+# Code posts keep /code/:slug/ unchanged, so no technical post redirects at all.
+
+# --- blog-only categories (code keeps log, snippet, tutorial) ---------------
+
+/categories/journal/  https://blog.risanb.com/categories/journal/  301
+/categories/photos/  https://blog.risanb.com/categories/photos/  301
+/categories/travel/  https://blog.risanb.com/categories/travel/  301
+/categories/writing/  https://blog.risanb.com/categories/writing/  301
+
+# --- blog-only tags (the two tag sets are disjoint; code tags stay put) ------
+/tags/banten/  https://blog.risanb.com/tags/banten/  301
+/tags/buku/  https://blog.risanb.com/tags/buku/  301
+/tags/fiksi/  https://blog.risanb.com/tags/fiksi/  301
+/tags/film/  https://blog.risanb.com/tags/film/  301
+/tags/france/  https://blog.risanb.com/tags/france/  301
+/tags/indonesia/  https://blog.risanb.com/tags/indonesia/  301
+/tags/jakarta/  https://blog.risanb.com/tags/jakarta/  301
+/tags/jawa-barat/  https://blog.risanb.com/tags/jawa-barat/  301
+/tags/jawa-tengah/  https://blog.risanb.com/tags/jawa-tengah/  301
+/tags/kalimantan-selatan/  https://blog.risanb.com/tags/kalimantan-selatan/  301
+/tags/kalimantan/  https://blog.risanb.com/tags/kalimantan/  301
+/tags/kuliah/  https://blog.risanb.com/tags/kuliah/  301
+/tags/kuliner/  https://blog.risanb.com/tags/kuliner/  301
+/tags/maluku/  https://blog.risanb.com/tags/maluku/  301
+/tags/non-fiksi/  https://blog.risanb.com/tags/non-fiksi/  301
+/tags/paris/  https://blog.risanb.com/tags/paris/  301
+/tags/prosa/  https://blog.risanb.com/tags/prosa/  301
+/tags/puisi/  https://blog.risanb.com/tags/puisi/  301
+/tags/putih-abu/  https://blog.risanb.com/tags/putih-abu/  301
+/tags/racauan/  https://blog.risanb.com/tags/racauan/  301
+/tags/sinopsis/  https://blog.risanb.com/tags/sinopsis/  301
+/tags/stockholm/  https://blog.risanb.com/tags/stockholm/  301
+/tags/swedia/  https://blog.risanb.com/tags/swedia/  301
+/tags/ulasan/  https://blog.risanb.com/tags/ulasan/  301
+/tags/yogyakarta/  https://blog.risanb.com/tags/yogyakarta/  301
+
+# --- personal posts: the whole /blog/ subtree moves to the new domain --------
+# Dynamic (splat) rule -- keep last, see ORDER note above.
+/blog/*  https://blog.risanb.com/:splat  301

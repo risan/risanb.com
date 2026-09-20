@@ -2,6 +2,14 @@
 public
 .hugo_build.lock
 
+# Astro
+node_modules/
+dist/
+.astro/
+
+# Cloudflare Workers local build cache (created by `wrangler`)
+.wrangler/
+
 # Hugo's generated resource cache. Hugo 0.165 changed the cache key format, so
 # the copy that used to be committed here is never read; every build rebuilds
 # these files from content and derives the same names.

@@ -1,0 +1,40 @@
+{
+  "name": "risanb.com",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "npm run check && astro build",
+    "build:only": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && vue-tsc --noEmit",
+    "check:astro": "astro check",
+    "check:vue": "vue-tsc --noEmit",
+    "check:site": "node scripts/check-site.mjs dist"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/vue": "^5.1.1",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "astro": "^5.14.1",
+    "astro-expressive-code": "^0.41.3",
+    "minisearch": "^7.2.0",
+    "tailwindcss": "^4.1.14",
+    "unist-util-visit": "^5.1.0",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.1",
+    "wrangler": "^4.135.0"
+  }
+}

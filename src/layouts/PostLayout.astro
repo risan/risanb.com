@@ -1,0 +1,176 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Post = CollectionEntry<'code'>;
+
+interface Props {
+  post: Post;
+  headings: { depth: number; slug: string; text: string }[];
+  /** Plain-text length of the rendered post, for the reading-time estimate. */
+  wordCount: number;
+  prev?: Post | undefined;
+  next?: Post | undefined;
+}
+
+const { post, headings, wordCount, prev, next } = Astro.props;
+const { title, date, lastmod, description, categories, tags, images, languageCode } = post.data;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+const updated = lastmod && lastmod > date ? lastmod : null;
+const minutes = Math.max(1, Math.round(wordCount / 220));
+
+// Only h2s go in the rail — h3s would make it long and noisy.
+const toc = headings.filter((h) => h.depth === 2);
+const ogImage = images[0];
+---
+
+<BaseLayout
+  title={`${title} | Risan Bagja`}
+  {description}
+  lang={languageCode}
+  ogType="article"
+  {ogImage}
+  published={date.toISOString()}
+>
+  <div class:list={['grid', toc.length === 0 && 'grid--no-toc']}>
+    {
+      toc.length > 0 && (
+        <aside class="rail" aria-label="Table of contents">
+          <h2>Contents</h2>
+          <ol>
+            {toc.map((h) => (
+              <li>
+                <a href={`#${h.slug}`} data-toc-link={h.slug}>
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+      )
+    }
+
+    <article class="prose">
+      <p class="eyebrow">
+        {categories.map((c) => (
+          <>
+            <a href={`/categories/${c}/`}>{c}</a>
+            <span class="dot">·</span>
+          </>
+        ))}
+        {updated ? (
+          <span>
+            Updated <time datetime={updated.toISOString()}>{fmt(updated)}</time>
+          </span>
+        ) : (
+          <time datetime={date.toISOString()}>{fmt(date)}</time>
+        )}
+        <span class="dot">·</span>
+        <span>{minutes} min read</span>
+      </p>
+
+      <h1>{title}</h1>
+      {description && <p class="dek">{description}</p>}
+
+      <div class="rule" />
+
+      {/* Wrapped so `.post-body > p:first-of-type` targets the article's opening
+          paragraph rather than the eyebrow, which is also a <p> and precedes the h1. */}
+      <div class="post-body">
+        <slot />
+      </div>
+
+      <footer class="post-foot">
+        <dl>
+          {
+            categories.length > 0 && (
+              <>
+                <dt>Filed under</dt>
+                <dd>
+                  {categories.map((c, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={`/categories/${c}/`}>{c}</a>
+                    </>
+                  ))}
+                </dd>
+              </>
+            )
+          }
+          {
+            tags.length > 0 && (
+              <>
+                <dt>Tags</dt>
+                <dd>
+                  {tags.map((t, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={`/tags/${t}/`}>{t}</a>
+                    </>
+                  ))}
+                </dd>
+              </>
+            )
+          }
+        </dl>
+
+        {
+          (prev || next) && (
+            <nav class="nextprev" aria-label="More posts">
+              {prev && (
+                <div class="item">
+                  <span class="label">Previous</span>
+                  <a href={`/code/${prev.id.replace(/\/index$/, '')}/`}>{prev.data.title}</a>
+                </div>
+              )}
+              {next && (
+                <div class="item">
+                  <span class="label">Next</span>
+                  <a href={`/code/${next.id.replace(/\/index$/, '')}/`}>{next.data.title}</a>
+                </div>
+              )}
+            </nav>
+          )
+        }
+      </footer>
+    </article>
+  </div>
+</BaseLayout>
+
+<script>
+  // Highlight the section currently in view. Plain DOM — no framework needed,
+  // and it keeps this page zero-JS apart from these few lines.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')].map((a) => [
+      a.dataset.tocLink!,
+      a,
+    ]),
+  );
+  const headings = [...document.querySelectorAll<HTMLElement>('.prose h2[id]')];
+
+  if (links.size && headings.length) {
+    const visible = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id;
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        // Mark the topmost heading currently on screen.
+        const active = headings.find((h) => visible.has(h.id))?.id;
+        for (const [id, a] of links) a.classList.toggle('active', id === active);
+      },
+      { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
+    );
+    for (const h of headings) observer.observe(h);
+  }
+</script>

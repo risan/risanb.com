@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const entries = await getCollection('about');
+const page = entries[0];
+
+if (!page) {
+  throw new Error('No content found in content/about/ — the /about/ page has no source.');
+}
+
+const { Content } = await render(page);
+const { title, lastmod } = page.data;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout title={`${title} | Risan Bagja`} description="Who writes this site.">
+  <div class="grid grid--no-toc">
+    <article class="prose" style="padding-bottom:40px">
+      <p class="eyebrow">
+        <span>About</span>
+        {lastmod && (
+          <>
+            <span class="dot">·</span>
+            <span>
+              Last updated <time datetime={lastmod.toISOString()}>{fmt(lastmod)}</time>
+            </span>
+          </>
+        )}
+      </p>
+      <h1>{title}</h1>
+      <div class="rule"></div>
+      <Content />
+    </article>
+  </div>
+</BaseLayout>

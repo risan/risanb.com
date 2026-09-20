@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import SearchModal from '../components/SearchModal.vue';
+
+interface Props {
+  title: string;
+  description?: string | undefined;
+  lang?: string | undefined;
+  /** Social/OG image, absolute site path (Hugo's `images:` frontmatter). */
+  ogImage?: string | undefined;
+  /** Page type for OG. */
+  ogType?: 'article' | 'website' | undefined;
+  /** ISO date, for article:published_time. */
+  published?: string | undefined;
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  ogImage,
+  ogType = 'website',
+  published,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = ogImage ? new URL(ogImage, Astro.site) : undefined;
+const nav = [
+  { href: '/code/', label: 'Code' },
+  { href: '/about/', label: 'About' },
+] as const;
+const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content={canonical} />
+    {description && <meta property="og:description" content={description} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    {published && <meta property="article:published_time" content={published} />}
+
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Risan Bagja"
+      href={new URL('/rss.xml', Astro.site)}
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Theme is fixed light for now; declared so the UA doesn't guess. -->
+    <meta name="color-scheme" content="light" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site">
+      <div class="wrap bar">
+        <a class="brand" href="/">Risan Bagja <em>/ code</em></a>
+        <nav class="top" aria-label="Primary">
+          {
+            nav.map((item) => (
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+          <a href="/rss.xml">RSS</a>
+          <button class="kbd" type="button" data-search-open aria-label="Search (Command K)">
+            ⌘K
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+
+    <footer class="site">
+      <div class="wrap bar">
+        <span>© Risan Bagja {new Date().getFullYear()}</span>
+        <nav aria-label="Elsewhere">
+          <a href="https://github.com/risan">GitHub</a>
+          <a href="https://twitter.com/risanbagja">Twitter</a>
+          <a href="/rss.xml">RSS</a>
+        </nav>
+      </div>
+    </footer>
+
+    {/* client:idle, not client:load: the palette is worth ~0ms until someone
+        actually searches, and the index is fetched on first open rather than on
+        hydrate. Astro hydrates this once the browser goes idle. */}
+    <SearchModal client:idle />
+  </body>
+</html>

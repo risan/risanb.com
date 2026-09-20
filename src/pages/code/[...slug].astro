@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  // Newest first — this ordering defines prev/next navigation.
+  const posts = (await getCollection('code')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+
+  return posts.map((post, i) => {
+    // glob loader ids: 'switching-to-hugo' and 'vue-chart-component-with-chartjs/index'.
+    // Strip the trailing /index so a bundle directory maps to the same URL Hugo gave it.
+    const slug = post.id.replace(/\/index$/, '');
+
+    return {
+      params: { slug },
+      props: {
+        post,
+        // Array is newest-first, so the previous post in time is at i + 1.
+        prev: posts[i + 1],
+        next: posts[i - 1],
+      },
+    };
+  });
+}
+
+const { post, prev, next } = Astro.props;
+const { Content, headings } = await render(post);
+
+// Reading time from the raw markdown body rather than the rendered HTML, so the
+// estimate doesn't count code blocks' markup as prose.
+const wordCount = post.body?.split(/\s+/).filter(Boolean).length ?? 0;
+---
+
+<PostLayout {post} {headings} {wordCount} {prev} {next}>
+  <Content />
+</PostLayout>

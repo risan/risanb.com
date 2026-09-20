@@ -1,0 +1,31 @@
+{
+  // Cloudflare Workers configuration for risanb.com
+  //
+  // Static-assets-only Worker: there is no `main` script, so every request is
+  // served straight from the asset store with zero Worker invocations billed.
+  // Deploy with: npx wrangler deploy
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "risanb-com",
+  "compatibility_date": "2026-09-21",
+
+  "assets": {
+    // Astro writes the full static site here (astro.config.ts -> outDir).
+    "directory": "./dist",
+
+    // Astro emits 404.html, so unmatched paths render the real 404 page
+    // instead of a bare "null body" response.
+    "not_found_handling": "404-page",
+
+    // The build uses trailingSlash: "always" + build.format: "directory",
+    // matching Hugo's `/code/foo/index.html` output, so every page is
+    // `<route>/index.html`. `auto-trailing-slash` makes `/route/` canonical
+    // and 307-redirects `/route` -> `/route/`, preserving the trailing-slash
+    // parity the legacy redirect map depends on.
+    "html_handling": "auto-trailing-slash"
+  }
+  //
+  // NOTE: do NOT add `run_worker_first` or a `main` script here. The redirects
+  // in dist/_redirects are applied by the static-assets layer and are skipped
+  // for any request a Worker script handles. Adding a Worker script would
+  // silently disable the 143 risanb.com/blog/* -> blog.risanb.com 301s.
+}

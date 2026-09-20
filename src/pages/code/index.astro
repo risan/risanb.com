@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Mirrors Hugo's layouts/_default/list.html, which grouped posts by year.
+const posts = (await getCollection('code')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const byYear = new Map<string, typeof posts>();
+for (const post of posts) {
+  const year = String(post.data.date.getUTCFullYear());
+  const bucket = byYear.get(year);
+  if (bucket) bucket.push(post);
+  else byYear.set(year, [post]);
+}
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', timeZone: 'UTC' });
+---
+
+<BaseLayout
+  title="Code | Risan Bagja"
+  description="Tutorials and notes on web development, tooling, and the things I break along the way."
+>
+  <div class="page-head">
+    <h1>Code</h1>
+    <p class="lede">
+      Tutorials and notes on web development, tooling, and the things I break along the way.{' '}
+      {posts.length} posts.
+    </p>
+  </div>
+
+  {
+    [...byYear.entries()].map(([year, entries]) => (
+      <section class="year-group">
+        <h2>{year}</h2>
+        <ul class="entry-list">
+          {entries.map((post) => (
+            <li>
+              <a href={`/code/${post.id.replace(/\/index$/, '')}/`}>
+                <span class="title">{post.data.title}</span>
+                <span class="meta">{fmt(post.data.date)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</BaseLayout>

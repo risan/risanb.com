@@ -1,0 +1,60 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+type Post = CollectionEntry<'code'>;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('code');
+
+  const terms = new Map<string, Post[]>();
+  for (const post of posts) {
+    for (const c of post.data.categories) {
+      const bucket = terms.get(c);
+      if (bucket) bucket.push(post);
+      else terms.set(c, [post]);
+    }
+  }
+
+  return [...terms.entries()].map(([category, entries]) => ({
+    params: { category },
+    props: {
+      category,
+      entries: entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { category, entries } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout
+  title={`${category} | Risan Bagja`}
+  description={`Posts filed under ${category}.`}
+>
+  <div class="page-head">
+    <p class="eyebrow">
+      <a href="/categories/">← All categories</a>
+    </p>
+    <h1>{category}</h1>
+    <p class="lede">{entries.length} {entries.length === 1 ? 'post' : 'posts'}.</p>
+  </div>
+
+  <section class="section-block">
+    <ul class="entry-list">
+      {
+        entries.map((post) => (
+          <li>
+            <a href={`/code/${post.id.replace(/\/index$/, '')}/`}>
+              <span class="title">{post.data.title}</span>
+              <span class="meta">{fmt(post.data.date)}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
