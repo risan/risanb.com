@@ -25,8 +25,10 @@ paths unchanged, so no technical post needed a redirect.
 
 Node 20.3+ (see `.tool-versions`). npm.
 
-Hugo is still pinned in `.tool-versions`, but it is no longer part of the build.
-It is kept only until the Astro site is cut over.
+Hugo is no longer required. `.tool-versions` pins **Node only** — Workers Builds
+installs every tool listed there via asdf/mise, so a leftover `hugo` entry makes
+the build fail before it starts with `Failed: error occurred while installing
+tools or dependencies`.
 
 ## Commands
 
