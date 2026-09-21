@@ -601,7 +601,7 @@ h1 {
 }
 
 html.dark .expressive-code .frame .header {
-  background: #0c0c0b !important; /* Darker on dark mode */
+  background: var(--sunk) !important; /* Soft, seamless with code surface in dark mode */
 }
 
 .expressive-code .frame .header::after {
