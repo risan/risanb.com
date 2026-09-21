@@ -100,6 +100,11 @@ for (let i = allDays.length - 1; i >= 0; i--) {
 // 4. Daily average for current month
 const daysPassedInMonth = Math.max(1, new Date().getUTCDate());
 const dailyAvgThisMonth = (stats.thisMonth.contributions / daysPassedInMonth).toFixed(1);
+
+// 5. Account history span
+const startYear = 2013;
+const currentYear = new Date().getUTCFullYear();
+const yearsActive = currentYear - startYear;
 ---
 
 <section class={`github-activity section-block ${className}`}>
@@ -142,7 +147,7 @@ const dailyAvgThisMonth = (stats.thisMonth.contributions / daysPassedInMonth).to
     <div class="stat-card">
       <span class="stat-label">All Time</span>
       <span class="stat-value">{formatNumber(stats.allTime.contributions)}</span>
-      <span class="stat-detail">14 years · since 2013</span>
+      <span class="stat-detail">{yearsActive} years · since {startYear}</span>
     </div>
   </div>
 
@@ -237,11 +242,11 @@ const dailyAvgThisMonth = (stats.thisMonth.contributions / daysPassedInMonth).to
 
 <style>
   :root {
-    --gh-level-0: #ede8de;
-    --gh-level-1: #f4dcd3;
-    --gh-level-2: #e39c84;
-    --gh-level-3: #c8502e;
-    --gh-level-4: #872e15;
+    --gh-level-0: #dfd8cc;
+    --gh-level-1: #f0a389;
+    --gh-level-2: #d65d3a;
+    --gh-level-3: #a33314;
+    --gh-level-4: #5e1906;
   }
 
   :global(html.dark) {
