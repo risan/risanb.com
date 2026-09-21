@@ -3,7 +3,7 @@ title: Building a Web-App to Track My Expense on Google Sheets
 date: 2020-12-27T21:41:00+07:00
 categories: [log]
 tags: [javascript, vue]
-images: [/code/web-app-to-track-expense-on-google-sheets/cover.png]
+images: [/posts/web-app-to-track-expense-on-google-sheets/cover.png]
 ---
 I've tried so many applications to track my spending in the past. None of them stick with me for six months, at least. I always found myself fighting back against those applications. It could be the spending categories that didn't fit my use case. Or some expense related fields that were missing, but I need those details. Or as simple as it didn't have a web version, so I couldn't log my spending while I was on my laptop.
 

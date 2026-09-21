@@ -3,7 +3,7 @@ title: Installing SQL Server on macOS
 date: 2018-02-13T15:18:00+02:00
 categories: [tutorial]
 tags: [devops, docker, macos]
-images: [/code/installing-sql-server-on-macos/og.jpg]
+images: [/posts/installing-sql-server-on-macos/og.jpg]
 ---
 It's a bit inconvenience when working on a project that uses the Microsoft SQL Server while your dev machine is either Linux or macOS. I always ended up setting up and using a remote test database.
 
