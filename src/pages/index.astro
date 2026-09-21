@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GithubHeatmap from '../components/GithubHeatmap.astro';
 
 const posts = (await getCollection('code')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -51,6 +52,8 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
       here saves you an afternoon.
     </p>
   </div>
+
+  <GithubHeatmap />
 
   <div class="home-columns">
     {

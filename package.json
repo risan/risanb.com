@@ -12,7 +12,8 @@
     "check": "astro check && vue-tsc --noEmit",
     "check:astro": "astro check",
     "check:vue": "vue-tsc --noEmit",
-    "check:site": "node scripts/check-site.mjs dist"
+    "check:site": "node scripts/check-site.mjs dist",
+    "update:github": "node scripts/fetch-github-contributions.mjs"
   },
   "engines": {
     "node": ">=20.3.0"

@@ -1,0 +1,431 @@
+---
+import githubData from '../data/github-contributions.json';
+
+interface Props {
+  /** Optional custom section class */
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const { stats, calendar, username } = githubData;
+
+// Format numbers with commas (e.g., 5,639)
+const formatNumber = (n: number) => n.toLocaleString('en-US');
+
+// Heatmap dimensions & layout constants
+const CELL_SIZE = 10;
+const CELL_GAP = 3;
+const STEP = CELL_SIZE + CELL_GAP; // 13px per column/row
+const X_OFFSET = 30; // space on left for Mon, Wed, Fri labels
+const Y_OFFSET = 20; // space on top for Month labels
+
+const weeks = calendar.weeks;
+const totalWeeks = weeks.length;
+const svgWidth = X_OFFSET + totalWeeks * STEP;
+const svgHeight = Y_OFFSET + 7 * STEP;
+
+// Calculate month label positions (first week where a new month appears)
+interface MonthLabel {
+  name: string;
+  x: number;
+}
+const monthLabels: MonthLabel[] = [];
+let lastMonth = -1;
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+weeks.forEach((week, wIndex) => {
+  const firstValidDay = week.contributionDays[0];
+  if (firstValidDay) {
+    const d = new Date(firstValidDay.date);
+    const m = d.getUTCMonth();
+    if (m !== lastMonth) {
+      // Ensure there is room to print (at least 2 weeks apart from previous label)
+      const prev = monthLabels[monthLabels.length - 1];
+      const x = X_OFFSET + wIndex * STEP;
+      if (!prev || x - prev.x >= 24) {
+        monthLabels.push({ name: monthNames[m]!, x });
+        lastMonth = m;
+      }
+    }
+  }
+});
+
+// Quartile color level mappings (0 to 4)
+const levelClassMap: Record<string, string> = {
+  NONE: 'gh-cell-0',
+  FIRST_QUARTILE: 'gh-cell-1',
+  SECOND_QUARTILE: 'gh-cell-2',
+  THIRD_QUARTILE: 'gh-cell-3',
+  FOURTH_QUARTILE: 'gh-cell-4',
+};
+
+const formatDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+};
+---
+
+<section class={`github-activity section-block ${className}`}>
+  <div class="activity-header">
+    <div>
+      <p class="eyebrow">Vanity Signals</p>
+      <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
+    </div>
+    <a
+      href={`https://github.com/${username}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="profile-link"
+      aria-label={`View @${username} on GitHub`}
+    >
+      @{username} ↗
+    </a>
+  </div>
+
+  {/* Stats Cards: This Month, This Year, All Time */}
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">This Month</span>
+      <span class="stat-value">{formatNumber(stats.thisMonth.contributions)}</span>
+      <span class="stat-detail">
+        {formatNumber(stats.thisMonth.publicCommits)} public · {formatNumber(stats.thisMonth.restricted)} private
+      </span>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">This Year</span>
+      <span class="stat-value">{formatNumber(stats.thisYear.contributions)}</span>
+      <span class="stat-detail">
+        {formatNumber(stats.thisYear.publicCommits)} public · {formatNumber(stats.thisYear.restricted)} private
+      </span>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">All Time</span>
+      <span class="stat-value">{formatNumber(stats.allTime.contributions)}</span>
+      <span class="stat-detail">
+        {formatNumber(stats.allTime.publicCommits)} public · {formatNumber(stats.allTime.restricted)} private
+      </span>
+    </div>
+  </div>
+
+  {/* Heatmap Card */}
+  <div class="heatmap-card">
+    <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
+      <svg
+        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+        class="heatmap-svg"
+        role="img"
+        aria-label={`GitHub contribution heatmap for @${username}`}
+      >
+        {/* Month labels */}
+        {
+          monthLabels.map((m) => (
+            <text x={m.x} y={12} class="label-month">
+              {m.name}
+            </text>
+          ))
+        }
+
+        {/* Day of week labels: Mon (1), Wed (3), Fri (5) */}
+        <text x={2} y={Y_OFFSET + 1 * STEP + 8} class="label-weekday">
+          Mon
+        </text>
+        <text x={2} y={Y_OFFSET + 3 * STEP + 8} class="label-weekday">
+          Wed
+        </text>
+        <text x={2} y={Y_OFFSET + 5 * STEP + 8} class="label-weekday">
+          Fri
+        </text>
+
+        {/* Contribution cells */}
+        {
+          weeks.map((week, wIndex) => {
+            const x = X_OFFSET + wIndex * STEP;
+            return (
+              <g class="heatmap-week">
+                {week.contributionDays.map((day) => {
+                  const y = Y_OFFSET + day.weekday * STEP;
+                  const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
+                  const titleText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
+                  return (
+                    <rect
+                      x={x}
+                      y={y}
+                      width={CELL_SIZE}
+                      height={CELL_SIZE}
+                      rx={2}
+                      ry={2}
+                      class={`gh-cell ${levelClass}`}
+                      data-date={day.date}
+                      data-count={day.contributionCount}
+                    >
+                      <title>{titleText}</title>
+                    </rect>
+                  );
+                })}
+              </g>
+            );
+          })
+        }
+      </svg>
+    </div>
+
+    {/* Footer: Explanatory note & Legend */}
+    <div class="heatmap-footer">
+      <span class="footer-note">
+        Public commits and private client activity. None of this measures code quality.
+      </span>
+      <div class="heatmap-legend" aria-hidden="true">
+        <span class="legend-text">Less</span>
+        <span class="legend-cell gh-cell-0"></span>
+        <span class="legend-cell gh-cell-1"></span>
+        <span class="legend-cell gh-cell-2"></span>
+        <span class="legend-cell gh-cell-3"></span>
+        <span class="legend-cell gh-cell-4"></span>
+        <span class="legend-text">More</span>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const scroll = document.querySelector('.heatmap-scroll');
+      if (scroll) {
+        scroll.scrollLeft = scroll.scrollWidth;
+      }
+    })();
+  </script>
+</section>
+
+<style>
+  :root {
+    --gh-level-0: #ede8de;
+    --gh-level-1: #f4dcd3;
+    --gh-level-2: #e39c84;
+    --gh-level-3: #c8502e;
+    --gh-level-4: #872e15;
+  }
+
+  :global(html.dark) {
+    --gh-level-0: #222428;
+    --gh-level-1: #3d231b;
+    --gh-level-2: #733725;
+    --gh-level-3: #c05435;
+    --gh-level-4: #e06b47;
+  }
+
+  .github-activity {
+    margin-top: 48px;
+  }
+
+  .activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .activity-header h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 4px 0 0;
+    color: var(--ink);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .profile-link {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .profile-link:hover {
+    color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    background: var(--sunk);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.625rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-detail {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    margin-top: 6px;
+  }
+
+  /* Heatmap card container */
+  .heatmap-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .heatmap-scroll {
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+
+  .heatmap-svg {
+    display: block;
+    width: 100%;
+    min-width: 680px;
+    height: auto;
+  }
+
+  .label-month,
+  .label-weekday {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    fill: var(--ink-muted);
+    user-select: none;
+  }
+
+  .gh-cell {
+    transition: opacity 0.1s ease;
+    cursor: pointer;
+  }
+
+  .gh-cell:hover {
+    stroke: var(--ink);
+    stroke-width: 1px;
+  }
+
+  .gh-cell-0 {
+    fill: var(--gh-level-0);
+  }
+  .gh-cell-1 {
+    fill: var(--gh-level-1);
+  }
+  .gh-cell-2 {
+    fill: var(--gh-level-2);
+  }
+  .gh-cell-3 {
+    fill: var(--gh-level-3);
+  }
+  .gh-cell-4 {
+    fill: var(--gh-level-4);
+  }
+
+  /* Footer & Legend */
+  .heatmap-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+  }
+
+  .footer-note {
+    font-size: 0.6875rem;
+  }
+
+  .heatmap-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .legend-text {
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+  }
+
+  .legend-cell {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  .legend-cell.gh-cell-0 {
+    background-color: var(--gh-level-0);
+  }
+  .legend-cell.gh-cell-1 {
+    background-color: var(--gh-level-1);
+  }
+  .legend-cell.gh-cell-2 {
+    background-color: var(--gh-level-2);
+  }
+  .legend-cell.gh-cell-3 {
+    background-color: var(--gh-level-3);
+  }
+  .legend-cell.gh-cell-4 {
+    background-color: var(--gh-level-4);
+  }
+</style>
