@@ -53,8 +53,6 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
     </p>
   </div>
 
-  <GithubHeatmap />
-
   <div class="home-columns">
     {
       featured.length > 0 && (
@@ -91,6 +89,9 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
       <p class="eyebrow" style="margin-top: 20px;">
         <a href="/posts/">All {posts.length} posts →</a>
       </p>
+
     </section>
   </div>
+
+  <GithubHeatmap />
 </BaseLayout>

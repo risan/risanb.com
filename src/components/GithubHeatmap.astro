@@ -93,25 +93,16 @@ const formatDate = (dateStr: string) => {
     <div class="stat-card">
       <span class="stat-label">This Month</span>
       <span class="stat-value">{formatNumber(stats.thisMonth.contributions)}</span>
-      <span class="stat-detail">
-        {formatNumber(stats.thisMonth.publicCommits)} public · {formatNumber(stats.thisMonth.restricted)} private
-      </span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">This Year</span>
       <span class="stat-value">{formatNumber(stats.thisYear.contributions)}</span>
-      <span class="stat-detail">
-        {formatNumber(stats.thisYear.publicCommits)} public · {formatNumber(stats.thisYear.restricted)} private
-      </span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">All Time</span>
       <span class="stat-value">{formatNumber(stats.allTime.contributions)}</span>
-      <span class="stat-detail">
-        {formatNumber(stats.allTime.publicCommits)} public · {formatNumber(stats.allTime.restricted)} private
-      </span>
     </div>
   </div>
 
@@ -180,7 +171,7 @@ const formatDate = (dateStr: string) => {
     {/* Footer: Explanatory note & Legend */}
     <div class="heatmap-footer">
       <span class="footer-note">
-        Public commits and private client activity. None of this measures code quality.
+        Verified GitHub activity across public and client repositories. None of this measures code quality.
       </span>
       <div class="heatmap-legend" aria-hidden="true">
         <span class="legend-text">Less</span>
@@ -312,12 +303,6 @@ const formatDate = (dateStr: string) => {
     letter-spacing: -0.02em;
   }
 
-  .stat-detail {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--ink-muted);
-    margin-top: 6px;
-  }
 
   /* Heatmap card container */
   .heatmap-card {
