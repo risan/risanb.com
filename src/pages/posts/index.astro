@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TechIcon from '../../components/TechIcon.astro';
-import { getPostIcon } from '../../lib/tech-icons';
 
 // Mirrors Hugo's layouts/_default/list.html, which grouped posts by year.
 const posts = (await getCollection('code')).sort(
@@ -41,7 +39,7 @@ const fmt = (d: Date) =>
           {entries.map((post) => (
             <li>
               <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
-                <span class="title"><TechIcon name={getPostIcon(post)} />{post.data.title}</span>
+                <span class="title">{post.data.title}</span>
                 <span class="meta">{fmt(post.data.date)}</span>
               </a>
             </li>

@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TechIcon from '../components/TechIcon.astro';
-import { getPostIcon } from '../lib/tech-icons';
 
 const posts = (await getCollection('code')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -63,7 +61,7 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
             {featured.map((post) => (
               <li>
                 <a href={href(post.id)}>
-                  <span class="title"><TechIcon name={getPostIcon(post)} />{post.data.title}</span>
+                  <span class="title">{post.data.title}</span>
                   <span class="meta">{fmt(post.data.date)}</span>
                 </a>
               </li>
@@ -80,7 +78,7 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
           recent.map((post) => (
             <li>
               <a href={href(post.id)}>
-                <span class="title"><TechIcon name={getPostIcon(post)} />{post.data.title}</span>
+                <span class="title">{post.data.title}</span>
                 <span class="meta">{fmt(post.data.date)}</span>
               </a>
             </li>

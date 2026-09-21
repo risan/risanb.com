@@ -440,16 +440,6 @@ h1 {
   margin: 0.04em 0.14em 0 0;
 }
 
-.home-intro > p:first-of-type::first-letter {
-  float: left;
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  line-height: 0.8;
-  margin-top: 4px;
-  margin-right: 0.12em;
-  font-weight: 500;
-}
-
 .prose ul,
 .prose ol {
   padding-left: 1.35em;
@@ -581,9 +571,16 @@ h1 {
   border-radius: 8px !important;
   overflow: hidden !important;
   background: var(--sunk) !important;
+  box-shadow: none !important;
 }
 
-.expressive-code .frame.is-terminal .header,
+.expressive-code pre,
+.expressive-code code {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
 .expressive-code .frame .header {
   display: flex !important;
   align-items: center !important;
@@ -592,11 +589,11 @@ h1 {
   min-height: 38px !important;
   padding: 0 14px !important;
   background: var(--bg) !important;
+  border: none !important;
   border-bottom: 1px solid var(--rule) !important;
   position: relative !important;
 }
 
-.expressive-code .frame.is-terminal .header::before,
 .expressive-code .frame .header::before {
   content: '' !important;
   position: absolute !important;
@@ -613,35 +610,53 @@ h1 {
   opacity: 1 !important;
 }
 
-.expressive-code .frame.is-terminal.has-title .header,
-.expressive-code .frame.has-title .header {
-  align-items: flex-end !important;
-  padding-bottom: 0 !important;
-  height: 38px !important;
-}
-
-.expressive-code .frame.is-terminal.has-title .title,
 .expressive-code .frame.has-title .title {
-  margin-left: 54px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  height: 28px !important;
-  padding: 0 14px !important;
-  background: var(--sunk) !important;
-  border: 1px solid var(--rule) !important;
-  border-bottom: 1px solid var(--sunk) !important;
-  border-radius: 6px 6px 0 0 !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
   font-family: var(--font-mono) !important;
   font-size: 0.75rem !important;
+  color: var(--ink-muted) !important;
   letter-spacing: 0.02em !important;
-  color: var(--ink) !important;
-  margin-bottom: -1px !important;
-  z-index: 2 !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
 }
 
-.expressive-code .frame.is-terminal:not(.has-title) .title,
 .expressive-code .frame:not(.has-title) .title {
   display: none !important;
+}
+
+.expressive-code .copy {
+  position: absolute !important;
+  top: 6px !important;
+  right: 10px !important;
+  inset: 6px 10px auto auto !important;
+  margin: 0 !important;
+  z-index: 10 !important;
+}
+
+.expressive-code .copy button {
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  opacity: 0.6 !important;
+  cursor: pointer !important;
+}
+
+.expressive-code .copy button:hover {
+  opacity: 1 !important;
+  background: var(--sunk) !important;
+  border-color: var(--rule) !important;
 }
 
 .post-foot {
@@ -1015,11 +1030,6 @@ footer.site a:hover {
   }
   .post-body > p:first-of-type::first-letter {
     font-size: 2.8rem;
-  }
-  .home-intro > p:first-of-type::first-letter {
-    font-size: 2.75rem;
-    line-height: 0.7;
-    margin-top: 5px;
   }
   .page-head,
   .home-intro {

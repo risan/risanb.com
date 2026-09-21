@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import TechIcon from '../components/TechIcon.astro';
 import type { CollectionEntry } from 'astro:content';
 
 type Post = CollectionEntry<'code'>;
@@ -112,6 +113,7 @@ const ogImage = images[0];
                 <span class="meta-links">
                   {tags.map((t) => (
                     <a href={`/tags/${t}/`} class="tag-pill">
+                      <TechIcon name={t} />
                       #{t}
                     </a>
                   ))}

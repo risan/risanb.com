@@ -1,8 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TechIcon from '../../components/TechIcon.astro';
-import { getPostIcon } from '../../lib/tech-icons';
 
 type Post = CollectionEntry<'code'>;
 
@@ -48,7 +46,7 @@ const fmt = (d: Date) =>
         entries.map((post) => (
           <li>
             <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
-              <span class="title"><TechIcon name={getPostIcon(post)} />{post.data.title}</span>
+              <span class="title">{post.data.title}</span>
               <span class="meta">{fmt(post.data.date)}</span>
             </a>
           </li>
