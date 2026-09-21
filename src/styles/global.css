@@ -184,10 +184,26 @@ header.site .bar {
 }
 .brand .brand-logo {
   flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .brand:hover .brand-logo {
-  transform: rotate(-4deg) scale(1.1);
+  transform: rotate(-10deg) scale(1.18);
+}
+@keyframes clippy-blink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.08); }
+}
+@keyframes clippy-brow {
+  0%, 80%, 100% { transform: translateY(0); }
+  86%, 94% { transform: translateY(-1.5px); }
+}
+.brand-logo .clippy-eyes {
+  transform-origin: 16px 13px;
+  animation: clippy-blink 3.6s infinite ease-in-out;
+}
+.brand-logo .clippy-brows {
+  transform-origin: 16px 7px;
+  animation: clippy-brow 3.6s infinite ease-in-out;
 }
 
 nav.top {
@@ -601,7 +617,7 @@ h1 {
 }
 
 html.dark .expressive-code .frame .header {
-  background: var(--sunk) !important; /* Soft, seamless with code surface in dark mode */
+  background: #141517 !important; /* Darker than var(--sunk) #1C1D20, matching deep dark paper */
 }
 
 .expressive-code .frame .header::after {
