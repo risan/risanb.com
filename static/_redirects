@@ -25,9 +25,8 @@
 #   /categories/<blog-term>/ -> blog.risanb.com/...       (4 rules)
 #   /tags/<blog-term>/       -> blog.risanb.com/...       (25 rules)
 #   /blog/*                  -> blog.risanb.com/:splat    (143 URLs, 1 rule)
-#
-# Code posts keep /code/:slug/ unchanged, so no technical post redirects at all.
-
+#   /code/*                  -> /posts/:splat             (technical posts moved to /posts/)
+#   /code/                   -> /posts/
 # --- blog-only categories (code keeps log, snippet, tutorial) ---------------
 
 /categories/journal/  https://blog.risanb.com/categories/journal/  301
@@ -62,13 +61,10 @@
 /tags/ulasan/  https://blog.risanb.com/tags/ulasan/  301
 /tags/yogyakarta/  https://blog.risanb.com/tags/yogyakarta/  301
 
-# --- personal posts: the whole /blog/ subtree moves to the new domain --------
-# Dynamic (splat) rule -- keep last, see ORDER note above.
-/blog/*  https://blog.risanb.com/:splat  301
-
-# --- code posts: /code/* moved to /posts/* -------------------------------------
-/code/*  /posts/:splat  301
+# --- legacy /code index --------------------------------------------------------
 /code/  /posts/  301
 /code  /posts/  301
-/archive/  /posts/  301
-/archive  /posts/  301
+
+# --- splat rules (dynamic -- keep last, see ORDER note above) ------------------
+/code/*  /posts/:splat  301
+/blog/*  https://blog.risanb.com/:splat  301

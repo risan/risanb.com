@@ -428,7 +428,8 @@ h1 {
 .post-body > p:first-of-type {
   margin-top: 34px;
 }
-.post-body > p:first-of-type::first-letter {
+.post-body > p:first-of-type::first-letter,
+.home-intro > p:first-of-type::first-letter {
   initial-letter: 2;
   -webkit-initial-letter: 2;
   float: left;
@@ -636,6 +637,28 @@ h1 {
   border-color: var(--accent);
 }
 
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.tag-pill--lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.tag-pill--lg .tag-count {
+  font-size: 0.6875rem;
+  color: var(--ink-muted);
+  opacity: 0.8;
+}
+
 .nextprev {
   margin-top: 36px;
   padding-top: 24px;
@@ -742,7 +765,7 @@ h1 {
 /* ---------------------------------------------------------- home page ---- */
 
 .home-intro {
-  max-width: var(--measure);
+  max-width: 100%;
   padding: 64px 0 0;
 }
 .home-intro h1 {
@@ -885,7 +908,8 @@ footer.site a:hover {
   .dek {
     font-size: 1.1875rem;
   }
-  .post-body > p:first-of-type::first-letter {
+  .post-body > p:first-of-type::first-letter,
+  .home-intro > p:first-of-type::first-letter {
     font-size: 2.8rem;
   }
   .page-head,

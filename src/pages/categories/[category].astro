@@ -36,9 +36,6 @@ const fmt = (d: Date) =>
   description={`Posts filed under ${category}.`}
 >
   <div class="page-head">
-    <p class="eyebrow">
-      <a href="/categories/">← All categories</a>
-    </p>
     <h1>{category}</h1>
     <p class="lede">{entries.length} {entries.length === 1 ? 'post' : 'posts'}.</p>
   </div>

@@ -51,7 +51,10 @@ export default defineConfig({
           'go-html-template': 'html',
         },
       },
-      frames: { showCopyToClipboardButton: true },
+      frames: {
+        showCopyToClipboardButton: true,
+        removeCommentsWhenCopyingTerminalFrames: false,
+      },
     }),
   ],
 
