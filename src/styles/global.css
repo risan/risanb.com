@@ -443,12 +443,11 @@ h1 {
 .home-intro > p:first-of-type::first-letter {
   float: left;
   font-family: var(--font-serif);
-  font-size: 3.25rem;
-  line-height: 0.68;
-  margin-top: 8px;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  margin-top: 4px;
   margin-right: 0.12em;
   font-weight: 500;
-  color: var(--ink);
 }
 
 .prose ul,
@@ -731,12 +730,14 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.15em;
-  height: 1.15em;
-  filter: grayscale(100%);
-  opacity: 0.6;
-  transition: filter 0.18s ease, opacity 0.18s ease;
+  width: 1em;
+  height: 1em;
+  filter: grayscale(1);
+  opacity: 0.45;
+  transition: filter 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
   flex-shrink: 0;
+  vertical-align: -0.15em;
+  margin-right: 6px;
 }
 
 .tech-icon svg {
@@ -748,7 +749,7 @@ h1 {
 .entry-list a:hover .tech-icon,
 .tag-pill:hover .tech-icon,
 .tech-icon:hover {
-  filter: grayscale(0) !important;
+  filter: none !important;
   opacity: 1 !important;
 }
 
