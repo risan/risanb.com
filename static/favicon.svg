@@ -1,3 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <text y=".9em" font-size="90">🍣</text>
+<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2.5" y="3.5" width="27" height="23" rx="4.5" fill="#1C1D20" stroke="#3A3834" stroke-width="1.5"/>
+  <rect x="5.5" y="6.5" width="21" height="14" rx="2.5" fill="#0C0D0E"/>
+  <path d="M9.5 10L13.5 13.5L9.5 17" stroke="#C8502E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="15.5" y="15.5" width="5.5" height="2" rx="0.5" fill="#E6E4DF"/>
+  <circle cx="23.5" cy="23.5" r="1.2" fill="#C8502E"/>
+  <rect x="11.5" y="27" width="9" height="2" rx="1" fill="#3A3834"/>
 </svg>
