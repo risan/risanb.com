@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import SearchModal from '../components/SearchModal.vue';
-import Clippy from '../components/Clippy.astro';
 interface Props {
   title: string;
   description?: string | undefined;
@@ -165,7 +164,6 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         actually searches, and the index is fetched on first open rather than on
         hydrate. Astro hydrates this once the browser goes idle. */}
     <SearchModal client:idle />
-    <Clippy />
 
     <script>
       const themeBtn = document.getElementById('theme-toggle');

@@ -1,11 +1,11 @@
 ---
 // Interactive Clippy assistant with cursor-following eyes, retro sound synthesis,
-// drag-and-drop mobility, blog-aligned monograph aesthetics, and automated hot take cycle.
+// drag-and-drop mobility, blog-aligned monograph aesthetics, and magical genie emergence.
 ---
 
 <div
   id="clippy-widget"
-  class="clippy-widget is-unloaded"
+  class="clippy-widget is-hidden"
   role="region"
   aria-label="Clippy assistant"
 >
@@ -183,18 +183,6 @@
   </div>
 </div>
 
-<!-- Summon Badge: visible when Clippy is dismissed so user can easily bring him back -->
-<button
-  id="clippy-summon-btn"
-  class="clippy-summon-btn is-hidden"
-  type="button"
-  aria-label="Ask Clippy for another hot take"
-  title="Need unsolicited advice? Click Clippy!"
->
-  <span class="summon-clip-icon" aria-hidden="true">📎</span>
-  <span class="summon-label">Clippy</span>
-</button>
-
 <style>
   /* Base widget container fixed on screen: sized to the character */
   .clippy-widget {
@@ -210,25 +198,25 @@
     transition: opacity 0.25s ease;
   }
 
-  .clippy-widget.is-unloaded {
+  .clippy-widget.is-unloaded,
+  .clippy-widget.is-hidden {
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
+    display: none;
   }
 
   .clippy-widget.is-entering {
+    display: block;
     pointer-events: auto;
     visibility: visible;
   }
 
   .clippy-widget.is-visible {
+    display: block;
     opacity: 1;
     pointer-events: auto;
     visibility: visible;
-  }
-
-  .clippy-widget.is-hidden {
-    display: none;
   }
 
   /* Clippy Character Styling & Natural Vector Drop-Shadow */
@@ -244,6 +232,7 @@
     outline: none;
     transition: transform 0.15s ease-out;
     -webkit-tap-highlight-color: transparent;
+    transform-origin: center center;
   }
 
   .clippy-character:focus-visible {
@@ -267,67 +256,6 @@
 
   :global(.dark) .clippy-svg {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-  }
-
-  /* Pop-up entrance animation */
-  .clippy-widget.is-entering .clippy-character {
-    animation: clippy-popup 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-
-  @keyframes clippy-popup {
-    0% {
-      opacity: 0;
-      transform: translateY(85px) scale(0.2) rotate(18deg);
-    }
-    50% {
-      opacity: 1;
-      transform: translateY(-20px) scale(1.15) rotate(-9deg);
-    }
-    72% {
-      transform: translateY(6px) scale(0.96) rotate(4deg);
-    }
-    88% {
-      transform: translateY(-2px) scale(1.02) rotate(-1deg);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1) rotate(0deg);
-    }
-  }
-
-  /* Dismiss / exit pop-down animation */
-  .clippy-widget.is-exiting .clippy-character {
-    animation: clippy-popdown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  .clippy-widget.is-exiting .clippy-bubble {
-    animation: bubble-popdown 0.24s ease-in forwards;
-  }
-
-  @keyframes clippy-popdown {
-    0% {
-      opacity: 1;
-      transform: translateY(0) scale(1) rotate(0deg);
-    }
-    30% {
-      transform: translateY(-12px) scale(1.08) rotate(-6deg);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(110px) scale(0.2) rotate(22deg);
-    }
-  }
-
-  /* Bubble popdown animation */
-  @keyframes bubble-popdown {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(0.7) translateY(12px);
-    }
   }
 
   /* Click celebration wiggle */
@@ -410,6 +338,18 @@
 
   .clippy-bubble.is-popping-in {
     animation: bubble-popup 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  /* Bubble popdown animation */
+  @keyframes bubble-popdown {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.7) translateY(12px);
+    }
   }
 
   /* Default placement: Bubble is above Clippy, aligned with right edge */
@@ -627,55 +567,6 @@
     border-bottom: none;
   }
 
-  /* Summon button (bottom-right pill when Clippy is hidden) */
-  .clippy-summon-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 85;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px 6px 10px;
-    background: var(--paper, #fbf9f5);
-    border: 1px solid var(--rule, #e4ded3);
-    border-radius: 9999px;
-    box-shadow: 0 4px 14px color-mix(in srgb, var(--ink, #1b1c1d) 14%, transparent);
-    color: var(--ink, #1b1c1d);
-    font-family: var(--font-sans, 'Plus Jakarta Sans Variable', system-ui, sans-serif);
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.15s ease;
-    animation: summon-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .clippy-summon-btn:hover {
-    transform: translateY(-2px) scale(1.04);
-    border-color: var(--accent, #c8502e);
-    color: var(--accent, #c8502e);
-    box-shadow: 0 6px 18px color-mix(in srgb, var(--ink, #1b1c1d) 20%, transparent);
-  }
-
-  .clippy-summon-btn:active {
-    transform: scale(0.96);
-  }
-
-  .clippy-summon-btn.is-hidden {
-    display: none;
-  }
-
-  @keyframes summon-in {
-    0% {
-      opacity: 0;
-      transform: translateY(20px) scale(0.8);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
   /* Accessibility: Prefers-reduced-motion: static display, no bob/shake/popup */
   @media (prefers-reduced-motion: reduce) {
     .clippy-widget,
@@ -683,19 +574,9 @@
     .clippy-bubble,
     .clippy-eyes,
     .clippy-brows,
-    .clippy-pupil,
-    .clippy-summon-btn {
+    .clippy-pupil {
       animation: none !important;
       transition: none !important;
-    }
-    .clippy-widget.is-unloaded {
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-    .clippy-widget.is-entering,
-    .clippy-widget.is-visible {
-      opacity: 1 !important;
-      transform: none !important;
     }
   }
 
@@ -765,7 +646,6 @@
   class ClippySoundSynth {
     private ctx: AudioContext | null = null;
     private muted: boolean;
-    public pendingEntranceSound: boolean = false;
 
     constructor() {
       const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -796,48 +676,82 @@
       } catch {}
     }
 
-    // Classic cartoon spring pop entrance sound
-    public playPop() {
+    // Magical genie emerging from lamp sound
+    public playGenieEmerge() {
       if (this.muted) return;
       const ctx = this.initContext();
-      if (!ctx) return;
-      if (ctx.state === 'suspended') {
-        this.pendingEntranceSound = true;
-        return;
-      }
+      if (!ctx || ctx.state === 'suspended') return;
+
+      try {
+        const now = ctx.currentTime;
+        // Rising swoosh
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(1150, now + 0.45);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.28, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.52);
+
+        // Sparkle harmonic arpeggio
+        const notes = [520, 780, 1040, 1300, 1560];
+        notes.forEach((freq, idx) => {
+          const t = now + 0.12 + idx * 0.055;
+          const p = ctx.createOscillator();
+          const pg = ctx.createGain();
+          p.type = 'triangle';
+          p.frequency.setValueAtTime(freq, t);
+          pg.gain.setValueAtTime(0.001, t);
+          pg.gain.exponentialRampToValueAtTime(0.14, t + 0.015);
+          pg.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+          p.connect(pg);
+          pg.connect(ctx.destination);
+          p.start(t);
+          p.stop(t + 0.13);
+        });
+      } catch {}
+    }
+
+    // Magical genie suction back into lamp sound
+    public playGenieRetract() {
+      if (this.muted) return;
+      const ctx = this.initContext();
+      if (!ctx || ctx.state === 'suspended') return;
 
       try {
         const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(840, now + 0.12);
-        osc.frequency.exponentialRampToValueAtTime(420, now + 0.22);
-
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(140, now + 0.45);
         gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+        gain.gain.exponentialRampToValueAtTime(0.25, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
 
-        const ping = ctx.createOscillator();
-        const pingGain = ctx.createGain();
-        ping.type = 'triangle';
-        ping.frequency.setValueAtTime(1100, now + 0.06);
-        ping.frequency.exponentialRampToValueAtTime(1450, now + 0.14);
-
-        pingGain.gain.setValueAtTime(0.001, now);
-        pingGain.gain.exponentialRampToValueAtTime(0.18, now + 0.07);
-        pingGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        // End pop
+        const pop = ctx.createOscillator();
+        const popG = ctx.createGain();
+        pop.type = 'sine';
+        pop.frequency.setValueAtTime(120, now + 0.44);
+        popG.gain.setValueAtTime(0.22, now + 0.44);
+        popG.gain.exponentialRampToValueAtTime(0.001, now + 0.52);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
-        ping.connect(pingGain);
-        pingGain.connect(ctx.destination);
+        pop.connect(popG);
+        popG.connect(ctx.destination);
 
         osc.start(now);
-        osc.stop(now + 0.28);
-        ping.start(now + 0.06);
-        ping.stop(now + 0.28);
+        osc.stop(now + 0.5);
+        pop.start(now + 0.44);
+        pop.stop(now + 0.53);
       } catch {}
     }
 
@@ -896,34 +810,10 @@
         osc.stop(now + 0.1);
       } catch {}
     }
-
-    // Descending cartoon slide when dismissed
-    public playDismiss() {
-      if (this.muted) return;
-      const ctx = this.initContext();
-      if (!ctx || ctx.state === 'suspended') return;
-
-      try {
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(680, now);
-        osc.frequency.exponentialRampToValueAtTime(170, now + 0.24);
-
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.24, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.26);
-      } catch {}
-    }
   }
 
   function initClippy() {
+    const trigger = document.getElementById('curiosity-trigger');
     const widget = document.getElementById('clippy-widget');
     const character = document.getElementById('clippy-character');
     const bubble = document.getElementById('clippy-bubble');
@@ -932,7 +822,6 @@
     const shareBtn = document.getElementById('clippy-share-btn');
     const closeBtn = document.getElementById('clippy-close-btn');
     const soundBtn = document.getElementById('clippy-sound-toggle');
-    const summonBtn = document.getElementById('clippy-summon-btn');
 
     const pupilLeft = document.getElementById('clippy-pupil-left');
     const pupilRight = document.getElementById('clippy-pupil-right');
@@ -944,8 +833,9 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const sound = new ClippySoundSynth();
     let currentTakeIndex = 0;
-    let isDismissedCompletely = false;
+    let isDismissedCompletely = true;
     let isBubbleOpen = false;
+    let isAnimatingGenie = false;
 
     // Timers for automatic speech bubble lifecycle
     let autoCloseTimer: number | null = null;
@@ -973,10 +863,6 @@
     // Handle browser autoplay policy by unlocking audio on the first user interaction
     const unlockAudio = () => {
       sound.initContext();
-      if (sound.pendingEntranceSound && !prefersReducedMotion) {
-        sound.pendingEntranceSound = false;
-        sound.playPop();
-      }
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
     };
@@ -1086,55 +972,224 @@
       closeBubble(true);
     });
 
-    // Clicking top-right ✕ completely dismisses Clippy from screen
-    closeBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (isDismissedCompletely) return;
+    // Emerge like a genie from the "curiosity" word
+    const emergeFromCuriosity = () => {
+      if (isAnimatingGenie || (!isDismissedCompletely && widget.classList.contains('is-visible'))) {
+        // If already visible, celebrate click with a wiggle and fresh take
+        if (!isDismissedCompletely && widget.classList.contains('is-visible')) {
+          if (!prefersReducedMotion) {
+            character.classList.remove('is-wiggling');
+            void character.offsetWidth;
+            character.classList.add('is-wiggling');
+          }
+          openBubble(true);
+        }
+        return;
+      }
+
+      isAnimatingGenie = true;
+      isDismissedCompletely = false;
+
+      // Turn "curiosity" word into normal text once Clippy is out
+      if (trigger) {
+        trigger.classList.remove('is-shimmering');
+        trigger.classList.add('is-active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+
+      // Ensure default resting position is set if not moved
+      if (!widget.style.left) {
+        widget.style.right = '28px';
+        widget.style.bottom = '24px';
+        widget.style.left = 'auto';
+        widget.style.top = 'auto';
+      }
+
+      widget.classList.remove('is-hidden', 'is-unloaded');
+      widget.classList.add('is-visible');
+
+      if (prefersReducedMotion) {
+        isAnimatingGenie = false;
+        openBubble(false);
+        return;
+      }
+
+      // Measure coordinates of the trigger word "curiosity"
+      const triggerRect = trigger
+        ? trigger.getBoundingClientRect()
+        : { left: window.innerWidth / 2, top: 120, width: 60, height: 24 };
+      const sourceCenterX = triggerRect.left + triggerRect.width / 2;
+      const sourceCenterY = triggerRect.top + triggerRect.height / 2;
+
+      // Measure coordinates of destination resting character
+      const charRect = character.getBoundingClientRect();
+      const destCenterX = charRect.left + charRect.width / 2;
+      const destCenterY = charRect.top + charRect.height / 2;
+
+      const startDx = sourceCenterX - destCenterX;
+      const startDy = sourceCenterY - destCenterY;
+
+      sound.playGenieEmerge();
+
+      const genieInKeyframes: Keyframe[] = [
+        {
+          transform: `translate3d(${startDx}px, ${startDy}px, 0) scale(0.02) rotate(720deg) skewX(25deg)`,
+          opacity: 0,
+          filter: 'blur(8px) drop-shadow(0 0 24px rgba(245, 184, 66, 0.9))'
+        },
+        {
+          transform: `translate3d(${startDx * 0.75}px, ${startDy * 0.75 - 50}px, 0) scale(0.28, 0.85) rotate(360deg) skewX(-20deg)`,
+          opacity: 0.85,
+          filter: 'blur(2px) drop-shadow(0 0 16px rgba(200, 80, 46, 0.7))',
+          offset: 0.3
+        },
+        {
+          transform: `translate3d(${startDx * 0.25}px, ${startDy * 0.25 - 20}px, 0) scale(1.22, 0.78) rotate(90deg) skewX(12deg)`,
+          opacity: 1,
+          filter: 'blur(0px) drop-shadow(0 4px 14px rgba(27, 28, 29, 0.3))',
+          offset: 0.68
+        },
+        {
+          transform: 'translate3d(-8px, -12px, 0) scale(0.92, 1.12) rotate(-8deg)',
+          opacity: 1,
+          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))',
+          offset: 0.86
+        },
+        {
+          transform: 'translate3d(0, 0, 0) scale(1, 1) rotate(0deg)',
+          opacity: 1,
+          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))'
+        }
+      ];
+
+      const anim = character.animate(genieInKeyframes, {
+        duration: 820,
+        easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)',
+        fill: 'forwards'
+      });
+
+      anim.onfinish = () => {
+        anim.cancel();
+        character.style.transform = '';
+        isAnimatingGenie = false;
+        const rect = character.getBoundingClientRect();
+        updateBubbleOrientation(rect.left, rect.top);
+        openBubble(false);
+      };
+    };
+
+    // Retract like a genie back into the "curiosity" word
+    const retractIntoCuriosity = () => {
+      if (isAnimatingGenie || isDismissedCompletely) return;
+      isAnimatingGenie = true;
       isDismissedCompletely = true;
       isBubbleOpen = false;
 
       if (autoCloseTimer) clearTimeout(autoCloseTimer);
       if (nextTakeTimer) clearTimeout(nextTakeTimer);
 
-      if (!prefersReducedMotion) {
-        sound.playDismiss();
-      }
+      // Hide bubble immediately
+      bubble.classList.add('is-hidden');
+      bubble.classList.remove('is-popping-in', 'is-popping-out');
 
-      widget.classList.remove('is-visible');
       if (prefersReducedMotion) {
         widget.classList.add('is-hidden');
-        summonBtn?.classList.remove('is-hidden');
-      } else {
-        widget.classList.add('is-exiting');
-        setTimeout(() => {
-          widget.classList.remove('is-exiting');
-          widget.classList.add('is-hidden');
-          summonBtn?.classList.remove('is-hidden');
-        }, 350);
+        widget.classList.remove('is-visible');
+        if (trigger) {
+          trigger.classList.remove('is-active');
+          trigger.classList.add('is-shimmering');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+        isAnimatingGenie = false;
+        return;
+      }
+
+      // Measure coordinates of current character position
+      const charRect = character.getBoundingClientRect();
+      const currentCenterX = charRect.left + charRect.width / 2;
+      const currentCenterY = charRect.top + charRect.height / 2;
+
+      // Measure coordinates of trigger word "curiosity"
+      const triggerRect = trigger
+        ? trigger.getBoundingClientRect()
+        : { left: window.innerWidth / 2, top: 120, width: 60, height: 24 };
+      const targetCenterX = triggerRect.left + triggerRect.width / 2;
+      const targetCenterY = triggerRect.top + triggerRect.height / 2;
+
+      const endDx = targetCenterX - currentCenterX;
+      const endDy = targetCenterY - currentCenterY;
+
+      sound.playGenieRetract();
+
+      const genieOutKeyframes: Keyframe[] = [
+        {
+          transform: 'translate3d(0, 0, 0) scale(1, 1) rotate(0deg)',
+          opacity: 1,
+          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))'
+        },
+        {
+          transform: `translate3d(${-endDx * 0.05}px, ${-endDy * 0.05 - 15}px, 0) scale(1.12, 0.9) rotate(12deg)`,
+          opacity: 1,
+          offset: 0.18
+        },
+        {
+          transform: `translate3d(${endDx * 0.38}px, ${endDy * 0.38 - 35}px, 0) scale(0.62, 1.4) rotate(-360deg) skewX(20deg)`,
+          opacity: 0.9,
+          filter: 'blur(1px) drop-shadow(0 0 16px rgba(200, 80, 46, 0.7))',
+          offset: 0.55
+        },
+        {
+          transform: `translate3d(${endDx * 0.85}px, ${endDy * 0.85}px, 0) scale(0.18, 0.5) rotate(-720deg) skewX(-15deg)`,
+          opacity: 0.6,
+          filter: 'blur(3px) drop-shadow(0 0 20px rgba(245, 184, 66, 0.9))',
+          offset: 0.85
+        },
+        {
+          transform: `translate3d(${endDx}px, ${endDy}px, 0) scale(0.01, 0.01) rotate(-1080deg)`,
+          opacity: 0,
+          filter: 'blur(6px)'
+        }
+      ];
+
+      const anim = character.animate(genieOutKeyframes, {
+        duration: 650,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        fill: 'forwards'
+      });
+
+      anim.onfinish = () => {
+        anim.cancel();
+        character.style.transform = '';
+        widget.classList.add('is-hidden');
+        widget.classList.remove('is-visible');
+        isAnimatingGenie = false;
+
+        // Turn "curiosity" back to shimmering, clickable mode!
+        if (trigger) {
+          trigger.classList.remove('is-active');
+          trigger.classList.add('is-shimmering');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      };
+    };
+
+    // Wire curiosity trigger clicks & keyboard Enter/Space
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      emergeFromCuriosity();
+    });
+
+    trigger?.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        emergeFromCuriosity();
       }
     });
 
-    // Summon Clippy back
-    summonBtn?.addEventListener('click', () => {
-      isDismissedCompletely = false;
-      summonBtn.classList.add('is-hidden');
-      widget.classList.remove('is-hidden');
-
-      if (prefersReducedMotion) {
-        widget.classList.add('is-visible');
-        openBubble(false);
-      } else {
-        widget.classList.add('is-entering');
-        sound.playPop();
-
-        setTimeout(() => {
-          widget.classList.remove('is-entering');
-          widget.classList.add('is-visible');
-          const rect = character.getBoundingClientRect();
-          updateBubbleOrientation(rect.left, rect.top);
-          openBubble(false);
-        }, 650);
-      }
+    // Clicking top-right ✕ retracts Clippy back into the "curiosity" word
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      retractIntoCuriosity();
     });
 
     // Cursor tracking: eyes follow cursor
@@ -1203,14 +1258,12 @@
     // Adjust speech bubble orientation based on viewport proximity
     const updateBubbleOrientation = (left: number, top: number) => {
       const winW = window.innerWidth;
-      // If Clippy is on the left half of the screen, place bubble to the right
       if (left < winW / 2) {
         widget.classList.add('bubble-left');
       } else {
         widget.classList.remove('bubble-left');
       }
 
-      // If Clippy is near the top of the screen, place bubble below
       if (top < 220) {
         widget.classList.add('bubble-bottom');
       } else {
@@ -1219,7 +1272,7 @@
     };
 
     character.addEventListener('pointerdown', (e: PointerEvent) => {
-      if (e.button !== 0) return;
+      if (e.button !== 0 || isAnimatingGenie) return;
 
       isDragging = true;
       hasMoved = false;
@@ -1300,36 +1353,6 @@
         closeBubble(true);
       }
     });
-
-    // Trigger appearance when all page assets are loaded!
-    const triggerEntrance = () => {
-      widget.classList.remove('is-unloaded');
-      if (prefersReducedMotion) {
-        widget.classList.add('is-visible');
-        openBubble(false);
-        return;
-      }
-
-      widget.classList.add('is-entering');
-      sound.playPop();
-
-      setTimeout(() => {
-        widget.classList.remove('is-entering');
-        widget.classList.add('is-visible');
-        const rect = character.getBoundingClientRect();
-        updateBubbleOrientation(rect.left, rect.top);
-        // Pop open the initial speech bubble
-        openBubble(false);
-      }, 700);
-    };
-
-    if (document.readyState === 'complete') {
-      setTimeout(triggerEntrance, 250);
-    } else {
-      window.addEventListener('load', () => {
-        setTimeout(triggerEntrance, 250);
-      }, { once: true });
-    }
   }
 
   // Initialize after DOM is ready

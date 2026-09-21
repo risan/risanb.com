@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GithubHeatmap from '../components/GithubHeatmap.astro';
+import Clippy from '../components/Clippy.astro';
 
 const posts = (await getCollection('code')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -21,7 +22,7 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   description="Tutorials and notes on web development, tooling, and the things I break along the way."
 >
   <div class="home-intro">
-    <h1>Code, curiosity, and a questionable number of agents</h1>
+    <h1>Code, <span id="curiosity-trigger" class="curiosity-trigger is-shimmering" role="button" tabindex="0" aria-label="Curiosity (click to summon Clippy)" title="Click to summon something curious...">curiosity</span>, and a questionable number of agents</h1>
     <p>
       Hi, I’m Risan. I build software for a living. It started in junior high, when I got bored with
       Flash games and picked up a book about Borland Delphi 6. I followed the tutorials and made a simple
@@ -94,4 +95,92 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   </div>
 
   <GithubHeatmap />
+  <Clippy />
+
+<style>
+  .curiosity-trigger {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: inherit;
+    font-family: inherit;
+    user-select: none;
+    border-radius: 4px;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.2s ease;
+  }
+
+  .curiosity-trigger:focus-visible {
+    outline: 2px solid var(--accent, #c8502e);
+    outline-offset: 4px;
+  }
+
+  .curiosity-trigger.is-shimmering {
+    background: linear-gradient(
+      105deg,
+      var(--ink, #1b1c1d) 0%,
+      var(--ink, #1b1c1d) 20%,
+      var(--accent, #c8502e) 38%,
+      #f5b842 50%,
+      var(--accent, #c8502e) 62%,
+      var(--ink, #1b1c1d) 80%,
+      var(--ink, #1b1c1d) 100%
+    );
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: curiosity-shimmer 2.8s infinite linear;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--accent, #c8502e);
+    text-underline-offset: 6px;
+  }
+
+  :global(.dark) .curiosity-trigger.is-shimmering {
+    background: linear-gradient(
+      105deg,
+      var(--ink, #e6e4df) 0%,
+      var(--ink, #e6e4df) 20%,
+      var(--accent, #e06b47) 38%,
+      #ffd166 50%,
+      var(--accent, #e06b47) 62%,
+      var(--ink, #e6e4df) 80%,
+      var(--ink, #e6e4df) 100%
+    );
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .curiosity-trigger.is-shimmering:hover {
+    transform: translateY(-2px) scale(1.04);
+    text-shadow: 0 0 16px rgba(245, 184, 66, 0.45);
+  }
+
+  .curiosity-trigger.is-active {
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    animation: none !important;
+    text-shadow: none !important;
+    cursor: default !important;
+    text-decoration: none !important;
+    transform: none !important;
+  }
+
+  @keyframes curiosity-shimmer {
+    0% {
+      background-position: 140% 0;
+    }
+    100% {
+      background-position: -140% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .curiosity-trigger.is-shimmering {
+      animation: none !important;
+      background: none !important;
+      -webkit-text-fill-color: var(--accent, #c8502e) !important;
+    }
+  }
+</style>
 </BaseLayout>
