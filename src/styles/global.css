@@ -118,6 +118,11 @@ a {
   background: #f2d9cd;
 }
 
+html.dark ::selection {
+  background: #522b1f;
+  color: #fbf9f5;
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -158,10 +163,12 @@ header.site {
 
 header.site .bar {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: 22px 0;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 
 .brand {
@@ -180,7 +187,8 @@ header.site .bar {
 nav.top {
   display: flex;
   align-items: center;
-  gap: 28px;
+  flex-wrap: wrap;
+  gap: 10px 20px;
 }
 
 nav.top a {
@@ -541,7 +549,8 @@ h1 {
   --ec-frm-trmBtnFg: var(--ink-muted);
   --ec-frm-edBtnBrdCol: var(--rule);
   --ec-frm-edBtnFg: var(--ink-muted);
-  --ec-frm-trmTtbDotsFg: var(--rule);
+  --ec-frm-trmTtbDotsFg: var(--ink-muted);
+  --ec-frm-trmTtbDotsOpa: 0.6;
   --ec-frm-inlBtnBrdCol: var(--rule);
   --ec-brdRad: 6px;
   --ec-codeFontFml: var(--font-mono);
@@ -554,6 +563,24 @@ h1 {
 
 .prose .expressive-code {
   margin: 34px 0;
+}
+
+.expressive-code .frame.is-terminal .header::before {
+  opacity: 0.6;
+  background-color: var(--ink-muted);
+}
+
+.expressive-code .frame.is-terminal.has-title .title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+.post-foot {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
 }
 
 /* -------------------------------------------------------------- postfoot -- */
@@ -744,6 +771,9 @@ h1 {
 }
 
 .section-block {
+  margin-top: 48px;
+}
+.home-columns .section-block {
   margin-top: 0;
 }
 .section-block > h2 {
@@ -777,8 +807,10 @@ footer.site .bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 26px 0;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
@@ -843,9 +875,9 @@ footer.site a:hover {
     max-width: none;
   }
   header.site .bar {
-    flex-wrap: wrap;
-    gap: 14px;
-    padding: 16px 0;
+    gap: 12px 18px;
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
   h1 {
     font-size: clamp(2rem, 8vw, 3rem);

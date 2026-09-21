@@ -5,7 +5,7 @@ categories: [snippet]
 tags: [hugo]
 images: [/img/hugo.png]
 ---
-I already implemented this feature back when [I switch to Hugo](/code/switching-to-hugo/) months ago. However, back then I used shortcode instead of a built-in markdown [image render hook](https://gohugo.io/getting-started/configuration-markup/#image-markdown-example). I tried the image render hook, but it threw an error. I never bother to found out why and stick with the shortcode.
+I already implemented this feature back when [I switch to Hugo](/posts/switching-to-hugo/) months ago. However, back then I used shortcode instead of a built-in markdown [image render hook](https://gohugo.io/getting-started/configuration-markup/#image-markdown-example). I tried the image render hook, but it threw an error. I never bother to found out why and stick with the shortcode.
 
 Turns out, the error happened because I tried to process an image from the static directory within the image render hook. We can't get access to the image file within the static directory from a render hook. If you want to process an image from the static directory, use shortcode.
 

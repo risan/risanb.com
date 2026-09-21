@@ -6,13 +6,13 @@ const posts = (await getCollection('code')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-const featured = posts.filter((p) => p.data.featured);
-const recent = posts.slice(0, 8);
+const featured = posts.filter((p) => p.data.featured).slice(0, 6);
+const recent = posts.slice(0, 6);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
-const href = (id: string) => `/code/${id.replace(/\/index$/, '')}/`;
+const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
 ---
 
 <BaseLayout
@@ -22,9 +22,30 @@ const href = (id: string) => `/code/${id.replace(/\/index$/, '')}/`;
   <div class="home-intro">
     <h1>Notes on building for the web</h1>
     <p>
-      I write code for a living and break things on purpose to learn how they work. This is
-      where the technical notes live — mostly JavaScript, PHP, and the tooling in between.
-      {posts.length} articles and tutorials published so far.
+      My name is Risan Bagja Pradana, and I love playing with the computer. It started in junior
+      high. I got bored with Flash games, picked up a book about Borland Delphi 6, and built a
+      simple text editor. I published my early software as RdF, short for &ldquo;Reason da
+      Freak&rdquo;. It sounds like &ldquo;Risan the Freak&rdquo;. Don&rsquo;t judge me.
+    </p>
+    <p>
+      That kid grew up and wrote code for a living. I helped clients launch their websites and
+      helped startups ship their ideas. One of them was acquired for tens of millions of dollars
+      in 2019.
+    </p>
+    <p>
+      Then the job changed shape. These days I rarely open a code editor. A handful of AI agents
+      write the code. One plans, one picks the plan apart, one builds it test-first, and one
+      checks the result against the plan. I design that loop and the checkpoints in between.
+    </p>
+    <p>
+      The funny thing is that the old skills matter more now. You can&rsquo;t set a good checkpoint
+      unless you know where code usually goes wrong. I know because I&rsquo;ve made most of those
+      mistakes myself, some of them twice.
+    </p>
+    <p>
+      This site is where I write it all down. The older posts are hands-on tutorials: JavaScript,
+      PHP, Laravel, Hugo. The newer ones are about working with agents. I&rsquo;m still just playing
+      with the computer. The toys got more interesting.
     </p>
   </div>
 
@@ -62,7 +83,7 @@ const href = (id: string) => `/code/${id.replace(/\/index$/, '')}/`;
         }
       </ul>
       <p class="eyebrow" style="margin-top: 20px;">
-        <a href="/code/">All {posts.length} posts →</a>
+        <a href="/posts/">All {posts.length} posts →</a>
       </p>
     </section>
   </div>

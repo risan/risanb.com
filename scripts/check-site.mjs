@@ -23,7 +23,7 @@ const REQUIRED = [
   'index.html',
   '404.html',
   'about/index.html',
-  'code/index.html',
+  'posts/index.html',
   'categories/index.html',
   'tags/index.html',
   'rss.xml',
@@ -121,7 +121,9 @@ if (existsSync(redirectsPath)) {
       return;
     }
     if (!from.startsWith('/')) problems.push(`${at}: source must be site-absolute, got: ${from}`);
-    if (!/^https:\/\//.test(to)) problems.push(`${at}: destination must be absolute https, got: ${to}`);
+    if (!to.startsWith('/') && !/^https:\/\//.test(to)) {
+      problems.push(`${at}: destination must be absolute https or site-absolute, got: ${to}`);
+    }
     if (status !== '301') {
       problems.push(`${at}: status must be an explicit 301 (a 302 loses ranking), got: ${status ?? '(omitted)'}`);
     }

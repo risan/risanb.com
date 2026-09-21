@@ -65,3 +65,10 @@
 # --- personal posts: the whole /blog/ subtree moves to the new domain --------
 # Dynamic (splat) rule -- keep last, see ORDER note above.
 /blog/*  https://blog.risanb.com/:splat  301
+
+# --- code posts: /code/* moved to /posts/* -------------------------------------
+/code/*  /posts/:splat  301
+/code/  /posts/  301
+/code  /posts/  301
+/archive/  /posts/  301
+/archive  /posts/  301

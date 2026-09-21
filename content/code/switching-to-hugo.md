@@ -5,7 +5,7 @@ categories: [log]
 tags: [hugo]
 images: [/img/hugo.png]
 ---
-Another day, another static site generator to switch to. The curse is real. Instead of writing more blog posts, I ended up messing up with the platform. It was once powered by [Jekyll](/code/new-blog/). It was once using a [custom static site generator](/code/i-create-my-own-static-site-generator/) that I wrote myself. It was once built on top of [Gatsby](https://github.com/risan/risanb.com/tree/gatsby). And now I'm switching to [Hugo](https://gohugo.io/)—the world's fastest static site generator. And I'm very happy with it.
+Another day, another static site generator to switch to. The curse is real. Instead of writing more blog posts, I ended up messing up with the platform. It was once powered by [Jekyll](/posts/new-blog/). It was once using a [custom static site generator](/posts/i-create-my-own-static-site-generator/) that I wrote myself. It was once built on top of [Gatsby](https://github.com/risan/risanb.com/tree/gatsby). And now I'm switching to [Hugo](https://gohugo.io/)—the world's fastest static site generator. And ...
 
 Gatsby is great. Although it was a bit awkward at first, the GraphQL is so powerful. It's more flexible for us to query and transform our data. It has tons of plugins ready to use. I really like their Sharp plugin that can be used for resizing and optimizing images—which are done through the comfort of a GraphQL query. Or the `gatsby-remark-images` that can automatically generate a traced-SVG that acts as a placeholder for all of our images.
 
@@ -142,7 +142,7 @@ Note that we call the `markdownify` function for the caption. So we can still us
 
 ## Group Post by Year
 
-As you might have noticed on [`/code`](/code/) and [`/blog`](https://blog.risanb.com/) sections, I group the posts on those sections by year. To do that our `list.html` file should look like this:
+As you might have noticed on [`/posts`](/posts/) and [`/blog`](https://blog.risanb.com/) sections, I group the posts on those sections by year. To do that our `list.html` file should look like this:
 
 ```go-html-template
 {{ define "main" }}

@@ -127,7 +127,7 @@ const ogImage = images[0];
               {prev ? (
                 <div class="item prev">
                   <span class="label">← Previous</span>
-                  <a href={`/code/${prev.id.replace(/\/index$/, '')}/`}>{prev.data.title}</a>
+                  <a href={`/posts/${prev.id.replace(/\/index$/, '')}/`}>{prev.data.title}</a>
                 </div>
               ) : (
                 <div class="item placeholder" />
@@ -135,7 +135,7 @@ const ogImage = images[0];
               {next && (
                 <div class="item next">
                   <span class="label">Next →</span>
-                  <a href={`/code/${next.id.replace(/\/index$/, '')}/`}>{next.data.title}</a>
+                  <a href={`/posts/${next.id.replace(/\/index$/, '')}/`}>{next.data.title}</a>
                 </div>
               )}
             </nav>

@@ -44,11 +44,11 @@ const fmt = (d: Date) =>
   </div>
 
   <section class="section-block">
-    <ul class="entry-list">
+    <ul class="entry-list entry-list--compact">
       {
         entries.map((post) => (
           <li>
-            <a href={`/code/${post.id.replace(/\/index$/, '')}/`}>
+            <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
               <span class="title">{post.data.title}</span>
               <span class="meta">{fmt(post.data.date)}</span>
             </a>

@@ -26,8 +26,12 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = ogImage ? new URL(ogImage, Astro.site) : undefined;
 const nav = [
-  { href: '/code/', label: 'Code' },
+  { href: '/categories/tutorial/', label: 'Tutorial' },
+  { href: '/categories/log/', label: 'Log' },
+  { href: '/categories/snippet/', label: 'Snippet' },
+  { href: '/tags/', label: 'Tags' },
   { href: '/about/', label: 'About' },
+  { href: '/posts/', label: 'Archive' },
 ] as const;
 const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
 ---
@@ -79,7 +83,7 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
 
     <header class="site">
       <div class="wrap bar">
-        <a class="brand" href="/">Risan Bagja <em>/ code</em></a>
+        <a class="brand" href="/">Risan Bagja <em>/ posts</em></a>
         <nav class="top" aria-label="Primary">
           {
             nav.map((item) => (

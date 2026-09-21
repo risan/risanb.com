@@ -16,18 +16,18 @@ for (const post of posts) {
 }
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', timeZone: 'UTC' });
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <BaseLayout
-  title="Code | Risan Bagja"
+  title="Archive | Risan Bagja"
   description="Tutorials and notes on web development, tooling, and the things I break along the way."
 >
   <div class="page-head">
-    <h1>Code</h1>
+    <h1>Archive</h1>
     <p class="lede">
-      Tutorials and notes on web development, tooling, and the things I break along the way.{' '}
-      {posts.length} posts.
+      All notes, tutorials, and articles on web development, tooling, and programming.
+      {posts.length} posts published.
     </p>
   </div>
 
@@ -35,10 +35,10 @@ const fmt = (d: Date) =>
     [...byYear.entries()].map(([year, entries]) => (
       <section class="year-group">
         <h2>{year}</h2>
-        <ul class="entry-list">
+        <ul class="entry-list entry-list--compact">
           {entries.map((post) => (
             <li>
-              <a href={`/code/${post.id.replace(/\/index$/, '')}/`}>
+              <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
                 <span class="title">{post.data.title}</span>
                 <span class="meta">{fmt(post.data.date)}</span>
               </a>

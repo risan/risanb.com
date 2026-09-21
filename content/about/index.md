@@ -17,6 +17,6 @@ Years later, my passion for computer programming is stronger than ever. Now I'm 
 
 ![This is me posing on a cold winter morning in Gdańsk, Poland.](risan.jpg)
 
-This website serves as an archive for my thoughts. Sometimes I write about [programming stuff](/code/). But most of the time I blog about my [daily life](https://blog.risanb.com/categories/journal/), my [traveling](https://blog.risanb.com/categories/travel/) experiences, or any [random stuff](https://blog.risanb.com/categories/writing/) that comes to my mind. I occasionally posted some [photos](https://blog.risanb.com/categories/photos/) too.
+This website serves as an archive for my thoughts. Sometimes I write about [programming stuff](/posts/). But most of the time I blog about my [daily life](https://blog.risanb.com/categories/journal/), my [traveling](https://blog.risanb.com/categories/travel/) experiences, or any [random stuff](https://blog.risanb.com/categories/writing/) that comes to my mind. I occasionally posted some [photos](https://blog.risanb.com/categories/photos/) too.
 
 This website is generated using [Astro](https://astro.build/) and hosted for free on [Cloudflare Workers](https://workers.cloudflare.com/). You can check out the entire source code on [Github](https://github.com/risan/risanb.com).

@@ -43,6 +43,9 @@ export default defineConfig({
       themes: [monographLight, monographDark],
       useDarkModeMediaQuery: false,
       themeCssSelector: (theme) => (theme.name === 'monograph-dark' ? '.dark' : false),
+      defaultProps: {
+        frame: 'terminal',
+      },
       shiki: {
         langAlias: {
           'go-html-template': 'html',

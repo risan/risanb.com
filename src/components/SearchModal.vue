@@ -358,7 +358,7 @@ onBeforeUnmount(() => {
       <div class="body">
         <p v-if="loading" class="state">Loading index…</p>
         <p v-else-if="failed" class="state">
-          Search index unavailable. Browse <a href="/code/">all code posts</a> instead.
+          Search index unavailable. Browse <a href="/posts/">all posts</a> instead.
         </p>
 
         <template v-else>

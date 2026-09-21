@@ -25,7 +25,7 @@ export const GET: APIRoute = async () => {
 
       return {
         id: slug,
-        url: `/code/${slug}/`,
+        url: `/posts/${slug}/`,
         title: post.data.title,
         description: post.data.description ?? '',
         date: post.data.date.toISOString().slice(0, 10),
