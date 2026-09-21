@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 // The `code` collection reads Hugo's content directory directly, so there is no

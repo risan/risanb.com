@@ -4,6 +4,7 @@ import vue from '@astrojs/vue';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import expressiveCode from 'astro-expressive-code';
+import { unified } from '@astrojs/markdown-remark';
 import { rehypeFigure } from './src/lib/rehype-figure.mjs';
 import { remarkHugoShortcodes } from './src/lib/remark-hugo-shortcodes.mjs';
 import { monographLight } from './src/lib/shiki-monograph.mjs';
@@ -53,12 +54,11 @@ export default defineConfig({
   },
 
   markdown: {
-    // Handles Hugo's {{<toc>}} and throws on anything unrecognised, so a
-    // migrated post can never silently render a shortcode as literal text.
-    remarkPlugins: [remarkHugoShortcodes],
-
-    // Reproduces Hugo's image render hook: <figure> + <figcaption> from alt text.
-    rehypePlugins: [rehypeFigure],
+    // Configured on the unified processor explicitly (Astro 7+ default processor is Sätteri).
+    processor: unified({
+      remarkPlugins: [remarkHugoShortcodes],
+      rehypePlugins: [rehypeFigure],
+    }),
   },
 
   // NOTE: these belong to the TOP-LEVEL `image` key, not `markdown.image`.
