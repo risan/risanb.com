@@ -1,0 +1,21 @@
+---
+import { getTechIconSvg } from '../lib/icons-svg';
+
+interface Props {
+  name?: string | null;
+  class?: string;
+}
+
+const { name, class: className = '' } = Astro.props;
+const svg = name ? getTechIconSvg(name) : null;
+---
+
+{
+  svg && (
+    <span
+      class={`tech-icon ${className}`.trim()}
+      aria-hidden="true"
+      set:html={svg}
+    />
+  )
+}

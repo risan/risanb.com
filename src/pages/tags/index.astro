@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechIcon from '../../components/TechIcon.astro';
 
 const posts = await getCollection('code');
 
@@ -22,6 +23,7 @@ const sorted = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]));
       {
         sorted.map(([name, count]) => (
           <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
+            <TechIcon name={name} />
             <span class="tag-name">#{name}</span>
             <span class="tag-count">{count}</span>
           </a>

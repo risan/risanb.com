@@ -8,7 +8,7 @@
 # status is omitted, and a 302 does NOT transfer ranking the way a 301 does --
 # which is the entire point of this file.
 #
-# ORDER: static rules first, then the single splat rule last. Cloudflare
+# ORDER: static rules first, then splat rules last. Cloudflare
 # documents that static redirects must precede dynamic ones. The rules below are
 # disjoint so either order resolves identically today, but precedence is applied
 # top-down and a future rule could quietly become unreachable -- so keep the
@@ -27,6 +27,7 @@
 #   /blog/*                  -> blog.risanb.com/:splat    (143 URLs, 1 rule)
 #   /code/*                  -> /posts/:splat             (technical posts moved to /posts/)
 #   /code/                   -> /posts/
+
 # --- blog-only categories (code keeps log, snippet, tutorial) ---------------
 
 /categories/journal/  https://blog.risanb.com/categories/journal/  301

@@ -1,6 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechIcon from '../../components/TechIcon.astro';
+import { getPostIcon } from '../../lib/tech-icons';
 
 type Post = CollectionEntry<'code'>;
 
@@ -29,6 +31,15 @@ const { category, entries } = Astro.props;
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+const categoryHooks: Record<string, string> = {
+  tutorial:
+    'Hands-on, step-by-step guides and deep dives into tools, libraries, and architecture. Designed to take you from concept to working software.',
+  log:
+    'Field notes from the workshop—tool migrations, configuration experiments, and postmortems of bugs that took a little too long to solve.',
+  snippet:
+    'Concise, battle-tested solutions to specific problems—the handy tricks and snippets you write once and keep reaching back for.',
+};
 ---
 
 <BaseLayout
@@ -37,16 +48,16 @@ const fmt = (d: Date) =>
 >
   <div class="page-head">
     <h1>{category}</h1>
+    {categoryHooks[category] && <p class="category-hook">{categoryHooks[category]}</p>}
     <p class="lede">{entries.length} {entries.length === 1 ? 'post' : 'posts'}.</p>
   </div>
-
   <section class="section-block">
     <ul class="entry-list entry-list--compact">
       {
         entries.map((post) => (
           <li>
             <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
-              <span class="title">{post.data.title}</span>
+              <span class="title"><TechIcon name={getPostIcon(post)} />{post.data.title}</span>
               <span class="meta">{fmt(post.data.date)}</span>
             </a>
           </li>

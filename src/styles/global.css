@@ -428,8 +428,7 @@ h1 {
 .post-body > p:first-of-type {
   margin-top: 34px;
 }
-.post-body > p:first-of-type::first-letter,
-.home-intro > p:first-of-type::first-letter {
+.post-body > p:first-of-type::first-letter {
   initial-letter: 2;
   -webkit-initial-letter: 2;
   float: left;
@@ -439,6 +438,17 @@ h1 {
   font-weight: 500;
   color: var(--accent);
   margin: 0.04em 0.14em 0 0;
+}
+
+.home-intro > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.25rem;
+  line-height: 0.68;
+  margin-top: 8px;
+  margin-right: 0.12em;
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .prose ul,
@@ -566,16 +576,73 @@ h1 {
   margin: 34px 0;
 }
 
-.expressive-code .frame.is-terminal .header::before {
-  opacity: 0.6;
-  background-color: var(--ink-muted);
+/* Expressive Code: macOS window chrome */
+.expressive-code .frame {
+  border: 1px solid var(--rule) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background: var(--sunk) !important;
 }
 
-.expressive-code .frame.is-terminal.has-title .title {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-muted);
+.expressive-code .frame.is-terminal .header,
+.expressive-code .frame .header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 14px !important;
+  background: var(--bg) !important;
+  border-bottom: 1px solid var(--rule) !important;
+  position: relative !important;
+}
+
+.expressive-code .frame.is-terminal .header::before,
+.expressive-code .frame .header::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background-color: #ff5f56 !important;
+  box-shadow: 16px 0 0 #ffbd2e, 32px 0 0 #27c93f !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  opacity: 1 !important;
+}
+
+.expressive-code .frame.is-terminal.has-title .header,
+.expressive-code .frame.has-title .header {
+  align-items: flex-end !important;
+  padding-bottom: 0 !important;
+  height: 38px !important;
+}
+
+.expressive-code .frame.is-terminal.has-title .title,
+.expressive-code .frame.has-title .title {
+  margin-left: 54px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 28px !important;
+  padding: 0 14px !important;
+  background: var(--sunk) !important;
+  border: 1px solid var(--rule) !important;
+  border-bottom: 1px solid var(--sunk) !important;
+  border-radius: 6px 6px 0 0 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.02em !important;
+  color: var(--ink) !important;
+  margin-bottom: -1px !important;
+  z-index: 2 !important;
+}
+
+.expressive-code .frame.is-terminal:not(.has-title) .title,
+.expressive-code .frame:not(.has-title) .title {
+  display: none !important;
 }
 
 .post-foot {
@@ -657,6 +724,40 @@ h1 {
   font-size: 0.6875rem;
   color: var(--ink-muted);
   opacity: 0.8;
+}
+
+/* Tech stack SVG icons */
+.tech-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: filter 0.18s ease, opacity 0.18s ease;
+  flex-shrink: 0;
+}
+
+.tech-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.entry-list a:hover .tech-icon,
+.tag-pill:hover .tech-icon,
+.tech-icon:hover {
+  filter: grayscale(0) !important;
+  opacity: 1 !important;
+}
+
+.category-hook {
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  max-width: var(--measure);
+  margin: 14px 0 0;
 }
 
 .nextprev {
@@ -745,6 +846,9 @@ h1 {
 }
 
 .entry-list .title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-serif);
   font-size: 1.25rem;
   line-height: 1.3;
@@ -908,9 +1012,13 @@ footer.site a:hover {
   .dek {
     font-size: 1.1875rem;
   }
-  .post-body > p:first-of-type::first-letter,
-  .home-intro > p:first-of-type::first-letter {
+  .post-body > p:first-of-type::first-letter {
     font-size: 2.8rem;
+  }
+  .home-intro > p:first-of-type::first-letter {
+    font-size: 2.75rem;
+    line-height: 0.7;
+    margin-top: 5px;
   }
   .page-head,
   .home-intro {
