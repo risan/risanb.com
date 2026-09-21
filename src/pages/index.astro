@@ -115,36 +115,35 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   }
 
   .curiosity-trigger.is-shimmering {
+    color: var(--accent, #c8502e);
     background: linear-gradient(
-      105deg,
-      var(--ink, #1b1c1d) 0%,
-      var(--ink, #1b1c1d) 20%,
-      var(--accent, #c8502e) 38%,
+      110deg,
+      var(--accent, #c8502e) 0%,
+      var(--accent, #c8502e) 26%,
+      #e8734e 38%,
       #f5b842 50%,
-      var(--accent, #c8502e) 62%,
-      var(--ink, #1b1c1d) 80%,
-      var(--ink, #1b1c1d) 100%
+      #e8734e 62%,
+      var(--accent, #c8502e) 74%,
+      var(--accent, #c8502e) 100%
     );
     background-size: 240% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: curiosity-shimmer 2.8s infinite linear;
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-decoration-color: var(--accent, #c8502e);
-    text-underline-offset: 6px;
+    animation: curiosity-shimmer 3s infinite linear;
+    text-decoration: none;
   }
 
   :global(.dark) .curiosity-trigger.is-shimmering {
+    color: var(--accent, #e06b47);
     background: linear-gradient(
-      105deg,
-      var(--ink, #e6e4df) 0%,
-      var(--ink, #e6e4df) 20%,
-      var(--accent, #e06b47) 38%,
+      110deg,
+      var(--accent, #e06b47) 0%,
+      var(--accent, #e06b47) 26%,
+      #f08b68 38%,
       #ffd166 50%,
-      var(--accent, #e06b47) 62%,
-      var(--ink, #e6e4df) 80%,
-      var(--ink, #e6e4df) 100%
+      #f08b68 62%,
+      var(--accent, #e06b47) 74%,
+      var(--accent, #e06b47) 100%
     );
     background-size: 240% 100%;
     -webkit-background-clip: text;
@@ -152,10 +151,9 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   }
 
   .curiosity-trigger.is-shimmering:hover {
-    transform: translateY(-2px) scale(1.04);
-    text-shadow: 0 0 16px rgba(245, 184, 66, 0.45);
+    transform: translateY(-1px);
+    filter: drop-shadow(0 2px 8px rgba(200, 80, 46, 0.3));
   }
-
   .curiosity-trigger.is-active {
     background: none !important;
     -webkit-text-fill-color: currentColor !important;
