@@ -1,0 +1,1239 @@
+---
+// Interactive Clippy assistant with cursor-following eyes, retro sound synthesis,
+// drag-and-drop mobility, accessibility support, and programming hot takes.
+---
+
+<div
+  id="clippy-widget"
+  class="clippy-widget is-unloaded"
+  role="region"
+  aria-label="Clippy assistant"
+>
+  <!-- Speech Bubble (Positioned absolutely relative to the character) -->
+  <div
+    id="clippy-bubble"
+    class="clippy-bubble"
+    role="dialog"
+    aria-labelledby="clippy-title"
+  >
+    <div class="clippy-bubble-header">
+      <div id="clippy-title" class="clippy-bubble-title">
+        <span class="clippy-paperclip-icon" aria-hidden="true">📎</span>
+        <span>Clippy</span>
+      </div>
+      <div class="clippy-bubble-tools">
+        <button
+          id="clippy-sound-toggle"
+          class="clippy-tool-btn"
+          type="button"
+          aria-label="Mute Clippy sounds"
+          title="Toggle sound"
+        >
+          <span class="icon-sound-on" aria-hidden="true">🔊</span>
+          <span class="icon-sound-off" aria-hidden="true" style="display: none;">🔇</span>
+        </button>
+        <button
+          id="clippy-close-btn"
+          class="clippy-tool-btn"
+          type="button"
+          aria-label="Hide Clippy"
+          title="Hide Clippy"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <div class="clippy-bubble-body">
+      <p id="clippy-quote" class="clippy-quote">
+        100% test coverage is a waste of time.
+      </p>
+    </div>
+
+    <div class="clippy-bubble-footer">
+      <button id="clippy-next-take" class="clippy-action-btn clippy-primary" type="button">
+        Another take →
+      </button>
+      <button id="clippy-dismiss-btn" class="clippy-action-btn clippy-secondary" type="button">
+        Hide
+      </button>
+    </div>
+
+    <!-- Directional speech bubble callout tail -->
+    <div class="clippy-bubble-tail" aria-hidden="true"></div>
+  </div>
+
+  <!-- Draggable Clippy Character -->
+  <div
+    id="clippy-character"
+    class="clippy-character"
+    role="button"
+    tabindex="0"
+    aria-label="Clippy: drag to reposition or click for another hot take"
+    title="Drag me anywhere or click for hot takes!"
+  >
+    <svg
+      id="clippy-svg"
+      class="clippy-svg"
+      width="78"
+      height="88"
+      viewBox="0 0 32 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient
+          id="clippyWireGrad"
+          x1="6"
+          y1="2"
+          x2="26"
+          y2="34"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stop-color="#E2E7EE" />
+          <stop offset="35%" stop-color="#9BA6B5" />
+          <stop offset="70%" stop-color="#BAC3D0" />
+          <stop offset="100%" stop-color="#6F7A8B" />
+        </linearGradient>
+        <filter id="clippyGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.28" />
+        </filter>
+      </defs>
+
+      <!-- Main Wire Loop -->
+      <path
+        class="clippy-wire"
+        d="M12 25V13C12 10.7909 13.7909 9 16 9C18.2091 9 20 10.7909 20 13V26C20 29.3137 17.3137 32 14 32C10.6863 32 8 29.3137 8 26V7C8 3.68629 10.6863 1 14 1C17.3137 1 20 3.68629 20 7V22"
+        stroke="url(#clippyWireGrad)"
+        stroke-width="2.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#clippyGlow)"
+      />
+
+      <!-- Specular Highlight Line -->
+      <path
+        d="M8.8 24V7C8.8 4.1 11.1 1.8 14 1.8C16.9 1.8 19.2 4.1 19.2 7V20"
+        stroke="#FFFFFF"
+        stroke-width="0.8"
+        stroke-linecap="round"
+        opacity="0.85"
+      />
+
+      <!-- Expressive Eyebrows -->
+      <g class="clippy-brows">
+        <path
+          class="brow-left"
+          d="M10 7.5C11 6.2 13 6.4 14.5 7.2"
+          stroke="#1A1918"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+        <path
+          class="brow-right"
+          d="M17.5 6.2C19 5.2 21.2 5.6 22.5 7"
+          stroke="#1A1918"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+      </g>
+
+      <!-- Eyes Container (Blinks) -->
+      <g class="clippy-eyes">
+        <!-- Left Eye Socket -->
+        <ellipse
+          id="clippy-eye-left"
+          class="clippy-eye-white eye-left"
+          cx="12.5"
+          cy="12.5"
+          rx="3.5"
+          ry="4.2"
+          fill="#FFFFFF"
+          stroke="#1A1918"
+          stroke-width="1"
+        />
+        <!-- Left Pupil Group (Follows Cursor) -->
+        <g id="clippy-pupil-left" class="clippy-pupil pupil-left">
+          <circle cx="12.8" cy="12.6" r="1.8" fill="#1A1918" />
+          <circle cx="12.0" cy="11.7" r="0.65" fill="#FFFFFF" />
+        </g>
+
+        <!-- Right Eye Socket -->
+        <ellipse
+          id="clippy-eye-right"
+          class="clippy-eye-white eye-right"
+          cx="19.5"
+          cy="12"
+          rx="3.5"
+          ry="4.2"
+          fill="#FFFFFF"
+          stroke="#1A1918"
+          stroke-width="1"
+        />
+        <!-- Right Pupil Group (Follows Cursor) -->
+        <g id="clippy-pupil-right" class="clippy-pupil pupil-right">
+          <circle cx="19.1" cy="12.2" r="1.8" fill="#1A1918" />
+          <circle cx="18.3" cy="11.3" r="0.65" fill="#FFFFFF" />
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- Summon Badge: visible when Clippy is hidden so user can easily bring him back -->
+<button
+  id="clippy-summon-btn"
+  class="clippy-summon-btn is-hidden"
+  type="button"
+  aria-label="Ask Clippy for another hot take"
+  title="Need unsolicited advice? Click Clippy!"
+>
+  <span class="summon-clip-icon" aria-hidden="true">📎</span>
+  <span class="summon-label">Clippy</span>
+</button>
+
+<style>
+  /* Base widget container fixed on screen: sized exactly to the character so dragging never teleports */
+  .clippy-widget {
+    position: fixed;
+    right: 28px;
+    bottom: 24px;
+    width: 78px;
+    height: 88px;
+    z-index: 85;
+    pointer-events: none;
+    user-select: none;
+    touch-action: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .clippy-widget.is-unloaded {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .clippy-widget.is-entering {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .clippy-widget.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .clippy-widget.is-hidden {
+    display: none;
+  }
+
+  /* Clippy Character Styling & Animations */
+  .clippy-character {
+    position: relative;
+    width: 78px;
+    height: 88px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    pointer-events: auto;
+    outline: none;
+    border-radius: 9999px;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.18));
+    transition: transform 0.15s ease-out;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .clippy-character:focus-visible {
+    box-shadow: 0 0 0 3px rgba(230, 162, 60, 0.6);
+  }
+
+  .clippy-character:active,
+  .clippy-widget.is-dragging .clippy-character {
+    cursor: grabbing;
+    transform: scale(1.08) rotate(-4deg);
+  }
+
+  .clippy-svg {
+    display: block;
+    overflow: visible;
+    transform-origin: 16px 26px;
+  }
+
+  /* Pop-up entrance animation */
+  .clippy-widget.is-entering .clippy-character {
+    animation: clippy-popup 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes clippy-popup {
+    0% {
+      opacity: 0;
+      transform: translateY(85px) scale(0.2) rotate(18deg);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-20px) scale(1.15) rotate(-9deg);
+    }
+    72% {
+      transform: translateY(6px) scale(0.96) rotate(4deg);
+    }
+    88% {
+      transform: translateY(-2px) scale(1.02) rotate(-1deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+  }
+
+  /* Dismiss / exit pop-down animation */
+  .clippy-widget.is-exiting .clippy-character {
+    animation: clippy-popdown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .clippy-widget.is-exiting .clippy-bubble {
+    animation: bubble-popdown 0.28s ease-in forwards;
+  }
+
+  @keyframes clippy-popdown {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+    30% {
+      transform: translateY(-12px) scale(1.08) rotate(-6deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(110px) scale(0.2) rotate(22deg);
+    }
+  }
+
+  @keyframes bubble-popdown {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.6) translateY(16px);
+    }
+  }
+
+  /* Click celebration wiggle: uses specific selector and cubic-bezier */
+  .clippy-widget .clippy-character.is-wiggling {
+    animation: clippy-wiggle 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) !important;
+  }
+
+  @keyframes clippy-wiggle {
+    0% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(1.18) rotate(-14deg); }
+    40% { transform: scale(1.18) rotate(12deg); }
+    60% { transform: scale(1.1) rotate(-8deg); }
+    80% { transform: scale(1.04) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  /* Idle floating animation (paused during drag and when wiggling) */
+  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) {
+    animation: clippy-float 4.2s infinite ease-in-out;
+  }
+
+  @keyframes clippy-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Eyebrows wiggle */
+  .clippy-brows {
+    transform-origin: 16px 7px;
+    animation: clippy-brow 4.4s infinite ease-in-out;
+  }
+
+  @keyframes clippy-brow {
+    0%, 78%, 100% { transform: translateY(0); }
+    84%, 92% { transform: translateY(-2.2px); }
+  }
+
+  /* Eyes blinking */
+  .clippy-eyes {
+    transform-origin: 16px 12.5px;
+    animation: clippy-blink 3.8s infinite ease-in-out;
+  }
+
+  @keyframes clippy-blink {
+    0%, 88%, 100% { transform: scaleY(1); }
+    94% { transform: scaleY(0.08); }
+  }
+
+  /* Pupils smooth transformation */
+  .clippy-pupil {
+    transition: transform 0.06s ease-out;
+  }
+
+  /* Speech Bubble Styling: Absolute positioned relative to Clippy container */
+  .clippy-bubble {
+    position: absolute;
+    width: 275px;
+    max-width: calc(100vw - 32px);
+    background: #ffffea;
+    border: 1.5px solid #1a1918;
+    border-radius: 10px;
+    padding: 12px 14px 10px;
+    box-shadow:
+      0 6px 20px rgba(0, 0, 0, 0.16),
+      0 2px 5px rgba(0, 0, 0, 0.08);
+    color: #1a1918;
+    pointer-events: auto;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+  }
+
+  /* Default placement: Bubble is above Clippy, aligned with right edge */
+  .clippy-widget:not(.bubble-bottom):not(.bubble-left) .clippy-bubble {
+    bottom: calc(100% + 14px);
+    right: 0;
+    transform-origin: bottom right;
+  }
+
+  /* Bubble is above Clippy, aligned with left edge */
+  .clippy-widget.bubble-left:not(.bubble-bottom) .clippy-bubble {
+    bottom: calc(100% + 14px);
+    left: 0;
+    transform-origin: bottom left;
+  }
+
+  /* Bubble is below Clippy, aligned with right edge */
+  .clippy-widget.bubble-bottom:not(.bubble-left) .clippy-bubble {
+    top: calc(100% + 14px);
+    right: 0;
+    transform-origin: top right;
+  }
+
+  /* Bubble is below Clippy, aligned with left edge */
+  .clippy-widget.bubble-bottom.bubble-left .clippy-bubble {
+    top: calc(100% + 14px);
+    left: 0;
+    transform-origin: top left;
+  }
+
+  :global(.dark) .clippy-bubble {
+    background: #ffffeb;
+    border-color: #1a1918;
+    color: #1a1918;
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.45),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .clippy-widget.is-entering .clippy-bubble {
+    animation: bubble-popup 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes bubble-popup {
+    0% {
+      opacity: 0;
+      transform: scale(0.35) translateY(24px);
+    }
+    65% {
+      opacity: 1;
+      transform: scale(1.05) translateY(-3px);
+    }
+    85% {
+      transform: scale(0.98) translateY(1px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .clippy-bubble-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed rgba(26, 25, 24, 0.2);
+  }
+
+  .clippy-bubble-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #4a453e;
+  }
+
+  .clippy-bubble-tools {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .clippy-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    color: #4a453e;
+    cursor: pointer;
+    line-height: 1;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .clippy-tool-btn:hover {
+    background-color: rgba(26, 25, 24, 0.1);
+    color: #1a1918;
+  }
+
+  .clippy-bubble-body {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .clippy-quote {
+    margin: 0;
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #1a1918;
+  }
+
+  .clippy-bubble-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 6px;
+  }
+
+  .clippy-action-btn {
+    appearance: none;
+    border: 1px solid #1a1918;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .clippy-action-btn:active {
+    transform: scale(0.96);
+  }
+
+  .clippy-primary {
+    background: #1a1918;
+    color: #ffffea;
+  }
+
+  .clippy-primary:hover {
+    background: #33312e;
+  }
+
+  .clippy-secondary {
+    background: transparent;
+    color: #1a1918;
+  }
+
+  .clippy-secondary:hover {
+    background: rgba(26, 25, 24, 0.08);
+  }
+
+  /* Bubble tail callout */
+  .clippy-bubble-tail {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    pointer-events: none;
+  }
+
+  /* Default tail: Bubble is above, right-aligned */
+  .clippy-widget:not(.bubble-bottom):not(.bubble-left) .clippy-bubble-tail {
+    bottom: -11px;
+    right: 28px;
+    border-width: 11px 9px 0 9px;
+    border-color: #1a1918 transparent transparent transparent;
+  }
+  .clippy-widget:not(.bubble-bottom):not(.bubble-left) .clippy-bubble-tail::after {
+    content: '';
+    position: absolute;
+    bottom: 1.5px;
+    left: -7px;
+    border-width: 9.5px 7px 0 7px;
+    border-color: #ffffea transparent transparent transparent;
+  }
+
+  /* Tail: Bubble is above, left-aligned */
+  .clippy-widget.bubble-left:not(.bubble-bottom) .clippy-bubble-tail {
+    bottom: -11px;
+    left: 28px;
+    border-width: 11px 9px 0 9px;
+    border-color: #1a1918 transparent transparent transparent;
+  }
+  .clippy-widget.bubble-left:not(.bubble-bottom) .clippy-bubble-tail::after {
+    content: '';
+    position: absolute;
+    bottom: 1.5px;
+    left: -7px;
+    border-width: 9.5px 7px 0 7px;
+    border-color: #ffffea transparent transparent transparent;
+  }
+
+  /* Tail: Bubble is below, right-aligned */
+  .clippy-widget.bubble-bottom:not(.bubble-left) .clippy-bubble-tail {
+    top: -11px;
+    right: 28px;
+    border-width: 0 9px 11px 9px;
+    border-color: transparent transparent #1a1918 transparent;
+  }
+  .clippy-widget.bubble-bottom:not(.bubble-left) .clippy-bubble-tail::after {
+    content: '';
+    position: absolute;
+    top: 1.5px;
+    left: -7px;
+    border-width: 0 7px 9.5px 7px;
+    border-color: transparent transparent #ffffea transparent;
+  }
+
+  /* Tail: Bubble is below, left-aligned */
+  .clippy-widget.bubble-bottom.bubble-left .clippy-bubble-tail {
+    top: -11px;
+    left: 28px;
+    border-width: 0 9px 11px 9px;
+    border-color: transparent transparent #1a1918 transparent;
+  }
+  .clippy-widget.bubble-bottom.bubble-left .clippy-bubble-tail::after {
+    content: '';
+    position: absolute;
+    top: 1.5px;
+    left: -7px;
+    border-width: 0 7px 9.5px 7px;
+    border-color: transparent transparent #ffffea transparent;
+  }
+
+  /* Summon button (bottom-right pill when Clippy is hidden) */
+  .clippy-summon-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 85;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px 6px 10px;
+    background: #ffffea;
+    border: 1.5px solid #1a1918;
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #1a1918;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    animation: summon-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .clippy-summon-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .clippy-summon-btn:active {
+    transform: scale(0.96);
+  }
+
+  .clippy-summon-btn.is-hidden {
+    display: none;
+  }
+
+  @keyframes summon-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Accessibility: Prefers-reduced-motion: static display, no bob/shake/popup */
+  @media (prefers-reduced-motion: reduce) {
+    .clippy-widget,
+    .clippy-character,
+    .clippy-bubble,
+    .clippy-eyes,
+    .clippy-brows,
+    .clippy-pupil,
+    .clippy-summon-btn {
+      animation: none !important;
+      transition: none !important;
+    }
+    .clippy-widget.is-unloaded {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .clippy-widget.is-entering,
+    .clippy-widget.is-visible {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .clippy-widget {
+      right: 14px;
+      bottom: 16px;
+    }
+    .clippy-bubble {
+      width: 230px;
+    }
+    .clippy-svg {
+      width: 66px;
+      height: 75px;
+    }
+  }
+</style>
+
+<script>
+  // Complete programming hot takes list
+  const HOT_TAKES = [
+    '100% test coverage is a waste of time.',
+    'It works on my machine!',
+    'You do not need Kubernetes.',
+    'Remember MongoDB? Web scale!',
+    'Real engineers test directly in production.',
+    'Why write documentation when the code is "self-documenting"?',
+    'Microservices: because one monolith was not enough network latency.',
+    'Have you tried rewriting the entire codebase in Rust?',
+    'A 30-minute meeting could have been a Slack message nobody reads.',
+    'Git rebase --force: what could possibly go wrong?',
+    'Technical debt is just future job security.',
+    'CSS is easy: just slap !important on every selector.',
+    'Why use 5 lines of vanilla JavaScript when 47 npm packages can do it worse?',
+    'AI will replace us all, right after it successfully centers a div.',
+    'There are only 2 hard problems in CS: cache invalidation, naming things, and off-by-one errors.',
+    'Nothing is more permanent than a temporary workaround written at 2 AM.',
+    'YAML is just JSON with severe trust issues.',
+    'Documentation is like flossing: everybody agrees it is good, nobody does it.',
+    'Tabs vs spaces? Real developers format with minification.',
+    'If at first you do not succeed, comment out the failing test.',
+    'Premature optimization is the root of all evil. Procrastination is the trunk.',
+    'Docker: wrapping broken software in containers since 2013.',
+    'Delete 200 lines of code: the single most productive day of the month.',
+    'A distributed monolith is just microservices without the benefits.',
+    'Code comments are apologies left behind for future maintainers.',
+    'A framework a day keeps the imposter syndrome away.'
+  ];
+
+  // Retro sound synthesis using Web Audio API (zero external assets, zero lag)
+  class ClippySoundSynth {
+    private ctx: AudioContext | null = null;
+    private muted: boolean;
+    public pendingEntranceSound: boolean = false;
+
+    constructor() {
+      const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.muted = reducedMotion || (typeof window !== 'undefined' && localStorage.getItem('clippy_sound') === 'muted');
+    }
+
+    public initContext(): AudioContext | null {
+      if (!this.ctx && typeof window !== 'undefined') {
+        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (AudioCtx) {
+          this.ctx = new AudioCtx();
+        }
+      }
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume().catch(() => {});
+      }
+      return this.ctx;
+    }
+
+    public isMuted(): boolean {
+      return this.muted;
+    }
+
+    public setMuted(muted: boolean) {
+      this.muted = muted;
+      try {
+        localStorage.setItem('clippy_sound', muted ? 'muted' : 'unmuted');
+      } catch {}
+    }
+
+    // Classic cartoon spring pop entrance sound
+    public playPop() {
+      if (this.muted) return;
+      const ctx = this.initContext();
+      if (!ctx) return;
+      if (ctx.state === 'suspended') {
+        this.pendingEntranceSound = true;
+        return;
+      }
+
+      try {
+        const now = ctx.currentTime;
+        // Elastic comic frequency sweep
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(840, now + 0.12);
+        osc.frequency.exponentialRampToValueAtTime(420, now + 0.22);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+
+        // High metallic ping overtone
+        const ping = ctx.createOscillator();
+        const pingGain = ctx.createGain();
+        ping.type = 'triangle';
+        ping.frequency.setValueAtTime(1100, now + 0.06);
+        ping.frequency.exponentialRampToValueAtTime(1450, now + 0.14);
+
+        pingGain.gain.setValueAtTime(0.001, now);
+        pingGain.gain.exponentialRampToValueAtTime(0.18, now + 0.07);
+        pingGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        ping.connect(pingGain);
+        pingGain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.28);
+        ping.start(now + 0.06);
+        ping.stop(now + 0.28);
+      } catch {}
+    }
+
+    // Playful double-chime chirp for new takes / bubble pop
+    public playChirp() {
+      if (this.muted) return;
+      const ctx = this.initContext();
+      if (!ctx || ctx.state === 'suspended') return;
+
+      try {
+        const now = ctx.currentTime;
+        const notes = [
+          { freq: 620, start: 0, dur: 0.07 },
+          { freq: 880, start: 0.05, dur: 0.11 }
+        ];
+
+        notes.forEach(({ freq, start, dur }) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + start);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.06, now + start + dur);
+
+          gain.gain.setValueAtTime(0.001, now + start);
+          gain.gain.exponentialRampToValueAtTime(0.2, now + start + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + start);
+          osc.stop(now + start + dur);
+        });
+      } catch {}
+    }
+
+    // Soft drop thud when released from dragging
+    public playDrop() {
+      if (this.muted) return;
+      const ctx = this.initContext();
+      if (!ctx || ctx.state === 'suspended') return;
+
+      try {
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(170, now);
+        osc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } catch {}
+    }
+
+    // Descending cartoon slide when dismissed
+    public playDismiss() {
+      if (this.muted) return;
+      const ctx = this.initContext();
+      if (!ctx || ctx.state === 'suspended') return;
+
+      try {
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(680, now);
+        osc.frequency.exponentialRampToValueAtTime(170, now + 0.24);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.24, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.26);
+      } catch {}
+    }
+  }
+
+  function initClippy() {
+    const widget = document.getElementById('clippy-widget');
+    const character = document.getElementById('clippy-character');
+    const quoteEl = document.getElementById('clippy-quote');
+    const nextBtn = document.getElementById('clippy-next-take');
+    const closeBtn = document.getElementById('clippy-close-btn');
+    const dismissBtn = document.getElementById('clippy-dismiss-btn');
+    const soundBtn = document.getElementById('clippy-sound-toggle');
+    const summonBtn = document.getElementById('clippy-summon-btn');
+
+    const pupilLeft = document.getElementById('clippy-pupil-left');
+    const pupilRight = document.getElementById('clippy-pupil-right');
+    const eyeLeftWhite = document.getElementById('clippy-eye-left');
+    const eyeRightWhite = document.getElementById('clippy-eye-right');
+
+    if (!widget || !character || !quoteEl) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sound = new ClippySoundSynth();
+    let currentTakeIndex = 0;
+    let isHidden = false;
+
+    // Update sound button UI
+    const updateSoundUI = () => {
+      const isMuted = sound.isMuted();
+      const soundOn = soundBtn?.querySelector('.icon-sound-on') as HTMLElement | null;
+      const soundOff = soundBtn?.querySelector('.icon-sound-off') as HTMLElement | null;
+      if (soundOn && soundOff) {
+        soundOn.style.display = isMuted ? 'none' : 'inline';
+        soundOff.style.display = isMuted ? 'inline' : 'none';
+      }
+      soundBtn?.setAttribute('aria-label', isMuted ? 'Unmute Clippy sounds' : 'Mute Clippy sounds');
+    };
+    updateSoundUI();
+
+    soundBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sound.setMuted(!sound.isMuted());
+      updateSoundUI();
+    });
+
+    // Handle browser autoplay policy by unlocking audio on the first user interaction
+    const unlockAudio = () => {
+      sound.initContext();
+      if (sound.pendingEntranceSound && !prefersReducedMotion) {
+        sound.pendingEntranceSound = false;
+        sound.playPop();
+      }
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+    window.addEventListener('pointerdown', unlockAudio, { passive: true });
+    window.addEventListener('keydown', unlockAudio, { passive: true });
+
+    // Show a new hot take
+    const showNextTake = (animate: boolean = true) => {
+      let nextIndex = Math.floor(Math.random() * HOT_TAKES.length);
+      if (nextIndex === currentTakeIndex) {
+        nextIndex = (currentTakeIndex + 1) % HOT_TAKES.length;
+      }
+      currentTakeIndex = nextIndex;
+      quoteEl.textContent = HOT_TAKES[currentTakeIndex];
+
+      if (animate && !prefersReducedMotion) {
+        sound.playChirp();
+        character.classList.remove('is-wiggling');
+        void character.offsetWidth; // Force reflow
+        character.classList.add('is-wiggling');
+      }
+    };
+
+    nextBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showNextTake(true);
+    });
+
+    // Hide Clippy
+    const hideClippy = () => {
+      if (isHidden) return;
+      isHidden = true;
+      if (!prefersReducedMotion) {
+        sound.playDismiss();
+      }
+
+      widget.classList.remove('is-visible');
+      if (prefersReducedMotion) {
+        widget.classList.add('is-hidden');
+        summonBtn?.classList.remove('is-hidden');
+      } else {
+        widget.classList.add('is-exiting');
+        setTimeout(() => {
+          widget.classList.remove('is-exiting');
+          widget.classList.add('is-hidden');
+          summonBtn?.classList.remove('is-hidden');
+        }, 350);
+      }
+    };
+
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideClippy();
+    });
+
+    dismissBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideClippy();
+    });
+
+    // Summon Clippy back
+    summonBtn?.addEventListener('click', () => {
+      isHidden = false;
+      summonBtn.classList.add('is-hidden');
+      widget.classList.remove('is-hidden');
+
+      if (prefersReducedMotion) {
+        widget.classList.add('is-visible');
+        showNextTake(false);
+      } else {
+        widget.classList.add('is-entering');
+        sound.playPop();
+        showNextTake(false);
+
+        setTimeout(() => {
+          widget.classList.remove('is-entering');
+          widget.classList.add('is-visible');
+        }, 650);
+      }
+    });
+
+    // Cursor tracking: eyes follow cursor (disabled under reduced motion)
+    let mouseX = -1000;
+    let mouseY = -1000;
+    let rafEyeId: number | null = null;
+
+    const updateEyes = () => {
+      rafEyeId = null;
+      if (isHidden || prefersReducedMotion || !eyeLeftWhite || !eyeRightWhite || !pupilLeft || !pupilRight) return;
+
+      const leftRect = eyeLeftWhite.getBoundingClientRect();
+      const rightRect = eyeRightWhite.getBoundingClientRect();
+
+      const leftCenter = {
+        x: leftRect.left + leftRect.width / 2,
+        y: leftRect.top + leftRect.height / 2
+      };
+      const rightCenter = {
+        x: rightRect.left + rightRect.width / 2,
+        y: rightRect.top + rightRect.height / 2
+      };
+
+      // Left eye calculation (viewBox units)
+      const dxL = mouseX - leftCenter.x;
+      const dyL = mouseY - leftCenter.y;
+      const distL = Math.hypot(dxL, dyL);
+      const angleL = Math.atan2(dyL, dxL);
+      const maxOffset = 1.35; // SVG viewBox units
+      const factorL = Math.min(1, distL / 140) * maxOffset;
+      const oxL = Math.cos(angleL) * factorL;
+      const oyL = Math.sin(angleL) * factorL * 1.18;
+
+      // Right eye calculation
+      const dxR = mouseX - rightCenter.x;
+      const dyR = mouseY - rightCenter.y;
+      const distR = Math.hypot(dxR, dyR);
+      const angleR = Math.atan2(dyR, dxR);
+      const factorR = Math.min(1, distR / 140) * maxOffset;
+      const oxR = Math.cos(angleR) * factorR;
+      const oyR = Math.sin(angleR) * factorR * 1.18;
+
+      pupilLeft.setAttribute('transform', `translate(${oxL.toFixed(2)}, ${oyL.toFixed(2)})`);
+      pupilRight.setAttribute('transform', `translate(${oxR.toFixed(2)}, ${oyR.toFixed(2)})`);
+    };
+
+    const handlePointerMove = (e: MouseEvent | PointerEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (rafEyeId === null && !prefersReducedMotion) {
+        rafEyeId = requestAnimationFrame(updateEyes);
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+
+    // Drag-and-drop mechanics
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let elementStartX = 0;
+    let elementStartY = 0;
+    let hasMoved = false;
+
+    // Adjust speech bubble orientation based on viewport proximity (flipping classes never shifts the character)
+    const updateBubbleOrientation = (left: number, top: number) => {
+      const winW = window.innerWidth;
+      // If Clippy is on the left half of the screen, place bubble to the right
+      if (left < winW / 2) {
+        widget.classList.add('bubble-left');
+      } else {
+        widget.classList.remove('bubble-left');
+      }
+
+      // If Clippy is near the top of the screen, place bubble below
+      if (top < 220) {
+        widget.classList.add('bubble-bottom');
+      } else {
+        widget.classList.remove('bubble-bottom');
+      }
+    };
+
+    character.addEventListener('pointerdown', (e: PointerEvent) => {
+      // Allow primary button or touch only
+      if (e.button !== 0) return;
+
+      isDragging = true;
+      hasMoved = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+
+      const rect = character.getBoundingClientRect();
+      elementStartX = rect.left;
+      elementStartY = rect.top;
+
+      // Switch to pixel absolute positioning within viewport
+      widget.style.right = 'auto';
+      widget.style.bottom = 'auto';
+      widget.style.left = `${elementStartX}px`;
+      widget.style.top = `${elementStartY}px`;
+
+      character.setPointerCapture(e.pointerId);
+      widget.classList.add('is-dragging');
+    });
+
+    character.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!isDragging) return;
+
+      const deltaX = e.clientX - dragStartX;
+      const deltaY = e.clientY - dragStartY;
+
+      if (Math.hypot(deltaX, deltaY) > 5) {
+        hasMoved = true;
+      }
+
+      const charW = character.offsetWidth || 78;
+      const charH = character.offsetHeight || 88;
+
+      const minX = 14;
+      const maxX = Math.max(minX, window.innerWidth - charW - 14);
+      const minY = 14;
+      const maxY = Math.max(minY, window.innerHeight - charH - 14);
+
+      const targetX = Math.min(Math.max(elementStartX + deltaX, minX), maxX);
+      const targetY = Math.min(Math.max(elementStartY + deltaY, minY), maxY);
+
+      widget.style.left = `${targetX}px`;
+      widget.style.top = `${targetY}px`;
+
+      updateBubbleOrientation(targetX, targetY);
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!isDragging) return;
+      isDragging = false;
+      widget.classList.remove('is-dragging');
+
+      try {
+        character.releasePointerCapture(e.pointerId);
+      } catch {}
+
+      if (!hasMoved) {
+        // Simple click: generate next hot take with celebration wiggle
+        showNextTake(true);
+      } else if (!prefersReducedMotion) {
+        sound.playDrop();
+      }
+    };
+
+    character.addEventListener('pointerup', endDrag);
+    character.addEventListener('pointercancel', endDrag);
+
+    // Keyboard support: Enter or Space triggers next take
+    character.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showNextTake(true);
+      } else if (e.key === 'Escape') {
+        hideClippy();
+      }
+    });
+
+    // Trigger appearance when all page assets are loaded!
+    const triggerEntrance = () => {
+      widget.classList.remove('is-unloaded');
+      if (prefersReducedMotion) {
+        widget.classList.add('is-visible');
+        return;
+      }
+
+      widget.classList.add('is-entering');
+      // Attempt to play entrance sound. If autoplay policy blocks it,
+      // pendingEntranceSound is set to true and will play on the very first user interaction anywhere.
+      sound.playPop();
+
+      setTimeout(() => {
+        widget.classList.remove('is-entering');
+        widget.classList.add('is-visible');
+        const rect = character.getBoundingClientRect();
+        updateBubbleOrientation(rect.left, rect.top);
+      }, 700);
+    };
+
+    if (document.readyState === 'complete') {
+      setTimeout(triggerEntrance, 250);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(triggerEntrance, 250);
+      }, { once: true });
+    }
+  }
+
+  // Initialize after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initClippy);
+  } else {
+    initClippy();
+  }
+</script>

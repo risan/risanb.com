@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import SearchModal from '../components/SearchModal.vue';
-
+import Clippy from '../components/Clippy.astro';
 interface Props {
   title: string;
   description?: string | undefined;
@@ -84,30 +84,6 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
     <header class="site">
       <div class="wrap bar">
         <a class="brand" href="/">
-          <svg class="brand-logo" width="22" height="25" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="brandClipGrad" x1="6" y1="2" x2="26" y2="34" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#D4DAE3" />
-                <stop offset="40%" stop-color="#9BA6B5" />
-                <stop offset="70%" stop-color="#BAC3D0" />
-                <stop offset="100%" stop-color="#737E8E" />
-              </linearGradient>
-            </defs>
-            <path d="M12 25V13C12 10.7909 13.7909 9 16 9C18.2091 9 20 10.7909 20 13V26C20 29.3137 17.3137 32 14 32C10.6863 32 8 29.3137 8 26V7C8 3.68629 10.6863 1 14 1C17.3137 1 20 3.68629 20 7V22" stroke="url(#brandClipGrad)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.8 24V7C8.8 4.1 11.1 1.8 14 1.8C16.9 1.8 19.2 4.1 19.2 7V20" stroke="#FFFFFF" stroke-width="0.8" stroke-linecap="round" opacity="0.85"/>
-            <g class="clippy-brows">
-              <path d="M10 7.5C11 6.2 13 6.4 14.5 7.2" stroke="#1A1918" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M17.5 6.2C19 5.2 21.2 5.6 22.5 7" stroke="#1A1918" stroke-width="1.6" stroke-linecap="round"/>
-            </g>
-            <g class="clippy-eyes">
-              <ellipse cx="12.5" cy="12.5" rx="3.5" ry="4.2" fill="#FFFFFF" stroke="#1A1918" stroke-width="1"/>
-              <circle cx="13" cy="12.8" r="1.8" fill="#1A1918"/>
-              <circle cx="12.2" cy="11.8" r="0.65" fill="#FFFFFF"/>
-              <ellipse cx="19.5" cy="12" rx="3.5" ry="4.2" fill="#FFFFFF" stroke="#1A1918" stroke-width="1"/>
-              <circle cx="19" cy="12.2" r="1.8" fill="#1A1918"/>
-              <circle cx="18.2" cy="11.2" r="0.65" fill="#FFFFFF"/>
-            </g>
-          </svg>
           <span>Risan Bagja</span>
         </a>
         <nav class="top" aria-label="Primary">
@@ -189,6 +165,7 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         actually searches, and the index is fetched on first open rather than on
         hydrate. Astro hydrates this once the browser goes idle. */}
     <SearchModal client:idle />
+    <Clippy />
 
     <script>
       const themeBtn = document.getElementById('theme-toggle');
