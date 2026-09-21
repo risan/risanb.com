@@ -179,21 +179,15 @@ async function main() {
     stats: {
       thisMonth: {
         contributions: viewer.thisMonth.contributionCalendar.totalContributions,
-        publicCommits: viewer.thisMonth.totalCommitContributions,
-        restricted: viewer.thisMonth.restrictedContributionsCount,
       },
       thisYear: {
         contributions: viewer.thisYear.contributionCalendar.totalContributions,
-        publicCommits: viewer.thisYear.totalCommitContributions,
-        restricted: viewer.thisYear.restrictedContributionsCount,
       },
       lastYear: {
         contributions: calendar.totalContributions,
       },
       allTime: {
         contributions: allTimeContributions,
-        publicCommits: allTimePublicCommits,
-        restricted: allTimeRestricted,
       },
     },
     calendar: {

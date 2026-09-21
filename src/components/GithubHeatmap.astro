@@ -69,12 +69,43 @@ const formatDate = (dateStr: string) => {
     timeZone: 'UTC',
   });
 };
+
+// Flatten all days to compute advanced statistics
+const allDays = weeks.flatMap((w) => w.contributionDays);
+
+// 1. Peak / Busiest day
+let peakDay = { count: 0, date: '' };
+for (const day of allDays) {
+  if (day.contributionCount > peakDay.count) {
+    peakDay = { count: day.contributionCount, date: day.date };
+  }
+}
+const peakDateFormatted = peakDay.date ? formatDate(peakDay.date) : '';
+
+// 2. Trailing 7 days (this week)
+const last7Days = allDays.slice(-7);
+const thisWeekTotal = last7Days.reduce((sum, d) => sum + d.contributionCount, 0);
+
+// 3. Current streak (consecutive days with contributions > 0)
+let currentStreak = 0;
+for (let i = allDays.length - 1; i >= 0; i--) {
+  if (allDays[i]!.contributionCount > 0) {
+    currentStreak++;
+  } else {
+    if (i === allDays.length - 1) continue;
+    break;
+  }
+}
+
+// 4. Daily average for current month
+const daysPassedInMonth = Math.max(1, new Date().getUTCDate());
+const dailyAvgThisMonth = (stats.thisMonth.contributions / daysPassedInMonth).toFixed(1);
 ---
 
 <section class={`github-activity section-block ${className}`}>
   <div class="activity-header">
     <div>
-      <p class="eyebrow">Vanity Signals</p>
+      <p class="eyebrow">Vanity Metrics</p>
       <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
     </div>
     <a
@@ -88,21 +119,30 @@ const formatDate = (dateStr: string) => {
     </a>
   </div>
 
-  {/* Stats Cards: This Month, This Year, All Time */}
+  {/* Stats Cards: This Week, This Month, This Year, All Time */}
   <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">This Week</span>
+      <span class="stat-value">{formatNumber(thisWeekTotal)}</span>
+      <span class="stat-detail">{currentStreak}-day active streak</span>
+    </div>
+
     <div class="stat-card">
       <span class="stat-label">This Month</span>
       <span class="stat-value">{formatNumber(stats.thisMonth.contributions)}</span>
+      <span class="stat-detail">~{dailyAvgThisMonth} / day avg</span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">This Year</span>
       <span class="stat-value">{formatNumber(stats.thisYear.contributions)}</span>
+      <span class="stat-detail">Peak: {peakDay.count} on {peakDateFormatted}</span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">All Time</span>
       <span class="stat-value">{formatNumber(stats.allTime.contributions)}</span>
+      <span class="stat-detail">14 years · since 2013</span>
     </div>
   </div>
 
@@ -264,12 +304,19 @@ const formatDate = (dateStr: string) => {
   /* Stats grid */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 16px;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 860px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
     .stats-grid {
       grid-template-columns: 1fr;
       gap: 10px;
@@ -302,8 +349,12 @@ const formatDate = (dateStr: string) => {
     color: var(--ink);
     letter-spacing: -0.02em;
   }
-
-
+  .stat-detail {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    margin-top: 6px;
+  }
   /* Heatmap card container */
   .heatmap-card {
     background: var(--paper);
