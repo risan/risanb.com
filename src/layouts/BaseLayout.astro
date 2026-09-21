@@ -61,10 +61,20 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- Theme is fixed light for now; declared so the UA doesn't guess. -->
-    <meta name="color-scheme" content="light" />
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const theme =
+          stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
+    <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site">
@@ -78,9 +88,53 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
               </a>
             ))
           }
+          <a href="https://blog.risanb.com">Blog</a>
           <a href="/rss.xml">RSS</a>
           <button class="kbd" type="button" data-search-open aria-label="Search (Command K)">
             ⌘K
+          </button>
+          <button
+            class="theme-toggle"
+            type="button"
+            id="theme-toggle"
+            aria-label="Toggle color theme"
+          >
+            <svg
+              class="sun-icon"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg
+              class="moon-icon"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
           </button>
         </nav>
       </div>
@@ -95,7 +149,7 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         <span>© Risan Bagja {new Date().getFullYear()}</span>
         <nav aria-label="Elsewhere">
           <a href="https://github.com/risan">GitHub</a>
-          <a href="https://twitter.com/risanbagja">Twitter</a>
+          <a href="https://blog.risanb.com">Blog</a>
           <a href="/rss.xml">RSS</a>
         </nav>
       </div>
@@ -105,5 +159,25 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         actually searches, and the index is fetched on first open rather than on
         hydrate. Astro hydrates this once the browser goes idle. */}
     <SearchModal client:idle />
+
+    <script>
+      const themeBtn = document.getElementById('theme-toggle');
+      themeBtn?.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+
+      const progressBar = document.getElementById('reading-progress');
+      if (progressBar) {
+        const updateProgress = () => {
+          const doc = document.documentElement;
+          const scrollable = doc.scrollHeight - doc.clientHeight;
+          const ratio = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+          progressBar.style.transform = `scaleX(${ratio})`;
+        };
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
+      }
+    </script>
   </body>
 </html>

@@ -43,7 +43,7 @@ const ogImage = images[0];
   <div class:list={['grid', toc.length === 0 && 'grid--no-toc']}>
     {
       toc.length > 0 && (
-        <aside class="rail" aria-label="Table of contents">
+        <aside class:list={['rail', toc.length > 4 && 'rail--multi']} aria-label="Table of contents">
           <h2>Contents</h2>
           <ol>
             {toc.map((h) => (
@@ -89,51 +89,52 @@ const ogImage = images[0];
       </div>
 
       <footer class="post-foot">
-        <dl>
+        <div class="post-meta-tags">
           {
             categories.length > 0 && (
-              <>
-                <dt>Filed under</dt>
-                <dd>
+              <div class="meta-group">
+                <span class="meta-label">Filed under</span>
+                <span class="meta-links">
                   {categories.map((c, i) => (
                     <>
                       {i > 0 && ', '}
                       <a href={`/categories/${c}/`}>{c}</a>
                     </>
                   ))}
-                </dd>
-              </>
+                </span>
+              </div>
             )
           }
           {
             tags.length > 0 && (
-              <>
-                <dt>Tags</dt>
-                <dd>
-                  {tags.map((t, i) => (
-                    <>
-                      {i > 0 && ', '}
-                      <a href={`/tags/${t}/`}>{t}</a>
-                    </>
+              <div class="meta-group">
+                <span class="meta-label">Tags</span>
+                <span class="meta-links">
+                  {tags.map((t) => (
+                    <a href={`/tags/${t}/`} class="tag-pill">
+                      #{t}
+                    </a>
                   ))}
-                </dd>
-              </>
+                </span>
+              </div>
             )
           }
-        </dl>
+        </div>
 
         {
           (prev || next) && (
             <nav class="nextprev" aria-label="More posts">
-              {prev && (
-                <div class="item">
-                  <span class="label">Previous</span>
+              {prev ? (
+                <div class="item prev">
+                  <span class="label">← Previous</span>
                   <a href={`/code/${prev.id.replace(/\/index$/, '')}/`}>{prev.data.title}</a>
                 </div>
+              ) : (
+                <div class="item placeholder" />
               )}
               {next && (
-                <div class="item">
-                  <span class="label">Next</span>
+                <div class="item next">
+                  <span class="label">Next →</span>
                   <a href={`/code/${next.id.replace(/\/index$/, '')}/`}>{next.data.title}</a>
                 </div>
               )}

@@ -7,7 +7,7 @@ import expressiveCode from 'astro-expressive-code';
 import { unified } from '@astrojs/markdown-remark';
 import { rehypeFigure } from './src/lib/rehype-figure.mjs';
 import { remarkHugoShortcodes } from './src/lib/remark-hugo-shortcodes.mjs';
-import { monographLight } from './src/lib/shiki-monograph.mjs';
+import { monographLight, monographDark } from './src/lib/shiki-monograph.mjs';
 
 // Astro project config for risanb.com (the technical/code site).
 //
@@ -40,11 +40,9 @@ export default defineConfig({
     vue(),
     sitemap(),
     expressiveCode({
-      // ONE theme, deliberately. Expressive Code's two-theme mode switches token
-      // colours on `prefers-color-scheme`, but this site has a fixed light code
-      // surface — that combination measured 1.32:1 contrast in dark mode, with
-      // every token colour failing WCAG AA. See src/lib/shiki-monograph.mjs.
-      themes: [monographLight],
+      themes: [monographLight, monographDark],
+      useDarkModeMediaQuery: false,
+      themeCssSelector: (theme) => (theme.name === 'monograph-dark' ? '.dark' : false),
       shiki: {
         langAlias: {
           'go-html-template': 'html',

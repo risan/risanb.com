@@ -133,3 +133,115 @@ export const monographLight = {
     { scope: ['diff.changed'], settings: { foreground: '#7A5A1F' } },
   ],
 };
+
+export const monographDark = {
+  name: 'monograph-dark',
+  type: 'dark',
+  colors: {
+    'editor.background': '#1C1D20',
+    'editor.foreground': '#E6E4DF',
+  },
+  tokenColors: [
+    // default text
+    { settings: { foreground: '#E6E4DF' } },
+
+    // comments
+    {
+      scope: ['comment', 'punctuation.definition.comment'],
+      settings: { foreground: '#8E8B83', fontStyle: 'italic' },
+    },
+
+    // strings
+    {
+      scope: [
+        'string',
+        'string.quoted',
+        'string.template',
+        'punctuation.definition.string',
+      ],
+      settings: { foreground: '#9EC47C' },
+    },
+
+    // keywords, tags, storage
+    {
+      scope: [
+        'keyword',
+        'keyword.control',
+        'keyword.operator.new',
+        'keyword.operator.expression',
+        'storage.type',
+        'storage.modifier',
+        'entity.name.tag',
+      ],
+      settings: { foreground: '#E57955' },
+    },
+
+    // functions, classes, types
+    {
+      scope: [
+        'entity.name.function',
+        'support.function',
+        'entity.name.type',
+        'entity.name.class',
+        'support.class',
+        'support.type',
+      ],
+      settings: { foreground: '#82AAFF' },
+    },
+
+    // numbers, booleans, language constants
+    {
+      scope: [
+        'constant.numeric',
+        'constant.language',
+        'constant.character',
+        'constant.other',
+      ],
+      settings: { foreground: '#EBB369' },
+    },
+
+    // attributes, object keys, CSS properties
+    {
+      scope: [
+        'entity.other.attribute-name',
+        'variable.other.property',
+        'meta.object-literal.key',
+        'support.type.property-name',
+      ],
+      settings: { foreground: '#D89E7C' },
+    },
+
+    // brackets, separators
+    {
+      scope: [
+        'punctuation.separator',
+        'punctuation.terminator',
+        'meta.brace',
+        'punctuation.definition.parameters',
+      ],
+      settings: { foreground: '#A3A097' },
+    },
+
+    // plain identifiers
+    {
+      scope: [
+        'variable',
+        'variable.other',
+        'variable.parameter',
+        'meta.definition.variable',
+      ],
+      settings: { foreground: '#E6E4DF' },
+    },
+
+    // markdown / inline markup
+    { scope: ['markup.bold'], settings: { foreground: '#E6E4DF', fontStyle: 'bold' } },
+    { scope: ['markup.italic'], settings: { foreground: '#8E8B83', fontStyle: 'italic' } },
+    { scope: ['markup.underline.link', 'string.other.link'], settings: { foreground: '#E57955' } },
+    { scope: ['markup.quote'], settings: { foreground: '#8E8B83' } },
+
+    // diffs
+    { scope: ['diff.deleted', 'invalid'], settings: { foreground: '#F07178' } },
+    { scope: ['diff.inserted'], settings: { foreground: '#9EC47C' } },
+    { scope: ['diff.changed'], settings: { foreground: '#EBB369' } },
+  ],
+};

@@ -20,52 +20,50 @@ const href = (id: string) => `/code/${id.replace(/\/index$/, '')}/`;
   description="Tutorials and notes on web development, tooling, and the things I break along the way."
 >
   <div class="home-intro">
-    <p class="eyebrow">Risan Bagja Pradana</p>
     <h1>Notes on building for the web</h1>
     <p>
       I write code for a living and break things on purpose to learn how they work. This is
-      where the notes live — mostly JavaScript, PHP, and the tooling in between.
-    </p>
-    <p>
-      {posts.length} posts so far. The personal writing lives over at
-      <a href="https://blog.risanb.com">blog.risanb.com</a>.
+      where the technical notes live — mostly JavaScript, PHP, and the tooling in between.
+      {posts.length} articles and tutorials published so far.
     </p>
   </div>
 
-  {
-    featured.length > 0 && (
-      <section class="section-block">
-        <h2>Featured</h2>
-        <ul class="entry-list">
-          {featured.map((post) => (
+  <div class="home-columns">
+    {
+      featured.length > 0 && (
+        <section class="section-block">
+          <h2>Featured</h2>
+          <ul class="entry-list entry-list--compact">
+            {featured.map((post) => (
+              <li>
+                <a href={href(post.id)}>
+                  <span class="title">{post.data.title}</span>
+                  <span class="meta">{fmt(post.data.date)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="section-block">
+      <h2>Recent</h2>
+      <ul class="entry-list entry-list--compact">
+        {
+          recent.map((post) => (
             <li>
               <a href={href(post.id)}>
                 <span class="title">{post.data.title}</span>
                 <span class="meta">{fmt(post.data.date)}</span>
               </a>
             </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-
-  <section class="section-block">
-    <h2>Recent</h2>
-    <ul class="entry-list">
-      {
-        recent.map((post) => (
-          <li>
-            <a href={href(post.id)}>
-              <span class="title">{post.data.title}</span>
-              <span class="meta">{fmt(post.data.date)}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="eyebrow" style="margin-top:24px">
-      <a href="/code/">All {posts.length} posts →</a>
-    </p>
-  </section>
+          ))
+        }
+      </ul>
+      <p class="eyebrow" style="margin-top: 20px;">
+        <a href="/code/">All {posts.length} posts →</a>
+      </p>
+    </section>
+  </div>
 </BaseLayout>
