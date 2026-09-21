@@ -46,8 +46,20 @@
       </p>
     </div>
 
-    <!-- Dismissive user action button (e.g. "Whatever", "Okay", "Yeah, right") -->
+    <!-- Actions: Share on X and dismissive button -->
     <div class="clippy-bubble-footer">
+      <button
+        id="clippy-share-btn"
+        class="clippy-share-btn"
+        type="button"
+        aria-label="Share this hot take on X"
+        title="Share this hot take on X"
+      >
+        <svg class="x-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        <span>Share</span>
+      </button>
       <button id="clippy-ack-btn" class="clippy-ack-btn" type="button">
         Whatever
       </button>
@@ -496,13 +508,45 @@
     color: var(--ink, #1b1c1d);
   }
 
-  /* Bubble footer with dismissive button */
+  /* Bubble footer with share button and dismissive button */
   .clippy-bubble-footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    gap: 8px;
     margin-top: 10px;
     padding-top: 4px;
+  }
+
+  .clippy-share-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid var(--rule, #e4ded3);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-family: var(--font-mono, 'JetBrains Mono Variable', monospace);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--ink-muted, #6b6862);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  }
+
+  .clippy-share-btn:hover {
+    background: var(--sunk, #f3efe7);
+    border-color: var(--ink, #1b1c1d);
+    color: var(--ink, #1b1c1d);
+  }
+
+  .clippy-share-btn:active {
+    transform: scale(0.96);
+  }
+
+  .clippy-share-btn .x-icon {
+    flex-shrink: 0;
   }
 
   .clippy-ack-btn {
@@ -885,6 +929,7 @@
     const bubble = document.getElementById('clippy-bubble');
     const quoteEl = document.getElementById('clippy-quote');
     const ackBtn = document.getElementById('clippy-ack-btn');
+    const shareBtn = document.getElementById('clippy-share-btn');
     const closeBtn = document.getElementById('clippy-close-btn');
     const soundBtn = document.getElementById('clippy-sound-toggle');
     const summonBtn = document.getElementById('clippy-summon-btn');
@@ -969,10 +1014,10 @@
       if (autoCloseTimer) clearTimeout(autoCloseTimer);
       if (nextTakeTimer) clearTimeout(nextTakeTimer);
 
-      // Auto-close bubble after reading duration (~8.5 seconds)
+      // Auto-close bubble after generous reading duration (~20 seconds)
       autoCloseTimer = window.setTimeout(() => {
         closeBubble(true);
-      }, 8500);
+      }, 20000);
     };
 
     // Close speech bubble smoothly and schedule next take
@@ -998,10 +1043,10 @@
         }, 240);
       }
 
-      // Schedule next take after an idle wait (~12 to 16 seconds)
+      // Schedule next take after a relaxed, ambient idle wait (~40 to 60 seconds)
       if (scheduleNext && !isDismissedCompletely) {
         if (nextTakeTimer) clearTimeout(nextTakeTimer);
-        const waitTime = 12000 + Math.random() * 4000;
+        const waitTime = 40000 + Math.random() * 20000;
         nextTakeTimer = window.setTimeout(() => {
           if (!isDismissedCompletely && !isBubbleOpen) {
             openBubble(true);
@@ -1009,6 +1054,31 @@
         }, waitTime);
       }
     };
+
+    // Share current hot take on Twitter / X
+    shareBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const quote = HOT_TAKES[currentTakeIndex];
+      const text = `"${quote}" — Clippy 📎`;
+      const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.origin)}`;
+      window.open(shareUrl, '_blank', 'noopener,noreferrer,width=550,height=420');
+    });
+
+    // Hovering over the speech bubble pauses the auto-close timer so user is never rushed
+    bubble.addEventListener('mouseenter', () => {
+      if (autoCloseTimer) {
+        clearTimeout(autoCloseTimer);
+        autoCloseTimer = null;
+      }
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+      if (isBubbleOpen && !autoCloseTimer) {
+        autoCloseTimer = window.setTimeout(() => {
+          closeBubble(true);
+        }, 10000);
+      }
+    });
 
     // Clicking "Whatever" / "Okay" / etc. immediately closes the bubble and schedules next take
     ackBtn?.addEventListener('click', (e) => {
