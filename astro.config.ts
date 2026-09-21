@@ -45,6 +45,11 @@ export default defineConfig({
       // surface — that combination measured 1.32:1 contrast in dark mode, with
       // every token colour failing WCAG AA. See src/lib/shiki-monograph.mjs.
       themes: [monographLight],
+      shiki: {
+        langAlias: {
+          'go-html-template': 'html',
+        },
+      },
       frames: { showCopyToClipboardButton: true },
     }),
   ],
