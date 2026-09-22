@@ -86,7 +86,10 @@ const { slug } = Astro.props;
       if (!btn || !countEl || !burstContainer) return;
 
       const userLikesKey = `likes_given:${slug}`;
-      let userLikes = parseInt(localStorage.getItem(userLikesKey) || '0', 10);
+      let userLikes = 0;
+      try {
+        userLikes = parseInt(localStorage.getItem(userLikesKey) || '0', 10);
+      } catch {}
       let totalLikes = 0;
       let pendingBatchLikes = 0;
       let syncTimer: number | null = null;
