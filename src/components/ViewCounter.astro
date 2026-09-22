@@ -48,7 +48,12 @@ const { slug } = Astro.props;
       fetch(`${STATS_API}/api/views`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug }),
+        body: JSON.stringify({
+          site: 'risanb.com',
+          slug,
+          path: window.location.pathname,
+          referrer: document.referrer,
+        }),
       })
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => {
