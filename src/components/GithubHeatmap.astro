@@ -360,8 +360,17 @@ const yearsActive = currentYear - startYear;
         if (this.muted || count === 0 || level === 0) return;
 
         const ctx = this.initContext();
-        if (!ctx || ctx.state === 'suspended' || !this.compressor) return;
+        if (!ctx || !this.compressor) return;
 
+        // If audio context is suspended, resume it and trigger the note once running
+        if (ctx.state === 'suspended') {
+          ctx.resume().then(() => {
+            if (ctx.state === 'running') {
+              this.playNote(weekIndex, weekday, count, level);
+            }
+          }).catch(() => {});
+          return;
+        }
         try {
           const now = ctx.currentTime;
 
@@ -459,15 +468,20 @@ const yearsActive = currentYear - startYear;
         }
       });
 
-      // Unlock audio on initial user interaction
+      // Unlock and warm up audio on initial user interaction (gestures, hover, or scroll)
+      const unlockEvents: (keyof WindowEventMap)[] = ['pointerdown', 'keydown', 'pointerenter', 'pointermove', 'touchstart', 'wheel'];
       const unlockAudio = () => {
         sound.initContext();
-        window.removeEventListener('pointerdown', unlockAudio);
-        window.removeEventListener('keydown', unlockAudio);
+        unlockEvents.forEach((evt) => window.removeEventListener(evt, unlockAudio));
       };
-      window.addEventListener('pointerdown', unlockAudio, { passive: true });
-      window.addEventListener('keydown', unlockAudio, { passive: true });
+      unlockEvents.forEach((evt) => {
+        window.addEventListener(evt, unlockAudio, { passive: true });
+      });
 
+      // Proactively initialize audio the moment cursor approaches the activity section
+      const activitySection = document.querySelector('.github-activity');
+      activitySection?.addEventListener('pointerenter', () => sound.initContext(), { passive: true });
+      activitySection?.addEventListener('pointermove', () => sound.initContext(), { passive: true });
       // 2D cell hover handling (horizontal + vertical + diagonal)
       let lastCellKey = '';
 
