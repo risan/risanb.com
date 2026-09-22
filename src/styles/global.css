@@ -773,15 +773,56 @@ html.dark .expressive-code .frame .header {
 
 /* -------------------------------------------------------------- postfoot -- */
 
-
-.post-meta-tags {
+.post-foot-content {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 20px 32px;
-  margin-top: 18px;
+  gap: 24px 36px;
 }
 
+.post-meta-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 10px;
+  align-items: start;
+}
+
+.meta-label--filed {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+  justify-self: end;
+  padding-top: 5px;
+}
+
+.meta-links--filed {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-label--tags {
+  grid-column: 1;
+  grid-row: 2;
+  text-align: right;
+  justify-self: end;
+  padding-top: 5px;
+}
+
+.meta-links--tags {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
 .meta-group {
   display: flex;
   align-items: baseline;

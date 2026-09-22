@@ -92,38 +92,40 @@ const ogImage = images[0];
       </div>
 
       <footer class="post-foot">
-        <LoveCounter {slug} />
+        <div class="post-foot-content">
+          <LoveCounter {slug} />
 
-        <div class="post-meta-tags">
-          {
-            categories.length > 0 && (
-              <div class="meta-group">
-                <span class="meta-label">Filed under</span>
-                <span class="meta-links">
-                  {categories.map((c) => (
-                    <a href={`/categories/${c}/`} class="tag-pill">
-                      {c.toLowerCase()}
-                    </a>
-                  ))}
-                </span>
-              </div>
-            )
-          }
-          {
-            tags.length > 0 && (
-              <div class="meta-group">
-                <span class="meta-label">Tags</span>
-                <span class="meta-links">
-                  {tags.map((t) => (
-                    <a href={`/tags/${t}/`} class="tag-pill">
-                      <TechIcon name={t} />
-                      #{t}
-                    </a>
-                  ))}
-                </span>
-              </div>
-            )
-          }
+          <div class="post-meta-grid">
+            {
+              categories.length > 0 && (
+                <>
+                  <span class="meta-label meta-label--filed">Filed under</span>
+                  <div class="meta-links meta-links--filed">
+                    {categories.map((c) => (
+                      <a href={`/categories/${c}/`} class="tag-pill">
+                        {c.toLowerCase()}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )
+            }
+            {
+              tags.length > 0 && (
+                <>
+                  <span class="meta-label meta-label--tags">Tags</span>
+                  <div class="meta-links meta-links--tags">
+                    {tags.map((t) => (
+                      <a href={`/tags/${t}/`} class="tag-pill">
+                        <TechIcon name={t} />
+                        #{t}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )
+            }
+          </div>
         </div>
         {
           (prev || next) && (
