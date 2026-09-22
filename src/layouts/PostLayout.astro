@@ -1,8 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TechIcon from '../components/TechIcon.astro';
+import ViewCounter from '../components/ViewCounter.astro';
+import LoveCounter from '../components/LoveCounter.astro';
 import type { CollectionEntry } from 'astro:content';
-
 type Post = CollectionEntry<'code'>;
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 
 const { post, headings, wordCount, prev, next } = Astro.props;
 const { title, date, lastmod, description, categories, tags, images, languageCode } = post.data;
-
+const slug = post.id.replace(/\/index$/, '');
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -76,6 +77,7 @@ const ogImage = images[0];
         )}
         <span class="dot">·</span>
         <span>{minutes} min read</span>
+        <ViewCounter {slug} />
       </p>
 
       <h1>{title}</h1>
@@ -90,6 +92,8 @@ const ogImage = images[0];
       </div>
 
       <footer class="post-foot">
+        <LoveCounter {slug} />
+
         <div class="post-meta-tags">
           {
             categories.length > 0 && (

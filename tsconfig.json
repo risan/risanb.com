@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro", "**/*.vue"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": ["dist", "node_modules", "workers"],
   "compilerOptions": {
     "strict": true,
     "verbatimModuleSyntax": true,

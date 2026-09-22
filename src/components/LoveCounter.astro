@@ -1,0 +1,407 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="love-counter-widget" data-slug={slug}>
+  <div class="love-widget-inner">
+    <button
+      type="button"
+      class="love-button"
+      aria-label="Love this post"
+      title="Send some love!"
+    >
+      <span class="love-icon-wrapper" aria-hidden="true">
+        <svg
+          class="love-heart-svg"
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+          ></path>
+        </svg>
+      </span>
+      <span class="love-count-badge" aria-live="polite">0</span>
+      <span class="love-burst-container" aria-hidden="true"></span>
+    </button>
+    <span class="love-label">Enjoyed this? Leave a heart!</span>
+  </div>
+</div>
+
+<script>
+  function initLoveCounter() {
+    const widgets = document.querySelectorAll<HTMLElement>('.love-counter-widget[data-slug]');
+    if (!widgets.length) return;
+
+    const STATS_API = (import.meta.env.PUBLIC_STATS_API_URL || 'https://stats.risanb.com').replace(/\/$/, '');
+    const MAX_LIKES_PER_USER = 10;
+    const CONFETTI_COLORS = ['#c8502e', '#e07a5f', '#f5b842', '#3d6b5e', '#dfd8cc', '#ffffff'];
+
+    // Web Audio chime synthesizer for joyful tap feedback
+    let audioCtx: AudioContext | null = null;
+    const playChime = () => {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        // Rising joyful bell frequencies (A5 -> E6)
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.12);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.36);
+      } catch {}
+    };
+
+    widgets.forEach((widget) => {
+      const slug = widget.getAttribute('data-slug');
+      if (!slug) return;
+
+      const btn = widget.querySelector<HTMLButtonElement>('.love-button');
+      const countEl = widget.querySelector<HTMLElement>('.love-count-badge');
+      const burstContainer = widget.querySelector<HTMLElement>('.love-burst-container');
+      const labelEl = widget.querySelector<HTMLElement>('.love-label');
+      if (!btn || !countEl || !burstContainer) return;
+
+      const userLikesKey = `likes_given:${slug}`;
+      let userLikes = parseInt(localStorage.getItem(userLikesKey) || '0', 10);
+      let totalLikes = 0;
+      let pendingBatchLikes = 0;
+      let syncTimer: number | null = null;
+
+      // Update button visual state if user already loved this post
+      if (userLikes > 0) {
+        btn.classList.add('has-loved');
+        if (labelEl) {
+          labelEl.textContent = userLikes >= MAX_LIKES_PER_USER ? 'Thanks for the love!' : `You loved this (${userLikes}x)`;
+        }
+      }
+
+      // Fetch live stats from API
+      fetch(`${STATS_API}/api/stats?slug=${encodeURIComponent(slug)}`, {
+        headers: { Accept: 'application/json' },
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && typeof data.likes === 'number') {
+            totalLikes = Math.max(totalLikes, data.likes);
+            countEl.textContent = totalLikes.toLocaleString('en-US');
+            widget.classList.add('is-loaded');
+          }
+        })
+        .catch(() => {
+          // Fallback gracefully: show local count if available
+          countEl.textContent = totalLikes.toLocaleString('en-US');
+          widget.classList.add('is-loaded');
+        });
+
+      // Synchronize accumulated likes to Cloudflare D1
+      const syncLikesToAPI = () => {
+        if (pendingBatchLikes <= 0) return;
+        const countToSend = pendingBatchLikes;
+        pendingBatchLikes = 0;
+
+        fetch(`${STATS_API}/api/likes`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, count: countToSend }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data && typeof data.likes === 'number') {
+              totalLikes = data.likes;
+              countEl.textContent = totalLikes.toLocaleString('en-US');
+            }
+          })
+          .catch(() => {});
+      };
+
+      // Confetti & fireworks burst animation generator
+      const triggerFireworks = () => {
+        burstContainer.innerHTML = '';
+
+        // 1. Floating +1 indicator
+        const floater = document.createElement('span');
+        floater.className = 'love-floater';
+        floater.textContent = '+1';
+        burstContainer.appendChild(floater);
+
+        // 2. 14 sparkling radial fireworks particles
+        const particleCount = 14;
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('span');
+          particle.className = 'firework-particle';
+          const angle = (i / particleCount) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
+          const distance = 26 + Math.random() * 34; // distance in px
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance - 8; // slight upward bias
+          const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+          const size = 4 + Math.random() * 4;
+
+          particle.style.setProperty('--dx', `${dx}px`);
+          particle.style.setProperty('--dy', `${dy}px`);
+          particle.style.setProperty('--color', color);
+          particle.style.setProperty('--size', `${size}px`);
+          particle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
+
+          burstContainer.appendChild(particle);
+        }
+
+        // Clean up particles after animation completes
+        setTimeout(() => {
+          burstContainer.innerHTML = '';
+        }, 750);
+      };
+
+      // Click handler
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (userLikes >= MAX_LIKES_PER_USER) {
+          // Maximum reached — gentle shake hint
+          btn.classList.remove('is-shaking');
+          void btn.offsetWidth; // force reflow
+          btn.classList.add('is-shaking');
+          if (labelEl) labelEl.textContent = 'Maximum love reached! Thank you!';
+          return;
+        }
+
+        // Increment user and total likes optimistically
+        userLikes++;
+        totalLikes++;
+        pendingBatchLikes++;
+        try {
+          localStorage.setItem(userLikesKey, userLikes.toString());
+        } catch {}
+
+        countEl.textContent = totalLikes.toLocaleString('en-US');
+        btn.classList.add('has-loved');
+        btn.classList.remove('is-bouncing');
+        void btn.offsetWidth; // force reflow
+        btn.classList.add('is-bouncing');
+
+        if (labelEl) {
+          labelEl.textContent = userLikes >= MAX_LIKES_PER_USER ? 'Thanks for the love!' : `You loved this (${userLikes}x)`;
+        }
+
+        // Visual and audio feedback
+        triggerFireworks();
+        playChime();
+
+        // Debounce API dispatch by 600ms to batch rapid taps into a single request
+        if (syncTimer) clearTimeout(syncTimer);
+        syncTimer = window.setTimeout(syncLikesToAPI, 600);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLoveCounter);
+  } else {
+    initLoveCounter();
+  }
+</script>
+
+<style>
+  .love-counter-widget {
+    margin: 32px 0 24px;
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .love-widget-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .love-button {
+    position: relative;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sunk);
+    border: 1px solid var(--rule);
+    border-radius: 9999px;
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .love-button:hover {
+    background: var(--paper);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .love-button:active {
+    transform: scale(0.96);
+  }
+
+  .love-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+    transition: color 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .love-button:hover .love-icon-wrapper {
+    color: var(--accent);
+  }
+
+  .love-button.has-loved .love-heart-svg {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  .love-button.has-loved .love-icon-wrapper {
+    color: var(--accent);
+  }
+
+  .love-button.is-bouncing .love-icon-wrapper {
+    animation: heart-bounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .love-button.is-shaking {
+    animation: button-shake 0.3s ease;
+  }
+
+  @keyframes heart-bounce {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.45) rotate(-10deg);
+    }
+    70% {
+      transform: scale(0.9) rotate(4deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes button-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .love-count-badge {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8125rem;
+    color: var(--ink);
+  }
+
+  .love-label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  /* Burst container positioned over the button */
+  .love-burst-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Floating +1 */
+  :global(.love-floater) {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+    transform: translate(-50%, -50%);
+    animation: float-up-fade 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes float-up-fade {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -150%) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -230%) scale(0.9);
+    }
+  }
+
+  /* Sparkling fireworks particles */
+  :global(.firework-particle) {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: var(--size, 6px);
+    height: var(--size, 6px);
+    background-color: var(--color, var(--accent));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: particle-burst 0.65s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+  }
+
+  @keyframes particle-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot));
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--dx) * 1.2), calc(-50% + var(--dy) * 1.2 + 8px)) scale(0) rotate(calc(var(--rot) * 1.5));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .love-button.is-bouncing .love-icon-wrapper,
+    :global(.love-floater),
+    :global(.firework-particle) {
+      animation: none !important;
+    }
+  }
+</style>

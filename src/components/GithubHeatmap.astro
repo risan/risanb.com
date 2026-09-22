@@ -362,13 +362,10 @@ const yearsActive = currentYear - startYear;
         const ctx = this.initContext();
         if (!ctx || !this.compressor) return;
 
-        // If audio context is suspended, resume it and trigger the note once running
+        // If audio context is still suspended, attempt to resume it and return silently
+        // (avoids queueing stale notes while awaiting browser autoplay activation)
         if (ctx.state === 'suspended') {
-          ctx.resume().then(() => {
-            if (ctx.state === 'running') {
-              this.playNote(weekIndex, weekday, count, level);
-            }
-          }).catch(() => {});
+          ctx.resume().catch(() => {});
           return;
         }
         try {

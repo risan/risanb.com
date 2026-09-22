@@ -1,0 +1,86 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<span class="post-views" data-slug={slug} title="Total page views">
+  <span class="dot">·</span>
+  <span class="view-count-text">-- views</span>
+</span>
+
+<script>
+  function initViewCounter() {
+    const el = document.querySelector<HTMLElement>('.post-views[data-slug]');
+    if (!el) return;
+
+    const slug = el.getAttribute('data-slug');
+    if (!slug) return;
+
+    const textEl = el.querySelector<HTMLElement>('.view-count-text');
+    if (!textEl) return;
+
+    const STATS_API = (import.meta.env.PUBLIC_STATS_API_URL || 'https://stats.risanb.com').replace(/\/$/, '');
+    const sessionKey = `viewed:${slug}`;
+    const alreadyViewed = typeof sessionStorage !== 'undefined' && sessionStorage.getItem(sessionKey);
+
+    const formatCount = (n: number) => {
+      return `${n.toLocaleString('en-US')} view${n === 1 ? '' : 's'}`;
+    };
+
+    if (alreadyViewed) {
+      // Already viewed in this session — fetch current count without incrementing
+      fetch(`${STATS_API}/api/stats?slug=${encodeURIComponent(slug)}`, {
+        headers: { Accept: 'application/json' },
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && typeof data.views === 'number' && data.views > 0) {
+            textEl.textContent = formatCount(data.views);
+            el.classList.add('is-loaded');
+          }
+        })
+        .catch(() => {});
+    } else {
+      // First visit in this session — record view
+      fetch(`${STATS_API}/api/views`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug }),
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && typeof data.views === 'number' && data.views > 0) {
+            textEl.textContent = formatCount(data.views);
+            el.classList.add('is-loaded');
+            try {
+              sessionStorage.setItem(sessionKey, '1');
+            } catch {}
+          }
+        })
+        .catch(() => {});
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initViewCounter);
+  } else {
+    initViewCounter();
+  }
+</script>
+
+<style>
+  .post-views {
+    display: inline-flex;
+    align-items: baseline;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .post-views:not(.is-loaded) {
+    /* Hide or keep subtle until count is loaded */
+    opacity: 0.6;
+  }
+</style>
