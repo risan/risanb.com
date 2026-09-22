@@ -129,7 +129,7 @@ const { slug } = Astro.props;
         fetch(`${STATS_API}/api/likes`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ site: 'risanb.com', slug, count: countToSend }),
+          body: JSON.stringify({ site: 'risanb.com', slug, path: window.location.pathname, count: countToSend }),
         })
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
