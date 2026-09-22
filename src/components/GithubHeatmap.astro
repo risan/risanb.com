@@ -229,6 +229,10 @@ const yearsActive = currentYear - startYear;
                 {week.contributionDays.map((day) => {
                   const y = Y_OFFSET + day.weekday * STEP;
                   const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
+                  const levelNum = day.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                                 day.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                                 day.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                                 day.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
                   const titleText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
                   return (
                     <rect
@@ -239,8 +243,11 @@ const yearsActive = currentYear - startYear;
                       rx={2}
                       ry={2}
                       class={`gh-cell ${levelClass}`}
+                      data-week={wIndex}
+                      data-day={day.weekday}
                       data-date={day.date}
                       data-count={day.contributionCount}
+                      data-level={levelNum}
                     >
                       <title>{titleText}</title>
                     </rect>
@@ -279,7 +286,7 @@ const yearsActive = currentYear - startYear;
       scroll.scrollLeft = scroll.scrollWidth;
     }
 
-    // Extended pentatonic scale across 4 octaves (zero dissonance, beautiful chime timbre)
+    // Extended pentatonic scale across 5 octaves (zero dissonance, beautiful chime timbre)
     const PENTATONIC = [
       130.81, // C3
       146.83, // D3
@@ -300,7 +307,10 @@ const yearsActive = currentYear - startYear;
       1174.66, // D6
       1318.51, // E6
       1567.98, // G6
-      1760.00  // A6
+      1760.00, // A6
+      2093.00, // C7
+      2349.32, // D7
+      2637.02  // E7
     ];
 
     class HeatmapSoundEngine {
@@ -345,9 +355,9 @@ const yearsActive = currentYear - startYear;
         } catch {}
       }
 
-      public playColumn(weekIndex: number, totalCount: number, maxLevel: number) {
-        // Muted or empty column: pure silence!
-        if (this.muted || totalCount === 0 || maxLevel === 0) return;
+      public playNote(weekIndex: number, weekday: number, count: number, level: number) {
+        // Muted or empty cell: pure silence!
+        if (this.muted || count === 0 || level === 0) return;
 
         const ctx = this.initContext();
         if (!ctx || ctx.state === 'suspended' || !this.compressor) return;
@@ -355,13 +365,17 @@ const yearsActive = currentYear - startYear;
         try {
           const now = ctx.currentTime;
 
-          // Map week index (0..52) to pentatonic scale
-          const noteIndex = Math.round((weekIndex / 52) * (PENTATONIC.length - 1));
+          // 2D harmonious pentatonic mapping:
+          // - Horizontal (week 0..52): base scale traversal across time (~14 steps)
+          // - Vertical (weekday 0..6: Sun=0 to Sat=6): steps scale degrees vertically (bottom = lower, top = higher)
+          const weekBase = Math.round((weekIndex / 52) * 14);
+          const dayOffset = 6 - weekday;
+          const noteIndex = Math.min(PENTATONIC.length - 1, Math.max(0, weekBase + dayOffset));
           const baseFreq = PENTATONIC[noteIndex] || 440;
 
           // Velocity and envelope based on contribution level
-          const baseVol = 0.04 + (maxLevel / 4) * 0.12;
-          const decay = 0.26 + maxLevel * 0.035;
+          const baseVol = 0.04 + (level / 4) * 0.12;
+          const decay = 0.24 + level * 0.035;
 
           // Primary sine wave fundamental
           const osc1 = ctx.createOscillator();
@@ -379,7 +393,7 @@ const yearsActive = currentYear - startYear;
           osc1.stop(now + decay + 0.02);
 
           // Warm harmonic overtone (octave chime) for medium+ activity
-          if (maxLevel >= 2) {
+          if (level >= 2) {
             const osc2 = ctx.createOscillator();
             const gain2 = ctx.createGain();
             osc2.type = 'triangle';
@@ -396,7 +410,7 @@ const yearsActive = currentYear - startYear;
           }
 
           // High activity fifth harmonic (sparkling chime chord) for peak weeks
-          if (maxLevel === 4) {
+          if (level === 4) {
             const osc3 = ctx.createOscillator();
             const gain3 = ctx.createGain();
             osc3.type = 'sine';
@@ -454,37 +468,42 @@ const yearsActive = currentYear - startYear;
       window.addEventListener('pointerdown', unlockAudio, { passive: true });
       window.addEventListener('keydown', unlockAudio, { passive: true });
 
-      // Column hover handling
-      let lastWeekIndex = -1;
-      const weekElements = document.querySelectorAll<SVGGElement>('.heatmap-svg g.heatmap-week');
+      // 2D cell hover handling (horizontal + vertical + diagonal)
+      let lastCellKey = '';
 
-      weekElements.forEach((weekEl) => {
-        const wIndex = parseInt(weekEl.getAttribute('data-week-index') || '-1', 10);
-        const totalCount = parseInt(weekEl.getAttribute('data-total') || '0', 10);
-        const maxLevel = parseInt(weekEl.getAttribute('data-max-level') || '0', 10);
+      const handleCellTrigger = (target: EventTarget | null) => {
+        const cell = (target as Element | null)?.closest?.('.gh-cell');
+        if (!cell) return;
 
-        weekEl.addEventListener('mouseenter', () => {
-          if (wIndex !== lastWeekIndex) {
-            lastWeekIndex = wIndex;
-            sound.playColumn(wIndex, totalCount, maxLevel);
-          }
-        });
+        const wIndex = parseInt(cell.getAttribute('data-week') || '-1', 10);
+        const dayIndex = parseInt(cell.getAttribute('data-day') || '-1', 10);
+        const count = parseInt(cell.getAttribute('data-count') || '0', 10);
+        const level = parseInt(cell.getAttribute('data-level') || '0', 10);
 
-        // Touch support for mobile scrubbing
-        weekEl.addEventListener('pointerenter', (e: PointerEvent) => {
-          if (e.pointerType === 'touch') {
-            if (wIndex !== lastWeekIndex) {
-              lastWeekIndex = wIndex;
-              sound.playColumn(wIndex, totalCount, maxLevel);
-            }
-          }
-        });
-      });
+        if (wIndex < 0 || dayIndex < 0) return;
+
+        const cellKey = `${wIndex}-${dayIndex}`;
+        if (cellKey === lastCellKey) return;
+        lastCellKey = cellKey;
+
+        sound.playNote(wIndex, dayIndex, count, level);
+      };
 
       const heatmapSvg = document.querySelector('.heatmap-svg');
-      heatmapSvg?.addEventListener('mouseleave', () => {
-        lastWeekIndex = -1;
-      });
+      if (heatmapSvg) {
+        heatmapSvg.addEventListener('pointerover', (e: Event) => {
+          handleCellTrigger(e.target);
+        });
+
+        // Smooth scrubbing on mobile touch
+        heatmapSvg.addEventListener('pointermove', (e: Event) => {
+          handleCellTrigger(e.target);
+        });
+
+        heatmapSvg.addEventListener('pointerleave', () => {
+          lastCellKey = '';
+        });
+      }
     }
 
     if (document.readyState === 'loading') {
@@ -690,8 +709,7 @@ const yearsActive = currentYear - startYear;
   }
 
   .heatmap-column-hitbox {
-    cursor: pointer;
-    pointer-events: all;
+    pointer-events: none;
   }
 
   .gh-cell {
