@@ -99,12 +99,11 @@ const ogImage = images[0];
             categories.length > 0 && (
               <div class="meta-group">
                 <span class="meta-label">Filed under</span>
-                <span class="meta-links meta-links--categories">
-                  {categories.map((c, i) => (
-                    <>
-                      {i > 0 && ', '}
-                      <a href={`/categories/${c}/`}>{c.toUpperCase()}</a>
-                    </>
+                <span class="meta-links">
+                  {categories.map((c) => (
+                    <a href={`/categories/${c}/`} class="tag-pill">
+                      {c.toLowerCase()}
+                    </a>
                   ))}
                 </span>
               </div>
