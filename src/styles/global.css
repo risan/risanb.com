@@ -439,18 +439,69 @@ h1 {
   margin: 0.04em 0.14em 0 0;
 }
 
-.prose ul,
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.4em;
+  margin: 20px 0;
+}
+
 .prose ol {
-  padding-left: 1.35em;
-  margin: 22px 0 0;
+  list-style-type: decimal;
+  padding-left: 1.4em;
+  margin: 20px 0;
 }
+
+/* Nested lists */
+.prose ul ul,
+.prose ol ul {
+  list-style-type: circle;
+  margin: 6px 0;
+  padding-left: 1.4em;
+}
+
+.prose ul ul ul,
+.prose ol ol ul,
+.prose ul ol ul,
+.prose ol ul ul {
+  list-style-type: square;
+}
+
+.prose ol ol,
+.prose ul ol {
+  list-style-type: lower-alpha;
+  margin: 6px 0;
+  padding-left: 1.4em;
+}
+
+.prose ol ol ol,
+.prose ul ul ol,
+.prose ol ul ol,
+.prose ul ol ol {
+  list-style-type: lower-roman;
+}
+
 .prose li {
-  margin: 8px 0;
+  margin: 6px 0;
+  line-height: 1.7;
 }
-.prose li::marker {
+
+.prose ul > li::marker {
+  color: var(--accent);
+}
+
+.prose ol > li::marker {
   color: var(--ink-muted);
   font-family: var(--font-mono);
   font-size: 0.85em;
+  font-weight: 500;
+}
+
+.prose li > p {
+  margin: 0;
+}
+
+.prose li > p + p {
+  margin-top: 8px;
 }
 
 .prose code {
@@ -464,15 +515,37 @@ h1 {
 }
 
 .prose blockquote {
-  margin: 40px 0;
-  padding: 0 0 0 26px;
-  border-left: 2px solid var(--accent);
-  font-size: 1.375rem;
-  line-height: 1.45;
+  margin: 32px 0;
+  padding: 16px 20px;
+  background: var(--sunk);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   font-style: italic;
+  color: var(--ink);
 }
+
 .prose blockquote p {
   margin: 0;
+}
+
+.prose blockquote p + p {
+  margin-top: 10px;
+}
+
+.prose blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose blockquote a:hover {
+  color: var(--ink);
+}
+
+.prose blockquote code {
+  background: var(--paper);
 }
 
 .prose hr {
@@ -511,18 +584,34 @@ h1 {
 
 /* Figures. Mirrors Hugo's render hook: <figure><img><figcaption></figure>. */
 .prose figure {
-  margin: 40px 0;
+  margin: 36px 0;
 }
 .prose figure img {
+  display: block;
+  width: 100%;
+  height: auto;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  background: var(--sunk);
 }
 .prose figcaption {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
   color: var(--ink-muted);
-  margin-top: 14px;
+  text-align: center;
+  margin-top: 12px;
+  padding: 0 16px;
+}
+.prose figcaption a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose figcaption a:hover {
+  color: var(--accent);
 }
 
 /* --------------------------------------------------- expressive code ----- */
@@ -1077,8 +1166,8 @@ footer.site a:hover {
     font-size: 0.6875rem;
   }
   .prose blockquote {
-    font-size: 1.125rem;
-    padding-left: 18px;
+    font-size: 0.875rem;
+    padding: 14px 16px;
   }
   .expressive-code {
     --ec-codeFontSize: 0.75rem;
