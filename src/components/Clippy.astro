@@ -103,80 +103,84 @@
           <stop offset="100%" stop-color="#6F7A8B" />
         </linearGradient>
       </defs>
+      <g class="clippy-figure">
+        <!-- Main Wire Loop (Clean vector path without internal clipped SVG filters) -->
+        <g class="clippy-wire-group">
+          <path
+            class="clippy-wire"
+            d="M12 25V13C12 10.7909 13.7909 9 16 9C18.2091 9 20 10.7909 20 13V26C20 29.3137 17.3137 32 14 32C10.6863 32 8 29.3137 8 26V7C8 3.68629 10.6863 1 14 1C17.3137 1 20 3.68629 20 7V22"
+            stroke="url(#clippyWireGrad)"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
 
-      <!-- Main Wire Loop (Clean vector path without internal clipped SVG filters) -->
-      <path
-        class="clippy-wire"
-        d="M12 25V13C12 10.7909 13.7909 9 16 9C18.2091 9 20 10.7909 20 13V26C20 29.3137 17.3137 32 14 32C10.6863 32 8 29.3137 8 26V7C8 3.68629 10.6863 1 14 1C17.3137 1 20 3.68629 20 7V22"
-        stroke="url(#clippyWireGrad)"
-        stroke-width="2.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-
-      <!-- Specular Highlight Line -->
-      <path
-        d="M8.8 24V7C8.8 4.1 11.1 1.8 14 1.8C16.9 1.8 19.2 4.1 19.2 7V20"
-        stroke="#FFFFFF"
-        stroke-width="0.8"
-        stroke-linecap="round"
-        opacity="0.85"
-      />
-
-      <!-- Expressive Eyebrows -->
-      <g class="clippy-brows">
-        <path
-          class="brow-left"
-          d="M10 7.5C11 6.2 13 6.4 14.5 7.2"
-          stroke="#1A1918"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        />
-        <path
-          class="brow-right"
-          d="M17.5 6.2C19 5.2 21.2 5.6 22.5 7"
-          stroke="#1A1918"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        />
-      </g>
-
-      <!-- Eyes Container (Blinks) -->
-      <g class="clippy-eyes">
-        <!-- Left Eye Socket -->
-        <ellipse
-          id="clippy-eye-left"
-          class="clippy-eye-white eye-left"
-          cx="12.5"
-          cy="12.5"
-          rx="3.5"
-          ry="4.2"
-          fill="#FFFFFF"
-          stroke="#1A1918"
-          stroke-width="1"
-        />
-        <!-- Left Pupil Group (Follows Cursor) -->
-        <g id="clippy-pupil-left" class="clippy-pupil pupil-left">
-          <circle cx="12.8" cy="12.6" r="1.8" fill="#1A1918" />
-          <circle cx="12.0" cy="11.7" r="0.65" fill="#FFFFFF" />
+          <!-- Specular Highlight Line -->
+          <path
+            class="clippy-highlight"
+            d="M8.8 24V7C8.8 4.1 11.1 1.8 14 1.8C16.9 1.8 19.2 4.1 19.2 7V20"
+            stroke="#FFFFFF"
+            stroke-width="0.8"
+            stroke-linecap="round"
+            opacity="0.85"
+          />
         </g>
 
-        <!-- Right Eye Socket -->
-        <ellipse
-          id="clippy-eye-right"
-          class="clippy-eye-white eye-right"
-          cx="19.5"
-          cy="12"
-          rx="3.5"
-          ry="4.2"
-          fill="#FFFFFF"
-          stroke="#1A1918"
-          stroke-width="1"
-        />
-        <!-- Right Pupil Group (Follows Cursor) -->
-        <g id="clippy-pupil-right" class="clippy-pupil pupil-right">
-          <circle cx="19.1" cy="12.2" r="1.8" fill="#1A1918" />
-          <circle cx="18.3" cy="11.3" r="0.65" fill="#FFFFFF" />
+        <!-- Expressive Eyebrows -->
+        <g class="clippy-brows">
+          <path
+            class="brow-left"
+            d="M10 7.5C11 6.2 13 6.4 14.5 7.2"
+            stroke="#1A1918"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+          <path
+            class="brow-right"
+            d="M17.5 6.2C19 5.2 21.2 5.6 22.5 7"
+            stroke="#1A1918"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+        </g>
+
+        <!-- Eyes Container (Blinks) -->
+        <g class="clippy-eyes">
+          <!-- Left Eye Socket -->
+          <ellipse
+            id="clippy-eye-left"
+            class="clippy-eye-white eye-left"
+            cx="12.5"
+            cy="12.5"
+            rx="3.5"
+            ry="4.2"
+            fill="#FFFFFF"
+            stroke="#1A1918"
+            stroke-width="1"
+          />
+          <!-- Left Pupil Group (Follows Cursor) -->
+          <g id="clippy-pupil-left" class="clippy-pupil pupil-left">
+            <circle cx="12.8" cy="12.6" r="1.8" fill="#1A1918" />
+            <circle cx="12.0" cy="11.7" r="0.65" fill="#FFFFFF" />
+          </g>
+
+          <!-- Right Eye Socket -->
+          <ellipse
+            id="clippy-eye-right"
+            class="clippy-eye-white eye-right"
+            cx="19.5"
+            cy="12"
+            rx="3.5"
+            ry="4.2"
+            fill="#FFFFFF"
+            stroke="#1A1918"
+            stroke-width="1"
+          />
+          <!-- Right Pupil Group (Follows Cursor) -->
+          <g id="clippy-pupil-right" class="clippy-pupil pupil-right">
+            <circle cx="19.1" cy="12.2" r="1.8" fill="#1A1918" />
+            <circle cx="18.3" cy="11.3" r="0.65" fill="#FFFFFF" />
+          </g>
         </g>
       </g>
     </svg>
@@ -274,7 +278,7 @@
 
   /* Idle floating animation (paused during drag and when wiggling) */
   .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) {
-    animation: clippy-float 4.2s infinite ease-in-out;
+    animation: clippy-float 4.8s infinite ease-in-out;
   }
 
   @keyframes clippy-float {
@@ -282,15 +286,71 @@
     50% { transform: translateY(-5px); }
   }
 
-  /* Eyebrows wiggle */
+  /* Expressive body bending and swaying */
+  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) .clippy-figure {
+    transform-origin: 14px 32px;
+    animation: clippy-body-bend 8.6s infinite ease-in-out;
+  }
+
+  @keyframes clippy-body-bend {
+    0%, 100% {
+      transform: rotate(0deg) skewX(0deg) scale(1, 1);
+    }
+    12% {
+      /* Inquisitive lean to the left, peering at the page content */
+      transform: rotate(-7deg) skewX(-6deg) translateY(-2px) scale(0.97, 1.03);
+    }
+    24% {
+      /* Curious tilt holds briefly */
+      transform: rotate(-8deg) skewX(-7deg) translateY(-3px) scale(0.96, 1.04);
+    }
+    38% {
+      /* Sway back smoothly through center */
+      transform: rotate(1.5deg) skewX(1deg) translateY(0) scale(1.02, 0.98);
+    }
+    50% {
+      /* Playful lean to the right */
+      transform: rotate(7deg) skewX(6deg) translateY(-2px) scale(0.98, 1.02);
+    }
+    62% {
+      /* Stretch upward inquisitively */
+      transform: rotate(2deg) skewX(1deg) translateY(-5px) scale(0.95, 1.06);
+    }
+    74% {
+      /* Relaxed squash bounce */
+      transform: rotate(-2deg) skewX(-1.5deg) translateY(1.5px) scale(1.04, 0.95);
+    }
+    86% {
+      /* Gentle settling sway */
+      transform: rotate(3deg) skewX(2deg) translateY(-1px) scale(1, 1);
+    }
+  }
+
+  /* Secondary elastic wire springiness */
+  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) .clippy-wire-group {
+    transform-origin: 14px 32px;
+    animation: clippy-wire-flex 4.3s infinite ease-in-out;
+  }
+
+  @keyframes clippy-wire-flex {
+    0%, 100% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.015, 0.985);
+    }
+  }
+
+  /* Eyebrows expressive movement, synced with inquisitive leaning */
   .clippy-brows {
     transform-origin: 16px 7px;
     animation: clippy-brow 4.4s infinite ease-in-out;
   }
 
   @keyframes clippy-brow {
-    0%, 78%, 100% { transform: translateY(0); }
-    84%, 92% { transform: translateY(-2.2px); }
+    0%, 72%, 100% { transform: translateY(0) rotate(0deg); }
+    18%, 28% { transform: translateY(-2.2px) rotate(-3deg); }
+    54%, 64% { transform: translateY(-1.5px) rotate(3deg); }
   }
 
   /* Eyes blinking */
@@ -306,13 +366,13 @@
 
   /* Pupils smooth transformation */
   .clippy-pupil {
-    transition: transform 0.06s ease-out;
+    transition: transform 0.12s ease-out;
   }
 
   /* Speech Bubble Styling: matches blog monograph palette (var(--paper), var(--rule), var(--ink)) */
   .clippy-bubble {
     position: absolute;
-    width: 260px;
+    width: 280px;
     max-width: calc(100vw - 32px);
     background: var(--paper, #fbf9f5);
     border: 1px solid var(--rule, #e4ded3);
@@ -456,6 +516,7 @@
     gap: 8px;
     margin-top: 10px;
     padding-top: 4px;
+    flex-wrap: wrap;
   }
 
   .clippy-share-btn {
@@ -472,6 +533,8 @@
     font-weight: 500;
     color: var(--ink-muted, #6b6862);
     cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   }
 
@@ -494,12 +557,14 @@
     background: var(--sunk, #f3efe7);
     border: 1px solid var(--rule, #e4ded3);
     border-radius: 4px;
-    padding: 3px 10px;
+    padding: 3px 8px;
     font-family: var(--font-mono, 'JetBrains Mono Variable', monospace);
     font-size: 0.6875rem;
     font-weight: 500;
     color: var(--ink, #1b1c1d);
     cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   }
 
@@ -571,6 +636,8 @@
   @media (prefers-reduced-motion: reduce) {
     .clippy-widget,
     .clippy-character,
+    .clippy-figure,
+    .clippy-wire-group,
     .clippy-bubble,
     .clippy-eyes,
     .clippy-brows,
@@ -586,7 +653,8 @@
       bottom: 16px;
     }
     .clippy-bubble {
-      width: 220px;
+      width: min(280px, calc(100vw - 28px));
+      max-width: calc(100vw - 28px);
     }
     .clippy-svg {
       width: 66px;
@@ -1075,6 +1143,7 @@
         const rect = character.getBoundingClientRect();
         updateBubbleOrientation(rect.left, rect.top);
         openBubble(false);
+        scheduleIdleGlance();
       };
     };
 
@@ -1087,7 +1156,10 @@
 
       if (autoCloseTimer) clearTimeout(autoCloseTimer);
       if (nextTakeTimer) clearTimeout(nextTakeTimer);
-
+      if (idleEyeTimer) {
+        clearTimeout(idleEyeTimer);
+        idleEyeTimer = null;
+      }
       // Hide bubble immediately
       bubble.classList.add('is-hidden');
       bubble.classList.remove('is-popping-in', 'is-popping-out');
@@ -1195,8 +1267,35 @@
     // Cursor tracking: eyes follow cursor
     let mouseX = -1000;
     let mouseY = -1000;
+    let lastPointerTime = 0;
     let rafEyeId: number | null = null;
+    let idleEyeTimer: number | null = null;
 
+    const performIdleGlance = () => {
+      if (!pupilLeft || !pupilRight || isDismissedCompletely || prefersReducedMotion) return;
+      // Glances: peering at page content, glancing up towards speech bubble, or looking straight
+      const glances = [
+        { ox: -1.0, oy: -0.3 },  // peering left towards blog post text
+        { ox: -1.15, oy: 0.2 },  // looking left
+        { ox: -0.5, oy: -0.9 },  // looking up at speech bubble
+        { ox: 0, oy: 0 },        // looking straight ahead
+        { ox: 0.6, oy: -0.35 }   // glancing right
+      ];
+      const glance = glances[Math.floor(Math.random() * glances.length)];
+      pupilLeft.setAttribute('transform', `translate(${glance.ox.toFixed(2)}, ${glance.oy.toFixed(2)})`);
+      pupilRight.setAttribute('transform', `translate(${glance.ox.toFixed(2)}, ${glance.oy.toFixed(2)})`);
+    };
+
+    const scheduleIdleGlance = () => {
+      if (isDismissedCompletely || prefersReducedMotion) return;
+      if (idleEyeTimer) clearTimeout(idleEyeTimer);
+      idleEyeTimer = window.setTimeout(() => {
+        if (Date.now() - lastPointerTime >= 2400 && !isDismissedCompletely) {
+          performIdleGlance();
+          scheduleIdleGlance();
+        }
+      }, 3000 + Math.random() * 2200);
+    };
     const updateEyes = () => {
       rafEyeId = null;
       if (isDismissedCompletely || prefersReducedMotion || !eyeLeftWhite || !eyeRightWhite || !pupilLeft || !pupilRight) return;
@@ -1239,9 +1338,11 @@
     const handlePointerMove = (e: MouseEvent | PointerEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      lastPointerTime = Date.now();
       if (rafEyeId === null && !prefersReducedMotion) {
         rafEyeId = requestAnimationFrame(updateEyes);
       }
+      scheduleIdleGlance();
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });

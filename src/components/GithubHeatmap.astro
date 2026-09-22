@@ -113,15 +113,28 @@ const yearsActive = currentYear - startYear;
       <p class="eyebrow">Vanity Metrics</p>
       <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
     </div>
-    <a
-      href={`https://github.com/${username}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="profile-link"
-      aria-label={`View @${username} on GitHub`}
-    >
-      @{username} ↗
-    </a>
+    <div class="activity-header-actions">
+      <button
+        id="heatmap-sound-toggle"
+        class="heatmap-sound-btn"
+        type="button"
+        aria-label="Toggle contribution chime sounds"
+        title="Toggle contribution chime sounds"
+      >
+        <span class="sound-icon sound-icon-on" aria-hidden="true">🔊</span>
+        <span class="sound-icon sound-icon-off" aria-hidden="true" style="display: none;">🔇</span>
+        <span class="sound-label">Chimes</span>
+      </button>
+      <a
+        href={`https://github.com/${username}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="profile-link"
+        aria-label={`View @${username} on GitHub`}
+      >
+        @{username} ↗
+      </a>
+    </div>
   </div>
 
   {/* Stats Cards: This Week, This Month, This Year, All Time */}
@@ -184,8 +197,31 @@ const yearsActive = currentYear - startYear;
         {
           weeks.map((week, wIndex) => {
             const x = X_OFFSET + wIndex * STEP;
+            const weekTotal = week.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0);
+            const weekMaxLevel = week.contributionDays.reduce((max, d) => {
+              const lvlNum = d.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                             d.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                             d.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                             d.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
+              return Math.max(max, lvlNum);
+            }, 0);
             return (
-              <g class="heatmap-week">
+              <g
+                class="heatmap-week"
+                data-week-index={wIndex}
+                data-total={weekTotal}
+                data-max-level={weekMaxLevel}
+              >
+                {/* Full column hitbox for effortless scrubbing */}
+                <rect
+                  x={x - 1.5}
+                  y={Y_OFFSET}
+                  width={STEP}
+                  height={7 * STEP}
+                  fill="transparent"
+                  class="heatmap-column-hitbox"
+                  aria-hidden="true"
+                />
                 {week.contributionDays.map((day) => {
                   const y = Y_OFFSET + day.weekday * STEP;
                   const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
@@ -218,25 +254,240 @@ const yearsActive = currentYear - startYear;
       <span class="footer-note">
         Verified GitHub activity across public and client repositories. None of this measures code quality.
       </span>
-      <div class="heatmap-legend" aria-hidden="true">
-        <span class="legend-text">Less</span>
-        <span class="legend-cell gh-cell-0"></span>
-        <span class="legend-cell gh-cell-1"></span>
-        <span class="legend-cell gh-cell-2"></span>
-        <span class="legend-cell gh-cell-3"></span>
-        <span class="legend-cell gh-cell-4"></span>
-        <span class="legend-text">More</span>
+      <div class="heatmap-legend" role="group" aria-label="Activity legend">
+        <span class="legend-text">Running out of Claude/Codex usage</span>
+        <div class="legend-cells" aria-hidden="true">
+          <span class="legend-cell gh-cell-0"></span>
+          <span class="legend-cell gh-cell-1"></span>
+          <span class="legend-cell gh-cell-2"></span>
+          <span class="legend-cell gh-cell-3"></span>
+          <span class="legend-cell gh-cell-4"></span>
+        </div>
+        <span class="legend-text">Tibo Reset / Approaching Deadline</span>
       </div>
     </div>
   </div>
 
-  <script is:inline>
-    (() => {
-      const scroll = document.querySelector('.heatmap-scroll');
-      if (scroll) {
-        scroll.scrollLeft = scroll.scrollWidth;
+  <script>
+    // Maintain initial scroll position at the recent right edge
+    const scroll = document.querySelector('.heatmap-scroll');
+    if (scroll) {
+      scroll.scrollLeft = scroll.scrollWidth;
+    }
+
+    // Extended pentatonic scale across 4 octaves (zero dissonance, beautiful chime timbre)
+    const PENTATONIC = [
+      130.81, // C3
+      146.83, // D3
+      164.81, // E3
+      196.00, // G3
+      220.00, // A3
+      261.63, // C4
+      293.66, // D4
+      329.63, // E4
+      392.00, // G4
+      440.00, // A4
+      523.25, // C5
+      587.33, // D5
+      659.25, // E5
+      783.99, // G5
+      880.00, // A5
+      1046.50, // C6
+      1174.66, // D6
+      1318.51, // E6
+      1567.98, // G6
+      1760.00  // A6
+    ];
+
+    class HeatmapSoundEngine {
+      private ctx: AudioContext | null = null;
+      private compressor: DynamicsCompressorNode | null = null;
+      private muted: boolean;
+
+      constructor() {
+        const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.muted = reducedMotion || (typeof window !== 'undefined' && localStorage.getItem('heatmap_sound') === 'muted');
       }
-    })();
+
+      public initContext(): AudioContext | null {
+        if (!this.ctx && typeof window !== 'undefined') {
+          const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+          if (AudioCtx) {
+            this.ctx = new AudioCtx();
+            // Create dynamics compressor to prevent clipping on rapid glissandos
+            this.compressor = this.ctx.createDynamicsCompressor();
+            this.compressor.threshold.setValueAtTime(-18, this.ctx.currentTime);
+            this.compressor.knee.setValueAtTime(12, this.ctx.currentTime);
+            this.compressor.ratio.setValueAtTime(8, this.ctx.currentTime);
+            this.compressor.attack.setValueAtTime(0.003, this.ctx.currentTime);
+            this.compressor.release.setValueAtTime(0.15, this.ctx.currentTime);
+            this.compressor.connect(this.ctx.destination);
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => {});
+        }
+        return this.ctx;
+      }
+
+      public isMuted(): boolean {
+        return this.muted;
+      }
+
+      public setMuted(muted: boolean) {
+        this.muted = muted;
+        try {
+          localStorage.setItem('heatmap_sound', muted ? 'muted' : 'unmuted');
+        } catch {}
+      }
+
+      public playColumn(weekIndex: number, totalCount: number, maxLevel: number) {
+        // Muted or empty column: pure silence!
+        if (this.muted || totalCount === 0 || maxLevel === 0) return;
+
+        const ctx = this.initContext();
+        if (!ctx || ctx.state === 'suspended' || !this.compressor) return;
+
+        try {
+          const now = ctx.currentTime;
+
+          // Map week index (0..52) to pentatonic scale
+          const noteIndex = Math.round((weekIndex / 52) * (PENTATONIC.length - 1));
+          const baseFreq = PENTATONIC[noteIndex] || 440;
+
+          // Velocity and envelope based on contribution level
+          const baseVol = 0.04 + (maxLevel / 4) * 0.12;
+          const decay = 0.26 + maxLevel * 0.035;
+
+          // Primary sine wave fundamental
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(baseFreq, now);
+
+          gain1.gain.setValueAtTime(0.0001, now);
+          gain1.gain.exponentialRampToValueAtTime(baseVol, now + 0.004);
+          gain1.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+
+          osc1.connect(gain1);
+          gain1.connect(this.compressor);
+          osc1.start(now);
+          osc1.stop(now + decay + 0.02);
+
+          // Warm harmonic overtone (octave chime) for medium+ activity
+          if (maxLevel >= 2) {
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(baseFreq * 2, now);
+
+            gain2.gain.setValueAtTime(0.0001, now);
+            gain2.gain.exponentialRampToValueAtTime(baseVol * 0.3, now + 0.003);
+            gain2.gain.exponentialRampToValueAtTime(0.0001, now + decay * 0.7);
+
+            osc2.connect(gain2);
+            gain2.connect(this.compressor);
+            osc2.start(now);
+            osc2.stop(now + decay * 0.7 + 0.02);
+          }
+
+          // High activity fifth harmonic (sparkling chime chord) for peak weeks
+          if (maxLevel === 4) {
+            const osc3 = ctx.createOscillator();
+            const gain3 = ctx.createGain();
+            osc3.type = 'sine';
+            osc3.frequency.setValueAtTime(baseFreq * 1.5, now);
+
+            gain3.gain.setValueAtTime(0.0001, now);
+            gain3.gain.exponentialRampToValueAtTime(baseVol * 0.22, now + 0.005);
+            gain3.gain.exponentialRampToValueAtTime(0.0001, now + decay * 0.85);
+
+            osc3.connect(gain3);
+            gain3.connect(this.compressor);
+            osc3.start(now);
+            osc3.stop(now + decay * 0.85 + 0.02);
+          }
+        } catch {}
+      }
+    }
+
+    function initHeatmapAudio() {
+      const sound = new HeatmapSoundEngine();
+      const soundBtn = document.getElementById('heatmap-sound-toggle');
+
+      const updateSoundUI = () => {
+        const isMuted = sound.isMuted();
+        const iconOn = soundBtn?.querySelector('.sound-icon-on') as HTMLElement | null;
+        const iconOff = soundBtn?.querySelector('.sound-icon-off') as HTMLElement | null;
+        if (iconOn && iconOff) {
+          iconOn.style.display = isMuted ? 'none' : 'inline';
+          iconOff.style.display = isMuted ? 'inline' : 'none';
+        }
+        if (soundBtn) {
+          soundBtn.classList.toggle('is-muted', isMuted);
+          soundBtn.setAttribute('aria-label', isMuted ? 'Unmute contribution chime sounds' : 'Mute contribution chime sounds');
+          soundBtn.setAttribute('title', isMuted ? 'Unmute contribution chime sounds' : 'Mute contribution chime sounds');
+        }
+      };
+
+      updateSoundUI();
+
+      soundBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sound.setMuted(!sound.isMuted());
+        updateSoundUI();
+        if (!sound.isMuted()) {
+          sound.initContext();
+        }
+      });
+
+      // Unlock audio on initial user interaction
+      const unlockAudio = () => {
+        sound.initContext();
+        window.removeEventListener('pointerdown', unlockAudio);
+        window.removeEventListener('keydown', unlockAudio);
+      };
+      window.addEventListener('pointerdown', unlockAudio, { passive: true });
+      window.addEventListener('keydown', unlockAudio, { passive: true });
+
+      // Column hover handling
+      let lastWeekIndex = -1;
+      const weekElements = document.querySelectorAll<SVGGElement>('.heatmap-svg g.heatmap-week');
+
+      weekElements.forEach((weekEl) => {
+        const wIndex = parseInt(weekEl.getAttribute('data-week-index') || '-1', 10);
+        const totalCount = parseInt(weekEl.getAttribute('data-total') || '0', 10);
+        const maxLevel = parseInt(weekEl.getAttribute('data-max-level') || '0', 10);
+
+        weekEl.addEventListener('mouseenter', () => {
+          if (wIndex !== lastWeekIndex) {
+            lastWeekIndex = wIndex;
+            sound.playColumn(wIndex, totalCount, maxLevel);
+          }
+        });
+
+        // Touch support for mobile scrubbing
+        weekEl.addEventListener('pointerenter', (e: PointerEvent) => {
+          if (e.pointerType === 'touch') {
+            if (wIndex !== lastWeekIndex) {
+              lastWeekIndex = wIndex;
+              sound.playColumn(wIndex, totalCount, maxLevel);
+            }
+          }
+        });
+      });
+
+      const heatmapSvg = document.querySelector('.heatmap-svg');
+      heatmapSvg?.addEventListener('mouseleave', () => {
+        lastWeekIndex = -1;
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeatmapAudio);
+    } else {
+      initHeatmapAudio();
+    }
   </script>
 </section>
 
@@ -288,6 +539,46 @@ const yearsActive = currentYear - startYear;
     color: var(--ink-muted);
     margin: 0;
   }
+  .activity-header-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .heatmap-sound-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .heatmap-sound-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+
+  .heatmap-sound-btn.is-muted {
+    opacity: 0.65;
+  }
+
+  .sound-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .sound-label {
+    font-size: 0.75rem;
+  }
 
   .profile-link {
     font-family: var(--font-mono);
@@ -305,7 +596,6 @@ const yearsActive = currentYear - startYear;
     color: var(--accent);
     border-color: var(--accent-soft);
   }
-
   /* Stats grid */
   .stats-grid {
     display: grid;
@@ -391,16 +681,25 @@ const yearsActive = currentYear - startYear;
     user-select: none;
   }
 
-  .gh-cell {
-    transition: opacity 0.1s ease;
+  .heatmap-week {
     cursor: pointer;
   }
 
-  .gh-cell:hover {
-    stroke: var(--ink);
-    stroke-width: 1px;
+  .heatmap-column-hitbox {
+    cursor: pointer;
+    pointer-events: all;
   }
 
+  .gh-cell {
+    transition: opacity 0.1s ease, filter 0.1s ease;
+    cursor: pointer;
+  }
+
+  .heatmap-week:hover .gh-cell:not(.gh-cell-0) {
+    stroke: var(--ink);
+    stroke-width: 1px;
+    filter: brightness(1.1);
+  }
   .gh-cell-0 {
     fill: var(--gh-level-0);
   }
@@ -426,7 +725,7 @@ const yearsActive = currentYear - startYear;
     padding-top: 12px;
     border-top: 1px solid var(--rule);
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 12px 16px;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     color: var(--ink-muted);
@@ -434,17 +733,28 @@ const yearsActive = currentYear - startYear;
 
   .footer-note {
     font-size: 0.6875rem;
+    max-width: 440px;
+    line-height: 1.4;
   }
 
   .heatmap-legend {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .legend-cells {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
   }
 
   .legend-text {
     font-size: 0.6875rem;
     color: var(--ink-muted);
+    letter-spacing: 0.01em;
   }
 
   .legend-cell {
@@ -468,5 +778,18 @@ const yearsActive = currentYear - startYear;
   }
   .legend-cell.gh-cell-4 {
     background-color: var(--gh-level-4);
+  }
+
+  @media (max-width: 640px) {
+    .heatmap-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .heatmap-legend {
+      width: 100%;
+      justify-content: flex-start;
+      gap: 6px 8px;
+    }
   }
 </style>
