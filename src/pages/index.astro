@@ -33,55 +33,49 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
     <h1>Code, <span id="curiosity-trigger" class="curiosity-trigger is-shimmering" role="button" tabindex="0" aria-label="Curiosity (click to summon Clippy)" title="Click to summon something curious...">curiosity</span>, and a questionable number of agents</h1>
 
     <div class="home-intro-spread">
-      <div class="home-intro-col">
-        <p>
-          Hi, I’m Risan. I build software for a living. It started in junior high, when I got bored with
-          Flash games and picked up a book about Borland Delphi 6. I followed the tutorials and made a simple
-          text editor. Then I wanted to make something else.
-        </p>
-        <p>
-          I published some of my early software as RdF, short for &ldquo;Reason da Freak.&rdquo; It was
-          supposed to sound like &ldquo;Risan the Freak.&rdquo; Don&rsquo;t judge me.
-        </p>
-        <p>
-          Since then, I’ve built websites for clients, worked with startups on their products, and
-          helped companies make sense of their data. I enjoy turning a rough idea into working software
-          and sorting out all the details that never make it into the first conversation. I usually
-          stay with a project through deployment and whatever happens once real people start using it.
-        </p>
-        <p>
-          These days, building software feels less like sitting at an editor and more like running a very
-          busy control room. AI agents research the problem, argue over the approach, write the code,
-          test it, and review one another’s work. I designed the rules and checkpoints that keep the whole
-          thing moving in the right direction. Most of the time, I watch it unfold, provide context when
-          needed, and adjust the workflow based on what goes wrong. It’s a strange way to build software,
-          and I’m having a lot of fun figuring it out.
-        </p>
-      </div>
+      <p>
+        Hi, I’m Risan. I build software for a living. It started in junior high, when I got bored with
+        Flash games and picked up a book about Borland Delphi 6. I followed the tutorials and made a simple
+        text editor. Then I wanted to make something else.
+      </p>
+      <p>
+        I published some of my early software as RdF, short for &ldquo;Reason da Freak.&rdquo; It was
+        supposed to sound like &ldquo;Risan the Freak.&rdquo; Don&rsquo;t judge me.
+      </p>
+      <p>
+        Since then, I’ve built websites for clients, worked with startups on their products, and
+        helped companies make sense of their data. I enjoy turning a rough idea into working software
+        and sorting out all the details that never make it into the first conversation. I usually
+        stay with a project through deployment and whatever happens once real people start using it.
+      </p>
+      <p>
+        These days, building software feels less like sitting at an editor and more like running a very
+        busy control room. AI agents research the problem, argue over the approach, write the code,
+        test it, and review one another’s work. I designed the rules and checkpoints that keep the whole
+        thing moving in the right direction. Most of the time, I watch it unfold, provide context when
+        needed, and adjust the workflow based on what goes wrong. It’s a strange way to build software,
+        and I’m having a lot of fun figuring it out.
+      </p>
 
-      <div class="home-intro-col">
-        <div class="home-intro-media">
-          <figure class="home-intro-figure">
-            <Image
-              src={risanPhoto}
-              alt="Risan Bagja looking out the train window"
-              class="home-intro-photo"
-              loading="eager"
-              fetchpriority="high"
-              widths={[380, 520, 760, 1176]}
-              sizes="(max-width: 768px) 100vw, 540px"
-            />
-            <figcaption class="home-intro-caption">Somewhere between Interlaken and Lucerne on the Zentralbahn.</figcaption>
-          </figure>
-        </div>
+      <figure class="home-intro-figure">
+        <Image
+          src={risanPhoto}
+          alt="Risan Bagja looking out the train window"
+          class="home-intro-photo"
+          loading="eager"
+          fetchpriority="high"
+          widths={[380, 520, 760, 1176]}
+          sizes="(max-width: 768px) 100vw, 540px"
+        />
+        <figcaption class="home-intro-caption">Somewhere between Interlaken and Lucerne on the Zentralbahn.</figcaption>
+      </figure>
 
-        <p>
-          I’m usually tinkering with something on the side too: maps, small web apps, ESP32 boards,
-          sensors, or whatever else has caught my attention. This site is where I write down what I learn,
-          including the things that took longer to figure out than I’d like to admit. Hopefully, something
-          here saves you an afternoon.
-        </p>
-      </div>
+      <p>
+        I’m usually tinkering with something on the side too: maps, small web apps, ESP32 boards,
+        sensors, or whatever else has caught my attention. This site is where I write down what I learn,
+        including the things that took longer to figure out than I’d like to admit. Hopefully, something
+        here saves you an afternoon.
+      </p>
     </div>
   </div>
 
@@ -145,44 +139,29 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
 
 <style>
   .home-intro-spread {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
     margin-top: 28px;
-  }
-
-  .home-intro-media {
-    position: relative;
-    margin: 0 0 20px;
-    width: 100%;
   }
 
   @media (min-width: 768px) {
     .home-intro-spread {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 52px;
-      align-items: start;
+      columns: 2;
+      column-gap: 52px;
       margin-top: 36px;
-    }
-
-    .home-intro-media {
-      margin: 0 0 24px;
     }
   }
 
-  .home-intro-col p {
+  .home-intro-spread p {
     margin: 20px 0 0;
     font-size: 1.0625rem;
     line-height: 1.75;
     color: var(--ink);
   }
 
-  .home-intro-col:first-child p:first-of-type {
+  .home-intro-spread p:first-of-type {
     margin-top: 0;
   }
 
-  .home-intro-col:first-child p:first-of-type::first-letter {
+  .home-intro-spread p:first-of-type::first-letter {
     initial-letter: 2;
     -webkit-initial-letter: 2;
     float: left;
@@ -195,15 +174,16 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
   }
 
   .home-intro-figure {
-    margin: 0;
+    break-inside: avoid;
+    margin: 24px 0;
   }
 
   .home-intro-photo {
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center 25%;
     border: 1px solid var(--rule);
     border-radius: 4px;
     background: var(--sunk);

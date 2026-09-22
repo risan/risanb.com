@@ -48,19 +48,24 @@ const { slug } = Astro.props;
 
     // Web Audio chime synthesizer for joyful tap feedback
     let audioCtx: AudioContext | null = null;
+    const getAudioCtx = () => {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+      return audioCtx;
+    };
+
     const playChime = () => {
       try {
-        if (!audioCtx) {
-          const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-          if (AudioContextClass) audioCtx = new AudioContextClass();
-        }
-        if (!audioCtx) return;
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume().catch(() => {});
-        }
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
         osc.type = 'triangle';
         // Rising joyful bell frequencies (A5 -> E6)
         osc.frequency.setValueAtTime(880, now);
@@ -69,9 +74,51 @@ const { slug } = Astro.props;
         gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
+        gain.connect(ctx.destination);
         osc.start(now);
         osc.stop(now + 0.36);
+      } catch {}
+    };
+
+    const playMaxSound = (isLocked = false) => {
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (isLocked) {
+          // Double-pulse soft lock tone (370Hz -> 277Hz)
+          [0, 0.09].forEach((offset, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(idx === 0 ? 370 : 277.18, now + offset);
+            gain.gain.setValueAtTime(0.001, now + offset);
+            gain.gain.exponentialRampToValueAtTime(0.06, now + offset + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.075);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + offset);
+            osc.stop(now + offset + 0.08);
+          });
+        } else {
+          // Reached MAX on 10th tap: celebratory arpeggio fanfare (C5, E5, G5, C6)
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            const noteStart = now + idx * 0.055;
+            osc.frequency.setValueAtTime(freq, noteStart);
+            gain.gain.setValueAtTime(0.001, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.07, noteStart + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(noteStart);
+            osc.stop(noteStart + 0.3);
+          });
+        }
       } catch {}
     };
 
@@ -98,7 +145,7 @@ const { slug } = Astro.props;
       if (userLikes > 0) {
         btn.classList.add('has-loved');
         if (labelEl) {
-          labelEl.textContent = userLikes >= MAX_LIKES_PER_USER ? 'Thanks for the love!' : `You loved this (${userLikes}x)`;
+          labelEl.textContent = userLikes >= MAX_LIKES_PER_USER ? 'Maximum love reached! Thank you!' : `You loved this (${userLikes}x)`;
         }
       }
 
@@ -139,6 +186,36 @@ const { slug } = Astro.props;
             }
           })
           .catch(() => {});
+      };
+
+      // Spits out "MAX" words exploding outward
+      const triggerMaxFireworks = () => {
+        burstContainer.innerHTML = '';
+
+        const maxWords = ['MAX!', 'MAX', 'MAX! ✨', 'MAX', 'MAX!'];
+        const wordCount = maxWords.length;
+        for (let i = 0; i < wordCount; i++) {
+          const wordEl = document.createElement('span');
+          wordEl.className = 'max-word-particle';
+          wordEl.textContent = maxWords[i];
+
+          const angle = (i / wordCount) * 2 * Math.PI - Math.PI / 2 + (Math.random() * 0.3 - 0.15);
+          const distance = 32 + Math.random() * 24;
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance;
+          const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+
+          wordEl.style.setProperty('--dx', `${dx}px`);
+          wordEl.style.setProperty('--dy', `${dy}px`);
+          wordEl.style.setProperty('--color', color);
+          wordEl.style.setProperty('--rot', `${Math.floor((Math.random() - 0.5) * 36)}deg`);
+
+          burstContainer.appendChild(wordEl);
+        }
+
+        setTimeout(() => {
+          burstContainer.innerHTML = '';
+        }, 850);
       };
 
       // Confetti & fireworks burst animation generator
@@ -183,10 +260,12 @@ const { slug } = Astro.props;
         e.preventDefault();
 
         if (userLikes >= MAX_LIKES_PER_USER) {
-          // Maximum reached — gentle shake hint
+          // Maximum reached — shake icon, play lock sound, spit MAX confetti!
           btn.classList.remove('is-shaking');
           void btn.offsetWidth; // force reflow
           btn.classList.add('is-shaking');
+          triggerMaxFireworks();
+          playMaxSound(true);
           if (labelEl) labelEl.textContent = 'Maximum love reached! Thank you!';
           return;
         }
@@ -201,17 +280,24 @@ const { slug } = Astro.props;
 
         countEl.textContent = totalLikes.toLocaleString('en-US');
         btn.classList.add('has-loved');
-        btn.classList.remove('is-bouncing');
-        void btn.offsetWidth; // force reflow
-        btn.classList.add('is-bouncing');
 
-        if (labelEl) {
-          labelEl.textContent = userLikes >= MAX_LIKES_PER_USER ? 'Thanks for the love!' : `You loved this (${userLikes}x)`;
+        if (userLikes >= MAX_LIKES_PER_USER) {
+          // 10th tap reaches max!
+          btn.classList.remove('is-shaking');
+          btn.classList.remove('is-bouncing');
+          void btn.offsetWidth;
+          btn.classList.add('is-shaking');
+          triggerMaxFireworks();
+          playMaxSound(false);
+          if (labelEl) labelEl.textContent = 'Maximum love reached! Thank you!';
+        } else {
+          btn.classList.remove('is-bouncing');
+          void btn.offsetWidth;
+          btn.classList.add('is-bouncing');
+          triggerFireworks();
+          playChime();
+          if (labelEl) labelEl.textContent = `You loved this (${userLikes}x)`;
         }
-
-        // Visual and audio feedback
-        triggerFireworks();
-        playChime();
 
         // Debounce API dispatch by 600ms to batch rapid taps into a single request
         if (syncTimer) clearTimeout(syncTimer);
@@ -229,11 +315,17 @@ const { slug } = Astro.props;
 
 <style>
   .love-counter-widget {
-    display: contents;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
   }
 
   .love-widget-inner {
-    display: contents;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
   .love-button {
@@ -294,7 +386,19 @@ const { slug } = Astro.props;
   }
 
   .love-button.is-shaking {
-    animation: button-shake 0.3s ease;
+    animation: button-shake 0.35s ease;
+  }
+
+  .love-button.is-shaking .love-icon-wrapper {
+    animation: icon-shake 0.4s ease;
+  }
+
+  @keyframes icon-shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    20% { transform: translateX(-4px) rotate(-14deg); }
+    40% { transform: translateX(4px) rotate(14deg); }
+    60% { transform: translateX(-3px) rotate(-8deg); }
+    80% { transform: translateX(3px) rotate(8deg); }
   }
 
   @keyframes heart-bounce {
@@ -325,9 +429,42 @@ const { slug } = Astro.props;
   }
 
   .love-label {
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--ink-muted);
+  }
+
+  /* Exploding MAX word confetti */
+  :global(.max-word-particle) {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: var(--color, var(--accent));
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+    animation: max-word-burst 0.8s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+  }
+
+  @keyframes max-word-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+    }
+    45% {
+      opacity: 1;
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15) rotate(var(--rot));
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--dx) * 1.3), calc(-50% + var(--dy) * 1.3 - 8px)) scale(0.85) rotate(calc(var(--rot) * 1.4));
+    }
   }
 
   /* Burst container positioned over the button */

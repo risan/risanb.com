@@ -7,21 +7,7 @@ const { slug } = Astro.props;
 ---
 
 <span class="post-views" data-slug={slug} title="Total page views">
-  <svg
-    class="view-icon"
-    width="13"
-    height="13"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-    <circle cx="12" cy="12" r="3"></circle>
-  </svg>
+  <span class="dot">·</span>
   <span class="view-count-text"></span>
 </span>
 
@@ -93,27 +79,15 @@ const { slug } = Astro.props;
 <style>
   .post-views {
     display: none;
-    align-items: center;
-    gap: 6px;
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.2s ease;
   }
 
   .post-views.is-loaded {
     display: inline-flex;
-    opacity: 1;
+    align-items: center;
+    gap: 10px;
   }
 
-  .view-icon {
-    opacity: 0.7;
-    flex-shrink: 0;
+  .post-views .dot {
+    color: var(--rule);
   }
 </style>
