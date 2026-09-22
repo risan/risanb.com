@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GithubHeatmap from '../components/GithubHeatmap.astro';
 import Clippy from '../components/Clippy.astro';
+import TechIcon from '../components/TechIcon.astro';
 import risanPhoto from '../assets/risan.webp';
 const posts = (await getCollection('code')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -16,6 +17,12 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
+
+const terms = new Map<string, number>();
+for (const post of posts) {
+  for (const t of post.data.tags) terms.set(t, (terms.get(t) ?? 0) + 1);
+}
+const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 ---
 
 <BaseLayout
@@ -26,7 +33,7 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
     <h1>Code, <span id="curiosity-trigger" class="curiosity-trigger is-shimmering" role="button" tabindex="0" aria-label="Curiosity (click to summon Clippy)" title="Click to summon something curious...">curiosity</span>, and a questionable number of agents</h1>
 
     <div class="home-intro-spread">
-      <div class="home-intro-text">
+      <div class="home-intro-col">
         <p>
           Hi, I’m Risan. I build software for a living. It started in junior high, when I got bored with
           Flash games and picked up a book about Borland Delphi 6. I followed the tutorials and made a simple
@@ -50,27 +57,30 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
           needed, and adjust the workflow based on what goes wrong. It’s a strange way to build software,
           and I’m having a lot of fun figuring it out.
         </p>
+      </div>
+
+      <div class="home-intro-col">
+        <div class="home-intro-media">
+          <figure class="home-intro-figure">
+            <Image
+              src={risanPhoto}
+              alt="Risan Bagja looking out the train window"
+              class="home-intro-photo"
+              loading="eager"
+              fetchpriority="high"
+              widths={[380, 520, 760, 1176]}
+              sizes="(max-width: 768px) 100vw, 540px"
+            />
+            <figcaption class="home-intro-caption">Somewhere between Interlaken and Lucerne on the Zentralbahn.</figcaption>
+          </figure>
+        </div>
+
         <p>
           I’m usually tinkering with something on the side too: maps, small web apps, ESP32 boards,
           sensors, or whatever else has caught my attention. This site is where I write down what I learn,
           including the things that took longer to figure out than I’d like to admit. Hopefully, something
           here saves you an afternoon.
         </p>
-      </div>
-
-      <div class="home-intro-media">
-        <figure class="home-intro-figure">
-          <Image
-            src={risanPhoto}
-            alt="Risan Bagja looking out the train window"
-            class="home-intro-photo"
-            loading="eager"
-            fetchpriority="high"
-            widths={[380, 520, 760, 1176]}
-            sizes="(max-width: 768px) 100vw, 420px"
-          />
-          <figcaption class="home-intro-caption">Somewhere between Interlaken and Lucerne on the Zentralbahn.</figcaption>
-        </figure>
       </div>
     </div>
   </div>
@@ -115,6 +125,21 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
     </section>
   </div>
 
+  <section class="section-block">
+    <h2>Tag Clouds</h2>
+    <div class="tag-cloud">
+      {
+        sortedTags.map(([name, count]) => (
+          <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
+            <TechIcon name={name} />
+            <span class="tag-name">#{name}</span>
+            <span class="tag-count">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
   <GithubHeatmap />
   <Clippy />
 
@@ -122,46 +147,42 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   .home-intro-spread {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
     margin-top: 28px;
   }
 
   .home-intro-media {
     position: relative;
-    order: -1;
-    max-width: 340px;
-    margin: 0 auto;
+    margin: 0 0 20px;
     width: 100%;
   }
 
   @media (min-width: 768px) {
     .home-intro-spread {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-      gap: 48px;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
       align-items: start;
       margin-top: 36px;
     }
 
     .home-intro-media {
-      order: initial;
-      max-width: none;
-      margin: 0;
+      margin: 0 0 24px;
     }
   }
 
-  .home-intro-text p {
+  .home-intro-col p {
     margin: 20px 0 0;
     font-size: 1.0625rem;
     line-height: 1.75;
     color: var(--ink);
   }
 
-  .home-intro-text p:first-of-type {
+  .home-intro-col:first-child p:first-of-type {
     margin-top: 0;
   }
 
-  .home-intro-text p:first-of-type::first-letter {
+  .home-intro-col:first-child p:first-of-type::first-letter {
     initial-letter: 2;
     -webkit-initial-letter: 2;
     float: left;
@@ -173,7 +194,6 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
     margin: 0.04em 0.14em 0 0;
   }
 
-
   .home-intro-figure {
     margin: 0;
   }
@@ -181,7 +201,9 @@ const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
   .home-intro-photo {
     display: block;
     width: 100%;
-    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center 20%;
     border: 1px solid var(--rule);
     border-radius: 4px;
     background: var(--sunk);
