@@ -76,7 +76,6 @@ const ogImage = images[0];
         )}
         <span class="dot">·</span>
         <span>{minutes} min read</span>
-        <ViewCounter {slug} />
       </p>
 
       <h1>{title}</h1>
@@ -92,7 +91,10 @@ const ogImage = images[0];
 
       <footer class="post-foot">
         <div class="post-foot-content">
-          <LoveCounter {slug} />
+          <div class="post-foot-left">
+            <LoveCounter {slug} />
+            <ViewCounter {slug} />
+          </div>
 
           <div class="post-meta-inline">
             {
@@ -101,7 +103,7 @@ const ogImage = images[0];
                   <span class="meta-label">Category:</span>
                   <span class="meta-links">
                     {categories.map((c) => (
-                      <a href={`/categories/${c}/`} class="meta-link">
+                      <a href={`/categories/${c}/`} class="post-meta-pill">
                         {c.toLowerCase()}
                       </a>
                     ))}
@@ -115,7 +117,7 @@ const ogImage = images[0];
                   <span class="meta-label">Tags:</span>
                   <span class="meta-links">
                     {tags.map((t) => (
-                      <a href={`/tags/${t}/`} class="meta-link">
+                      <a href={`/tags/${t}/`} class="post-meta-pill">
                         #{t}
                       </a>
                     ))}

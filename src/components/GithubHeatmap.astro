@@ -114,223 +114,34 @@ const yearsActive = currentYear - startYear;
       <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
     </div>
     <div class="activity-header-actions">
-      <div class="synth-popover-wrapper">
-        <button
-          id="heatmap-synth-toggle"
-          class="heatmap-sound-btn heatmap-synth-btn"
-          type="button"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-          aria-controls="heatmap-synth-popover"
-          aria-label="Open heatmap synthesizer settings"
-          title="Customize heatmap tones (Synthesizer)"
-        >
-          <span class="sound-icon sound-icon-on" aria-hidden="true">🎛️</span>
-          <span class="sound-icon sound-icon-off" aria-hidden="true" style="display: none;">🔇</span>
-          <span class="sound-label">Synth</span>
-          <span class="synth-chevron" aria-hidden="true">▾</span>
-        </button>
-
-        <div
-          id="heatmap-synth-popover"
-          class="synth-popover"
-          role="dialog"
-          aria-label="Heatmap Synthesizer Settings"
-          aria-modal="false"
-          hidden
-        >
-          <div class="synth-popover-header">
-            <span class="synth-title">Heatmap Synth</span>
-            <div class="synth-header-controls">
-              <button
-                type="button"
-                id="synth-mute-btn"
-                class="synth-mute-toggle"
-                aria-pressed="false"
-                title="Mute or unmute tone audio"
-              >
-                <span class="mute-dot" aria-hidden="true"></span>
-                <span class="mute-text">Sound ON</span>
-              </button>
-              <button
-                type="button"
-                id="synth-close-btn"
-                class="synth-close-btn"
-                aria-label="Close synthesizer settings"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Presets -->
-          <div class="synth-section">
-            <div class="synth-section-label">Presets</div>
-            <div class="synth-presets-grid">
-              <button type="button" class="synth-preset-chip" data-preset="chimes" title="Soft chiming bell tones">
-                <span class="preset-icon">🔔</span>
-                <span>Chimes</span>
-              </button>
-              <button type="button" class="synth-preset-chip" data-preset="retro" title="Punchy vintage 8-bit square wave">
-                <span class="preset-icon">👾</span>
-                <span>8-Bit</span>
-              </button>
-              <button type="button" class="synth-preset-chip" data-preset="pad" title="Warm ambient swelling pad with reverb">
-                <span class="preset-icon">🌊</span>
-                <span>Pad</span>
-              </button>
-              <button type="button" class="synth-preset-chip" data-preset="cosmic" title="Rich buzz with rhythmic canyon echo">
-                <span class="preset-icon">🌌</span>
-                <span>Cosmic</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Waveform Selection -->
-          <div class="synth-section">
-            <div class="synth-section-label">Waveform <span class="synth-param-hint">(Sound Character)</span></div>
-            <div class="synth-wave-selector" role="radiogroup" aria-label="Select synthesizer waveform">
-              <label class="wave-option">
-                <input type="radio" name="synth-wave" value="sine" />
-                <span class="wave-pill">
-                  <span class="wave-symbol">∿</span>
-                  <span class="wave-name">Sin</span>
-                  <span class="wave-desc">Pure</span>
-                </span>
-              </label>
-              <label class="wave-option">
-                <input type="radio" name="synth-wave" value="triangle" checked />
-                <span class="wave-pill">
-                  <span class="wave-symbol">△</span>
-                  <span class="wave-name">Tri</span>
-                  <span class="wave-desc">Warm</span>
-                </span>
-              </label>
-              <label class="wave-option">
-                <input type="radio" name="synth-wave" value="square" />
-                <span class="wave-pill">
-                  <span class="wave-symbol">⊓</span>
-                  <span class="wave-name">Square</span>
-                  <span class="wave-desc">8-Bit</span>
-                </span>
-              </label>
-              <label class="wave-option">
-                <input type="radio" name="synth-wave" value="sawtooth" />
-                <span class="wave-pill">
-                  <span class="wave-symbol">⋀</span>
-                  <span class="wave-name">Saw</span>
-                  <span class="wave-desc">Bright</span>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Envelope Controls: Attack, Decay, Sustain -->
-          <div class="synth-section">
-            <div class="synth-section-label">Envelope <span class="synth-param-hint">(Shape Over Time)</span></div>
-
-            <div class="synth-slider-row">
-              <div class="synth-slider-meta">
-                <span class="slider-name">Attack</span>
-                <span class="slider-helper">Hit speed</span>
-                <span id="synth-val-attack" class="slider-value">5ms</span>
-              </div>
-              <input
-                id="synth-slider-attack"
-                type="range"
-                min="0.002"
-                max="0.25"
-                step="0.004"
-                value="0.005"
-                aria-label="Attack time"
-              />
-            </div>
-
-            <div class="synth-slider-row">
-              <div class="synth-slider-meta">
-                <span class="slider-name">Decay</span>
-                <span class="slider-helper">Fade time</span>
-                <span id="synth-val-decay" class="slider-value">0.35s</span>
-              </div>
-              <input
-                id="synth-slider-decay"
-                type="range"
-                min="0.08"
-                max="1.2"
-                step="0.02"
-                value="0.35"
-                aria-label="Decay time"
-              />
-            </div>
-
-            <div class="synth-slider-row">
-              <div class="synth-slider-meta">
-                <span class="slider-name">Sustain</span>
-                <span class="slider-helper">Hold level</span>
-                <span id="synth-val-sustain" class="slider-value">5%</span>
-              </div>
-              <input
-                id="synth-slider-sustain"
-                type="range"
-                min="0"
-                max="0.6"
-                step="0.02"
-                value="0.05"
-                aria-label="Sustain volume"
-              />
-            </div>
-          </div>
-
-          <!-- Effects: Echo & Reverb -->
-          <div class="synth-section">
-            <div class="synth-section-label">Effects <span class="synth-param-hint">(Space & Atmosphere)</span></div>
-
-            <div class="synth-slider-row">
-              <div class="synth-slider-meta">
-                <span class="slider-name">Echo</span>
-                <span class="slider-helper">Rhythmic delay</span>
-                <span id="synth-val-echo" class="slider-value">15%</span>
-              </div>
-              <input
-                id="synth-slider-echo"
-                type="range"
-                min="0"
-                max="0.6"
-                step="0.02"
-                value="0.15"
-                aria-label="Echo delay amount"
-              />
-            </div>
-
-            <div class="synth-slider-row">
-              <div class="synth-slider-meta">
-                <span class="slider-name">Reverb</span>
-                <span class="slider-helper">Room acoustics</span>
-                <span id="synth-val-reverb" class="slider-value">25%</span>
-              </div>
-              <input
-                id="synth-slider-reverb"
-                type="range"
-                min="0"
-                max="1.0"
-                step="0.05"
-                value="0.25"
-                aria-label="Reverb space amount"
-              />
-            </div>
-          </div>
-
-          <!-- Popover Footer: Preview Note & Reset -->
-          <div class="synth-popover-footer">
-            <button type="button" id="synth-test-btn" class="synth-test-btn">
-              ▶ Preview Note
-            </button>
-            <button type="button" id="synth-reset-btn" class="synth-reset-btn">
-              Reset to default
-            </button>
-          </div>
-        </div>
-      </div>
+      <button
+        id="heatmap-synth-toggle"
+        class="heatmap-sound-btn heatmap-synth-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="heatmap-synth-panel"
+        aria-label="Toggle contribution tone synthesizer"
+        title="Toggle contribution tone synthesizer"
+      >
+        <svg class="synth-btn-icon synth-icon-on" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="21" x2="4" y2="14"></line>
+          <line x1="4" y1="10" x2="4" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="3"></line>
+          <line x1="20" y1="21" x2="20" y2="16"></line>
+          <line x1="20" y1="12" x2="20" y2="3"></line>
+          <line x1="1" y1="14" x2="7" y2="14"></line>
+          <line x1="9" y1="8" x2="15" y2="8"></line>
+          <line x1="17" y1="16" x2="23" y2="16"></line>
+        </svg>
+        <svg class="synth-btn-icon synth-icon-off" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: none;">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span class="sound-label">Synth</span>
+        <span class="synth-chevron" aria-hidden="true">▾</span>
+      </button>
       <a
         href={`https://github.com/${username}`}
         target="_blank"
@@ -376,6 +187,238 @@ const yearsActive = currentYear - startYear;
 
   {/* Heatmap Card */}
   <div class="heatmap-card">
+    {/* Expandable Synth Console inside heatmap card */}
+    <div
+      id="heatmap-synth-panel"
+      class="heatmap-synth-panel"
+      role="region"
+      aria-label="Heatmap Synthesizer Controls"
+      hidden
+    >
+      <div class="synth-panel-header">
+        <div class="synth-title-group">
+          <span class="synth-title">Tone Synthesizer</span>
+          <span class="synth-subtitle">Interactive Sound Engine</span>
+        </div>
+
+        <div class="synth-header-controls">
+          <button
+            type="button"
+            id="synth-mute-btn"
+            class="synth-mute-toggle"
+            aria-pressed="false"
+            title="Mute or unmute tone audio"
+          >
+            <span class="mute-dot" aria-hidden="true"></span>
+            <span class="mute-text">Sound ON</span>
+          </button>
+
+          <button
+            type="button"
+            id="synth-test-btn"
+            class="synth-header-btn synth-test-btn"
+            title="Preview sample note"
+          >
+            <svg class="play-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Preview</span>
+          </button>
+
+          <button
+            type="button"
+            id="synth-reset-btn"
+            class="synth-header-btn synth-reset-btn"
+            title="Reset to default settings"
+          >
+            Reset
+          </button>
+
+          <button
+            type="button"
+            id="synth-close-btn"
+            class="synth-close-btn"
+            aria-label="Close synthesizer controls"
+            title="Close synthesizer panel"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div class="synth-panel-grid">
+        <!-- Col 1: Presets & Waveform -->
+        <div class="synth-col synth-col--voice">
+          <div class="synth-section">
+            <div class="synth-section-label">Presets</div>
+            <div class="synth-presets-grid">
+              <button type="button" class="synth-preset-chip" data-preset="chimes" title="Soft chiming bell tones">
+                <svg class="preset-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                </svg>
+                <span>Chimes</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="retro" title="Punchy vintage 8-bit square wave">
+                <svg class="preset-svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6 2h2v2H6zm10 0h2v2h-2zM4 6h2v2H4zm14 0h2v2h-2zM2 8h2v8H2zm4 8h2v2H6zm12 0h2v2h-2zm2-8h2v8h-2zM6 8h12v6H6zm2 2h2v2H8zm6 0h2v2h-2z"></path>
+                </svg>
+                <span>8-Bit</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="pad" title="Warm ambient swelling pad with reverb">
+                <svg class="preset-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 12c3-3 7-3 10 0s7 3 10 0"></path>
+                  <path d="M2 6c3-3 7-3 10 0s7 3 10 0" opacity="0.45"></path>
+                  <path d="M2 18c3-3 7-3 10 0s7 3 10 0" opacity="0.45"></path>
+                </svg>
+                <span>Pad</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="cosmic" title="Rich buzz with rhythmic canyon echo">
+                <svg class="preset-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3m-3.5-6.5l-2.1 2.1m-8.8 8.8l-2.1 2.1m0-13l2.1 2.1m8.8 8.8l2.1 2.1"></path>
+                </svg>
+                <span>Cosmic</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="synth-section">
+            <div class="synth-section-label">Waveform <span class="synth-param-hint">(Tone Character)</span></div>
+            <div class="synth-wave-selector" role="radiogroup" aria-label="Select synthesizer waveform">
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="sine" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">∿</span>
+                  <span class="wave-name">Sin</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="triangle" checked />
+                <span class="wave-pill">
+                  <span class="wave-symbol">△</span>
+                  <span class="wave-name">Tri</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="square" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">⊓</span>
+                  <span class="wave-name">Square</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="sawtooth" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">⋀</span>
+                  <span class="wave-name">Saw</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: Envelope Sliders -->
+        <div class="synth-col synth-col--envelope">
+          <div class="synth-section-label">Envelope <span class="synth-param-hint">(Shape Over Time)</span></div>
+
+          <div class="synth-slider-row">
+            <div class="synth-slider-meta">
+              <span class="slider-name">Attack</span>
+              <span class="slider-helper">Hit speed</span>
+              <span id="synth-val-attack" class="slider-value">5ms</span>
+            </div>
+            <input
+              id="synth-slider-attack"
+              type="range"
+              min="0.002"
+              max="0.25"
+              step="0.004"
+              value="0.005"
+              aria-label="Attack time"
+            />
+          </div>
+
+          <div class="synth-slider-row">
+            <div class="synth-slider-meta">
+              <span class="slider-name">Decay</span>
+              <span class="slider-helper">Fade time</span>
+              <span id="synth-val-decay" class="slider-value">0.35s</span>
+            </div>
+            <input
+              id="synth-slider-decay"
+              type="range"
+              min="0.08"
+              max="1.2"
+              step="0.02"
+              value="0.35"
+              aria-label="Decay time"
+            />
+          </div>
+
+          <div class="synth-slider-row">
+            <div class="synth-slider-meta">
+              <span class="slider-name">Sustain</span>
+              <span class="slider-helper">Hold level</span>
+              <span id="synth-val-sustain" class="slider-value">5%</span>
+            </div>
+            <input
+              id="synth-slider-sustain"
+              type="range"
+              min="0"
+              max="0.6"
+              step="0.02"
+              value="0.05"
+              aria-label="Sustain volume"
+            />
+          </div>
+        </div>
+
+        <!-- Col 3: Effects Sliders -->
+        <div class="synth-col synth-col--effects">
+          <div class="synth-section-label">Effects <span class="synth-param-hint">(Space & Acoustics)</span></div>
+
+          <div class="synth-slider-row">
+            <div class="synth-slider-meta">
+              <span class="slider-name">Echo</span>
+              <span class="slider-helper">Rhythmic delay</span>
+              <span id="synth-val-echo" class="slider-value">15%</span>
+            </div>
+            <input
+              id="synth-slider-echo"
+              type="range"
+              min="0"
+              max="0.6"
+              step="0.02"
+              value="0.15"
+              aria-label="Echo delay amount"
+            />
+          </div>
+
+          <div class="synth-slider-row">
+            <div class="synth-slider-meta">
+              <span class="slider-name">Reverb</span>
+              <span class="slider-helper">Room acoustics</span>
+              <span id="synth-val-reverb" class="slider-value">25%</span>
+            </div>
+            <input
+              id="synth-slider-reverb"
+              type="range"
+              min="0"
+              max="1.0"
+              step="0.05"
+              value="0.25"
+              aria-label="Reverb space amount"
+            />
+          </div>
+
+          <div class="synth-tip-box">
+            <span class="synth-tip-dot" aria-hidden="true"></span>
+            <span>Hover or scrub heatmap cells to play live tones. Darker cells ring higher harmonics.</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
       <svg
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
@@ -793,7 +836,7 @@ const yearsActive = currentYear - startYear;
       const sound = new HeatmapSoundEngine();
 
       const synthToggleBtn = document.getElementById('heatmap-synth-toggle');
-      const synthPopover = document.getElementById('heatmap-synth-popover');
+      const synthPanel = document.getElementById('heatmap-synth-panel');
       const synthCloseBtn = document.getElementById('synth-close-btn');
       const synthMuteBtn = document.getElementById('synth-mute-btn');
       const testBtn = document.getElementById('synth-test-btn');
@@ -877,12 +920,13 @@ const yearsActive = currentYear - startYear;
       updateMuteUI();
       syncControlsToConfig(sound.config.preset || 'chimes');
 
-      // Popover toggling
-      const togglePopover = (show?: boolean) => {
-        if (!synthPopover || !synthToggleBtn) return;
-        const shouldShow = typeof show === 'boolean' ? show : synthPopover.hidden;
-        synthPopover.hidden = !shouldShow;
+      // Panel toggling
+      const togglePanel = (show?: boolean) => {
+        if (!synthPanel || !synthToggleBtn) return;
+        const shouldShow = typeof show === 'boolean' ? show : synthPanel.hidden;
+        synthPanel.hidden = !shouldShow;
         synthToggleBtn.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+        synthToggleBtn.classList.toggle('is-active', shouldShow);
         if (shouldShow) {
           sound.initContext();
         }
@@ -890,26 +934,17 @@ const yearsActive = currentYear - startYear;
 
       synthToggleBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
-        togglePopover();
+        togglePanel();
       });
 
       synthCloseBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
-        togglePopover(false);
+        togglePanel(false);
       });
 
-      // Close popover when clicking outside or pressing Escape
-      document.addEventListener('click', (e) => {
-        if (!synthPopover || synthPopover.hidden) return;
-        const target = e.target as HTMLElement | null;
-        if (!target?.closest('.synth-popover-wrapper')) {
-          togglePopover(false);
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && synthPopover && !synthPopover.hidden) {
-          togglePopover(false);
+      synthPanel?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          togglePanel(false);
           synthToggleBtn?.focus();
         }
       });
@@ -1162,6 +1197,16 @@ const yearsActive = currentYear - startYear;
     display: inline-block;
   }
 
+  .synth-btn-icon {
+    flex-shrink: 0;
+    color: var(--ink-muted);
+    transition: color 0.15s ease;
+  }
+
+  .heatmap-synth-btn:hover .synth-btn-icon {
+    color: var(--accent);
+  }
+
   .synth-chevron {
     font-size: 0.625rem;
     line-height: 1;
@@ -1170,52 +1215,64 @@ const yearsActive = currentYear - startYear;
     transition: transform 0.15s ease;
   }
 
-  .heatmap-synth-btn[aria-expanded="true"] .synth-chevron {
+  .heatmap-synth-btn[aria-expanded="true"] .synth-chevron,
+  .heatmap-synth-btn.is-active .synth-chevron {
     transform: rotate(180deg);
   }
 
-  .heatmap-synth-btn[aria-expanded="true"] {
+  .heatmap-synth-btn[aria-expanded="true"],
+  .heatmap-synth-btn.is-active {
     border-color: var(--accent);
     color: var(--accent);
   }
 
-  .synth-popover {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 330px;
-    max-width: min(360px, calc(100vw - 32px));
-    background: var(--paper);
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
-    padding: 14px 16px;
-    z-index: 100;
-    font-family: var(--font-mono);
-    color: var(--ink);
-    box-sizing: border-box;
-    text-align: left;
+  .heatmap-synth-btn[aria-expanded="true"] .synth-btn-icon,
+  .heatmap-synth-btn.is-active .synth-btn-icon {
+    color: var(--accent);
   }
 
-  .synth-popover[hidden] {
+  /* Expandable Synth Drawer inside .heatmap-card */
+  .heatmap-synth-panel {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 18px 16px;
+    background: var(--sunk);
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    color: var(--ink);
+  }
+
+  .heatmap-synth-panel[hidden] {
     display: none !important;
   }
 
-  .synth-popover-header {
+  .synth-panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--rule);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
+  }
+
+  .synth-title-group {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
   }
 
   .synth-title {
     font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink);
+  }
+
+  .synth-subtitle {
+    font-size: 0.625rem;
+    color: var(--ink-muted);
   }
 
   .synth-header-controls {
@@ -1229,10 +1286,12 @@ const yearsActive = currentYear - startYear;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--sunk);
+    height: 24px;
+    box-sizing: border-box;
+    background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 9999px;
-    padding: 2px 8px;
+    padding: 0 9px;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
@@ -1256,12 +1315,51 @@ const yearsActive = currentYear - startYear;
     opacity: 0.75;
   }
 
+  .synth-header-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 24px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .synth-header-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .synth-test-btn {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .synth-test-btn:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+
+  :global(html.dark) .synth-test-btn {
+    color: #1b1c1d;
+  }
+
   .synth-close-btn {
     appearance: none;
     background: transparent;
     border: none;
-    padding: 2px 4px;
-    font-size: 0.75rem;
+    padding: 2px 6px;
+    font-size: 0.8125rem;
     line-height: 1;
     color: var(--ink-muted);
     cursor: pointer;
@@ -1272,8 +1370,34 @@ const yearsActive = currentYear - startYear;
     color: var(--accent);
   }
 
+  /* 3-Column Layout */
+  .synth-panel-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr;
+    gap: 16px 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .synth-panel-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .synth-col--voice {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .synth-panel-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .synth-section {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+  }
+  .synth-section:last-child {
+    margin-bottom: 0;
   }
 
   .synth-section-label {
@@ -1282,7 +1406,7 @@ const yearsActive = currentYear - startYear;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-muted);
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     display: flex;
     align-items: baseline;
     gap: 4px;
@@ -1296,11 +1420,11 @@ const yearsActive = currentYear - startYear;
     font-size: 0.5625rem;
   }
 
-  /* Presets Grid */
+  /* Presets */
   .synth-presets-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 5px;
   }
 
   .synth-preset-chip {
@@ -1309,9 +1433,9 @@ const yearsActive = currentYear - startYear;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
-    padding: 5px 2px;
-    background: var(--sunk);
+    gap: 4px;
+    padding: 6px 2px;
+    background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 4px;
     font-family: var(--font-mono);
@@ -1322,23 +1446,29 @@ const yearsActive = currentYear - startYear;
     transition: all 0.15s ease;
   }
 
+  .synth-preset-chip .preset-svg {
+    color: var(--ink-muted);
+    transition: color 0.15s ease;
+  }
+
   .synth-preset-chip:hover,
   .synth-preset-chip.is-active {
     border-color: var(--accent);
     color: var(--accent);
     background: var(--paper);
+    box-shadow: 0 0 0 1px var(--accent);
   }
 
-  .preset-icon {
-    font-size: 0.75rem;
-    line-height: 1;
+  .synth-preset-chip:hover .preset-svg,
+  .synth-preset-chip.is-active .preset-svg {
+    color: var(--accent);
   }
 
-  /* Wave selector */
+  /* Waveform selector */
   .synth-wave-selector {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 5px;
   }
 
   .wave-option {
@@ -1359,8 +1489,8 @@ const yearsActive = currentYear - startYear;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4px 2px;
-    background: var(--sunk);
+    padding: 5px 2px;
+    background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 4px;
     text-align: center;
@@ -1382,14 +1512,6 @@ const yearsActive = currentYear - startYear;
     color: var(--ink);
   }
 
-  .wave-desc {
-    font-size: 0.5rem;
-    line-height: 1.1;
-    color: var(--ink-muted);
-    margin-top: 2px;
-    opacity: 0.75;
-  }
-
   .wave-option input:checked + .wave-pill {
     background: var(--paper);
     border-color: var(--accent);
@@ -1400,15 +1522,18 @@ const yearsActive = currentYear - startYear;
   .wave-option input:checked + .wave-pill .wave-name {
     color: var(--accent);
   }
+
   .wave-option input:focus-visible + .wave-pill {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 
-
   /* Slider Row */
   .synth-slider-row {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .synth-slider-row:last-of-type {
+    margin-bottom: 0;
   }
 
   .synth-slider-meta {
@@ -1427,13 +1552,13 @@ const yearsActive = currentYear - startYear;
   .slider-helper {
     font-size: 0.5625rem;
     color: var(--ink-muted);
-    margin-left: 4px;
+    margin-left: 5px;
     margin-right: auto;
   }
 
   .slider-value {
     color: var(--accent);
-    font-weight: 500;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
   }
 
@@ -1445,8 +1570,13 @@ const yearsActive = currentYear - startYear;
     background: var(--rule);
     border-radius: 2px;
     outline: none;
-    margin: 3px 0 1px 0;
+    margin: 4px 0 2px 0;
     cursor: pointer;
+  }
+
+  .synth-slider-row input[type="range"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .synth-slider-row input[type="range"]::-webkit-slider-thumb {
@@ -1475,57 +1605,27 @@ const yearsActive = currentYear - startYear;
     transition: transform 0.1s ease;
   }
 
-  /* Popover Footer */
-  .synth-popover-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 8px;
-    border-top: 1px solid var(--rule);
-    margin-top: 6px;
-  }
-
-  .synth-test-btn {
-    appearance: none;
-    background: var(--accent);
-    color: #fff;
-    border: none;
+  .synth-tip-box {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
     border-radius: 4px;
-    padding: 4px 10px;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s ease, transform 0.1s ease;
-  }
-
-  .synth-test-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-
-  .synth-test-btn:active {
-    transform: scale(0.97);
-  }
-  :global(html.dark) .synth-test-btn {
-    color: #1b1c1d;
-  }
-
-
-  .synth-reset-btn {
-    appearance: none;
-    background: transparent;
-    border: none;
-    font-family: var(--font-mono);
     font-size: 0.625rem;
+    line-height: 1.4;
     color: var(--ink-muted);
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
   }
 
-  .synth-reset-btn:hover {
-    color: var(--accent);
+  .synth-tip-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
   }
 
   .github-icon {

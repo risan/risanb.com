@@ -780,6 +780,12 @@ html.dark .expressive-code .frame .header {
   flex-wrap: wrap;
   gap: 16px 24px;
 }
+.post-foot-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 
 .post-meta-inline {
   display: flex;
@@ -811,15 +817,37 @@ html.dark .expressive-code .frame .header {
   gap: 8px;
 }
 
-.meta-link {
+.post-meta-pill {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  box-sizing: border-box;
+  padding: 0 9px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
   color: var(--ink);
-  text-decoration: none;
-  transition: color 0.15s ease;
+  background: var(--sunk);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-decoration: none !important;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.meta-link:hover {
+.post-meta-pill:hover {
+  background: var(--paper);
+  border-color: var(--accent);
   color: var(--accent);
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 
 .tag-pill {

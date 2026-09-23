@@ -6,8 +6,22 @@ interface Props {
 const { slug } = Astro.props;
 ---
 
-<span class="post-views" data-slug={slug} title="Total page views">
-  <span class="dot">·</span>
+<span class="post-views post-meta-pill" data-slug={slug} title="Total page views">
+  <svg
+    class="view-eye-svg"
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
   <span class="view-count-text"></span>
 </span>
 
@@ -79,15 +93,17 @@ const { slug } = Astro.props;
 <style>
   .post-views {
     display: none;
+    gap: 6px;
+    cursor: default;
   }
 
   .post-views.is-loaded {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
   }
 
-  .post-views .dot {
-    color: var(--rule);
+  .view-eye-svg {
+    color: var(--ink-muted);
+    flex-shrink: 0;
   }
 </style>
