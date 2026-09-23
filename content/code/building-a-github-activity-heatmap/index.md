@@ -1,53 +1,29 @@
 ---
 title: Building a GitHub Activity Heatmap
 date: 2026-09-22
-description: How to query GitHub's GraphQL API, automate daily updates with GitHub Actions, and render a zero-dependency SVG activity heatmap in Astro.
+description: A tour of the GraphQL fetch, daily JSON snapshot, and Astro SVG behind the little grid on my homepage.
 categories: [tutorial]
 tags: [javascript, graphql, svg]
 images: [/posts/building-a-github-activity-heatmap/og.png]
 ---
-Instead of embedding a third-party iframe or loading a generic widget that pings external servers on every page visit, I wanted a native GitHub contribution map directly on this blog's homepage. One that loads with zero client-side network latency and includes both public open-source commits and private client work.
+GitHub's contribution graph is a tiny productivity dashboard disguised as confetti. I wanted one on my homepage, in the site's colors, without a widget making another request whenever somebody visited.
 
-The architecture is simple: fetch the contribution data at build time, save it as a local JSON snapshot, automate daily updates with a scheduled GitHub Actions workflow, and render the calendar grid using pure SVG.
+The setup is pretty small: a Node script asks GitHub for the calendar, an Action refreshes a JSON snapshot every day, and an Astro component turns that snapshot into SVG. The browser doesn't ask GitHub for anything. It gets the finished grid, plus one tiny script that moves the horizontal scroller to the latest week.
 
 {{<toc>}}
 
-## Pulling Contribution Data via GraphQL
+## Get the calendar from GitHub
 
-GitHub's REST API does not provide a simple endpoint for your contribution calendar grid unless you scrape the HTML profile page. The [GitHub GraphQL API](https://docs.github.com/en/graphql), however, exposes the `contributionsCollection` object on the `User` and `viewer` types. This gives us exact week-by-week contribution counts, quartile intensity levels, and private activity numbers.
-
-We wrote a Node.js script in `scripts/fetch-github-contributions.mjs`. First, it resolves an authentication token from the environment (`GITHUB_TOKEN`, `GH_TOKEN`) or falls back to your local GitHub CLI session (`gh auth token`):
-
-```javascript
-import { execSync } from 'node:child_process';
-
-function resolveToken() {
-  if (process.env.GITHUB_TOKEN?.trim()) return process.env.GITHUB_TOKEN.trim();
-  if (process.env.GH_TOKEN?.trim()) return process.env.GH_TOKEN.trim();
-  try {
-    const out = execSync('gh auth token', {
-      encoding: 'utf-8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    });
-    if (out?.trim()) return out.trim();
-  } catch {
-    // gh CLI not authenticated or not installed
-  }
-  return null;
-}
-```
-
-Next, we query the `contributionCalendar` for the trailing year, along with the stats for the current month and year:
+The GraphQL API already returns contributions grouped by week and day. Each day comes with a date, a count, a weekday number, and an intensity level. That's most of what the drawing code needs:
 
 ```graphql
-query GetOverview($monthStart: DateTime!, $yearStart: DateTime!, $now: DateTime!) {
+query GetCalendar {
   viewer {
     login
     calendar: contributionsCollection {
       contributionCalendar {
         totalContributions
         weeks {
-          firstDay
           contributionDays {
             date
             contributionCount
@@ -55,37 +31,53 @@ query GetOverview($monthStart: DateTime!, $yearStart: DateTime!, $now: DateTime!
             weekday
           }
         }
-        months {
-          name
-          firstDay
-          totalWeeks
-        }
       }
       contributionYears
-    }
-    thisMonth: contributionsCollection(from: $monthStart, to: $now) {
-      totalCommitContributions
-      restrictedContributionsCount
-      contributionCalendar { totalContributions }
-    }
-    thisYear: contributionsCollection(from: $yearStart, to: $now) {
-      totalCommitContributions
-      restrictedContributionsCount
-      contributionCalendar { totalContributions }
     }
   }
 }
 ```
 
-### Batching All-Time History with GraphQL Aliases
+`viewer` means the account behind the token. `contributionLevel` is `NONE` or one of four contribution quartiles, and `weekday` tells me which row each day belongs in. The full fetcher uses a longer query that also asks for this month's and this year's totals for the little stats cards. GitHub counts several kinds of activity here, including issues, pull requests, and commits, so the calendar is not a commit counter. The [`ContributionsCollection` fields](https://docs.github.com/en/graphql/reference/users#contributionscollection) have the full list.
 
-To show total all-time contributions without sending separate HTTP requests for every year of account history, we use GraphQL query aliases. Given the array of `contributionYears` returned from the first query (e.g. `[2026, 2025, 2024, ...]`), we dynamically compose a single query:
+The fetch script looks for a token in the environment first. When I'm running it on my machine, it can also use the GitHub CLI login:
+
+```javascript
+import { execSync } from 'node:child_process';
+
+function resolveToken() {
+  if (process.env.GITHUB_TOKEN?.trim()) {
+    return process.env.GITHUB_TOKEN.trim();
+  }
+  if (process.env.GH_TOKEN?.trim()) {
+    return process.env.GH_TOKEN.trim();
+  }
+
+  try {
+    const out = execSync('gh auth token', {
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    });
+    if (out?.trim()) return out.trim();
+  } catch {
+    // The GitHub CLI isn't installed or logged in.
+  }
+
+  return null;
+}
+```
+
+For private and internal activity, GitHub requires the optional `read:user` scope on the token. The script uses `viewer`, so it also checks that the token belongs to the expected account before writing anything. It refuses to replace the saved data with an empty calendar, too. That way a wrong token or a bad response doesn't quietly turn the homepage into a very convincing week off.
+
+### Add the older years without a request per year
+
+The calendar query includes `contributionYears`. I use GraphQL aliases to ask for every year's totals in one more request, instead of making a separate round trip for each year:
 
 ```javascript
 const yearAliases = years
   .map(
-    (y) =>
-      `y${y}: contributionsCollection(from: "${y}-01-01T00:00:00Z", to: "${y}-12-31T23:59:59Z") {
+    (year) =>
+      `y${year}: contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${year}-12-31T23:59:59Z") {
         contributionCalendar { totalContributions }
         totalCommitContributions
         restrictedContributionsCount
@@ -97,17 +89,13 @@ const queryAllYears = `query { viewer { ${yearAliases} } }`;
 const dataAllYears = await graphql(token, queryAllYears);
 ```
 
-This delivers our entire lifetime contribution tally—including private client contributions—in a single round trip.
+Each `y2025`, `y2024`, and so on is an alias in the response. The script adds those results together for the all-time card. It then writes the calendar and totals to `src/data/github-contributions.json`. The snapshot contains counts, dates, weekdays, and intensity levels; the token stays in the environment and never goes into the page.
 
-Before writing the output, the script guards against corrupting our local cache: it asserts that the token user matches the expected login and refuses to overwrite existing data if the API returns 0 contributions. Finally, it writes `src/data/github-contributions.json`.
+## Keep the snapshot fresh
 
-## Automating Updates with GitHub Actions
-
-To keep the calendar current without manual intervention, we set up a scheduled GitHub Actions workflow in `.github/workflows/update-contributions.yml`. It runs daily at 02:00 UTC and supports manual dispatch:
+A GitHub Actions workflow runs the script at 02:00 UTC each day. I can also start it manually with `workflow_dispatch`, which is handy when testing and less handy when I forget what time zone I'm in. In `.github/workflows/update-contributions.yml`, the schedule and permission bits look like this:
 
 ```yaml
-name: Update GitHub Contributions
-
 on:
   schedule:
     - cron: '0 2 * * *'
@@ -115,49 +103,25 @@ on:
 
 permissions:
   contents: write
-
-jobs:
-  update:
-    name: Refresh contribution snapshot
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          token: ${{ secrets.GH_PAT }}
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Fetch latest GitHub activity
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: node scripts/fetch-github-contributions.mjs
-
-      - name: Commit and push if changed
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet src/data/github-contributions.json; then
-            echo "No changes in contribution data."
-          else
-            git add src/data/github-contributions.json
-            git commit -m "chore(data): update github contributions"
-            git push origin main
-          fi
 ```
 
-The critical detail here is `git diff --quiet src/data/github-contributions.json`. If no new commits or pull requests occurred, the workflow exits cleanly without spamming git history with empty commits.
+The workflow passes a repository secret named `GH_PAT` to the script. That token needs permission to read the account's contribution data and push the updated JSON file. After fetching and setting the bot's Git identity, the workflow checks whether the snapshot actually changed before it makes a commit:
 
-## Drawing the Heatmap with Pure SVG
+```bash
+if git diff --quiet src/data/github-contributions.json; then
+  echo "No changes in contribution data."
+else
+  git add src/data/github-contributions.json
+  git commit -m "chore(data): update github contributions"
+  git push origin main
+fi
+```
 
-Rather than importing a charting library like D3 or Chart.js, the entire grid is rendered as a clean SVG inside an Astro component (`src/components/GithubHeatmap.astro`). Because Astro components execute at build time, the JSON data is imported statically:
+No new activity means no empty commit. On my laptop, the script can use the checked-in snapshot if I don't have a token handy; in CI, a missing token is an error.
+
+## Draw the grid with Astro and SVG
+
+The Astro component imports the JSON file directly:
 
 ```astro
 ---
@@ -168,188 +132,129 @@ const weeks = calendar.weeks;
 ---
 ```
 
-### Grid Geometry and Coordinates
+Astro reads that file while building the site. There is no browser request to GitHub and no chart library to download. The component loops over the weeks and draws one SVG rectangle for each day.
 
-The GitHub activity grid consists of 53 columns (weeks) and 7 rows (days of the week, Sunday through Saturday). We set up constants for sizing and spacing:
+I used 10-pixel squares with a 3-pixel gap. `weeks.length` comes from GitHub, so the width adapts to the calendar instead of assuming it will always be exactly 53 weeks:
 
 ```javascript
 const CELL_SIZE = 10;
 const CELL_GAP = 3;
-const STEP = CELL_SIZE + CELL_GAP; // 13px step per column/row
-const X_OFFSET = 30; // Left margin for weekday labels
-const Y_OFFSET = 20; // Top margin for month labels
+const STEP = CELL_SIZE + CELL_GAP;
+const X_OFFSET = 30; // room for weekday labels
+const Y_OFFSET = 20; // room for month labels
 
 const totalWeeks = weeks.length;
-const svgWidth = X_OFFSET + totalWeeks * STEP; // 30 + (53 * 13) = 719px
-const svgHeight = Y_OFFSET + 7 * STEP;         // 20 + (7 * 13) = 111px
+const svgWidth = X_OFFSET + totalWeeks * STEP;
+const svgHeight = Y_OFFSET + 7 * STEP;
 ```
 
-Rendering the grid is a straightforward nested loop over weeks and days:
+A day's `weekday` gives its row; the week index gives its column. GitHub's contribution level maps to one of five CSS classes, from empty to busiest:
 
-```astro
-<svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} class="heatmap-svg">
-  {weeks.map((week, wIndex) => {
-    const x = X_OFFSET + wIndex * STEP;
-    return (
-      <g class="heatmap-week">
-        {week.contributionDays.map((day) => {
-          const y = Y_OFFSET + day.weekday * STEP;
-          const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
-          return (
-            <rect
-              x={x}
-              y={y}
-              width={CELL_SIZE}
-              height={CELL_SIZE}
-              rx={2}
-              ry={2}
-              class={`gh-cell ${levelClass}`}
-              data-date={day.date}
-              data-count={day.contributionCount}
-            >
-              <title>
-                {`${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`}
-              </title>
-            </rect>
-          );
-        })}
-      </g>
-    );
-  })}
-</svg>
-```
-
-On mobile devices, a 719px SVG would either shrink until unreadable or break the viewport. We wrap it in a container with `overflow-x: auto` and add a tiny inline script to scroll to the right by default (`scroll.scrollLeft = scroll.scrollWidth`), ensuring readers see the most recent activity first.
-
-## Printing the Date and Labels
-
-A heatmap without date reference points is just colored confetti. We need three levels of temporal information: weekday indicators, month labels along the top, and exact dates on each individual cell.
-
-### Weekday Guides
-
-Printing labels for all seven days creates visual clutter on a 10px grid. Following GitHub's convention, we only label Monday (day 1), Wednesday (day 3), and Friday (day 5) in the left gutter:
-
-```astro
-<text x={2} y={Y_OFFSET + 1 * STEP + 8} class="label-weekday">Mon</text>
-<text x={2} y={Y_OFFSET + 3 * STEP + 8} class="label-weekday">Wed</text>
-<text x={2} y={Y_OFFSET + 5 * STEP + 8} class="label-weekday">Fri</text>
-```
-
-The `+ 8` offset aligns the text baseline with the vertical center of the 10px square.
-
-### Month Labels Along the Top
-
-Month labels are calculated dynamically by iterating over the weeks and checking when a new month begins. To prevent adjacent month names from overlapping—especially at the start of the year—we enforce a minimum horizontal spacing of 24 pixels:
-
-```javascript
-const monthLabels = [];
-let lastMonth = -1;
-const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-weeks.forEach((week, wIndex) => {
-  const firstValidDay = week.contributionDays[0];
-  if (firstValidDay) {
-    const d = new Date(firstValidDay.date);
-    const m = d.getUTCMonth();
-    if (m !== lastMonth) {
-      const prev = monthLabels[monthLabels.length - 1];
-      const x = X_OFFSET + wIndex * STEP;
-      if (!prev || x - prev.x >= 24) {
-        monthLabels.push({ name: monthNames[m], x });
-        lastMonth = m;
-      }
-    }
-  }
-});
-```
-
-Then we render them at `y={12}`:
-
-```astro
-{monthLabels.map((m) => (
-  <text x={m.x} y={12} class="label-month">
-    {m.name}
-  </text>
-))}
-```
-
-### Tooltips on Every Day
-
-Instead of loading a heavy JavaScript popover library, we use the browser's native SVG `<title>` element inside each `<rect>`:
-
-```astro
-<title>
-  {`${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`}
-</title>
-```
-
-The date formatting helper outputs clean, unambiguous dates:
-
-```javascript
-const formatDate = (dateStr) => {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
+```typescript
+const levelClassMap: Record<string, string> = {
+  NONE: 'gh-cell-0',
+  FIRST_QUARTILE: 'gh-cell-1',
+  SECOND_QUARTILE: 'gh-cell-2',
+  THIRD_QUARTILE: 'gh-cell-3',
+  FOURTH_QUARTILE: 'gh-cell-4',
 };
 ```
 
-When a reader hovers over any cell, the browser displays a native tooltip like `7 contributions on 14 Sep 2026`. It costs zero bytes of JavaScript and is accessible to screen readers out of the box.
+Then the nested loop does the repetitive part. The `<title>` gives each square a date and count when you hover it:
 
-## Crafting the Terracotta Palette
+```astro
+<svg
+  viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+  class="heatmap-svg"
+  role="img"
+  aria-label={`GitHub contribution heatmap for @${username}`}
+>
+  {
+    weeks.map((week, wIndex) => {
+      const x = X_OFFSET + wIndex * STEP;
+      return (
+        <g class="heatmap-week">
+          {week.contributionDays.map((day) => {
+            const y = Y_OFFSET + day.weekday * STEP;
+            const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
+            const date = new Date(day.date).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              timeZone: 'UTC',
+            });
+            const title = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${date}`;
 
-GitHub's signature green (`#216e39`) works well on GitHub, but it clashes with this blog's Technical Monograph design, which relies on warm newsprint paper (`#fbf9f5`), sunk cards (`#f3efe7`), and a terracotta clay accent (`#c8502e`).
+            return (
+              <rect
+                x={x}
+                y={y}
+                width={CELL_SIZE}
+                height={CELL_SIZE}
+                rx={2}
+                ry={2}
+                class={`gh-cell ${levelClass}`}
+                data-date={day.date}
+                data-count={day.contributionCount}
+              >
+                <title>{title}</title>
+              </rect>
+            );
+          })}
+        </g>
+      );
+    })
+  }
+</svg>
+```
 
-GitHub's API categorizes contribution counts into five discrete levels:
-- `NONE`
-- `FIRST_QUARTILE`
-- `SECOND_QUARTILE`
-- `THIRD_QUARTILE`
-- `FOURTH_QUARTILE`
+I also print month names across the top and just Monday, Wednesday, and Friday down the side. Seven weekday labels made the gutter noisy at this size. The SVG sits in a horizontally scrollable container on small screens, and a tiny inline script moves that container to the newest week on load.
 
-We map these levels directly to CSS custom properties that shift harmoniously between light and dark modes:
+### Give the levels their own colors
+
+The data says how busy a day was; CSS decides what that looks like. I used a muted terracotta ramp for the light theme and a brighter version for dark mode:
 
 ```css
 :root {
-  --gh-level-0: #ede8de; /* Sunk warm paper */
-  --gh-level-1: #f4dcd3; /* Pale blush tint */
-  --gh-level-2: #e39c84; /* Soft terracotta */
-  --gh-level-3: #c8502e; /* Primary clay accent */
-  --gh-level-4: #872e15; /* Deep burnt brick */
+  --gh-level-0: #ede8de;
+  --gh-level-1: #f4dcd3;
+  --gh-level-2: #e39c84;
+  --gh-level-3: #c8502e;
+  --gh-level-4: #872e15;
 }
 
 :global(html.dark) {
-  --gh-level-0: #222428; /* Charcoal base */
-  --gh-level-1: #3d231b; /* Deep muted ember */
-  --gh-level-2: #733725; /* Burnt umber */
-  --gh-level-3: #c05435; /* Bright terracotta */
-  --gh-level-4: #e06b47; /* Vivid flame accent */
+  --gh-level-0: #222428;
+  --gh-level-1: #3d231b;
+  --gh-level-2: #733725;
+  --gh-level-3: #c05435;
+  --gh-level-4: #e06b47;
 }
-```
 
-And in CSS:
-
-```css
 .gh-cell-0 { fill: var(--gh-level-0); }
 .gh-cell-1 { fill: var(--gh-level-1); }
 .gh-cell-2 { fill: var(--gh-level-2); }
 .gh-cell-3 { fill: var(--gh-level-3); }
 .gh-cell-4 { fill: var(--gh-level-4); }
-
-.gh-cell:hover {
-  stroke: var(--ink);
-  stroke-width: 1px;
-}
 ```
 
-By coupling SVG `fill` properties to CSS variables, theme switching is instantaneous and requires no JavaScript re-rendering.
+The colors can change with the theme without fetching data again or rebuilding the grid in JavaScript.
 
-## The Result
+## Put it on the homepage
 
-Here is the live rendered GitHub activity map built with this code:
+With the component ready, adding it to the page was just an import and a tag. I placed it after the intro and before the post lists:
+
+```astro
+---
+import GithubHeatmap from '../components/GithubHeatmap.astro';
+---
+
+<GithubHeatmap />
+```
+
+That's the whole pipeline: GitHub data, a saved JSON file, then SVG. Here's a rendered example on this post; the homepage version reads from the refreshed snapshot.
+
+## The result
 
 <div class="github-activity-demo not-prose my-8 p-4 md:p-6 bg-[var(--paper)] border border-[var(--rule)] rounded">
   <style>
@@ -440,14 +345,4 @@ Here is the live rendered GitHub activity map built with this code:
   </div>
 </div>
 
-You can also see the rendered component with its vanity metrics cards in action:
-
-![GitHub contribution heatmap in action](heatmap-preview.png)
-
-## Summary
-
-By shifting data collection to build time with a scheduled GitHub Action and rendering through pure SVG in Astro:
-- The page ships **zero client-side JavaScript** for data fetching or chart rendering.
-- The layout is completely static—eliminating cumulative layout shifts (CLS).
-- Private contributions are included without exposing secret tokens to the client.
-- The visual styling integrates seamlessly with the site's design system.
+The complete heatmap-only implementation—including the fetch script, workflow, Astro component, and homepage insertion—is in [this GitHub commit](https://github.com/risan/risanb.com/commit/7bb6f050088a486be2828fc14511bf15ba2d8655). The grid is several hundred little rectangles. The interesting part was making sure they had something current to say.
