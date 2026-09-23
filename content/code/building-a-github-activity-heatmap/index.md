@@ -6,15 +6,13 @@ categories: [tutorial]
 tags: [javascript, graphql, svg]
 images: [/posts/building-a-github-activity-heatmap/og.png]
 ---
-Instead of embedding a third-party iframe or loading a generic widget that pings external servers on every page visit, I wanted a native GitHub contribution map directly on this blog's homepage. One that matches our warm paper and terracotta monograph palette, loads with zero client-side network latency, and includes both public open-source commits and private client work.
+Instead of embedding a third-party iframe or loading a generic widget that pings external servers on every page visit, I wanted a native GitHub contribution map directly on this blog's homepage. One that loads with zero client-side network latency and includes both public open-source commits and private client work.
 
 The architecture is simple: fetch the contribution data at build time, save it as a local JSON snapshot, automate daily updates with a scheduled GitHub Actions workflow, and render the calendar grid using pure SVG.
 
-Here is how to build it from scratch in five logical steps.
-
 {{<toc>}}
 
-## 1. Pulling Contribution Data via GraphQL
+## Pulling Contribution Data via GraphQL
 
 GitHub's REST API does not provide a simple endpoint for your contribution calendar grid unless you scrape the HTML profile page. The [GitHub GraphQL API](https://docs.github.com/en/graphql), however, exposes the `contributionsCollection` object on the `User` and `viewer` types. This gives us exact week-by-week contribution counts, quartile intensity levels, and private activity numbers.
 
@@ -103,7 +101,7 @@ This delivers our entire lifetime contribution tally—including private client 
 
 Before writing the output, the script guards against corrupting our local cache: it asserts that the token user matches the expected login and refuses to overwrite existing data if the API returns 0 contributions. Finally, it writes `src/data/github-contributions.json`.
 
-## 2. Automating Updates with GitHub Actions
+## Automating Updates with GitHub Actions
 
 To keep the calendar current without manual intervention, we set up a scheduled GitHub Actions workflow in `.github/workflows/update-contributions.yml`. It runs daily at 02:00 UTC and supports manual dispatch:
 
@@ -157,7 +155,7 @@ jobs:
 
 The critical detail here is `git diff --quiet src/data/github-contributions.json`. If no new commits or pull requests occurred, the workflow exits cleanly without spamming git history with empty commits.
 
-## 3. Drawing the Heatmap with Pure SVG
+## Drawing the Heatmap with Pure SVG
 
 Rather than importing a charting library like D3 or Chart.js, the entire grid is rendered as a clean SVG inside an Astro component (`src/components/GithubHeatmap.astro`). Because Astro components execute at build time, the JSON data is imported statically:
 
@@ -223,7 +221,7 @@ Rendering the grid is a straightforward nested loop over weeks and days:
 
 On mobile devices, a 719px SVG would either shrink until unreadable or break the viewport. We wrap it in a container with `overflow-x: auto` and add a tiny inline script to scroll to the right by default (`scroll.scrollLeft = scroll.scrollWidth`), ensuring readers see the most recent activity first.
 
-## 4. Printing the Date and Labels
+## Printing the Date and Labels
 
 A heatmap without date reference points is just colored confetti. We need three levels of temporal information: weekday indicators, month labels along the top, and exact dates on each individual cell.
 
@@ -301,7 +299,7 @@ const formatDate = (dateStr) => {
 
 When a reader hovers over any cell, the browser displays a native tooltip like `7 contributions on 14 Sep 2026`. It costs zero bytes of JavaScript and is accessible to screen readers out of the box.
 
-## 5. Crafting the Terracotta Palette
+## Crafting the Terracotta Palette
 
 GitHub's signature green (`#216e39`) works well on GitHub, but it clashes with this blog's Technical Monograph design, which relies on warm newsprint paper (`#fbf9f5`), sunk cards (`#f3efe7`), and a terracotta clay accent (`#c8502e`).
 
@@ -323,7 +321,7 @@ We map these levels directly to CSS custom properties that shift harmoniously be
   --gh-level-4: #872e15; /* Deep burnt brick */
 }
 
-html.dark {
+:global(html.dark) {
   --gh-level-0: #222428; /* Charcoal base */
   --gh-level-1: #3d231b; /* Deep muted ember */
   --gh-level-2: #733725; /* Burnt umber */
@@ -354,6 +352,43 @@ By coupling SVG `fill` properties to CSS variables, theme switching is instantan
 Here is the live rendered GitHub activity map built with this code:
 
 <div class="github-activity-demo not-prose my-8 p-4 md:p-6 bg-[var(--paper)] border border-[var(--rule)] rounded">
+  <style>
+    .github-activity-demo {
+      --gh-level-0: #ede8de;
+      --gh-level-1: #f4dcd3;
+      --gh-level-2: #e39c84;
+      --gh-level-3: #c8502e;
+      --gh-level-4: #872e15;
+    }
+    html.dark .github-activity-demo {
+      --gh-level-0: #222428;
+      --gh-level-1: #3d231b;
+      --gh-level-2: #733725;
+      --gh-level-3: #c05435;
+      --gh-level-4: #e06b47;
+    }
+    .gh-demo-stats {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 640px) {
+      .gh-demo-stats {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+      }
+    }
+    .label-month, .label-weekday { font-family: var(--font-mono); font-size: 9px; fill: var(--ink-muted); user-select: none; }
+    .gh-cell { transition: opacity 0.1s ease; cursor: pointer; }
+    .gh-cell:hover { stroke: var(--ink); stroke-width: 1px; }
+    .gh-cell-0 { fill: var(--gh-level-0); }
+    .gh-cell-1 { fill: var(--gh-level-1); }
+    .gh-cell-2 { fill: var(--gh-level-2); }
+    .gh-cell-3 { fill: var(--gh-level-3); }
+    .gh-cell-4 { fill: var(--gh-level-4); }
+  </style>
+
   <div class="flex justify-between items-baseline flex-wrap gap-3 mb-4">
     <div>
       <span class="block font-mono text-[11px] tracking-wider uppercase text-[var(--ink-muted)]">Vanity Signals</span>
@@ -362,7 +397,7 @@ Here is the live rendered GitHub activity map built with this code:
     <a href="https://github.com/risan" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-[var(--ink-muted)] px-2 py-1 border border-[var(--rule)] rounded bg-[var(--paper)] hover:text-[var(--accent)] hover:border-[var(--accent-soft)] transition-colors">@risan ↗</a>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+  <div class="gh-demo-stats">
     <div class="p-3 bg-[var(--sunk)] border border-[var(--rule)] rounded flex flex-col">
       <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--ink-muted)] mb-1">This Month</span>
       <span class="font-mono text-2xl font-semibold text-[var(--ink)]">1,016</span>
@@ -383,16 +418,6 @@ Here is the live rendered GitHub activity map built with this code:
   <div class="border border-[var(--rule)] rounded p-4 bg-[var(--paper)]">
     <div class="overflow-x-auto pb-2 scrollbar-thin" tabindex="0" role="region" aria-label="GitHub contribution calendar">
       <svg viewBox="0 0 719 111" class="block w-full min-w-[680px] h-auto" role="img" aria-label="GitHub contribution heatmap">
-        <style>
-          .label-month, .label-weekday { font-family: var(--font-mono); font-size: 9px; fill: var(--ink-muted); user-select: none; }
-          .gh-cell { transition: opacity 0.1s ease; cursor: pointer; }
-          .gh-cell:hover { stroke: var(--ink); stroke-width: 1px; }
-          .gh-cell-0 { fill: var(--gh-level-0); }
-          .gh-cell-1 { fill: var(--gh-level-1); }
-          .gh-cell-2 { fill: var(--gh-level-2); }
-          .gh-cell-3 { fill: var(--gh-level-3); }
-          .gh-cell-4 { fill: var(--gh-level-4); }
-        </style>
         <text x="30" y="12" class="label-month">Sep</text><text x="56" y="12" class="label-month">Oct</text><text x="108" y="12" class="label-month">Nov</text><text x="173" y="12" class="label-month">Dec</text><text x="225" y="12" class="label-month">Jan</text><text x="277" y="12" class="label-month">Feb</text><text x="329" y="12" class="label-month">Mar</text><text x="394" y="12" class="label-month">Apr</text><text x="446" y="12" class="label-month">May</text><text x="511" y="12" class="label-month">Jun</text><text x="563" y="12" class="label-month">Jul</text><text x="615" y="12" class="label-month">Aug</text><text x="680" y="12" class="label-month">Sep</text>
         <text x="2" y="41" class="label-weekday">Mon</text>
         <text x="2" y="67" class="label-weekday">Wed</text>

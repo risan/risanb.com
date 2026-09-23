@@ -39,12 +39,8 @@
   --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
-  --gh-level-0: #ede8de;
-  --gh-level-1: #f4dcd3;
-  --gh-level-2: #e39c84;
-  --gh-level-3: #c8502e;
-  --gh-level-4: #872e15;
 }
+
 html.dark {
   --paper: #141517;
   --sunk: #1c1d20;
@@ -53,11 +49,6 @@ html.dark {
   --rule: #2a2b2f;
   --accent: #e06b47;
   --accent-soft: #783c2a;
-  --gh-level-0: #222428;
-  --gh-level-1: #3d231b;
-  --gh-level-2: #733725;
-  --gh-level-3: #c05435;
-  --gh-level-4: #e06b47;
 }
 
 /* ------------------------------------------------------------------ base -- */
