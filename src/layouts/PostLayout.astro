@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import TechIcon from '../components/TechIcon.astro';
 import ViewCounter from '../components/ViewCounter.astro';
 import LoveCounter from '../components/LoveCounter.astro';
 import type { CollectionEntry } from 'astro:content';
@@ -95,34 +94,33 @@ const ogImage = images[0];
         <div class="post-foot-content">
           <LoveCounter {slug} />
 
-          <div class="post-meta-grid">
+          <div class="post-meta-inline">
             {
               categories.length > 0 && (
-                <>
-                  <span class="meta-label meta-label--filed">Filed under</span>
-                  <div class="meta-links meta-links--filed">
+                <span class="meta-item">
+                  <span class="meta-label">Category:</span>
+                  <span class="meta-links">
                     {categories.map((c) => (
-                      <a href={`/categories/${c}/`} class="tag-pill">
+                      <a href={`/categories/${c}/`} class="meta-link">
                         {c.toLowerCase()}
                       </a>
                     ))}
-                  </div>
-                </>
+                  </span>
+                </span>
               )
             }
             {
               tags.length > 0 && (
-                <>
-                  <span class="meta-label meta-label--tags">Tags</span>
-                  <div class="meta-links meta-links--tags">
+                <span class="meta-item">
+                  <span class="meta-label">Tags:</span>
+                  <span class="meta-links">
                     {tags.map((t) => (
-                      <a href={`/tags/${t}/`} class="tag-pill">
-                        <TechIcon name={t} />
+                      <a href={`/tags/${t}/`} class="meta-link">
                         #{t}
                       </a>
                     ))}
-                  </div>
-                </>
+                  </span>
+                </span>
               )
             }
           </div>

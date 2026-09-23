@@ -30,10 +30,6 @@ const { slug } = Astro.props;
       <span class="love-count-badge" aria-live="polite">0</span>
       <span class="love-burst-container" aria-hidden="true"></span>
     </button>
-    <span class="love-label">
-      <span class="love-label-line-1">Enjoyed this?</span>
-      <span class="love-label-line-2">Leave a heart!</span>
-    </span>
   </div>
 </div>
 
@@ -129,7 +125,6 @@ const { slug } = Astro.props;
       const btn = widget.querySelector<HTMLButtonElement>('.love-button');
       const countEl = widget.querySelector<HTMLElement>('.love-count-badge');
       const burstContainer = widget.querySelector<HTMLElement>('.love-burst-container');
-      const labelEl = widget.querySelector<HTMLElement>('.love-label');
       if (!btn || !countEl || !burstContainer) return;
 
       const userLikesKey = `likes_given:${slug}`;
@@ -142,28 +137,10 @@ const { slug } = Astro.props;
       let syncTimer: number | null = null;
 
       // Update button visual state if user already loved this post
-      const updateLabel = (likes: number) => {
-        if (!labelEl) return;
-        const line1 = labelEl.querySelector<HTMLElement>('.love-label-line-1');
-        const line2 = labelEl.querySelector<HTMLElement>('.love-label-line-2');
-        if (!line1 || !line2) return;
-
-        if (likes >= MAX_LIKES_PER_USER) {
-          line1.textContent = 'Maximum love reached!';
-          line2.textContent = 'Thank you!';
-        } else if (likes > 0) {
-          line1.textContent = 'You loved this';
-          line2.textContent = `(${likes}x)`;
-        } else {
-          line1.textContent = 'Enjoyed this?';
-          line2.textContent = 'Leave a heart!';
-        }
-      };
 
       // Update button visual state if user already loved this post
       if (userLikes > 0) {
         btn.classList.add('has-loved');
-        updateLabel(userLikes);
       }
 
       // Fetch live stats from API
@@ -281,7 +258,6 @@ const { slug } = Astro.props;
           btn.classList.add('is-shaking');
           triggerMaxFireworks();
           playMaxSound(true);
-          updateLabel(userLikes);
           return;
         }
 
@@ -304,14 +280,12 @@ const { slug } = Astro.props;
           btn.classList.add('is-shaking');
           triggerMaxFireworks();
           playMaxSound(false);
-          updateLabel(userLikes);
         } else {
           btn.classList.remove('is-bouncing');
           void btn.offsetWidth;
           btn.classList.add('is-bouncing');
           triggerFireworks();
           playChime();
-          updateLabel(userLikes);
         }
 
         // Debounce API dispatch by 600ms to batch rapid taps into a single request
@@ -330,45 +304,45 @@ const { slug } = Astro.props;
 
 <style>
   .love-counter-widget {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
     margin: 0;
     padding: 0;
     border: none;
   }
 
   .love-widget-inner {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
   }
 
   .love-button {
     position: relative;
     appearance: none;
+    background: transparent;
+    border: none;
+    padding: 2px 4px;
+    margin: 0;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--sunk);
-    border: 1px solid var(--rule);
-    border-radius: 9999px;
-    padding: 6px 14px;
+    gap: 7px;
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     font-weight: 500;
     color: var(--ink);
     cursor: pointer;
     user-select: none;
-    transition:
-      background-color 0.15s ease,
-      border-color 0.15s ease,
-      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 4px;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .love-button:hover {
-    background: var(--paper);
-    border-color: var(--accent);
     transform: translateY(-1px);
+  }
+
+  .love-button:hover .love-count-badge {
+    color: var(--accent);
   }
 
   .love-button:active {
@@ -384,14 +358,15 @@ const { slug } = Astro.props;
 
   .love-heart-svg {
     fill: var(--ink-muted);
-    opacity: 0.45;
+    opacity: 0.55;
     stroke: none;
-    transition: fill 0.2s ease, opacity 0.2s ease;
+    transition: fill 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
   }
 
   .love-button:hover .love-heart-svg {
     fill: var(--accent);
-    opacity: 0.8;
+    opacity: 1;
+    transform: scale(1.1);
   }
 
   .love-button.has-loved .love-heart-svg {
@@ -446,23 +421,12 @@ const { slug } = Astro.props;
     color: var(--ink);
   }
 
-  .love-label {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    line-height: 1.35;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-  }
 
   /* Exploding MAX word confetti */
   :global(.max-word-particle) {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 10px;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 800;
@@ -501,7 +465,7 @@ const { slug } = Astro.props;
   :global(.love-floater) {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 10px;
     font-family: var(--font-mono);
     font-size: 0.875rem;
     font-weight: 700;
@@ -529,7 +493,7 @@ const { slug } = Astro.props;
   :global(.firework-particle) {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 10px;
     width: var(--size, 6px);
     height: var(--size, 6px);
     background-color: var(--color, var(--accent));

@@ -114,17 +114,223 @@ const yearsActive = currentYear - startYear;
       <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
     </div>
     <div class="activity-header-actions">
-      <button
-        id="heatmap-sound-toggle"
-        class="heatmap-sound-btn"
-        type="button"
-        aria-label="Toggle contribution chime sounds"
-        title="Toggle contribution chime sounds"
-      >
-        <span class="sound-icon sound-icon-on" aria-hidden="true">🔊</span>
-        <span class="sound-icon sound-icon-off" aria-hidden="true" style="display: none;">🔇</span>
-        <span class="sound-label">Chimes</span>
-      </button>
+      <div class="synth-popover-wrapper">
+        <button
+          id="heatmap-synth-toggle"
+          class="heatmap-sound-btn heatmap-synth-btn"
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="heatmap-synth-popover"
+          aria-label="Open heatmap synthesizer settings"
+          title="Customize heatmap tones (Synthesizer)"
+        >
+          <span class="sound-icon sound-icon-on" aria-hidden="true">🎛️</span>
+          <span class="sound-icon sound-icon-off" aria-hidden="true" style="display: none;">🔇</span>
+          <span class="sound-label">Synth</span>
+          <span class="synth-chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div
+          id="heatmap-synth-popover"
+          class="synth-popover"
+          role="dialog"
+          aria-label="Heatmap Synthesizer Settings"
+          aria-modal="false"
+          hidden
+        >
+          <div class="synth-popover-header">
+            <span class="synth-title">Heatmap Synth</span>
+            <div class="synth-header-controls">
+              <button
+                type="button"
+                id="synth-mute-btn"
+                class="synth-mute-toggle"
+                aria-pressed="false"
+                title="Mute or unmute tone audio"
+              >
+                <span class="mute-dot" aria-hidden="true"></span>
+                <span class="mute-text">Sound ON</span>
+              </button>
+              <button
+                type="button"
+                id="synth-close-btn"
+                class="synth-close-btn"
+                aria-label="Close synthesizer settings"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="synth-section">
+            <div class="synth-section-label">Presets</div>
+            <div class="synth-presets-grid">
+              <button type="button" class="synth-preset-chip" data-preset="chimes" title="Soft chiming bell tones">
+                <span class="preset-icon">🔔</span>
+                <span>Chimes</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="retro" title="Punchy vintage 8-bit square wave">
+                <span class="preset-icon">👾</span>
+                <span>8-Bit</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="pad" title="Warm ambient swelling pad with reverb">
+                <span class="preset-icon">🌊</span>
+                <span>Pad</span>
+              </button>
+              <button type="button" class="synth-preset-chip" data-preset="cosmic" title="Rich buzz with rhythmic canyon echo">
+                <span class="preset-icon">🌌</span>
+                <span>Cosmic</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Waveform Selection -->
+          <div class="synth-section">
+            <div class="synth-section-label">Waveform <span class="synth-param-hint">(Sound Character)</span></div>
+            <div class="synth-wave-selector" role="radiogroup" aria-label="Select synthesizer waveform">
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="sine" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">∿</span>
+                  <span class="wave-name">Sin</span>
+                  <span class="wave-desc">Pure</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="triangle" checked />
+                <span class="wave-pill">
+                  <span class="wave-symbol">△</span>
+                  <span class="wave-name">Tri</span>
+                  <span class="wave-desc">Warm</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="square" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">⊓</span>
+                  <span class="wave-name">Square</span>
+                  <span class="wave-desc">8-Bit</span>
+                </span>
+              </label>
+              <label class="wave-option">
+                <input type="radio" name="synth-wave" value="sawtooth" />
+                <span class="wave-pill">
+                  <span class="wave-symbol">⋀</span>
+                  <span class="wave-name">Saw</span>
+                  <span class="wave-desc">Bright</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Envelope Controls: Attack, Decay, Sustain -->
+          <div class="synth-section">
+            <div class="synth-section-label">Envelope <span class="synth-param-hint">(Shape Over Time)</span></div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Attack</span>
+                <span class="slider-helper">Hit speed</span>
+                <span id="synth-val-attack" class="slider-value">5ms</span>
+              </div>
+              <input
+                id="synth-slider-attack"
+                type="range"
+                min="0.002"
+                max="0.25"
+                step="0.004"
+                value="0.005"
+                aria-label="Attack time"
+              />
+            </div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Decay</span>
+                <span class="slider-helper">Fade time</span>
+                <span id="synth-val-decay" class="slider-value">0.35s</span>
+              </div>
+              <input
+                id="synth-slider-decay"
+                type="range"
+                min="0.08"
+                max="1.2"
+                step="0.02"
+                value="0.35"
+                aria-label="Decay time"
+              />
+            </div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Sustain</span>
+                <span class="slider-helper">Hold level</span>
+                <span id="synth-val-sustain" class="slider-value">5%</span>
+              </div>
+              <input
+                id="synth-slider-sustain"
+                type="range"
+                min="0"
+                max="0.6"
+                step="0.02"
+                value="0.05"
+                aria-label="Sustain volume"
+              />
+            </div>
+          </div>
+
+          <!-- Effects: Echo & Reverb -->
+          <div class="synth-section">
+            <div class="synth-section-label">Effects <span class="synth-param-hint">(Space & Atmosphere)</span></div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Echo</span>
+                <span class="slider-helper">Rhythmic delay</span>
+                <span id="synth-val-echo" class="slider-value">15%</span>
+              </div>
+              <input
+                id="synth-slider-echo"
+                type="range"
+                min="0"
+                max="0.6"
+                step="0.02"
+                value="0.15"
+                aria-label="Echo delay amount"
+              />
+            </div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Reverb</span>
+                <span class="slider-helper">Room acoustics</span>
+                <span id="synth-val-reverb" class="slider-value">25%</span>
+              </div>
+              <input
+                id="synth-slider-reverb"
+                type="range"
+                min="0"
+                max="1.0"
+                step="0.05"
+                value="0.25"
+                aria-label="Reverb space amount"
+              />
+            </div>
+          </div>
+
+          <!-- Popover Footer: Preview Note & Reset -->
+          <div class="synth-popover-footer">
+            <button type="button" id="synth-test-btn" class="synth-test-btn">
+              ▶ Preview Note
+            </button>
+            <button type="button" id="synth-reset-btn" class="synth-reset-btn">
+              Reset to default
+            </button>
+          </div>
+        </div>
+      </div>
       <a
         href={`https://github.com/${username}`}
         target="_blank"
@@ -313,29 +519,158 @@ const yearsActive = currentYear - startYear;
       2637.02  // E7
     ];
 
+    interface SynthConfig {
+      muted: boolean;
+      preset?: string;
+      wave: OscillatorType;
+      attack: number;
+      decay: number;
+      sustain: number;
+      echo: number;
+      reverb: number;
+    }
+
+    const DEFAULT_CONFIG: SynthConfig = {
+      muted: false,
+      preset: 'chimes',
+      wave: 'triangle',
+      attack: 0.005,
+      decay: 0.35,
+      sustain: 0.05,
+      echo: 0.15,
+      reverb: 0.25,
+    };
+
+    const PRESETS: Record<string, Partial<SynthConfig>> = {
+      chimes: {
+        wave: 'triangle',
+        attack: 0.005,
+        decay: 0.35,
+        sustain: 0.05,
+        echo: 0.15,
+        reverb: 0.25,
+      },
+      retro: {
+        wave: 'square',
+        attack: 0.002,
+        decay: 0.15,
+        sustain: 0.0,
+        echo: 0.0,
+        reverb: 0.0,
+      },
+      pad: {
+        wave: 'sine',
+        attack: 0.14,
+        decay: 0.6,
+        sustain: 0.35,
+        echo: 0.2,
+        reverb: 0.65,
+      },
+      cosmic: {
+        wave: 'sawtooth',
+        attack: 0.01,
+        decay: 0.45,
+        sustain: 0.1,
+        echo: 0.45,
+        reverb: 0.5,
+      },
+    };
+
     class HeatmapSoundEngine {
       private ctx: AudioContext | null = null;
-      private compressor: DynamicsCompressorNode | null = null;
-      private muted: boolean;
+      private masterGain: GainNode | null = null;
+      private reverbNode: ConvolverNode | null = null;
+      private reverbGain: GainNode | null = null;
+      private echoDelay: DelayNode | null = null;
+      private echoGain: GainNode | null = null;
+      public config: SynthConfig;
 
       constructor() {
         const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        this.muted = reducedMotion || (typeof window !== 'undefined' && localStorage.getItem('heatmap_sound') === 'muted');
+        let saved: Partial<SynthConfig> = {};
+        try {
+          const raw = localStorage.getItem('heatmap_synth_config');
+          if (raw) saved = JSON.parse(raw);
+        } catch {}
+
+        this.config = {
+          ...DEFAULT_CONFIG,
+          ...saved,
+          muted: reducedMotion || saved.muted === true || (typeof window !== 'undefined' && localStorage.getItem('heatmap_sound') === 'muted'),
+        };
+      }
+
+      public saveConfig() {
+        try {
+          localStorage.setItem('heatmap_synth_config', JSON.stringify(this.config));
+          localStorage.setItem('heatmap_sound', this.config.muted ? 'muted' : 'unmuted');
+        } catch {}
+      }
+
+      private createReverbImpulse(ctx: AudioContext, duration = 1.4, decay = 2.0): AudioBuffer {
+        const sampleRate = ctx.sampleRate;
+        const length = Math.floor(sampleRate * duration);
+        const buffer = ctx.createBuffer(2, length, sampleRate);
+        for (let c = 0; c < 2; c++) {
+          const channelData = buffer.getChannelData(c);
+          for (let i = 0; i < length; i++) {
+            channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+          }
+        }
+        return buffer;
       }
 
       public initContext(): AudioContext | null {
         if (!this.ctx && typeof window !== 'undefined') {
           const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
           if (AudioCtx) {
-            this.ctx = new AudioCtx();
-            // Create dynamics compressor to prevent clipping on rapid glissandos
-            this.compressor = this.ctx.createDynamicsCompressor();
-            this.compressor.threshold.setValueAtTime(-18, this.ctx.currentTime);
-            this.compressor.knee.setValueAtTime(12, this.ctx.currentTime);
-            this.compressor.ratio.setValueAtTime(8, this.ctx.currentTime);
-            this.compressor.attack.setValueAtTime(0.003, this.ctx.currentTime);
-            this.compressor.release.setValueAtTime(0.15, this.ctx.currentTime);
-            this.compressor.connect(this.ctx.destination);
+            const ctx = new AudioCtx();
+            this.ctx = ctx;
+
+            // Dynamics compressor to prevent clipping
+            const compressor = ctx.createDynamicsCompressor();
+            compressor.threshold.setValueAtTime(-18, ctx.currentTime);
+            compressor.knee.setValueAtTime(12, ctx.currentTime);
+            compressor.ratio.setValueAtTime(8, ctx.currentTime);
+            compressor.attack.setValueAtTime(0.003, ctx.currentTime);
+            compressor.release.setValueAtTime(0.15, ctx.currentTime);
+            compressor.connect(ctx.destination);
+
+            // Master Gain
+            const masterGain = ctx.createGain();
+            masterGain.gain.setValueAtTime(this.config.muted ? 0 : 0.85, ctx.currentTime);
+            masterGain.connect(compressor);
+            this.masterGain = masterGain;
+
+            // Reverb Convolver & Gain
+            try {
+              const reverbNode = ctx.createConvolver();
+              reverbNode.buffer = this.createReverbImpulse(ctx, 1.4, 2.2);
+              const reverbGain = ctx.createGain();
+              reverbGain.gain.setValueAtTime(this.config.reverb * 0.7, ctx.currentTime);
+              reverbNode.connect(reverbGain);
+              reverbGain.connect(masterGain);
+              this.reverbNode = reverbNode;
+              this.reverbGain = reverbGain;
+            } catch {}
+
+            // Echo Delay Loop
+            try {
+              const echoDelay = ctx.createDelay(1.0);
+              echoDelay.delayTime.setValueAtTime(0.18, ctx.currentTime);
+              const echoFeedback = ctx.createGain();
+              echoFeedback.gain.setValueAtTime(0.35, ctx.currentTime);
+              const echoGain = ctx.createGain();
+              echoGain.gain.setValueAtTime(this.config.echo, ctx.currentTime);
+
+              echoDelay.connect(echoFeedback);
+              echoFeedback.connect(echoDelay);
+              echoDelay.connect(echoGain);
+              echoGain.connect(masterGain);
+
+              this.echoDelay = echoDelay;
+              this.echoGain = echoGain;
+            } catch {}
           }
         }
         if (this.ctx && this.ctx.state === 'suspended') {
@@ -345,124 +680,328 @@ const yearsActive = currentYear - startYear;
       }
 
       public isMuted(): boolean {
-        return this.muted;
+        return this.config.muted;
       }
 
       public setMuted(muted: boolean) {
-        this.muted = muted;
-        try {
-          localStorage.setItem('heatmap_sound', muted ? 'muted' : 'unmuted');
-        } catch {}
+        this.config.muted = muted;
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setValueAtTime(muted ? 0 : 0.85, this.ctx.currentTime);
+        }
+        this.saveConfig();
       }
 
-      public playNote(weekIndex: number, weekday: number, count: number, level: number) {
-        // Muted or empty cell: pure silence!
-        if (this.muted || count === 0 || level === 0) return;
+      public updateEffectNodes() {
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        if (this.echoGain) {
+          this.echoGain.gain.setValueAtTime(this.config.echo, now);
+        }
+        if (this.reverbGain) {
+          this.reverbGain.gain.setValueAtTime(this.config.reverb * 0.7, now);
+        }
+      }
 
+      public playTone(baseFreq: number, level = 3) {
+        if (this.config.muted) return;
         const ctx = this.initContext();
-        if (!ctx || !this.compressor) return;
-
-        // If audio context is still suspended, attempt to resume it and return silently
-        // (avoids queueing stale notes while awaiting browser autoplay activation)
+        if (!ctx || !this.masterGain) return;
         if (ctx.state === 'suspended') {
           ctx.resume().catch(() => {});
           return;
         }
+
         try {
           const now = ctx.currentTime;
+          const wave = this.config.wave || 'triangle';
 
-          // 2D harmonious pentatonic mapping:
-          // - Horizontal (week 0..52): base scale traversal across time (~14 steps)
-          // - Vertical (weekday 0..6: Sun=0 to Sat=6): steps scale degrees vertically (bottom = lower, top = higher)
-          const weekBase = Math.round((weekIndex / 52) * 14);
-          const dayOffset = 6 - weekday;
-          const noteIndex = Math.min(PENTATONIC.length - 1, Math.max(0, weekBase + dayOffset));
-          const baseFreq = PENTATONIC[noteIndex] || 440;
+          // Compensate loudness so square/saw isn't piercing
+          let scale = 1.0;
+          if (wave === 'square') scale = 0.42;
+          else if (wave === 'sawtooth') scale = 0.46;
+          else if (wave === 'triangle') scale = 0.85;
 
-          // Velocity and envelope based on contribution level
-          const baseVol = 0.04 + (level / 4) * 0.12;
-          const decay = 0.24 + level * 0.035;
+          const peakVol = (0.04 + (level / 4) * 0.12) * scale;
+          const attack = Math.max(0.002, this.config.attack);
+          const decay = Math.max(0.06, this.config.decay);
+          const sustainVol = Math.max(0.0001, peakVol * this.config.sustain);
+          const duration = attack + decay;
 
-          // Primary sine wave fundamental
-          const osc1 = ctx.createOscillator();
-          const gain1 = ctx.createGain();
-          osc1.type = 'sine';
-          osc1.frequency.setValueAtTime(baseFreq, now);
+          // Main oscillator
+          const osc = ctx.createOscillator();
+          const noteGain = ctx.createGain();
+          osc.type = wave;
+          osc.frequency.setValueAtTime(baseFreq, now);
 
-          gain1.gain.setValueAtTime(0.0001, now);
-          gain1.gain.exponentialRampToValueAtTime(baseVol, now + 0.004);
-          gain1.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+          noteGain.gain.setValueAtTime(0.0001, now);
+          noteGain.gain.exponentialRampToValueAtTime(peakVol, now + attack);
+          noteGain.gain.exponentialRampToValueAtTime(sustainVol, now + attack + decay * 0.8);
+          noteGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
-          osc1.connect(gain1);
-          gain1.connect(this.compressor);
-          osc1.start(now);
-          osc1.stop(now + decay + 0.02);
+          osc.connect(noteGain);
+          noteGain.connect(this.masterGain);
 
-          // Warm harmonic overtone (octave chime) for medium+ activity
-          if (level >= 2) {
+          // Echo path
+          if (this.echoDelay && this.config.echo > 0.01) {
+            const sendEcho = ctx.createGain();
+            sendEcho.gain.setValueAtTime(this.config.echo, now);
+            noteGain.connect(sendEcho);
+            sendEcho.connect(this.echoDelay);
+          }
+
+          // Reverb path
+          if (this.reverbNode && this.config.reverb > 0.01) {
+            const sendReverb = ctx.createGain();
+            sendReverb.gain.setValueAtTime(this.config.reverb, now);
+            noteGain.connect(sendReverb);
+            sendReverb.connect(this.reverbNode);
+          }
+
+          osc.start(now);
+          osc.stop(now + duration + 0.1);
+
+          // Harmonic overtone for triangle/sine chime on high activity
+          if ((wave === 'triangle' || wave === 'sine') && level >= 3) {
             const osc2 = ctx.createOscillator();
             const gain2 = ctx.createGain();
-            osc2.type = 'triangle';
+            osc2.type = 'sine';
             osc2.frequency.setValueAtTime(baseFreq * 2, now);
 
             gain2.gain.setValueAtTime(0.0001, now);
-            gain2.gain.exponentialRampToValueAtTime(baseVol * 0.3, now + 0.003);
-            gain2.gain.exponentialRampToValueAtTime(0.0001, now + decay * 0.7);
+            gain2.gain.exponentialRampToValueAtTime(peakVol * 0.25, now + attack);
+            gain2.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.7);
 
             osc2.connect(gain2);
-            gain2.connect(this.compressor);
+            gain2.connect(this.masterGain);
             osc2.start(now);
-            osc2.stop(now + decay * 0.7 + 0.02);
-          }
-
-          // High activity fifth harmonic (sparkling chime chord) for peak weeks
-          if (level === 4) {
-            const osc3 = ctx.createOscillator();
-            const gain3 = ctx.createGain();
-            osc3.type = 'sine';
-            osc3.frequency.setValueAtTime(baseFreq * 1.5, now);
-
-            gain3.gain.setValueAtTime(0.0001, now);
-            gain3.gain.exponentialRampToValueAtTime(baseVol * 0.22, now + 0.005);
-            gain3.gain.exponentialRampToValueAtTime(0.0001, now + decay * 0.85);
-
-            osc3.connect(gain3);
-            gain3.connect(this.compressor);
-            osc3.start(now);
-            osc3.stop(now + decay * 0.85 + 0.02);
+            osc2.stop(now + duration * 0.7 + 0.05);
           }
         } catch {}
+      }
+
+      public playNote(weekIndex: number, weekday: number, count: number, level: number) {
+        if (this.config.muted || count === 0 || level === 0) return;
+        const weekBase = Math.round((weekIndex / 52) * 14);
+        const dayOffset = 6 - weekday;
+        const noteIndex = Math.min(PENTATONIC.length - 1, Math.max(0, weekBase + dayOffset));
+        const baseFreq = PENTATONIC[noteIndex] || 440;
+        this.playTone(baseFreq, level);
       }
     }
 
     function initHeatmapAudio() {
       const sound = new HeatmapSoundEngine();
-      const soundBtn = document.getElementById('heatmap-sound-toggle');
 
-      const updateSoundUI = () => {
+      const synthToggleBtn = document.getElementById('heatmap-synth-toggle');
+      const synthPopover = document.getElementById('heatmap-synth-popover');
+      const synthCloseBtn = document.getElementById('synth-close-btn');
+      const synthMuteBtn = document.getElementById('synth-mute-btn');
+      const testBtn = document.getElementById('synth-test-btn');
+      const resetBtn = document.getElementById('synth-reset-btn');
+
+      const sliderAttack = document.getElementById('synth-slider-attack') as HTMLInputElement | null;
+      const sliderDecay = document.getElementById('synth-slider-decay') as HTMLInputElement | null;
+      const sliderSustain = document.getElementById('synth-slider-sustain') as HTMLInputElement | null;
+      const sliderEcho = document.getElementById('synth-slider-echo') as HTMLInputElement | null;
+      const sliderReverb = document.getElementById('synth-slider-reverb') as HTMLInputElement | null;
+
+      const valAttack = document.getElementById('synth-val-attack');
+      const valDecay = document.getElementById('synth-val-decay');
+      const valSustain = document.getElementById('synth-val-sustain');
+      const valEcho = document.getElementById('synth-val-echo');
+      const valReverb = document.getElementById('synth-val-reverb');
+
+      const presetChips = document.querySelectorAll<HTMLButtonElement>('.synth-preset-chip');
+      const waveRadios = document.querySelectorAll<HTMLInputElement>('input[name="synth-wave"]');
+
+      const updateMuteUI = () => {
         const isMuted = sound.isMuted();
-        const iconOn = soundBtn?.querySelector('.sound-icon-on') as HTMLElement | null;
-        const iconOff = soundBtn?.querySelector('.sound-icon-off') as HTMLElement | null;
+        const iconOn = synthToggleBtn?.querySelector('.sound-icon-on') as HTMLElement | null;
+        const iconOff = synthToggleBtn?.querySelector('.sound-icon-off') as HTMLElement | null;
         if (iconOn && iconOff) {
           iconOn.style.display = isMuted ? 'none' : 'inline';
           iconOff.style.display = isMuted ? 'inline' : 'none';
         }
-        if (soundBtn) {
-          soundBtn.classList.toggle('is-muted', isMuted);
-          soundBtn.setAttribute('aria-label', isMuted ? 'Unmute contribution chime sounds' : 'Mute contribution chime sounds');
-          soundBtn.setAttribute('title', isMuted ? 'Unmute contribution chime sounds' : 'Mute contribution chime sounds');
+        if (synthToggleBtn) {
+          synthToggleBtn.classList.toggle('is-muted', isMuted);
+          synthToggleBtn.setAttribute('title', isMuted ? 'Heatmap tone audio is muted' : 'Customize heatmap tones (Synthesizer)');
+        }
+        if (synthMuteBtn) {
+          synthMuteBtn.classList.toggle('is-muted', isMuted);
+          synthMuteBtn.setAttribute('aria-pressed', isMuted ? 'true' : 'false');
+          const muteText = synthMuteBtn.querySelector('.mute-text');
+          if (muteText) {
+            muteText.textContent = isMuted ? 'Sound MUTED' : 'Sound ON';
+          }
         }
       };
 
-      updateSoundUI();
+      const syncControlsToConfig = (activePresetName?: string) => {
+        const cfg = sound.config;
 
-      soundBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        sound.setMuted(!sound.isMuted());
-        updateSoundUI();
-        if (!sound.isMuted()) {
+        // Wave radio
+        waveRadios.forEach((radio) => {
+          radio.checked = radio.value === cfg.wave;
+        });
+
+        // Sliders & display values
+        if (sliderAttack && valAttack) {
+          sliderAttack.value = cfg.attack.toString();
+          valAttack.textContent = `${Math.round(cfg.attack * 1000)}ms`;
+        }
+        if (sliderDecay && valDecay) {
+          sliderDecay.value = cfg.decay.toString();
+          valDecay.textContent = `${cfg.decay.toFixed(2)}s`;
+        }
+        if (sliderSustain && valSustain) {
+          sliderSustain.value = cfg.sustain.toString();
+          valSustain.textContent = `${Math.round(cfg.sustain * 100)}%`;
+        }
+        if (sliderEcho && valEcho) {
+          sliderEcho.value = cfg.echo.toString();
+          valEcho.textContent = `${Math.round(cfg.echo * 100)}%`;
+        }
+        if (sliderReverb && valReverb) {
+          sliderReverb.value = cfg.reverb.toString();
+          valReverb.textContent = `${Math.round(cfg.reverb * 100)}%`;
+        }
+
+        // Preset active state
+        presetChips.forEach((chip) => {
+          const pName = chip.getAttribute('data-preset');
+          chip.classList.toggle('is-active', pName === activePresetName);
+        });
+      };
+
+      // Initialize UI state
+      updateMuteUI();
+      syncControlsToConfig(sound.config.preset || 'chimes');
+
+      // Popover toggling
+      const togglePopover = (show?: boolean) => {
+        if (!synthPopover || !synthToggleBtn) return;
+        const shouldShow = typeof show === 'boolean' ? show : synthPopover.hidden;
+        synthPopover.hidden = !shouldShow;
+        synthToggleBtn.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+        if (shouldShow) {
           sound.initContext();
         }
+      };
+
+      synthToggleBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePopover();
+      });
+
+      synthCloseBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePopover(false);
+      });
+
+      // Close popover when clicking outside or pressing Escape
+      document.addEventListener('click', (e) => {
+        if (!synthPopover || synthPopover.hidden) return;
+        const target = e.target as HTMLElement | null;
+        if (!target?.closest('.synth-popover-wrapper')) {
+          togglePopover(false);
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && synthPopover && !synthPopover.hidden) {
+          togglePopover(false);
+          synthToggleBtn?.focus();
+        }
+      });
+
+      // Mute toggle inside popover
+      synthMuteBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sound.setMuted(!sound.isMuted());
+        updateMuteUI();
+        if (!sound.isMuted()) {
+          sound.initContext();
+          sound.playTone(523.25, 3);
+        }
+      });
+
+      // Quick Presets
+      presetChips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const presetName = chip.getAttribute('data-preset');
+          if (!presetName || !PRESETS[presetName]) return;
+          const patch = PRESETS[presetName];
+          Object.assign(sound.config, patch);
+          sound.config.preset = presetName;
+          sound.saveConfig();
+          sound.updateEffectNodes();
+          syncControlsToConfig(presetName);
+          sound.playTone(523.25, 3);
+        });
+      });
+
+      // Wave selector
+      waveRadios.forEach((radio) => {
+        radio.addEventListener('change', () => {
+          if (radio.checked) {
+            sound.config.wave = radio.value as OscillatorType;
+            delete sound.config.preset;
+            sound.saveConfig();
+            presetChips.forEach((c) => c.classList.remove('is-active'));
+            sound.playTone(523.25, 3);
+          }
+        });
+      });
+
+      // Slider binding helper
+      const bindSlider = (
+        slider: HTMLInputElement | null,
+        label: HTMLElement | null,
+        formatFn: (val: number) => string,
+        onUpdate: (val: number) => void
+      ) => {
+        if (!slider) return;
+        const handleInput = () => {
+          const val = parseFloat(slider.value);
+          if (label) label.textContent = formatFn(val);
+          onUpdate(val);
+          delete sound.config.preset;
+          presetChips.forEach((c) => c.classList.remove('is-active'));
+        };
+        slider.addEventListener('input', handleInput);
+        slider.addEventListener('change', () => {
+          handleInput();
+          sound.saveConfig();
+          sound.updateEffectNodes();
+          sound.playTone(523.25, 3);
+        });
+      };
+
+      bindSlider(sliderAttack, valAttack, (v) => `${Math.round(v * 1000)}ms`, (v) => (sound.config.attack = v));
+      bindSlider(sliderDecay, valDecay, (v) => `${v.toFixed(2)}s`, (v) => (sound.config.decay = v));
+      bindSlider(sliderSustain, valSustain, (v) => `${Math.round(v * 100)}%`, (v) => (sound.config.sustain = v));
+      bindSlider(sliderEcho, valEcho, (v) => `${Math.round(v * 100)}%`, (v) => {
+        sound.config.echo = v;
+        sound.updateEffectNodes();
+      });
+      bindSlider(sliderReverb, valReverb, (v) => `${Math.round(v * 100)}%`, (v) => {
+        sound.config.reverb = v;
+        sound.updateEffectNodes();
+      });
+
+      // Test Preview Note
+      testBtn?.addEventListener('click', () => {
+        sound.initContext();
+        sound.playTone(587.33, 4);
+      });
+
+      // Reset defaults
+      resetBtn?.addEventListener('click', () => {
+        sound.config = { ...DEFAULT_CONFIG, muted: sound.isMuted() };
+        sound.saveConfig();
+        sound.updateEffectNodes();
+        syncControlsToConfig('chimes');
+        sound.playTone(523.25, 3);
       });
 
       // Unlock and warm up audio on initial user interaction (gestures, hover, or scroll)
@@ -475,13 +1014,13 @@ const yearsActive = currentYear - startYear;
         window.addEventListener(evt, unlockAudio, { passive: true });
       });
 
-      // Proactively initialize audio the moment cursor approaches the activity section
+      // Proactively initialize audio when cursor approaches the activity section
       const activitySection = document.querySelector('.github-activity');
       activitySection?.addEventListener('pointerenter', () => sound.initContext(), { passive: true });
       activitySection?.addEventListener('pointermove', () => sound.initContext(), { passive: true });
-      // 2D cell hover handling (horizontal + vertical + diagonal)
-      let lastCellKey = '';
 
+      // Heatmap cell hover handling
+      let lastCellKey = '';
       const handleCellTrigger = (target: EventTarget | null) => {
         const cell = (target as Element | null)?.closest?.('.gh-cell');
         if (!cell) return;
@@ -505,12 +1044,9 @@ const yearsActive = currentYear - startYear;
         heatmapSvg.addEventListener('pointerover', (e: Event) => {
           handleCellTrigger(e.target);
         });
-
-        // Smooth scrubbing on mobile touch
         heatmapSvg.addEventListener('pointermove', (e: Event) => {
           handleCellTrigger(e.target);
         });
-
         heatmapSvg.addEventListener('pointerleave', () => {
           lastCellKey = '';
         });
@@ -620,6 +1156,376 @@ const yearsActive = currentYear - startYear;
   .sound-label {
     font-size: 0.75rem;
     line-height: 1;
+  }
+  .synth-popover-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .synth-chevron {
+    font-size: 0.625rem;
+    line-height: 1;
+    opacity: 0.7;
+    margin-left: -1px;
+    transition: transform 0.15s ease;
+  }
+
+  .heatmap-synth-btn[aria-expanded="true"] .synth-chevron {
+    transform: rotate(180deg);
+  }
+
+  .heatmap-synth-btn[aria-expanded="true"] {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .synth-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 330px;
+    max-width: min(360px, calc(100vw - 32px));
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+    padding: 14px 16px;
+    z-index: 100;
+    font-family: var(--font-mono);
+    color: var(--ink);
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  .synth-popover[hidden] {
+    display: none !important;
+  }
+
+  .synth-popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 10px;
+  }
+
+  .synth-title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .synth-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .synth-mute-toggle {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sunk);
+    border: 1px solid var(--rule);
+    border-radius: 9999px;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .synth-mute-toggle .mute-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #2ea043;
+  }
+
+  .synth-mute-toggle.is-muted .mute-dot {
+    background: #cf222e;
+  }
+
+  .synth-mute-toggle.is-muted {
+    opacity: 0.75;
+  }
+
+  .synth-close-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--ink-muted);
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .synth-close-btn:hover {
+    color: var(--accent);
+  }
+
+  .synth-section {
+    margin-bottom: 10px;
+  }
+
+  .synth-section-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .synth-param-hint {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    opacity: 0.75;
+    font-size: 0.5625rem;
+  }
+
+  /* Presets Grid */
+  .synth-presets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .synth-preset-chip {
+    appearance: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 5px 2px;
+    background: var(--sunk);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .synth-preset-chip:hover,
+  .synth-preset-chip.is-active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--paper);
+  }
+
+  .preset-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  /* Wave selector */
+  .synth-wave-selector {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .wave-option {
+    display: block;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .wave-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+  }
+
+  .wave-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 2px;
+    background: var(--sunk);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+
+  .wave-symbol {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ink-muted);
+  }
+
+  .wave-name {
+    font-size: 0.625rem;
+    font-weight: 600;
+    margin-top: 2px;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .wave-desc {
+    font-size: 0.5rem;
+    line-height: 1.1;
+    color: var(--ink-muted);
+    margin-top: 2px;
+    opacity: 0.75;
+  }
+
+  .wave-option input:checked + .wave-pill {
+    background: var(--paper);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .wave-option input:checked + .wave-pill .wave-symbol,
+  .wave-option input:checked + .wave-pill .wave-name {
+    color: var(--accent);
+  }
+  .wave-option input:focus-visible + .wave-pill {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+
+  /* Slider Row */
+  .synth-slider-row {
+    margin-bottom: 6px;
+  }
+
+  .synth-slider-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.625rem;
+    margin-bottom: 2px;
+  }
+
+  .slider-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .slider-helper {
+    font-size: 0.5625rem;
+    color: var(--ink-muted);
+    margin-left: 4px;
+    margin-right: auto;
+  }
+
+  .slider-value {
+    color: var(--accent);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .synth-slider-row input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--rule);
+    border-radius: 2px;
+    outline: none;
+    margin: 3px 0 1px 0;
+    cursor: pointer;
+  }
+
+  .synth-slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.1s ease;
+  }
+
+  .synth-slider-row input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+  }
+
+  .synth-slider-row input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.1s ease;
+  }
+
+  /* Popover Footer */
+  .synth-popover-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    margin-top: 6px;
+  }
+
+  .synth-test-btn {
+    appearance: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+  }
+
+  .synth-test-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .synth-test-btn:active {
+    transform: scale(0.97);
+  }
+  :global(html.dark) .synth-test-btn {
+    color: #1b1c1d;
+  }
+
+
+  .synth-reset-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 4px;
+  }
+
+  .synth-reset-btn:hover {
+    color: var(--accent);
   }
 
   .github-icon {
