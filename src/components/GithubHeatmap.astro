@@ -406,6 +406,16 @@ const yearsActive = currentYear - startYear;
           <span class="synth-subtitle">Interactive Sound Engine</span>
         </div>
 
+        <button
+          type="button"
+          id="synth-close-btn"
+          class="synth-close-btn"
+          aria-label="Close synthesizer controls"
+          title="Close synthesizer panel"
+        >
+          ✕
+        </button>
+
         <div class="synth-header-controls">
           <button
             type="button"
@@ -424,8 +434,9 @@ const yearsActive = currentYear - startYear;
             class="synth-header-btn synth-test-btn"
             title="Preview sample note"
           >
-            <svg class="play-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            <svg class="preview-bell-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
             </svg>
             <span>Preview</span>
           </button>
@@ -436,17 +447,11 @@ const yearsActive = currentYear - startYear;
             class="synth-header-btn synth-reset-btn"
             title="Reset to default settings"
           >
-            Reset
-          </button>
-
-          <button
-            type="button"
-            id="synth-close-btn"
-            class="synth-close-btn"
-            aria-label="Close synthesizer controls"
-            title="Close synthesizer panel"
-          >
-            ✕
+            <svg class="reset-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            <span>Reset</span>
           </button>
         </div>
       </div>
@@ -1395,12 +1400,14 @@ const yearsActive = currentYear - startYear;
   }
 
   .synth-panel-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px 14px;
     padding-bottom: 10px;
+    padding-right: 32px;
     border-bottom: 1px solid var(--rule);
     margin-bottom: 14px;
   }
@@ -1435,7 +1442,7 @@ const yearsActive = currentYear - startYear;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    height: 24px;
+    height: 26px;
     box-sizing: border-box;
     background: var(--paper);
     border: 1px solid var(--rule);
@@ -1469,9 +1476,9 @@ const yearsActive = currentYear - startYear;
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    height: 24px;
+    height: 26px;
     box-sizing: border-box;
-    padding: 0 8px;
+    padding: 0 9px;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
@@ -1488,6 +1495,10 @@ const yearsActive = currentYear - startYear;
     color: var(--accent);
   }
 
+  .preview-bell-icon,
+  .reset-icon {
+    flex-shrink: 0;
+  }
   .synth-test-btn {
     background: var(--accent);
     color: #fff;
@@ -1504,15 +1515,21 @@ const yearsActive = currentYear - startYear;
   }
 
   .synth-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
     appearance: none;
     background: transparent;
     border: none;
     padding: 2px 6px;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1;
     color: var(--ink-muted);
     cursor: pointer;
     border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .synth-close-btn:hover {
@@ -1570,20 +1587,27 @@ const yearsActive = currentYear - startYear;
   }
 
   /* Presets */
+  .synth-col--voice {
+    width: 100%;
+  }
+
   .synth-presets-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 6px;
+    width: 100%;
   }
 
   .synth-preset-chip {
     appearance: none;
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 6px 2px;
+    gap: 3px;
+    height: 42px;
+    box-sizing: border-box;
+    padding: 4px 6px;
     background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 4px;
@@ -1592,9 +1616,10 @@ const yearsActive = currentYear - startYear;
     font-weight: 500;
     color: var(--ink);
     cursor: pointer;
+    width: 100%;
+    text-align: center;
     transition: all 0.15s ease;
   }
-
   .synth-preset-chip .preset-svg {
     color: var(--ink-muted);
     transition: color 0.15s ease;
@@ -1617,7 +1642,8 @@ const yearsActive = currentYear - startYear;
   .synth-wave-selector {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 6px;
+    width: 100%;
   }
 
   .wave-option {
@@ -1638,14 +1664,17 @@ const yearsActive = currentYear - startYear;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5px 2px;
+    gap: 3px;
+    height: 42px;
+    box-sizing: border-box;
+    padding: 4px 6px;
     background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 4px;
     text-align: center;
+    width: 100%;
     transition: all 0.15s ease;
   }
-
   .wave-symbol {
     font-size: 0.8125rem;
     font-weight: 700;
@@ -2011,30 +2040,46 @@ const yearsActive = currentYear - startYear;
       flex-direction: column;
       gap: 8px;
     }
+    .synth-col--voice {
+      width: 100%;
+    }
     .synth-section {
       margin-bottom: 6px;
     }
     .synth-section-label {
-      margin-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      margin-bottom: 6px;
       font-size: 0.5625rem;
+    }
+    .synth-param-hint {
+      display: block;
+      white-space: nowrap;
+      font-size: 0.5rem;
+      opacity: 0.8;
     }
     .synth-presets-grid,
     .synth-wave-selector {
-      gap: 4px;
+      gap: 6px;
+      width: 100%;
     }
-    .synth-preset-chip {
-      padding: 4px 2px;
-      font-size: 0.5625rem;
-      gap: 2px;
-    }
+    .synth-preset-chip,
     .wave-pill {
-      padding: 3px 2px;
+      height: 40px;
+      padding: 4px 2px;
+      width: 100%;
+      font-size: 0.5625rem;
+      gap: 3px;
     }
     .wave-symbol {
       font-size: 0.75rem;
+      line-height: 1;
     }
     .wave-name {
       font-size: 0.5625rem;
+      line-height: 1;
     }
     .synth-sliders-wrapper {
       display: grid;
