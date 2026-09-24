@@ -14,6 +14,7 @@ const svg = name ? getTechIconSvg(name) : null;
   svg && (
     <span
       class={`tech-icon ${className}`.trim()}
+      data-tech={name?.toLowerCase().trim()}
       aria-hidden="true"
       set:html={svg}
     />

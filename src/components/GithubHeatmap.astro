@@ -50,7 +50,29 @@ weeks.forEach((week, wIndex) => {
     }
   }
 });
+// Trimmed recent weeks for smaller screens so no horizontal scroll is required (~5 months / 21 weeks)
+const MOBILE_WEEKS_COUNT = 21;
+const mobileWeeks = weeks.slice(-MOBILE_WEEKS_COUNT);
+const mobileStartIndex = totalWeeks - MOBILE_WEEKS_COUNT;
+const mobileSvgWidth = X_OFFSET + mobileWeeks.length * STEP;
+const mobileMonthLabels: MonthLabel[] = [];
+let mobileLastMonth = -1;
 
+mobileWeeks.forEach((week, wIndex) => {
+  const firstValidDay = week.contributionDays[0];
+  if (firstValidDay) {
+    const d = new Date(firstValidDay.date);
+    const m = d.getUTCMonth();
+    if (m !== mobileLastMonth) {
+      const prev = mobileMonthLabels[mobileMonthLabels.length - 1];
+      const x = X_OFFSET + wIndex * STEP;
+      if (!prev || x - prev.x >= 24) {
+        mobileMonthLabels.push({ name: monthNames[m]!, x });
+        mobileLastMonth = m;
+      }
+    }
+  }
+});
 // Quartile color level mappings (0 to 4)
 const levelClassMap: Record<string, string> = {
   NONE: 'gh-cell-0',
@@ -113,49 +135,6 @@ const yearsActive = currentYear - startYear;
       <p class="eyebrow">Vanity Metrics</p>
       <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
     </div>
-    <div class="activity-header-actions">
-      <button
-        id="heatmap-synth-toggle"
-        class="heatmap-sound-btn heatmap-synth-btn"
-        type="button"
-        aria-expanded="false"
-        aria-controls="heatmap-synth-panel"
-        aria-label="Toggle contribution tone synthesizer"
-        title="Toggle contribution tone synthesizer"
-      >
-        <svg class="synth-btn-icon synth-icon-on" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="4" y1="21" x2="4" y2="14"></line>
-          <line x1="4" y1="10" x2="4" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="3"></line>
-          <line x1="20" y1="21" x2="20" y2="16"></line>
-          <line x1="20" y1="12" x2="20" y2="3"></line>
-          <line x1="1" y1="14" x2="7" y2="14"></line>
-          <line x1="9" y1="8" x2="15" y2="8"></line>
-          <line x1="17" y1="16" x2="23" y2="16"></line>
-        </svg>
-        <svg class="synth-btn-icon synth-icon-off" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: none;">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <line x1="23" y1="9" x2="17" y2="15"></line>
-          <line x1="17" y1="9" x2="23" y2="15"></line>
-        </svg>
-        <span class="sound-label">Synth</span>
-        <span class="synth-chevron" aria-hidden="true">▾</span>
-      </button>
-      <a
-        href={`https://github.com/${username}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="profile-link"
-        aria-label={`View @${username} on GitHub`}
-      >
-        <svg class="github-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-        </svg>
-        <span>@{username}</span>
-        <span class="external-arrow" aria-hidden="true">↗</span>
-      </a>
-    </div>
   </div>
 
   {/* Stats Cards: This Week, This Month, This Year, All Time */}
@@ -187,7 +166,233 @@ const yearsActive = currentYear - startYear;
 
   {/* Heatmap Card */}
   <div class="heatmap-card">
-    {/* Expandable Synth Console inside heatmap card */}
+    <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
+      {/* Desktop Heatmap (Full 53 Weeks) */}
+      <svg
+        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+        class="heatmap-svg heatmap-svg--desktop"
+        role="img"
+        aria-label={`GitHub contribution heatmap for @${username}`}
+      >
+        {/* Month labels */}
+        {
+          monthLabels.map((m) => (
+            <text x={m.x} y={12} class="label-month">
+              {m.name}
+            </text>
+          ))
+        }
+
+        {/* Day of week labels: Mon (1), Wed (3), Fri (5) */}
+        <text x={2} y={Y_OFFSET + 1 * STEP + 8} class="label-weekday">
+          Mon
+        </text>
+        <text x={2} y={Y_OFFSET + 3 * STEP + 8} class="label-weekday">
+          Wed
+        </text>
+        <text x={2} y={Y_OFFSET + 5 * STEP + 8} class="label-weekday">
+          Fri
+        </text>
+
+        {/* Contribution cells */}
+        {
+          weeks.map((week, wIndex) => {
+            const x = X_OFFSET + wIndex * STEP;
+            const weekTotal = week.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0);
+            const weekMaxLevel = week.contributionDays.reduce((max, d) => {
+              const lvlNum = d.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                             d.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                             d.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                             d.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
+              return Math.max(max, lvlNum);
+            }, 0);
+            return (
+              <g
+                class="heatmap-week"
+                data-week-index={wIndex}
+                data-total={weekTotal}
+                data-max-level={weekMaxLevel}
+              >
+                {/* Full column hitbox for effortless scrubbing */}
+                <rect
+                  x={x - 1.5}
+                  y={Y_OFFSET}
+                  width={STEP}
+                  height={7 * STEP}
+                  fill="transparent"
+                  class="heatmap-column-hitbox"
+                  aria-hidden="true"
+                />
+                {week.contributionDays.map((day) => {
+                  const y = Y_OFFSET + day.weekday * STEP;
+                  const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
+                  const levelNum = day.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                                 day.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                                 day.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                                 day.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
+                  const titleText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
+                  return (
+                    <rect
+                      x={x}
+                      y={y}
+                      width={CELL_SIZE}
+                      height={CELL_SIZE}
+                      rx={2}
+                      ry={2}
+                      class={`gh-cell ${levelClass}`}
+                      data-week={wIndex}
+                      data-day={day.weekday}
+                      data-date={day.date}
+                      data-count={day.contributionCount}
+                      data-level={levelNum}
+                    >
+                      <title>{titleText}</title>
+                    </rect>
+                  );
+                })}
+              </g>
+            );
+          })
+        }
+      </svg>
+
+      {/* Mobile Heatmap (Trimmed ~5 Months / 21 Weeks - Fits Screen Without Scroll) */}
+      <svg
+        viewBox={`0 0 ${mobileSvgWidth} ${svgHeight}`}
+        class="heatmap-svg heatmap-svg--mobile"
+        role="img"
+        aria-label={`GitHub contribution heatmap for @${username} (recent activity)`}
+      >
+        {/* Month labels */}
+        {
+          mobileMonthLabels.map((m) => (
+            <text x={m.x} y={12} class="label-month">
+              {m.name}
+            </text>
+          ))
+        }
+
+        {/* Day of week labels: Mon (1), Wed (3), Fri (5) */}
+        <text x={2} y={Y_OFFSET + 1 * STEP + 8} class="label-weekday">
+          Mon
+        </text>
+        <text x={2} y={Y_OFFSET + 3 * STEP + 8} class="label-weekday">
+          Wed
+        </text>
+        <text x={2} y={Y_OFFSET + 5 * STEP + 8} class="label-weekday">
+          Fri
+        </text>
+
+        {/* Contribution cells */}
+        {
+          mobileWeeks.map((week, mIndex) => {
+            const wIndex = mobileStartIndex + mIndex;
+            const x = X_OFFSET + mIndex * STEP;
+            const weekTotal = week.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0);
+            const weekMaxLevel = week.contributionDays.reduce((max, d) => {
+              const lvlNum = d.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                             d.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                             d.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                             d.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
+              return Math.max(max, lvlNum);
+            }, 0);
+            return (
+              <g
+                class="heatmap-week"
+                data-week-index={wIndex}
+                data-total={weekTotal}
+                data-max-level={weekMaxLevel}
+              >
+                <rect
+                  x={x - 1.5}
+                  y={Y_OFFSET}
+                  width={STEP}
+                  height={7 * STEP}
+                  fill="transparent"
+                  class="heatmap-column-hitbox"
+                  aria-hidden="true"
+                />
+                {week.contributionDays.map((day) => {
+                  const y = Y_OFFSET + day.weekday * STEP;
+                  const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
+                  const levelNum = day.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
+                                 day.contributionLevel === 'THIRD_QUARTILE' ? 3 :
+                                 day.contributionLevel === 'SECOND_QUARTILE' ? 2 :
+                                 day.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
+                  const titleText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
+                  return (
+                    <rect
+                      x={x}
+                      y={y}
+                      width={CELL_SIZE}
+                      height={CELL_SIZE}
+                      rx={2}
+                      ry={2}
+                      class={`gh-cell ${levelClass}`}
+                      data-week={wIndex}
+                      data-day={day.weekday}
+                      data-date={day.date}
+                      data-count={day.contributionCount}
+                      data-level={levelNum}
+                    >
+                      <title>{titleText}</title>
+                    </rect>
+                  );
+                })}
+              </g>
+            );
+          })
+        }
+      </svg>
+    </div>
+
+    {/* Actions Toolbar: Both "Synth" and "@risan" placed below heatmap, right above footer */}
+    <div class="heatmap-bar">
+      <button
+        id="heatmap-synth-toggle"
+        class="heatmap-sound-btn heatmap-synth-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="heatmap-synth-panel"
+        aria-label="Toggle contribution tone synthesizer"
+        title="Toggle contribution tone synthesizer"
+      >
+        <svg class="synth-btn-icon synth-icon-on" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="21" x2="4" y2="14"></line>
+          <line x1="4" y1="10" x2="4" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="3"></line>
+          <line x1="20" y1="21" x2="20" y2="16"></line>
+          <line x1="20" y1="12" x2="20" y2="3"></line>
+          <line x1="1" y1="14" x2="7" y2="14"></line>
+          <line x1="9" y1="8" x2="15" y2="8"></line>
+          <line x1="17" y1="16" x2="23" y2="16"></line>
+        </svg>
+        <svg class="synth-btn-icon synth-icon-off" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: none;">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span class="sound-label">Synth</span>
+        <span class="synth-chevron" aria-hidden="true">▾</span>
+      </button>
+
+      <a
+        href={`https://github.com/${username}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="profile-link"
+        aria-label={`View @${username} on GitHub`}
+      >
+        <svg class="github-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+        </svg>
+        <span>@{username}</span>
+        <span class="external-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    {/* Expandable Synth Console inside heatmap card, below the heatmap & bar */}
     <div
       id="heatmap-synth-panel"
       class="heatmap-synth-panel"
@@ -318,198 +523,112 @@ const yearsActive = currentYear - startYear;
           </div>
         </div>
 
-        <!-- Col 2: Envelope Sliders -->
-        <div class="synth-col synth-col--envelope">
-          <div class="synth-section-label">Envelope <span class="synth-param-hint">(Shape Over Time)</span></div>
+        <!-- Sliders wrapper: side-by-side columns on mobile, contents on desktop -->
+        <div class="synth-sliders-wrapper">
+          <!-- Col 2: Envelope Sliders -->
+          <div class="synth-col synth-col--envelope">
+            <div class="synth-section-label">Envelope <span class="synth-param-hint">(Shape Over Time)</span></div>
 
-          <div class="synth-slider-row">
-            <div class="synth-slider-meta">
-              <span class="slider-name">Attack</span>
-              <span class="slider-helper">Hit speed</span>
-              <span id="synth-val-attack" class="slider-value">5ms</span>
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Attack</span>
+                <span class="slider-helper">Hit speed</span>
+                <span id="synth-val-attack" class="slider-value">5ms</span>
+              </div>
+              <input
+                id="synth-slider-attack"
+                type="range"
+                min="0.002"
+                max="0.25"
+                step="0.004"
+                value="0.005"
+                aria-label="Attack time"
+              />
             </div>
-            <input
-              id="synth-slider-attack"
-              type="range"
-              min="0.002"
-              max="0.25"
-              step="0.004"
-              value="0.005"
-              aria-label="Attack time"
-            />
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Decay</span>
+                <span class="slider-helper">Fade time</span>
+                <span id="synth-val-decay" class="slider-value">0.35s</span>
+              </div>
+              <input
+                id="synth-slider-decay"
+                type="range"
+                min="0.08"
+                max="1.2"
+                step="0.02"
+                value="0.35"
+                aria-label="Decay time"
+              />
+            </div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Sustain</span>
+                <span class="slider-helper">Hold level</span>
+                <span id="synth-val-sustain" class="slider-value">5%</span>
+              </div>
+              <input
+                id="synth-slider-sustain"
+                type="range"
+                min="0"
+                max="0.6"
+                step="0.02"
+                value="0.05"
+                aria-label="Sustain volume"
+              />
+            </div>
           </div>
 
-          <div class="synth-slider-row">
-            <div class="synth-slider-meta">
-              <span class="slider-name">Decay</span>
-              <span class="slider-helper">Fade time</span>
-              <span id="synth-val-decay" class="slider-value">0.35s</span>
+          <!-- Col 3: Effects Sliders -->
+          <div class="synth-col synth-col--effects">
+            <div class="synth-section-label">Effects <span class="synth-param-hint">(Space & Acoustics)</span></div>
+
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Echo</span>
+                <span class="slider-helper">Rhythmic delay</span>
+                <span id="synth-val-echo" class="slider-value">15%</span>
+              </div>
+              <input
+                id="synth-slider-echo"
+                type="range"
+                min="0"
+                max="0.6"
+                step="0.02"
+                value="0.15"
+                aria-label="Echo delay amount"
+              />
             </div>
-            <input
-              id="synth-slider-decay"
-              type="range"
-              min="0.08"
-              max="1.2"
-              step="0.02"
-              value="0.35"
-              aria-label="Decay time"
-            />
-          </div>
 
-          <div class="synth-slider-row">
-            <div class="synth-slider-meta">
-              <span class="slider-name">Sustain</span>
-              <span class="slider-helper">Hold level</span>
-              <span id="synth-val-sustain" class="slider-value">5%</span>
+            <div class="synth-slider-row">
+              <div class="synth-slider-meta">
+                <span class="slider-name">Reverb</span>
+                <span class="slider-helper">Room acoustics</span>
+                <span id="synth-val-reverb" class="slider-value">25%</span>
+              </div>
+              <input
+                id="synth-slider-reverb"
+                type="range"
+                min="0"
+                max="1.0"
+                step="0.05"
+                value="0.25"
+                aria-label="Reverb space amount"
+              />
             </div>
-            <input
-              id="synth-slider-sustain"
-              type="range"
-              min="0"
-              max="0.6"
-              step="0.02"
-              value="0.05"
-              aria-label="Sustain volume"
-            />
-          </div>
-        </div>
 
-        <!-- Col 3: Effects Sliders -->
-        <div class="synth-col synth-col--effects">
-          <div class="synth-section-label">Effects <span class="synth-param-hint">(Space & Acoustics)</span></div>
-
-          <div class="synth-slider-row">
-            <div class="synth-slider-meta">
-              <span class="slider-name">Echo</span>
-              <span class="slider-helper">Rhythmic delay</span>
-              <span id="synth-val-echo" class="slider-value">15%</span>
+            <div class="synth-tip-box">
+              <span class="synth-tip-dot" aria-hidden="true"></span>
+              <span>Hover or scrub heatmap cells to play live tones. Darker cells ring higher harmonics.</span>
             </div>
-            <input
-              id="synth-slider-echo"
-              type="range"
-              min="0"
-              max="0.6"
-              step="0.02"
-              value="0.15"
-              aria-label="Echo delay amount"
-            />
-          </div>
-
-          <div class="synth-slider-row">
-            <div class="synth-slider-meta">
-              <span class="slider-name">Reverb</span>
-              <span class="slider-helper">Room acoustics</span>
-              <span id="synth-val-reverb" class="slider-value">25%</span>
-            </div>
-            <input
-              id="synth-slider-reverb"
-              type="range"
-              min="0"
-              max="1.0"
-              step="0.05"
-              value="0.25"
-              aria-label="Reverb space amount"
-            />
-          </div>
-
-          <div class="synth-tip-box">
-            <span class="synth-tip-dot" aria-hidden="true"></span>
-            <span>Hover or scrub heatmap cells to play live tones. Darker cells ring higher harmonics.</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
-      <svg
-        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-        class="heatmap-svg"
-        role="img"
-        aria-label={`GitHub contribution heatmap for @${username}`}
-      >
-        {/* Month labels */}
-        {
-          monthLabels.map((m) => (
-            <text x={m.x} y={12} class="label-month">
-              {m.name}
-            </text>
-          ))
-        }
 
-        {/* Day of week labels: Mon (1), Wed (3), Fri (5) */}
-        <text x={2} y={Y_OFFSET + 1 * STEP + 8} class="label-weekday">
-          Mon
-        </text>
-        <text x={2} y={Y_OFFSET + 3 * STEP + 8} class="label-weekday">
-          Wed
-        </text>
-        <text x={2} y={Y_OFFSET + 5 * STEP + 8} class="label-weekday">
-          Fri
-        </text>
-
-        {/* Contribution cells */}
-        {
-          weeks.map((week, wIndex) => {
-            const x = X_OFFSET + wIndex * STEP;
-            const weekTotal = week.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0);
-            const weekMaxLevel = week.contributionDays.reduce((max, d) => {
-              const lvlNum = d.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
-                             d.contributionLevel === 'THIRD_QUARTILE' ? 3 :
-                             d.contributionLevel === 'SECOND_QUARTILE' ? 2 :
-                             d.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
-              return Math.max(max, lvlNum);
-            }, 0);
-            return (
-              <g
-                class="heatmap-week"
-                data-week-index={wIndex}
-                data-total={weekTotal}
-                data-max-level={weekMaxLevel}
-              >
-                {/* Full column hitbox for effortless scrubbing */}
-                <rect
-                  x={x - 1.5}
-                  y={Y_OFFSET}
-                  width={STEP}
-                  height={7 * STEP}
-                  fill="transparent"
-                  class="heatmap-column-hitbox"
-                  aria-hidden="true"
-                />
-                {week.contributionDays.map((day) => {
-                  const y = Y_OFFSET + day.weekday * STEP;
-                  const levelClass = levelClassMap[day.contributionLevel] || 'gh-cell-0';
-                  const levelNum = day.contributionLevel === 'FOURTH_QUARTILE' ? 4 :
-                                 day.contributionLevel === 'THIRD_QUARTILE' ? 3 :
-                                 day.contributionLevel === 'SECOND_QUARTILE' ? 2 :
-                                 day.contributionLevel === 'FIRST_QUARTILE' ? 1 : 0;
-                  const titleText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
-                  return (
-                    <rect
-                      x={x}
-                      y={y}
-                      width={CELL_SIZE}
-                      height={CELL_SIZE}
-                      rx={2}
-                      ry={2}
-                      class={`gh-cell ${levelClass}`}
-                      data-week={wIndex}
-                      data-day={day.weekday}
-                      data-date={day.date}
-                      data-count={day.contributionCount}
-                      data-level={levelNum}
-                    >
-                      <title>{titleText}</title>
-                    </rect>
-                  );
-                })}
-              </g>
-            );
-          })
-        }
-      </svg>
-    </div>
-
-    {/* Footer: Explanatory note & Legend */}
+    {/* Footer: Explanatory note & Legend (Image #1) */}
     <div class="heatmap-footer">
       <span class="footer-note">
         Verified GitHub activity across public and client repositories. None of this measures code quality.
@@ -744,16 +863,27 @@ const yearsActive = currentYear - startYear;
           this.reverbGain.gain.setValueAtTime(this.config.reverb * 0.7, now);
         }
       }
+      private pendingUnlockNote: { baseFreq: number; level: number } | null = null;
+
+      public getContextState(): AudioContextState | null {
+        return this.ctx ? this.ctx.state : null;
+      }
 
       public playTone(baseFreq: number, level = 3) {
         if (this.config.muted) return;
         const ctx = this.initContext();
         if (!ctx || !this.masterGain) return;
         if (ctx.state === 'suspended') {
-          ctx.resume().catch(() => {});
+          this.pendingUnlockNote = { baseFreq, level };
+          ctx.resume().then(() => {
+            if (ctx.state === 'running' && this.pendingUnlockNote) {
+              const note = this.pendingUnlockNote;
+              this.pendingUnlockNote = null;
+              this.playTone(note.baseFreq, note.level);
+            }
+          }).catch(() => {});
           return;
         }
-
         try {
           const now = ctx.currentTime;
           const wave = this.config.wave || 'triangle';
@@ -1040,21 +1170,26 @@ const yearsActive = currentYear - startYear;
       });
 
       // Unlock and warm up audio on initial user interaction (gestures, hover, or scroll)
-      const unlockEvents: (keyof WindowEventMap)[] = ['pointerdown', 'keydown', 'pointerenter', 'pointermove', 'touchstart', 'wheel'];
       const unlockAudio = () => {
-        sound.initContext();
-        unlockEvents.forEach((evt) => window.removeEventListener(evt, unlockAudio));
+        const ctx = sound.initContext();
+        if (ctx && ctx.state === 'suspended') {
+          ctx.resume().catch(() => {});
+        }
       };
-      unlockEvents.forEach((evt) => {
-        window.addEventListener(evt, unlockAudio, { passive: true });
+
+      const interactionEvents: (keyof DocumentEventMap)[] = ['pointerdown', 'keydown', 'touchstart', 'click', 'pointermove', 'scroll'];
+      interactionEvents.forEach((evt) => {
+        document.addEventListener(evt, unlockAudio, { passive: true });
       });
 
       // Proactively initialize audio when cursor approaches the activity section
       const activitySection = document.querySelector('.github-activity');
-      activitySection?.addEventListener('pointerenter', () => sound.initContext(), { passive: true });
-      activitySection?.addEventListener('pointermove', () => sound.initContext(), { passive: true });
+      activitySection?.addEventListener('pointerenter', unlockAudio, { passive: true });
+      activitySection?.addEventListener('mouseenter', unlockAudio, { passive: true });
+      activitySection?.addEventListener('pointermove', unlockAudio, { passive: true });
+      activitySection?.addEventListener('pointerdown', unlockAudio, { passive: true });
 
-      // Heatmap cell hover handling
+      // Heatmap cell hover & click handling
       let lastCellKey = '';
       const handleCellTrigger = (target: EventTarget | null) => {
         const cell = (target as Element | null)?.closest?.('.gh-cell');
@@ -1069,25 +1204,32 @@ const yearsActive = currentYear - startYear;
 
         const cellKey = `${wIndex}-${dayIndex}`;
         if (cellKey === lastCellKey) return;
-        lastCellKey = cellKey;
 
+        lastCellKey = cellKey;
         sound.playNote(wIndex, dayIndex, count, level);
       };
 
-      const heatmapSvg = document.querySelector('.heatmap-svg');
-      if (heatmapSvg) {
-        heatmapSvg.addEventListener('pointerover', (e: Event) => {
+      const heatmapScroll = document.querySelector('.heatmap-scroll');
+      if (heatmapScroll) {
+        heatmapScroll.addEventListener('pointerover', (e: Event) => {
           handleCellTrigger(e.target);
         });
-        heatmapSvg.addEventListener('pointermove', (e: Event) => {
+        heatmapScroll.addEventListener('pointermove', (e: Event) => {
           handleCellTrigger(e.target);
         });
-        heatmapSvg.addEventListener('pointerleave', () => {
+        heatmapScroll.addEventListener('pointerdown', (e: Event) => {
+          sound.initContext();
+          handleCellTrigger(e.target);
+        });
+        heatmapScroll.addEventListener('click', (e: Event) => {
+          sound.initContext();
+          handleCellTrigger(e.target);
+        });
+        heatmapScroll.addEventListener('pointerleave', () => {
           lastCellKey = '';
         });
       }
     }
-
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initHeatmapAudio);
     } else {
@@ -1144,12 +1286,13 @@ const yearsActive = currentYear - startYear;
     color: var(--ink-muted);
     margin: 0;
   }
-  .activity-header-actions {
-    display: inline-flex;
+  .heatmap-bar {
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
+    margin-top: 10px;
   }
-
   .heatmap-sound-btn,
   .profile-link {
     appearance: none;
@@ -1233,7 +1376,9 @@ const yearsActive = currentYear - startYear;
 
   /* Expandable Synth Drawer inside .heatmap-card */
   .heatmap-synth-panel {
-    border-bottom: 1px solid var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    margin-top: 10px;
     padding: 14px 18px 16px;
     background: var(--sunk);
     box-sizing: border-box;
@@ -1243,6 +1388,10 @@ const yearsActive = currentYear - startYear;
 
   .heatmap-synth-panel[hidden] {
     display: none !important;
+  }
+
+  .synth-sliders-wrapper {
+    display: contents;
   }
 
   .synth-panel-header {
@@ -1709,8 +1858,30 @@ const yearsActive = currentYear - startYear;
   .heatmap-svg {
     display: block;
     width: 100%;
-    min-width: 680px;
     height: auto;
+  }
+
+  .heatmap-svg--desktop {
+    display: block;
+    min-width: 680px;
+  }
+
+  .heatmap-svg--mobile {
+    display: none;
+  }
+
+  @media (max-width: 680px) {
+    .heatmap-svg--desktop {
+      display: none;
+    }
+    .heatmap-svg--mobile {
+      display: block;
+      min-width: 0;
+      max-width: 100%;
+    }
+    .heatmap-scroll {
+      overflow-x: visible;
+    }
   }
 
   .label-month,
@@ -1819,10 +1990,86 @@ const yearsActive = currentYear - startYear;
   }
 
   @media (max-width: 640px) {
+    .heatmap-card {
+      padding: 12px;
+    }
+    .heatmap-bar {
+      margin-top: 8px;
+      gap: 6px;
+    }
+    .heatmap-synth-panel {
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+    .synth-panel-header {
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      gap: 6px;
+    }
+    .synth-panel-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .synth-section {
+      margin-bottom: 6px;
+    }
+    .synth-section-label {
+      margin-bottom: 4px;
+      font-size: 0.5625rem;
+    }
+    .synth-presets-grid,
+    .synth-wave-selector {
+      gap: 4px;
+    }
+    .synth-preset-chip {
+      padding: 4px 2px;
+      font-size: 0.5625rem;
+      gap: 2px;
+    }
+    .wave-pill {
+      padding: 3px 2px;
+    }
+    .wave-symbol {
+      font-size: 0.75rem;
+    }
+    .wave-name {
+      font-size: 0.5625rem;
+    }
+    .synth-sliders-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .synth-slider-row {
+      margin-bottom: 4px;
+    }
+    .synth-slider-meta {
+      font-size: 0.5625rem;
+      margin-bottom: 1px;
+    }
+    .slider-name {
+      font-size: 0.5625rem;
+    }
+    .slider-helper {
+      font-size: 0.5rem;
+    }
+    .slider-value {
+      font-size: 0.5625rem;
+    }
+    .synth-slider-row input[type="range"] {
+      margin: 2px 0;
+      height: 3px;
+    }
+    .synth-tip-box {
+      display: none;
+    }
     .heatmap-footer {
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
     }
     .heatmap-legend {
       width: 100%;

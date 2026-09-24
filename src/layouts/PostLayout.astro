@@ -31,6 +31,8 @@ const minutes = Math.max(1, Math.round(wordCount / 220));
 // Only h2s go in the rail — h3s would make it long and noisy.
 const toc = headings.filter((h) => h.depth === 2);
 const ogImage = images[0];
+const primaryCategory = categories[0]?.toLowerCase().trim();
+const activeNav = primaryCategory ? `/categories/${primaryCategory}/` : undefined;
 ---
 
 <BaseLayout
@@ -40,6 +42,7 @@ const ogImage = images[0];
   ogType="article"
   {ogImage}
   published={date.toISOString()}
+  {activeNav}
 >
   <div class:list={['grid', toc.length === 0 && 'grid--no-toc']}>
     {

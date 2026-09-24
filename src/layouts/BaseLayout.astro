@@ -11,6 +11,8 @@ interface Props {
   ogType?: 'article' | 'website' | undefined;
   /** ISO date, for article:published_time. */
   published?: string | undefined;
+  /** Explicit active nav path (e.g. for post matching category). */
+  activeNav?: string | undefined;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   ogImage,
   ogType = 'website',
   published,
+  activeNav,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -31,7 +34,13 @@ const nav = [
   { href: '/about/', label: 'About' },
   { href: '/posts/', label: 'Archive' },
 ] as const;
-const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
+const isCurrent = (href: string) => {
+  if (activeNav) return activeNav === href;
+  if (href === '/posts/') {
+    return Astro.url.pathname === '/posts/' || Astro.url.pathname.startsWith('/posts/page/');
+  }
+  return Astro.url.pathname.startsWith(href);
+};
 ---
 
 <!doctype html>
@@ -84,63 +93,148 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         <a class="brand" href="/">
           <span>Risan Bagja</span>
         </a>
-        <nav class="top" aria-label="Primary">
-          {
-            nav.map((item) => (
-              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))
-          }
-          <a href="https://blog.risanb.com">Blog</a>
-          <a href="/rss.xml">RSS</a>
-          <button class="kbd" type="button" data-search-open aria-label="Search (Command K)">
-            ⌘K
-          </button>
-          <button
-            class="theme-toggle"
-            type="button"
-            id="theme-toggle"
-            aria-label="Toggle color theme"
-          >
-            <svg
-              class="sun-icon"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
+        <div class="bar-right">
+          <nav class="top" aria-label="Primary">
+            {
+              nav.map((item) => (
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              ))
+            }
+            <a href="https://blog.risanb.com">Blog</a>
+            <a href="/rss.xml">RSS</a>
+          </nav>
+
+          <div class="nav-actions">
+            <button
+              class="search-btn"
+              type="button"
+              data-search-open
+              aria-label="Search (Command K)"
+              title="Search (⌘K)"
             >
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2"></path>
-              <path d="M12 20v2"></path>
-              <path d="m4.93 4.93 1.41 1.41"></path>
-              <path d="m17.66 17.66 1.41 1.41"></path>
-              <path d="M2 12h2"></path>
-              <path d="M20 12h2"></path>
-              <path d="m6.34 17.66-1.41 1.41"></path>
-              <path d="m19.07 4.93-1.41 1.41"></path>
-            </svg>
-            <svg
-              class="moon-icon"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
+              <svg
+                class="search-icon"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span class="search-kbd">⌘K</span>
+            </button>
+
+            <button
+              class="theme-toggle"
+              type="button"
+              id="theme-toggle"
+              aria-label="Toggle color theme"
+              title="Toggle color theme"
             >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-            </svg>
-          </button>
-        </nav>
+              <svg
+                class="sun-icon"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+              <svg
+                class="moon-icon"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+            </button>
+
+            <button
+              class="menu-toggle"
+              type="button"
+              id="menu-toggle"
+              aria-expanded="false"
+              aria-controls="mobile-nav"
+              aria-label="Toggle navigation menu"
+            >
+              <svg
+                class="menu-icon-bars"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+              <svg
+                class="menu-icon-close"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mobile-nav" class="mobile-nav" hidden>
+        <div class="wrap">
+          <nav class="mobile-nav-links" aria-label="Mobile Navigation">
+            {
+              nav.map((item) => (
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              ))
+            }
+            <a href="https://blog.risanb.com">Blog</a>
+            <a href="/rss.xml">RSS</a>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -170,6 +264,69 @@ const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       });
+
+      // Mobile navbar menu toggle
+      const menuBtn = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (menuBtn && mobileNav) {
+        menuBtn.addEventListener('click', () => {
+          const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+          menuBtn.setAttribute('aria-expanded', String(!isOpen));
+          menuBtn.classList.toggle('is-active', !isOpen);
+          mobileNav.hidden = isOpen;
+        });
+
+        // Auto-close menu on link click
+        mobileNav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.classList.remove('is-active');
+            mobileNav.hidden = true;
+          });
+        });
+      }
+
+      // Windows XP startup sound on hover
+      let xpAudio: HTMLAudioElement | null = null;
+      let lastPlayTime = 0;
+      const playWindowsXpSound = () => {
+        const now = Date.now();
+        if (now - lastPlayTime < 2500) return;
+        lastPlayTime = now;
+        try {
+          if (!xpAudio) {
+            xpAudio = new Audio('/sounds/windows-xp-startup.mp3');
+            xpAudio.volume = 0.5;
+          } else {
+            xpAudio.currentTime = 0;
+          }
+          xpAudio.play().catch(() => {});
+        } catch {}
+      };
+
+      const preloadXpAudio = () => {
+        if (!xpAudio) {
+          xpAudio = new Audio('/sounds/windows-xp-startup.mp3');
+          xpAudio.volume = 0.5;
+          xpAudio.load();
+        }
+      };
+
+      const bindWindowsHover = () => {
+        const selectors = [
+          'a[href*="/tags/windows"]',
+          '.tech-icon[data-tech="windows"]'
+        ];
+        document.querySelectorAll(selectors.join(',')).forEach((el) => {
+          el.addEventListener('mouseenter', playWindowsXpSound);
+          el.addEventListener('pointerenter', preloadXpAudio, { once: true });
+        });
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindWindowsHover);
+      } else {
+        bindWindowsHover();
+      }
 
       const progressBar = document.getElementById('reading-progress');
       if (progressBar) {
