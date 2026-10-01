@@ -213,6 +213,9 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     <div class="heatmap-bar">
       <div class="snake-hud">
         <span class="snake-score">Score <strong data-snake="score">0</strong> · Best <strong data-snake="best">0</strong></span>
+        <button type="button" class="btn btn--icon snake-pause" data-snake="pause" aria-label="Pause">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
+        </button>
         <button type="button" class="btn btn--icon" data-action="sound" aria-pressed="true" aria-label="Sound">
           <svg class="icon-sound-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"></path></svg>
           <svg class="icon-sound-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="m22 9-6 6M16 9l6 6"></path></svg>
@@ -468,6 +471,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       private echoSend!: GainNode;
       private output!: AudioNode;
       private voices: ActiveVoice[] = [];
+      private beeps = new Set<ActiveVoice>();
 
       constructor(private settings: Settings) {}
 
@@ -626,13 +630,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       private stealOldest(now: number) {
         const oldest = this.voices.shift();
 
-        if (!oldest) {
-          return;
+        if (oldest) {
+          this.silence(oldest, now);
         }
+      }
 
-        oldest.envelope.gain.cancelScheduledValues(now);
-        oldest.envelope.gain.setTargetAtTime(0, now, 0.01);
-        oldest.oscillators.forEach((oscillator) => oscillator.stop(now + 0.08));
+      private silence(voice: ActiveVoice, now: number) {
+        voice.envelope.gain.cancelScheduledValues(now);
+        voice.envelope.gain.setTargetAtTime(0, now, 0.01);
+        voice.oscillators.forEach((oscillator) => oscillator.stop(now + 0.08));
       }
 
       /** A dry monophonic square-wave beep, like an old phone. */
@@ -657,7 +663,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
         oscillator.connect(envelope);
         envelope.connect(this.output);
+
+        const active = { envelope, oscillators: [oscillator] };
+        this.beeps.add(active);
         oscillator.onended = () => {
+          this.beeps.delete(active);
           oscillator.disconnect();
           envelope.disconnect();
         };
@@ -673,6 +683,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         while (this.voices.length > 0) {
           this.stealOldest(this.time);
         }
+
+        for (const beep of this.beeps) {
+          this.silence(beep, this.time);
+        }
+
+        this.beeps.clear();
       }
     }
 
@@ -1039,6 +1055,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     const primaryLabel = overlay.querySelector<HTMLElement>('[data-snake="primary-label"]')!;
     const announcer = card.querySelector<HTMLElement>('[data-snake="announcer"]')!;
     const hudSoundButton = card.querySelector<HTMLButtonElement>('.snake-hud [data-action="sound"]')!;
+    const pauseButton = card.querySelector<HTMLButtonElement>('[data-snake="pause"]')!;
     const scoreOutput = card.querySelector<HTMLElement>('[data-snake="score"]')!;
     const bestOutput = card.querySelector<HTMLElement>('[data-snake="best"]')!;
 
@@ -1381,6 +1398,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       keepHeadInView();
       eyebrow.textContent = 'Scoreboard';
       setGameState('running');
+      scroller.focus({ preventScroll: true });
       hideOverlay();
       playBeeps(START_BEEPS, 0.06, 0.08);
       resumeLoop();
@@ -1402,13 +1420,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       showOverlay('paused', 'Paused');
 
       // Focus on the heatmap keeps Space working as resume, without a focused button also clicking on key-up.
-      if (!card.contains(document.activeElement)) {
-        scroller.focus({ preventScroll: true });
-      }
+      scroller.focus({ preventScroll: true });
     }
 
     function resumeGame() {
       setGameState('running');
+      scroller.focus({ preventScroll: true });
       hideOverlay();
       resumeLoop();
     }
@@ -1461,12 +1478,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       } else {
         body.shift();
         occupied[cellIndex(tail.col, tail.row)] = false;
+        removePassedLumps();
       }
 
       body.push({ col, row });
       occupied[cellIndex(col, row)] = true;
-
-      removePassedLumps();
       renderSnake();
       keepHeadInView();
       eatCell(col, row);
@@ -1561,6 +1577,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     function restoreBoard() {
       cancelAnimationFrame(frameId);
       clearTimeout(overTimer);
+      engine.stopAll();
 
       for (const { element, animation } of floats.values()) {
         animation.cancel();
@@ -1607,6 +1624,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     snakeToggle.addEventListener('click', () => setSnakeMode(!isSnakeOn()));
     primaryButton.addEventListener('click', togglePrimary);
     hudSoundButton.addEventListener('click', toggleSound);
+    pauseButton.addEventListener('click', pauseGame);
 
     document.addEventListener('keydown', (event) => {
       const target = event.target instanceof Element ? event.target : document.body;
@@ -2149,6 +2167,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   .btn--icon {
     width: 28px;
     padding: 0;
+  }
+
+  .snake-pause {
+    display: none;
+  }
+
+  .is-snake-running .snake-pause {
+    display: inline-flex;
   }
 
   .btn--icon[aria-pressed="true"] .icon-sound-off,
