@@ -28,6 +28,11 @@
 #   /code/*                  -> /posts/:splat             (technical posts moved to /posts/)
 #   /code/                   -> /posts/
 
+# --- feed -------------------------------------------------------------------
+# Hugo served the RSS feed at /index.xml; existing subscribers still poll it.
+
+/index.xml  /rss.xml  301
+
 # --- blog-only categories (code keeps log, snippet, tutorial) ---------------
 
 /categories/journal/  https://blog.risanb.com/categories/journal/  301
