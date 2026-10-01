@@ -462,6 +462,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     interface ActiveVoice {
       envelope: GainNode;
       oscillators: OscillatorNode[];
+      startsAt: number;
     }
 
     class SoundEngine {
@@ -589,7 +590,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
           oscillators.push(this.oscillator(ctx, voice.wave2, frequency * voice.ratio2, voice.detuneCents, voice.gain2, filter));
         }
 
-        const active = { envelope, oscillators };
+        const active = { envelope, oscillators, startsAt: start };
         this.voices.push(active);
         oscillators[0]!.onended = () => {
           const index = this.voices.indexOf(active);
@@ -636,6 +637,13 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
 
       private silence(voice: ActiveVoice, now: number) {
+        // Cancelling a voice that has not started also drops its opening zero, leaving gain at 1; never let it start.
+        if (voice.startsAt >= now) {
+          voice.oscillators.forEach((oscillator) => oscillator.stop(now));
+
+          return;
+        }
+
         voice.envelope.gain.cancelScheduledValues(now);
         voice.envelope.gain.setTargetAtTime(0, now, 0.01);
         voice.oscillators.forEach((oscillator) => oscillator.stop(now + 0.08));
@@ -664,7 +672,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         oscillator.connect(envelope);
         envelope.connect(this.output);
 
-        const active = { envelope, oscillators: [oscillator] };
+        const active = { envelope, oscillators: [oscillator], startsAt: start };
         this.beeps.add(active);
         oscillator.onended = () => {
           this.beeps.delete(active);
