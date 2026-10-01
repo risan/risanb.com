@@ -1355,9 +1355,19 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
   }
 
-  @media (max-width: 480px) {
-    .stats-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 640px) {
+    .stat-card {
+      padding: 10px 12px;
+      min-width: 0;
+    }
+
+    .stat-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
     }
   }
 </style>
