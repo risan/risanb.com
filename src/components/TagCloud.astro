@@ -1,0 +1,22 @@
+---
+import TechIcon from './TechIcon.astro';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  groups: Map<string, Post[]>;
+}
+
+const sorted = [...Astro.props.groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+---
+
+<div class="tag-cloud">
+  {
+    sorted.map(([name, posts]) => (
+      <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
+        <TechIcon name={name} />
+        <span class="tag-name">#{name}</span>
+        <span class="tag-count">{posts.length}</span>
+      </a>
+    ))
+  }
+</div>

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { toPlainText } from '../lib/plain-text';
+import { getPosts, postSlug, postUrl } from '../lib/posts';
 
 /**
  * Static search index for the ⌘K modal.
@@ -14,33 +14,18 @@ import { toPlainText } from '../lib/plain-text';
  * rather than one blob so MiniSearch can boost title and tags above body prose.
  */
 export const GET: APIRoute = async () => {
-  const posts = await getCollection('code');
+  const posts = await getPosts();
 
-  const index = posts
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-    .map((post) => {
-      // Same normalisation as src/pages/code/[...slug].astro — a bundle
-      // directory ('foo/index') and a flat file ('foo') share one URL.
-      const slug = post.id.replace(/\/index$/, '');
+  const index = posts.map((post) => ({
+    id: postSlug(post),
+    url: postUrl(post),
+    title: post.data.title,
+    description: post.data.description ?? '',
+    date: post.data.date.toISOString().slice(0, 10),
+    tags: post.data.tags,
+    categories: post.data.categories,
+    text: toPlainText(post.body ?? ''),
+  }));
 
-      return {
-        id: slug,
-        url: `/posts/${slug}/`,
-        title: post.data.title,
-        description: post.data.description ?? '',
-        date: post.data.date.toISOString().slice(0, 10),
-        tags: post.data.tags,
-        categories: post.data.categories,
-        text: toPlainText(post.body ?? ''),
-      };
-    });
-
-  return new Response(JSON.stringify(index), {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      // Long-lived: the file is content-hashed by nothing, but it changes only
-      // on deploy, and a stale index is worse than a revalidation round-trip.
-      'Cache-Control': 'public, max-age=0, must-revalidate',
-    },
-  });
+  return Response.json(index);
 };

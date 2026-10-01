@@ -2,8 +2,8 @@
 import BaseLayout from './BaseLayout.astro';
 import ViewCounter from '../components/ViewCounter.astro';
 import LoveCounter from '../components/LoveCounter.astro';
-import type { CollectionEntry } from 'astro:content';
-type Post = CollectionEntry<'code'>;
+import { formatLongDate } from '../lib/format-date';
+import { postSlug, postUrl, type Post } from '../lib/posts';
 
 interface Props {
   post: Post;
@@ -16,15 +16,8 @@ interface Props {
 
 const { post, headings, wordCount, prev, next } = Astro.props;
 const { title, date, lastmod, description, categories, tags, images, languageCode } = post.data;
-const slug = post.id.replace(/\/index$/, '');
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
 
+const slug = postSlug(post);
 const updated = lastmod && lastmod > date ? lastmod : null;
 const minutes = Math.max(1, Math.round(wordCount / 220));
 
@@ -72,10 +65,10 @@ const activeNav = primaryCategory ? `/categories/${primaryCategory}/` : undefine
         ))}
         {updated ? (
           <span>
-            Updated <time datetime={updated.toISOString()}>{fmt(updated)}</time>
+            Updated <time datetime={updated.toISOString()}>{formatLongDate(updated)}</time>
           </span>
         ) : (
-          <time datetime={date.toISOString()}>{fmt(date)}</time>
+          <time datetime={date.toISOString()}>{formatLongDate(date)}</time>
         )}
         <span class="dot">·</span>
         <span>{minutes} min read</span>
@@ -136,7 +129,7 @@ const activeNav = primaryCategory ? `/categories/${primaryCategory}/` : undefine
               {prev ? (
                 <div class="item prev">
                   <span class="label">← Previous</span>
-                  <a href={`/posts/${prev.id.replace(/\/index$/, '')}/`}>{prev.data.title}</a>
+                  <a href={postUrl(prev)}>{prev.data.title}</a>
                 </div>
               ) : (
                 <div class="item placeholder" />
@@ -144,7 +137,7 @@ const activeNav = primaryCategory ? `/categories/${primaryCategory}/` : undefine
               {next && (
                 <div class="item next">
                   <span class="label">Next →</span>
-                  <a href={`/posts/${next.id.replace(/\/index$/, '')}/`}>{next.data.title}</a>
+                  <a href={postUrl(next)}>{next.data.title}</a>
                 </div>
               )}
             </nav>
@@ -171,16 +164,25 @@ const activeNav = primaryCategory ? `/categories/${primaryCategory}/` : undefine
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          const id = entry.target.id;
-          if (entry.isIntersecting) visible.add(id);
-          else visible.delete(id);
+          if (entry.isIntersecting) {
+            visible.add(entry.target.id);
+          } else {
+            visible.delete(entry.target.id);
+          }
         }
+
         // Mark the topmost heading currently on screen.
         const active = headings.find((h) => visible.has(h.id))?.id;
-        for (const [id, a] of links) a.classList.toggle('active', id === active);
+
+        for (const [id, link] of links) {
+          link.classList.toggle('active', id === active);
+        }
       },
       { rootMargin: '-96px 0px -70% 0px', threshold: 0 },
     );
-    for (const h of headings) observer.observe(h);
+
+    for (const heading of headings) {
+      observer.observe(heading);
+    }
   }
 </script>

@@ -1,28 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GithubHeatmap from '../components/GithubHeatmap.astro';
 import Clippy from '../components/Clippy.astro';
-import TechIcon from '../components/TechIcon.astro';
+import PostList from '../components/PostList.astro';
+import TagCloud from '../components/TagCloud.astro';
 import risanPhoto from '../assets/risan.webp';
-const posts = (await getCollection('code')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+import { getPosts, groupByTerm } from '../lib/posts';
 
+const posts = await getPosts();
 const featured = posts.filter((p) => p.data.featured).slice(0, 6);
 const recent = posts.slice(0, 6);
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
-
-const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
-
-const terms = new Map<string, number>();
-for (const post of posts) {
-  for (const t of post.data.tags) terms.set(t, (terms.get(t) ?? 0) + 1);
-}
-const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+const tags = groupByTerm(posts, 'tags');
 ---
 
 <BaseLayout
@@ -84,34 +74,14 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
       featured.length > 0 && (
         <section class="section-block">
           <h2>Featured</h2>
-          <ul class="entry-list entry-list--compact">
-            {featured.map((post) => (
-              <li>
-                <a href={href(post.id)}>
-                  <span class="title">{post.data.title}</span>
-                  <span class="meta">{fmt(post.data.date)}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <PostList posts={featured} />
         </section>
       )
     }
 
     <section class="section-block">
       <h2>Recent</h2>
-      <ul class="entry-list entry-list--compact">
-        {
-          recent.map((post) => (
-            <li>
-              <a href={href(post.id)}>
-                <span class="title">{post.data.title}</span>
-                <span class="meta">{fmt(post.data.date)}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <PostList posts={recent} />
       <p class="eyebrow" style="margin-top: 20px;">
         <a href="/posts/">All {posts.length} posts →</a>
       </p>
@@ -121,17 +91,7 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
 
   <section class="section-block">
     <h2>Tag Clouds</h2>
-    <div class="tag-cloud">
-      {
-        sortedTags.map(([name, count]) => (
-          <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
-            <TechIcon name={name} />
-            <span class="tag-name">#{name}</span>
-            <span class="tag-count">{count}</span>
-          </a>
-        ))
-      }
-    </div>
+    <TagCloud groups={tags} />
   </section>
 
   <GithubHeatmap />

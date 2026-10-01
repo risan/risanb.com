@@ -1,11 +1,9 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { getPosts, postUrl } from '../lib/posts';
 
 export async function GET(context: APIContext) {
-  const posts = (await getCollection('code')).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  );
+  const posts = await getPosts();
 
   return rss({
     title: 'Risan Bagja',
@@ -18,7 +16,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description ?? '',
       pubDate: post.data.date,
-      link: `/posts/${post.id.replace(/\/index$/, '')}/`,
+      link: postUrl(post),
       categories: [...post.data.categories, ...post.data.tags],
     })),
     customData: '<language>en</language>',
