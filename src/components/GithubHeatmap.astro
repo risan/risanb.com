@@ -126,82 +126,105 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     data-cell-size={CELL_SIZE}
     data-mobile-first-week={layouts[1]!.firstWeek}
   >
-    <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
-      {
-        layouts.map((layout) => (
-          <svg
-            viewBox={`0 0 ${layout.width} ${svgHeight}`}
-            class={`heatmap-svg heatmap-svg--${layout.id}`}
-            role="img"
-            aria-label={layout.label}
-            data-first-week={layout.firstWeek}
-          >
-            <rect
-              class="playhead"
-              x={X_OFFSET - 1.5}
-              y={Y_OFFSET - 1.5}
-              width={STEP}
-              height={ROWS * STEP}
-              rx="3"
-              aria-hidden="true"
-            />
+    <div class="heatmap-stage">
+      <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
+        {
+          layouts.map((layout) => (
+            <svg
+              viewBox={`0 0 ${layout.width} ${svgHeight}`}
+              class={`heatmap-svg heatmap-svg--${layout.id}`}
+              role="img"
+              aria-label={layout.label}
+              data-first-week={layout.firstWeek}
+            >
+              <rect
+                class="playhead"
+                x={X_OFFSET - 1.5}
+                y={Y_OFFSET - 1.5}
+                width={STEP}
+                height={ROWS * STEP}
+                rx="3"
+                aria-hidden="true"
+              />
 
-            {layout.monthLabels.map((month) => (
-              <text x={month.x} y={12} class="label-axis">
-                {month.name}
-              </text>
-            ))}
+              {layout.monthLabels.map((month) => (
+                <text x={month.x} y={12} class="label-axis">
+                  {month.name}
+                </text>
+              ))}
 
-            {WEEKDAY_LABELS.map(([name, weekday]) => (
-              <text x={2} y={Y_OFFSET + weekday * STEP + 8} class="label-axis">
-                {name}
-              </text>
-            ))}
+              {WEEKDAY_LABELS.map(([name, weekday]) => (
+                <text x={2} y={Y_OFFSET + weekday * STEP + 8} class="label-axis">
+                  {name}
+                </text>
+              ))}
 
-            {layout.weeks.map((week, index) => {
-              const x = X_OFFSET + index * STEP;
-              const weekIndex = layout.firstWeek + index;
-              const chord = chordOf(week);
+              {layout.weeks.map((week, index) => {
+                const x = X_OFFSET + index * STEP;
+                const weekIndex = layout.firstWeek + index;
+                const chord = chordOf(week);
 
-              return week.contributionDays.map((day) => {
-                const level = LEVELS[day.contributionLevel] ?? 0;
-                const noun = day.contributionCount === 1 ? 'contribution' : 'contributions';
+                return week.contributionDays.map((day) => {
+                  const level = LEVELS[day.contributionLevel] ?? 0;
+                  const noun = day.contributionCount === 1 ? 'contribution' : 'contributions';
 
-                return (
-                  <rect
-                    x={x}
-                    y={Y_OFFSET + day.weekday * STEP}
-                    width={CELL_SIZE}
-                    height={CELL_SIZE}
-                    rx="2"
-                    class={`gh-cell gh-cell-${level}`}
-                    data-week={weekIndex}
-                    data-day={day.weekday}
-                    data-level={level}
-                    data-chord={chord}
-                    data-count={day.contributionCount}
-                    data-date={day.date}
-                  >
-                    <title>{`${day.contributionCount} ${noun} on ${formatDate(day.date)}`}</title>
-                  </rect>
-                );
-              });
-            })}
+                  return (
+                    <rect
+                      x={x}
+                      y={Y_OFFSET + day.weekday * STEP}
+                      width={CELL_SIZE}
+                      height={CELL_SIZE}
+                      rx="2"
+                      class={`gh-cell gh-cell-${level}`}
+                      data-week={weekIndex}
+                      data-day={day.weekday}
+                      data-level={level}
+                      data-chord={chord}
+                      data-count={day.contributionCount}
+                      data-date={day.date}
+                    >
+                      <title>{`${day.contributionCount} ${noun} on ${formatDate(day.date)}`}</title>
+                    </rect>
+                  );
+                });
+              })}
 
-            <g class="snake-layer" aria-hidden="true"></g>
-          </svg>
-        ))
-      }
+              <g class="snake-layer" aria-hidden="true"></g>
+            </svg>
+          ))
+        }
+      </div>
+
+      <div class="snake-overlay" data-state="idle" hidden>
+        <p class="snake-title" data-snake="title"></p>
+        <p class="snake-summary" data-snake="summary"></p>
+        <button type="button" class="btn btn--primary" data-action="snake-primary">
+          <svg class="snake-icon-play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
+          <span data-snake="primary-label">Start</span>
+        </button>
+        <p class="snake-instruction">
+          <span class="snake-instruction--pointer">Arrow keys or WASD to steer. Darker days are worth more.</span>
+          <span class="snake-instruction--touch">Swipe to steer. Darker days are worth more.</span>
+        </p>
+      </div>
+
+      <p class="snake-announcer" data-snake="announcer" aria-live="polite"></p>
     </div>
-
     <div class="heatmap-bar">
-      <button id="snake-toggle" class="btn" type="button" aria-expanded="false" aria-controls="snake-panel">
+      <div class="snake-hud">
+        <span class="snake-score">Score <strong data-snake="score">0</strong> · Best <strong data-snake="best">0</strong></span>
+        <button type="button" class="btn btn--icon" data-action="sound" aria-pressed="true" aria-label="Sound">
+          <svg class="icon-sound-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"></path></svg>
+          <svg class="icon-sound-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="m22 9-6 6M16 9l6 6"></path></svg>
+        </button>
+      </div>
+
+      <button id="snake-toggle" class="btn" type="button" aria-pressed="false">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M19 5H10a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8H5"></path>
           <circle cx="19" cy="5" r="1.4" fill="currentColor"></circle>
         </svg>
         <span>Snake</span>
-        <span class="chevron" aria-hidden="true">▾</span>
       </button>
 
       <button id="synth-toggle" class="btn" type="button" aria-expanded="false" aria-controls="synth-panel">
@@ -219,30 +242,6 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         <span>@{username}</span>
         <span aria-hidden="true">↗</span>
       </a>
-    </div>
-
-    <div id="snake-panel" class="synth-panel snake-panel" role="region" aria-label="Snake game" hidden>
-      <div class="synth-actions">
-        <button type="button" class="btn btn--primary" data-action="snake-primary" data-state="idle">
-          <svg class="snake-icon snake-icon--play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
-          <svg class="snake-icon snake-icon--pause" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
-          <svg class="snake-icon snake-icon--restart" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8M20 4v5h-5"></path></svg>
-          <span data-snake="primary-label">Start</span>
-        </button>
-        <button type="button" class="btn" data-action="sound" aria-pressed="true">
-          <span class="sound-dot" aria-hidden="true"></span>
-          <span data-sound-label>Sound on</span>
-        </button>
-        <span class="snake-score">
-          <span>Score <strong data-snake="score">0</strong></span>
-          <span>Best <strong data-snake="best">0</strong></span>
-        </span>
-        <button type="button" class="synth-close" data-action="close" aria-label="Close Snake">✕</button>
-      </div>
-
-      <p class="snake-status" data-snake="status" aria-live="polite"></p>
-
-      <p class="synth-hint">Arrow keys, WASD or swipe. Darker days are worth more, and every bite comes off the stats above.</p>
     </div>
 
     <div id="synth-panel" class="synth-panel" role="region" aria-label="Tone synthesizer" hidden>
@@ -395,6 +394,9 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     const MIN_RETRIGGER_MS = 120;
     const STRUM_SECONDS = 0.022;
     const VOICE_GAIN = 0.2;
+    const BEEP_GAIN = 0.07;
+    const BEEP_ATTACK = 0.002;
+    const BEEP_RELEASE = 0.01;
     const DEFAULT_SETTINGS: Settings = { sound: true, preset: 'chimes', mood: 'bright', tempo: 110, space: VOICES.chimes.space };
 
     const isPreset = (value: unknown): value is PresetId => typeof value === 'string' && value in VOICES;
@@ -464,6 +466,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       private input!: GainNode;
       private reverbSend!: GainNode;
       private echoSend!: GainNode;
+      private output!: AudioNode;
       private voices: ActiveVoice[] = [];
 
       constructor(private settings: Settings) {}
@@ -481,6 +484,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
 
       // voices -> dry + reverb send + echo send -> master -> gentle low-pass -> compressor -> speakers
+      // beeps skip everything before the compressor, so they stay dry like a phone speaker.
       private buildGraph(ctx: AudioContext) {
         const compressor = ctx.createDynamicsCompressor();
         compressor.threshold.value = -16;
@@ -489,6 +493,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         compressor.attack.value = 0.005;
         compressor.release.value = 0.25;
         compressor.connect(ctx.destination);
+        this.output = compressor;
 
         const tone = ctx.createBiquadFilter();
         tone.type = 'lowpass';
@@ -539,14 +544,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         this.echoSend.gain.setTargetAtTime(this.settings.space * 0.45, now, 0.05);
       }
 
-      public play(frequency: number, level: number, loudness = 1, when = 0, preset = this.settings.preset) {
+      public play(frequency: number, level: number, loudness = 1, when = 0) {
         const ctx = this.ctx;
 
         if (!ctx || level === 0) {
           return;
         }
 
-        const voice = VOICES[preset];
+        const voice = VOICES[this.settings.preset];
         const velocity = VELOCITY_BY_LEVEL[level]!;
         const start = Math.max(when, ctx.currentTime);
         const peak = VOICE_GAIN * voice.gain * velocity * loudness;
@@ -630,6 +635,36 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         oldest.oscillators.forEach((oscillator) => oscillator.stop(now + 0.08));
       }
 
+      /** A dry monophonic square-wave beep, like an old phone. */
+      public beep(frequency: number, duration: number, when = 0, gain = BEEP_GAIN) {
+        const ctx = this.ctx;
+
+        if (!ctx || !this.settings.sound) {
+          return;
+        }
+
+        const start = Math.max(when, ctx.currentTime);
+        const end = start + duration;
+        const oscillator = ctx.createOscillator();
+        oscillator.type = 'square';
+        oscillator.frequency.value = frequency;
+
+        const envelope = ctx.createGain();
+        envelope.gain.setValueAtTime(0, start);
+        envelope.gain.linearRampToValueAtTime(gain, start + BEEP_ATTACK);
+        envelope.gain.setValueAtTime(gain, end - BEEP_RELEASE);
+        envelope.gain.linearRampToValueAtTime(0, end);
+
+        oscillator.connect(envelope);
+        envelope.connect(this.output);
+        oscillator.onended = () => {
+          oscillator.disconnect();
+          envelope.disconnect();
+        };
+        oscillator.start(start);
+        oscillator.stop(end);
+      }
+
       public get time() {
         return this.ctx?.currentTime ?? 0;
       }
@@ -689,7 +724,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       for (const soundButton of soundButtons) {
         soundButton.setAttribute('aria-pressed', String(settings.sound));
-        soundButton.querySelector('[data-sound-label]')!.textContent = settings.sound ? 'Sound on' : 'Sound off';
+
+        const label = soundButton.querySelector('[data-sound-label]');
+
+        if (label) {
+          label.textContent = settings.sound ? 'Sound on' : 'Sound off';
+        }
       }
     }
 
@@ -699,7 +739,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       synthToggle.setAttribute('aria-expanded', String(open));
 
       if (open) {
-        setSnakeOpen(false);
+        setSnakeMode(false);
         engine.unlock();
       } else {
         stop();
@@ -868,12 +908,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         return;
       }
 
-      for (const { panel, toggle, setOpen } of [
-        { panel: synthPanel, toggle: synthToggle, setOpen: setSynthOpen },
-        { panel: snakePanel, toggle: snakeToggle, setOpen: setSnakeOpen },
+      for (const { scope, toggle, isOpen, setOpen } of [
+        { scope: synthPanel, toggle: synthToggle, isOpen: () => !synthPanel.hidden, setOpen: setSynthOpen },
+        { scope: card, toggle: snakeToggle, isOpen: isSnakeOn, setOpen: setSnakeMode },
       ]) {
-        if (!panel.hidden) {
-          const focusWasInside = panel.contains(document.activeElement);
+        if (isOpen()) {
+          const focusWasInside = scope.contains(document.activeElement);
 
           setOpen(false);
 
@@ -918,17 +958,34 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     type Direction = 'up' | 'down' | 'left' | 'right';
     type GameState = 'idle' | 'running' | 'paused' | 'over';
+    type OverlayState = Exclude<GameState, 'running'>;
 
     interface Segment {
       col: number;
       row: number;
-      rect: SVGRectElement;
+    }
+
+    interface Lump extends Segment {
+      elements: SVGCircleElement[];
+    }
+
+    interface Skin {
+      outline: SVGPathElement;
+      body: SVGPathElement;
+      marks: SVGPathElement;
+      tailOutline: SVGPathElement;
+      tailBody: SVGPathElement;
+      lumpOutlines: SVGGElement;
+      lumpFills: SVGGElement;
+      head: SVGGElement;
+      jaw: SVGGElement;
     }
 
     interface Board {
       cols: number;
       /** Indexed by `col * ROWS + row`. Missing days of the first and last week are undefined. */
       cells: (SVGElement | undefined)[];
+      svg: SVGSVGElement;
       layer: SVGGElement;
     }
 
@@ -936,27 +993,31 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
     const ROWS = 7;
     const START_LENGTH = 3;
-    const START_SPEED = 7;
-    const MAX_SPEED = 14;
-    const SPEED_PER_SEGMENT = 0.35;
+    const START_SPEED = 4.5;
+    const MAX_SPEED = 9.5;
+    const SPEED_PER_SEGMENT = 0.15;
     const MAX_FRAME_MS = 250;
     const MAX_QUEUED_TURNS = 2;
     const METER_PER_SEGMENT = 4;
     const SWIPE_DISTANCE = 24;
-    const EYE_FORWARD = 2;
-    const EYE_SIDE = 2.2;
-    const PHRASE_GAP_SECONDS = 0.09;
-    const PHRASE_LOUDNESS = 0.6;
-    const START_PHRASE = [4, 2, 0];
-    const OVER_PHRASE = [1, 3, 5];
-    const CELEBRATION_PHRASE = [6, 4, 2, 0];
-    const PRIMARY_LABELS: Record<GameState, string> = { idle: 'Start', running: 'Pause', paused: 'Resume', over: 'Play again' };
+    const BLINK_MS = 600;
+    const CHOMP_MS = 300;
+    const LUMP_RADIUS = 4.9;
+    const LUMP_MIN_LEVEL = 3;
+    const LUMP_OUTLINE = 0.9;
+    const EAT_BEEP_FREQUENCIES = [0, 880, 988, 1175, 1319];
+    const EAT_BEEP_SECONDS = 0.055;
+    const START_BEEPS = [660, 880];
+    const GAME_OVER_BEEPS = [660, 440, 330];
+    const GAME_OVER_BUZZ = 110;
+    const CELEBRATION_BEEPS = [523, 659, 784, 1047];
+    const OVERLAY_LABELS: Record<OverlayState, string> = { idle: 'Start', paused: 'Resume', over: 'Play again' };
 
-    const DIRECTIONS: Record<Direction, { dx: number; dy: number; opposite: Direction }> = {
-      up: { dx: 0, dy: -1, opposite: 'down' },
-      down: { dx: 0, dy: 1, opposite: 'up' },
-      left: { dx: -1, dy: 0, opposite: 'right' },
-      right: { dx: 1, dy: 0, opposite: 'left' },
+    const DIRECTIONS: Record<Direction, { dx: number; dy: number; angle: number; opposite: Direction }> = {
+      up: { dx: 0, dy: -1, angle: -90, opposite: 'down' },
+      down: { dx: 0, dy: 1, angle: 90, opposite: 'up' },
+      left: { dx: -1, dy: 0, angle: 180, opposite: 'right' },
+      right: { dx: 1, dy: 0, angle: 0, opposite: 'left' },
     };
 
     const KEY_DIRECTIONS: Record<string, Direction> = {
@@ -970,13 +1031,16 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       d: 'right',
     };
 
-    const snakePanel = card.querySelector<HTMLElement>('#snake-panel')!;
     const snakeToggle = card.querySelector<HTMLButtonElement>('#snake-toggle')!;
-    const primaryButton = snakePanel.querySelector<HTMLButtonElement>('[data-action="snake-primary"]')!;
-    const primaryLabel = snakePanel.querySelector<HTMLElement>('[data-snake="primary-label"]')!;
-    const scoreOutput = snakePanel.querySelector<HTMLElement>('[data-snake="score"]')!;
-    const bestOutput = snakePanel.querySelector<HTMLElement>('[data-snake="best"]')!;
-    const statusOutput = snakePanel.querySelector<HTMLElement>('[data-snake="status"]')!;
+    const overlay = card.querySelector<HTMLElement>('.snake-overlay')!;
+    const overlayTitle = overlay.querySelector<HTMLElement>('[data-snake="title"]')!;
+    const overlaySummary = overlay.querySelector<HTMLElement>('[data-snake="summary"]')!;
+    const primaryButton = overlay.querySelector<HTMLButtonElement>('[data-action="snake-primary"]')!;
+    const primaryLabel = overlay.querySelector<HTMLElement>('[data-snake="primary-label"]')!;
+    const announcer = card.querySelector<HTMLElement>('[data-snake="announcer"]')!;
+    const hudSoundButton = card.querySelector<HTMLButtonElement>('.snake-hud [data-action="sound"]')!;
+    const scoreOutput = card.querySelector<HTMLElement>('[data-snake="score"]')!;
+    const bestOutput = card.querySelector<HTMLElement>('[data-snake="best"]')!;
 
     const section = card.closest<HTMLElement>('.github-activity')!;
     const eyebrow = section.querySelector<HTMLElement>('.eyebrow')!;
@@ -997,9 +1061,10 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     let eatenCells: { cell: SVGElement; level: number }[] = [];
     let gameState: GameState = 'idle';
     let board: Board;
+    let skin: Skin;
     let body: Segment[] = [];
+    let lumps: Lump[] = [];
     let occupied: boolean[] = [];
-    let eyes: SVGCircleElement[] = [];
     let direction: Direction = 'right';
     let queuedTurns: Direction[] = [];
     let pendingGrowth = 0;
@@ -1009,12 +1074,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     let bestAtStart = best;
     let remainingLit = 0;
     let frameId = 0;
+    let overTimer = 0;
     let lastFrameAt = 0;
     let accumulator = 0;
     let swipeOrigin: { x: number; y: number } | null = null;
 
-    const isSnakeOpen = () => !snakePanel.hidden;
+    const isSnakeOn = () => card.classList.contains('is-snake-on');
     const cellIndex = (col: number, row: number) => col * ROWS + row;
+    const centerX = (col: number) => xOffset + col * columnStep + cellSize / 2;
+    const centerY = (row: number) => yOffset + row * columnStep + cellSize / 2;
     const moveIntervalMs = () => 1000 / Math.min(MAX_SPEED, START_SPEED + (body.length - START_LENGTH) * SPEED_PER_SEGMENT);
 
     function loadBest() {
@@ -1035,14 +1103,20 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
     }
 
-    function setSnakeOpen(open: boolean) {
-      snakePanel.hidden = !open;
-      snakeToggle.setAttribute('aria-expanded', String(open));
+    function setSnakeMode(on: boolean) {
+      if (on === isSnakeOn()) {
+        return;
+      }
 
-      if (open) {
+      card.classList.toggle('is-snake-on', on);
+      snakeToggle.setAttribute('aria-pressed', String(on));
+
+      if (on) {
         setSynthOpen(false);
         engine.unlock();
         renderScore();
+        showOverlay('idle');
+        primaryButton.focus();
       } else {
         restoreBoard();
       }
@@ -1050,13 +1124,21 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     function setGameState(next: GameState) {
       gameState = next;
-      primaryButton.dataset.state = next;
-      primaryLabel.textContent = PRIMARY_LABELS[next];
       card.classList.toggle('is-snake-running', next === 'running');
     }
 
-    function setStatus(message: string) {
-      statusOutput.textContent = message;
+    function showOverlay(state: OverlayState, title = '', summary = '') {
+      overlay.dataset.state = state;
+      overlayTitle.textContent = title;
+      overlaySummary.textContent = summary;
+      primaryLabel.textContent = OVERLAY_LABELS[state];
+      overlay.hidden = false;
+      announcer.textContent = [title, summary].filter(Boolean).join('. ');
+    }
+
+    function hideOverlay() {
+      overlay.hidden = true;
+      announcer.textContent = '';
     }
 
     function renderScore() {
@@ -1064,18 +1146,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       bestOutput.textContent = formatNumber(best);
     }
 
-    function playGameNote(weekday: number, chord: number, level: number, loudness = 1, when = 0) {
-      if (settings.sound) {
-        engine.play(noteFrequency(settings.mood, weekday, chord), level, loudness, when, 'bit');
-      }
-    }
-
-    function playPhrase(weekdays: number[]) {
+    function playBeeps(frequencies: number[], seconds: number, intervalSeconds: number) {
       const now = engine.time;
 
-      weekdays.forEach((weekday, index) => {
-        playGameNote(weekday, 0, 3, PHRASE_LOUDNESS, now + index * PHRASE_GAP_SECONDS);
-      });
+      frequencies.forEach((frequency, index) => engine.beep(frequency, seconds, now + index * intervalSeconds));
+    }
+
+    function playGameOverSound() {
+      playBeeps(GAME_OVER_BEEPS, 0.12, 0.14);
+      engine.beep(GAME_OVER_BUZZ, 0.25, engine.time + GAME_OVER_BEEPS.length * 0.14);
     }
 
     function currentStats() {
@@ -1166,59 +1245,122 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         }
       }
 
-      return { cols, cells, layer: svg.querySelector<SVGGElement>('.snake-layer')! };
+      return { cols, cells, svg, layer: svg.querySelector<SVGGElement>('.snake-layer')! };
     }
 
-    function placeSegment(segment: Segment, col: number, row: number) {
-      segment.col = col;
-      segment.row = row;
-      occupied[cellIndex(col, row)] = true;
-      segment.rect.setAttribute('x', String(xOffset + col * columnStep));
-      segment.rect.setAttribute('y', String(yOffset + row * columnStep));
+    function svgElement<Tag extends keyof SVGElementTagNameMap>(tag: Tag, className: string, parent: Element) {
+      const element = document.createElementNS(SVG_NAMESPACE, tag);
+      element.setAttribute('class', className);
+      parent.append(element);
+
+      return element;
     }
 
-    function addSegment(col: number, row: number) {
-      const rect = document.createElementNS(SVG_NAMESPACE, 'rect');
-      rect.setAttribute('class', 'snake-segment');
-      rect.setAttribute('width', String(cellSize));
-      rect.setAttribute('height', String(cellSize));
-      rect.setAttribute('rx', '2');
-      // Prepended so the eyes, which are appended last, always stay on top.
-      board.layer.prepend(rect);
+    function createSkin(layer: SVGGElement): Skin {
+      // Every outline sits below every fill, so shapes join without a seam.
+      const outline = svgElement('path', 'snake-outline', layer);
+      const tailOutline = svgElement('path', 'snake-tail-outline', layer);
+      const lumpOutlines = svgElement('g', 'snake-lump-outlines', layer);
+      const bodyPath = svgElement('path', 'snake-body', layer);
+      const tailBody = svgElement('path', 'snake-tail-body', layer);
+      const lumpFills = svgElement('g', 'snake-lump-fills', layer);
+      const marks = svgElement('path', 'snake-marks', layer);
+      const head = svgElement('g', 'snake-head', layer);
+      const tongue = svgElement('path', 'snake-tongue', head);
+      const jaw = svgElement('g', 'snake-jaw', head);
+      const headShape = svgElement('ellipse', 'snake-head-shape', jaw);
 
-      const segment = { col, row, rect };
-      placeSegment(segment, col, row);
-      body.push(segment);
+      tongue.setAttribute('d', 'M7 0H11.6M11.6 0l2.2-1.7M11.6 0l2.2 1.7');
+      headShape.setAttribute('cx', '1.5');
+      headShape.setAttribute('rx', '6.8');
+      headShape.setAttribute('ry', '5.6');
+
+      for (const side of [-1, 1]) {
+        const eye = svgElement('circle', 'snake-eye', jaw);
+        eye.setAttribute('cx', '3');
+        eye.setAttribute('cy', String(side * 3.2));
+        eye.setAttribute('r', '1.8');
+
+        const pupil = svgElement('circle', 'snake-pupil', jaw);
+        pupil.setAttribute('cx', '3.7');
+        pupil.setAttribute('cy', String(side * 3.2));
+        pupil.setAttribute('r', '0.9');
+      }
+
+      return { outline, body: bodyPath, marks, tailOutline, tailBody, lumpOutlines, lumpFills, head, jaw };
     }
 
-    function placeEyes() {
-      const head = body.at(-1)!;
-      const { dx, dy } = DIRECTIONS[direction];
-      const centerX = xOffset + head.col * columnStep + cellSize / 2;
-      const centerY = yOffset + head.row * columnStep + cellSize / 2;
+    /** A wrap-around starts a new subpath, so no line crosses the board. The `h0` lets a lone point draw a round dot. */
+    function pathThrough(segments: Segment[]) {
+      return segments
+        .map((segment, index) => {
+          const previous = segments[index - 1];
+          const isNeighbour = previous && Math.abs(segment.col - previous.col) + Math.abs(segment.row - previous.row) === 1;
 
-      eyes.forEach((eye, index) => {
-        const side = index === 0 ? -1 : 1;
-        eye.setAttribute('cx', String(centerX + dx * EYE_FORWARD - dy * side * EYE_SIDE));
-        eye.setAttribute('cy', String(centerY + dy * EYE_FORWARD + dx * side * EYE_SIDE));
+          return `${isNeighbour ? 'L' : 'M'}${centerX(segment.col)} ${centerY(segment.row)}${isNeighbour ? '' : 'h0'}`;
+        })
+        .join('');
+    }
+
+    function renderSnake() {
+      const headToTail = [...body].reverse();
+      const head = headToTail[0]!;
+      const bodyPathData = pathThrough(headToTail.slice(0, -2));
+      const tailPathData = pathThrough(body.slice(0, 3).reverse());
+
+      // The markings are dashes along this same path, which starts at the head,
+      // so they stay on the body as it moves instead of sliding over it.
+      for (const path of [skin.outline, skin.body, skin.marks]) {
+        path.setAttribute('d', bodyPathData);
+      }
+
+      for (const path of [skin.tailOutline, skin.tailBody]) {
+        path.setAttribute('d', tailPathData);
+      }
+
+      skin.head.setAttribute('transform', `translate(${centerX(head.col)} ${centerY(head.row)}) rotate(${DIRECTIONS[direction].angle})`);
+    }
+
+    function addLump(col: number, row: number) {
+      const elements = [skin.lumpOutlines, skin.lumpFills].map((group, index) => {
+        const circle = svgElement('circle', 'snake-lump', group);
+        circle.setAttribute('cx', String(centerX(col)));
+        circle.setAttribute('cy', String(centerY(row)));
+        circle.setAttribute('r', String(index === 0 ? LUMP_RADIUS + LUMP_OUTLINE : LUMP_RADIUS));
+
+        return circle;
+      });
+
+      lumps.push({ col, row, elements });
+    }
+
+    // The swallowed food stays at its cell while the body slides through it, until the tail has passed.
+    function removePassedLumps() {
+      lumps = lumps.filter((lump) => {
+        if (occupied[cellIndex(lump.col, lump.row)]) {
+          return true;
+        }
+
+        lump.elements.forEach((element) => element.remove());
+
+        return false;
       });
     }
 
-    function createEyes() {
-      return [0, 1].map(() => {
-        const eye = document.createElementNS(SVG_NAMESPACE, 'circle');
-        eye.setAttribute('class', 'snake-eye');
-        eye.setAttribute('r', '1.1');
-        board.layer.append(eye);
+    function chomp() {
+      if (reducedMotionQuery.matches) {
+        return;
+      }
 
-        return eye;
-      });
+      const squash = { transform: 'scale(1.2, 0.8)' };
+      skin.jaw.animate([{ transform: 'scale(1)' }, squash, { transform: 'scale(1)' }, squash, { transform: 'scale(1)' }], { duration: CHOMP_MS });
     }
 
     function startGame() {
       restoreBoard();
       engine.unlock();
       board = readBoard();
+      skin = createSkin(board.layer);
       body = [];
       occupied = [];
       direction = 'right';
@@ -1228,18 +1370,19 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       bestAtStart = best;
 
       const headCol = Math.floor(board.cols / 2);
+      const startRow = Math.floor(ROWS / 2);
 
       for (let i = START_LENGTH - 1; i >= 0; i--) {
-        addSegment(headCol - i, Math.floor(ROWS / 2));
+        body.push({ col: headCol - i, row: startRow });
+        occupied[cellIndex(headCol - i, startRow)] = true;
       }
 
-      eyes = createEyes();
-      placeEyes();
+      renderSnake();
       keepHeadInView();
       eyebrow.textContent = 'Scoreboard';
       setGameState('running');
-      setStatus('');
-      playPhrase(START_PHRASE);
+      hideOverlay();
+      playBeeps(START_BEEPS, 0.06, 0.08);
       resumeLoop();
     }
 
@@ -1256,12 +1399,17 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       cancelAnimationFrame(frameId);
       setGameState('paused');
-      setStatus('Paused');
+      showOverlay('paused', 'Paused');
+
+      // Focus on the heatmap keeps Space working as resume, without a focused button also clicking on key-up.
+      if (!card.contains(document.activeElement)) {
+        scroller.focus({ preventScroll: true });
+      }
     }
 
     function resumeGame() {
       setGameState('running');
-      setStatus('');
+      hideOverlay();
       resumeLoop();
     }
 
@@ -1310,16 +1458,16 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       if (isGrowing) {
         pendingGrowth--;
-        addSegment(col, row);
       } else {
-        // The tail segment is recycled as the new head, so no DOM is created per move.
-        const recycled = body.shift()!;
-        occupied[cellIndex(recycled.col, recycled.row)] = false;
-        placeSegment(recycled, col, row);
-        body.push(recycled);
+        body.shift();
+        occupied[cellIndex(tail.col, tail.row)] = false;
       }
 
-      placeEyes();
+      body.push({ col, row });
+      occupied[cellIndex(col, row)] = true;
+
+      removePassedLumps();
+      renderSnake();
       keepHeadInView();
       eatCell(col, row);
     }
@@ -1329,12 +1477,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         return;
       }
 
-      const head = body.at(-1)!.rect.getBoundingClientRect();
+      const { svg } = board;
+      const svgBox = svg.getBoundingClientRect();
+      const pixelsPerUnit = svgBox.width / svg.viewBox.baseVal.width;
+      const headX = svgBox.left + centerX(body.at(-1)!.col) * pixelsPerUnit;
       const view = scroller.getBoundingClientRect();
-      const margin = 2 * head.width;
+      const margin = 2 * columnStep * pixelsPerUnit;
 
-      if (head.left < view.left + margin || head.right > view.right - margin) {
-        scroller.scrollLeft += head.left + head.width / 2 - (view.left + view.width / 2);
+      if (headX < view.left + margin || headX > view.right - margin) {
+        scroller.scrollLeft += headX - (view.left + view.width / 2);
       }
     }
 
@@ -1363,9 +1514,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         saveBest();
       }
 
+      // Nearly every day is lit, so only the big meals bulge; a lump on every bite reads as beads.
+      if (level >= LUMP_MIN_LEVEL) {
+        addLump(col, row);
+      }
+
+      chomp();
       renderScore();
       renderStats();
-      playGameNote(Number(cell.dataset.day), Number(cell.dataset.chord), level);
+      engine.beep(EAT_BEEP_FREQUENCIES[level]!, EAT_BEEP_SECONDS);
 
       if (remainingLit === 0) {
         endGame(true);
@@ -1378,14 +1535,32 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       const isNewBest = score > bestAtStart;
       const noun = score === 1 ? 'contribution' : 'contributions';
-      const summary = won ? 'You ate the whole year.' : `Game over. You ate ${formatNumber(score)} ${noun}.`;
+      const summary = `You ate ${formatNumber(score)} ${noun}.${isNewBest ? ' New best!' : ''}`;
 
-      setStatus(isNewBest ? `${summary} New best!` : summary);
-      playPhrase(won || isNewBest ? CELEBRATION_PHRASE : OVER_PHRASE);
+      if (won || isNewBest) {
+        playBeeps(CELEBRATION_BEEPS, 0.07, 0.09);
+      } else {
+        playGameOverSound();
+      }
+
+      const showResult = () => {
+        board.layer.classList.remove('is-dying');
+        card.classList.add('is-snake-over');
+        showOverlay('over', won ? 'YOU ATE THE YEAR' : 'GAME OVER', summary);
+        primaryButton.focus();
+      };
+
+      if (won || reducedMotionQuery.matches) {
+        showResult();
+      } else {
+        board.layer.classList.add('is-dying');
+        overTimer = window.setTimeout(showResult, BLINK_MS);
+      }
     }
 
     function restoreBoard() {
       cancelAnimationFrame(frameId);
+      clearTimeout(overTimer);
 
       for (const { element, animation } of floats.values()) {
         animation.cancel();
@@ -1400,17 +1575,25 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
 
       for (const layer of snakeLayers) {
+        layer.classList.remove('is-dying');
         layer.replaceChildren();
       }
 
       eatenCells = [];
       eatenDates.clear();
+      lumps = [];
       score = 0;
       renderStats();
       renderScore();
       eyebrow.textContent = eyebrowText;
+      card.classList.remove('is-snake-over');
       setGameState('idle');
-      setStatus('');
+
+      if (isSnakeOn()) {
+        showOverlay('idle');
+      } else {
+        hideOverlay();
+      }
     }
 
     function queueTurn(next: Direction) {
@@ -1421,26 +1604,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
     }
 
-    snakeToggle.addEventListener('click', () => setSnakeOpen(!isSnakeOpen()));
-
-    snakePanel.addEventListener('click', (event) => {
-      const action = (event.target as Element).closest<HTMLElement>('[data-action]')?.dataset.action;
-
-      if (action === 'close') {
-        setSnakeOpen(false);
-        snakeToggle.focus();
-      } else if (action === 'snake-primary') {
-        togglePrimary();
-      } else if (action === 'sound') {
-        toggleSound();
-      }
-    });
+    snakeToggle.addEventListener('click', () => setSnakeMode(!isSnakeOn()));
+    primaryButton.addEventListener('click', togglePrimary);
+    hudSoundButton.addEventListener('click', toggleSound);
 
     document.addEventListener('keydown', (event) => {
-      const target = event.target as Element;
+      const target = event.target instanceof Element ? event.target : document.body;
       const isTyping = target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
 
-      if (!isSnakeOpen() || event.defaultPrevented || isTyping || event.ctrlKey || event.metaKey || event.altKey) {
+      if (!isSnakeOn() || event.defaultPrevented || isTyping || event.ctrlKey || event.metaKey || event.altKey) {
         return;
       }
 
@@ -1513,8 +1685,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     --gh-level-2: #d65d3a;
     --gh-level-3: #a33314;
     --gh-level-4: #5e1906;
-    --snake-body: #1b1c1d;
-    --snake-eye: #f4f1ea;
+    --snake-body: #4f8f2f;
+    --snake-outline: #2f5e1a;
+    --snake-marks: #356b20;
+    --snake-eye: #ffffff;
+    --snake-pupil: #151515;
+    --snake-tongue: #d6342c;
   }
 
   :global(html.dark) {
@@ -1523,8 +1699,9 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     --gh-level-2: #733725;
     --gh-level-3: #c05435;
     --gh-level-4: #e06b47;
-    --snake-body: #e6e4df;
-    --snake-eye: #1b1c1d;
+    --snake-body: #66b13a;
+    --snake-outline: #25521a;
+    --snake-marks: #3f8a24;
   }
 
   .gh-cell-0 { --level: var(--gh-level-0); }
@@ -1666,14 +1843,79 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     pointer-events: none;
   }
 
-  .snake-layer :global(.snake-segment) {
+  .snake-layer :global(path) {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .snake-layer :global(.snake-outline) {
+    stroke: var(--snake-outline);
+    stroke-width: 9.5px;
+  }
+
+  .snake-layer :global(.snake-body) {
+    stroke: var(--snake-body);
+    stroke-width: 8px;
+  }
+
+  /* A dash period equal to the step puts one marking on every segment. */
+  .snake-layer :global(.snake-marks) {
+    stroke: var(--snake-marks);
+    stroke-width: 4px;
+    stroke-dasharray: 3px 10px;
+    stroke-dashoffset: 1.5px;
+  }
+
+  .snake-layer :global(.snake-tail-outline) {
+    stroke: var(--snake-outline);
+    stroke-width: 7px;
+  }
+
+  .snake-layer :global(.snake-tail-body) {
+    stroke: var(--snake-body);
+    stroke-width: 5.5px;
+  }
+
+  .snake-layer :global(.snake-lump-outlines .snake-lump) {
+    fill: var(--snake-outline);
+  }
+
+  .snake-layer :global(.snake-lump-fills .snake-lump) {
     fill: var(--snake-body);
-    stroke: var(--paper);
-    stroke-width: 0.75px;
+  }
+
+  .snake-layer :global(.snake-head-shape) {
+    fill: var(--snake-body);
+    stroke: var(--snake-outline);
+    stroke-width: 1.2px;
+  }
+
+  .snake-layer :global(.snake-jaw) {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .snake-layer :global(.snake-eye) {
     fill: var(--snake-eye);
+    stroke: var(--snake-outline);
+    stroke-width: 0.4px;
+  }
+
+  .snake-layer :global(.snake-pupil) {
+    fill: var(--snake-pupil);
+  }
+
+  .snake-layer :global(.snake-tongue) {
+    stroke: var(--snake-tongue);
+    stroke-width: 1.1px;
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  .is-snake-over .heatmap-svg {
+    filter: grayscale(1);
+    opacity: 0.45;
   }
 
   :global(.stat-float) {
@@ -1704,6 +1946,46 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       transform-origin: center;
       animation: eat-pop 0.35s ease-out;
     }
+
+    .snake-layer :global(.snake-tongue) {
+      animation: tongue-flick 2.4s ease-in-out infinite;
+    }
+
+    .snake-layer.is-dying {
+      animation: snake-blink 0.6s step-end;
+    }
+
+    .heatmap-svg {
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+  }
+
+  @keyframes tongue-flick {
+    0%,
+    78%,
+    100% {
+      transform: scaleX(0);
+    }
+
+    84%,
+    92% {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes snake-blink {
+    0%,
+    33.3%,
+    66.6%,
+    100% {
+      opacity: 1;
+    }
+
+    16.6%,
+    50%,
+    83.3% {
+      opacity: 0;
+    }
   }
 
   @keyframes eat-pop {
@@ -1718,11 +2000,121 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
   }
 
+  .heatmap-stage {
+    position: relative;
+  }
+
+  .snake-overlay {
+    position: absolute;
+    inset: 0 0 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px;
+    text-align: center;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 80%, transparent);
+    border-radius: 3px;
+  }
+
+  .snake-overlay[hidden] {
+    display: none;
+  }
+
+  .snake-overlay[data-state="over"] {
+    background: color-mix(in srgb, var(--paper) 60%, transparent);
+  }
+
+  .snake-title,
+  .snake-summary,
+  .snake-instruction {
+    margin: 0;
+  }
+
+  .snake-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .snake-overlay[data-state="over"] .snake-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+  }
+
+  .snake-summary {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .snake-title:empty,
+  .snake-summary:empty,
+  .snake-overlay:not([data-state="idle"]) .snake-instruction,
+  .snake-overlay:not([data-state="idle"]) .snake-icon-play,
+  .snake-instruction--touch {
+    display: none;
+  }
+
+  .snake-instruction {
+    max-width: 36ch;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+  }
+
+  @media (pointer: coarse) {
+    .snake-instruction--pointer {
+      display: none;
+    }
+
+    .snake-instruction--touch {
+      display: inline;
+    }
+  }
+
+  .snake-announcer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .heatmap-bar {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-end;
     gap: 8px;
     margin-top: 10px;
+  }
+
+  .snake-hud {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-right: auto;
+  }
+
+  .is-snake-on .snake-hud {
+    display: flex;
+  }
+
+  .snake-score {
+    white-space: nowrap;
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .snake-score strong {
+    color: var(--ink);
   }
 
   .btn {
@@ -1748,9 +2140,20 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   }
 
   .btn:hover,
-  .btn[aria-expanded="true"] {
+  .btn[aria-expanded="true"],
+  #snake-toggle[aria-pressed="true"] {
     color: var(--accent);
     border-color: var(--accent);
+  }
+
+  .btn--icon {
+    width: 28px;
+    padding: 0;
+  }
+
+  .btn--icon[aria-pressed="true"] .icon-sound-off,
+  .btn--icon[aria-pressed="false"] .icon-sound-on {
+    display: none;
   }
 
   .btn--primary {
@@ -1825,44 +2228,6 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   [aria-pressed="false"] .sound-dot {
     background: #cf222e;
-  }
-
-  .snake-panel .synth-actions {
-    flex-wrap: wrap;
-  }
-
-  .snake-icon {
-    display: none;
-  }
-
-  [data-state="idle"] .snake-icon--play,
-  [data-state="paused"] .snake-icon--play,
-  [data-state="running"] .snake-icon--pause,
-  [data-state="over"] .snake-icon--restart {
-    display: block;
-  }
-
-  .snake-score {
-    display: inline-flex;
-    gap: 12px;
-    white-space: nowrap;
-    font-size: 0.6875rem;
-    color: var(--ink-muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .snake-score strong {
-    color: var(--ink);
-  }
-
-  .snake-status {
-    margin: 10px 0 0;
-    font-size: 0.75rem;
-    line-height: 1.5;
-  }
-
-  .snake-status:empty {
-    display: none;
   }
 
   .synth-progress {
@@ -2066,6 +2431,20 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   @media (max-width: 640px) {
     .heatmap-card {
       padding: 12px;
+    }
+
+    .snake-hud {
+      flex-basis: 100%;
+    }
+
+    .snake-overlay {
+      gap: 6px;
+      padding: 4px;
+    }
+
+    .snake-overlay[data-state="over"] .snake-title {
+      font-size: 1.0625rem;
+      letter-spacing: 0.14em;
     }
 
     .synth-panel {
