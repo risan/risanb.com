@@ -24,12 +24,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # astro check + vue-tsc. Catches a bad content-collection field, a
-      # mistyped prop, or a Vue template error before it can reach a build.
-      # Kept as its own step for accurate failure attribution; `npm run build`
-      # would otherwise run the same checks a second time.
+      # astro check + vue-tsc. Catches a mistyped prop or a Vue template error.
+      # `npm run build` deliberately skips it so deploys don't pay for it twice.
       - name: Type-check Astro and Vue
         run: npm run check
+
+      # Astro keeps optimized images here. Resizing the ~680 content images
+      # dominates a cold build, so a restored cache makes the build several
+      # times faster. The prefix fallback reuses the previous cache after a
+      # content change, so only new or changed images are processed again.
+      - name: Cache optimized images
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro/assets
+          key: astro-images-${{ runner.os }}-${{ hashFiles('content/**', 'src/assets/**') }}
+          restore-keys: astro-images-${{ runner.os }}-
 
       - name: Build
         run: npm run build:only

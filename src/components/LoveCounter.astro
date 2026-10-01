@@ -131,6 +131,9 @@ const { slug } = Astro.props;
 
       if (typeof stats?.likes === 'number') {
         serverLikes = stats.likes;
+      } else {
+        // Keep them for the next sync instead of dropping the reader's likes.
+        unsentLikes += count;
       }
 
       renderCount();

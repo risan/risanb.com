@@ -152,9 +152,12 @@ function toHit(entry: IndexEntry, needles: string[]): Hit {
 
 const results = computed<Hit[]>(() => {
   const q = query.value.trim();
+  // Read before the early returns so a query typed while the index is still
+  // loading is searched again once `entries` is filled.
+  const indexedEntries = entries.value;
 
   if (!q) {
-    return entries.value.slice(0, RECENT_COUNT).map((entry) => toHit(entry, []));
+    return indexedEntries.slice(0, RECENT_COUNT).map((entry) => toHit(entry, []));
   }
 
   if (!mini) {
