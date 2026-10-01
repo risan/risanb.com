@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { category, entries } = Astro.props;
+const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
 
 const categoryHooks: Record<string, string> = {
   tutorial:
@@ -23,9 +24,9 @@ const categoryHooks: Record<string, string> = {
 };
 ---
 
-<BaseLayout title={`${category} | Risan Bagja`} description={`Posts filed under ${category}.`}>
+<BaseLayout title={`${categoryName} | Risan Bagja`} description={`Posts filed under ${categoryName}.`}>
   <div class="page-head">
-    <h1>{category}</h1>
+    <h1>{categoryName}</h1>
     {categoryHooks[category] && <p class="category-hook">{categoryHooks[category]}</p>}
     <p class="lede">{entries.length} {entries.length === 1 ? 'post' : 'posts'}.</p>
   </div>

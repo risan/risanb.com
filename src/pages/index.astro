@@ -171,6 +171,21 @@ const tags = groupByTerm(posts, 'tags');
     background: var(--sunk);
   }
 
+  /* Opening the second column with the photo keeps every sentence in one
+     column, so the reader never jumps from mid-sentence back up the page. */
+  @media (min-width: 768px) {
+    .home-intro-figure {
+      break-before: column;
+      margin-top: 0;
+    }
+
+    /* A squarer crop gives the shorter second column the height to balance the first. */
+    .home-intro-photo {
+      aspect-ratio: 1 / 1;
+      object-position: 72% center;
+    }
+  }
+
   .home-intro-caption {
     font-family: var(--font-serif);
     font-style: italic;

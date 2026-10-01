@@ -20,7 +20,7 @@ const sorted = [...groups.entries()].sort(
         sorted.map(([name, posts]) => (
           <li>
             <a href={`/categories/${name}/`}>
-              <span class="title">{name}</span>
+              <span class="title">{name.charAt(0).toUpperCase() + name.slice(1)}</span>
               <span class="meta">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</span>
             </a>
           </li>
