@@ -1,0 +1,23 @@
+---
+import { formatShortDate } from '../lib/format-date';
+import { postUrl, type Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="entry-list entry-list--compact">
+  {
+    posts.map((post) => (
+      <li>
+        <a href={postUrl(post)}>
+          <span class="title">{post.data.title}</span>
+          <span class="meta">{formatShortDate(post.data.date)}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

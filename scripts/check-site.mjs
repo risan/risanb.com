@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 /**
- * Verify a built Astro site the way scripts/check-site.py verified the Hugo one:
- * every expected page exists, every internal link resolves, and the migration's
- * redirect map actually covers the URLs search engines already know about.
- *
- * Node rather than Python so CI needs only the toolchain the site already uses.
+ * Verify a built Astro site: every expected page exists, every internal link
+ * resolves, and the migration's redirect map actually covers the URLs search
+ * engines already know about.
  *
  *   node scripts/check-site.mjs [distDir]
  *
@@ -17,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, process.argv[2] ?? 'dist');
+const SITE = 'https://risanb.com';
 
 /** Pages that must exist for the site to be shippable. */
 const REQUIRED = [
@@ -47,11 +46,17 @@ const problems = [];
 
 async function walk(dir) {
   const out = [];
+
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...(await walk(full)));
-    else out.push(full);
+
+    if (entry.isDirectory()) {
+      out.push(...(await walk(full)));
+    } else {
+      out.push(full);
+    }
   }
+
   return out;
 }
 
@@ -63,11 +68,14 @@ function resolves(urlPath) {
     join(DIST, clean, 'index.html'),
     join(DIST, `${clean}.html`),
   ];
+
   return candidates.some((c) => existsSync(c) && statSync(c).isFile());
 }
 
 for (const required of REQUIRED) {
-  if (!existsSync(join(DIST, required))) problems.push(`missing required file: ${required}`);
+  if (!existsSync(join(DIST, required))) {
+    problems.push(`missing required file: ${required}`);
+  }
 }
 
 const files = (await walk(DIST)).filter((f) => f.endsWith('.html'));
@@ -81,20 +89,56 @@ for (const file of files) {
 
   for (const [, attr, rawValue] of html.matchAll(/\b(href|src)="([^"]*)"/g)) {
     const value = rawValue.trim();
-    if (SKIP.test(value)) continue;
 
-    if (/^https?:\/\//i.test(value)) {
-      const host = new URL(value).host;
-      if (!EXTERNAL_HOSTS.includes(host) && !host.endsWith('risanb.com')) {
-        problems.push(`${page}: unexpected external ${attr} -> ${value}`);
-      }
+    if (SKIP.test(value)) {
       continue;
     }
 
-    if (!value.startsWith('/')) continue;
+    if (/^https?:\/\//i.test(value)) {
+      const host = new URL(value).host;
+
+      if (!EXTERNAL_HOSTS.includes(host) && !host.endsWith('risanb.com')) {
+        problems.push(`${page}: unexpected external ${attr} -> ${value}`);
+      }
+
+      continue;
+    }
+
+    if (!value.startsWith('/')) {
+      continue;
+    }
 
     linkCount += 1;
-    if (!resolves(value)) problems.push(`${page}: broken ${attr} -> ${value}`);
+
+    if (!resolves(value)) {
+      problems.push(`${page}: broken ${attr} -> ${value}`);
+    }
+  }
+}
+
+// ----------------------------------------------------------------- feeds ----
+/** Every URL the RSS feed and the sitemaps publish must be a page the build serves. */
+let feedUrlCount = 0;
+
+for (const feed of ['rss.xml', 'sitemap-0.xml']) {
+  const feedPath = join(DIST, feed);
+
+  if (!existsSync(feedPath)) {
+    problems.push(`missing feed file: ${feed}`);
+
+    continue;
+  }
+
+  const xml = readFileSync(feedPath, 'utf8');
+
+  for (const [, url] of xml.matchAll(/<(?:link|loc)>([^<]+)<\/(?:link|loc)>/g)) {
+    feedUrlCount += 1;
+
+    if (!url.startsWith(SITE)) {
+      problems.push(`${feed}: URL outside ${SITE} -> ${url}`);
+    } else if (!resolves(url.slice(SITE.length) || '/')) {
+      problems.push(`${feed}: URL does not resolve -> ${url}`);
+    }
   }
 }
 
@@ -113,43 +157,61 @@ if (existsSync(redirectsPath)) {
   lines.forEach((line, index) => {
     const at = `_redirects:${index + 1}`;
     const text = line.trim();
-    if (!text || text.startsWith('#')) return;
 
-    const [from, to, status] = text.split(/\s+/);
-    if (!from || !to) {
-      problems.push(`${at}: expected "<from> <to> <status>", got: ${text}`);
+    if (!text || text.startsWith('#')) {
       return;
     }
-    if (!from.startsWith('/')) problems.push(`${at}: source must be site-absolute, got: ${from}`);
+
+    const [from, to, status] = text.split(/\s+/);
+
+    if (!from || !to) {
+      problems.push(`${at}: expected "<from> <to> <status>", got: ${text}`);
+
+      return;
+    }
+
+    if (!from.startsWith('/')) {
+      problems.push(`${at}: source must be site-absolute, got: ${from}`);
+    }
+
     if (!to.startsWith('/') && !/^https:\/\//.test(to)) {
       problems.push(`${at}: destination must be absolute https or site-absolute, got: ${to}`);
     }
+
     if (status !== '301') {
-      problems.push(`${at}: status must be an explicit 301 (a 302 loses ranking), got: ${status ?? '(omitted)'}`);
+      problems.push(
+        `${at}: status must be an explicit 301 (a 302 loses ranking), got: ${status ?? '(omitted)'}`,
+      );
     }
+
     redirectRules.push({ from, to, status });
   });
 }
 
 /** Does a legacy path fall under a rule's source? */
 function matchesRule(path, from) {
-  if (!from.includes('*')) return path === from;
+  if (!from.includes('*')) {
+    return path === from;
+  }
+
   const [prefix, suffix = ''] = from.split('*');
+
   return path.startsWith(prefix) && path.endsWith(suffix);
 }
 
 // A non-wildcard rule must not point at a path the build actually serves, or
 // hosting would hijack a real page.
 for (const { from } of redirectRules) {
-  if (from.includes('*')) continue;
-  if (resolves(from)) problems.push(`_redirects: ${from} shadows a page the build serves`);
+  if (!from.includes('*') && resolves(from)) {
+    problems.push(`_redirects: ${from} shadows a page the build serves`);
+  }
 }
 
 // ---------------------------------------------------------- legacy URLs -----
 /**
  * The 250 URLs in risanb.com's sitemap before the split. Each must be either
  * served by this build or covered by a redirect rule — that is the whole
- * promise of the migration, and it stays checkable after content/blog is gone.
+ * promise of the migration.
  */
 const legacyPath = join(ROOT, 'scripts', 'legacy-urls.txt');
 let legacyCount = 0;
@@ -162,22 +224,33 @@ if (existsSync(legacyPath)) {
 
   for (const path of legacy) {
     legacyCount += 1;
-    if (resolves(path)) continue;
-    if (redirectRules.some((r) => matchesRule(path, r.from))) continue;
+
+    if (resolves(path) || redirectRules.some((r) => matchesRule(path, r.from))) {
+      continue;
+    }
+
     problems.push(`legacy URL is neither served nor redirected: ${path}`);
   }
 }
 
 // ----------------------------------------------------------------- report ---
+const missingRequired = problems.filter((p) => p.startsWith('missing required')).length;
+const uncoveredLegacy = problems.filter((p) => p.startsWith('legacy URL')).length;
+
 console.log(`pages checked      : ${files.length}`);
 console.log(`internal links     : ${linkCount}`);
-console.log(`required files     : ${REQUIRED.length - problems.filter((p) => p.startsWith('missing')).length}/${REQUIRED.length}`);
+console.log(`feed/sitemap URLs  : ${feedUrlCount}`);
+console.log(`required files     : ${REQUIRED.length - missingRequired}/${REQUIRED.length}`);
 console.log(`redirect rules     : ${redirectRules.length}`);
-console.log(`legacy URLs covered: ${legacyCount - problems.filter((p) => p.startsWith('legacy URL')).length}/${legacyCount}`);
+console.log(`legacy URLs covered: ${legacyCount - uncoveredLegacy}/${legacyCount}`);
 
 if (problems.length) {
   console.error(`\n${problems.length} problem(s):`);
-  for (const p of problems) console.error(`  - ${p}`);
+
+  for (const problem of problems) {
+    console.error(`  - ${problem}`);
+  }
+
   process.exit(1);
 }
 

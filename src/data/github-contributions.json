@@ -2,15 +2,6 @@
   "username": "risan",
   "updatedAt": "2026-10-01T08:38:18.086Z",
   "stats": {
-    "thisMonth": {
-      "contributions": 39
-    },
-    "thisYear": {
-      "contributions": 5605
-    },
-    "lastYear": {
-      "contributions": 6216
-    },
     "allTime": {
       "contributions": 20580
     }
@@ -2496,73 +2487,6 @@
             "weekday": 4
           }
         ]
-      }
-    ],
-    "months": [
-      {
-        "name": "Sep",
-        "firstDay": "2025-09-01",
-        "totalWeeks": 1
-      },
-      {
-        "name": "Oct",
-        "firstDay": "2025-10-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Nov",
-        "firstDay": "2025-11-01",
-        "totalWeeks": 5
-      },
-      {
-        "name": "Dec",
-        "firstDay": "2025-12-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Jan",
-        "firstDay": "2026-01-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Feb",
-        "firstDay": "2026-02-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Mar",
-        "firstDay": "2026-03-01",
-        "totalWeeks": 5
-      },
-      {
-        "name": "Apr",
-        "firstDay": "2026-04-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "May",
-        "firstDay": "2026-05-01",
-        "totalWeeks": 5
-      },
-      {
-        "name": "Jun",
-        "firstDay": "2026-06-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Jul",
-        "firstDay": "2026-07-01",
-        "totalWeeks": 4
-      },
-      {
-        "name": "Aug",
-        "firstDay": "2026-08-01",
-        "totalWeeks": 5
-      },
-      {
-        "name": "Sep",
-        "firstDay": "2026-09-01",
-        "totalWeeks": 4
       }
     ]
   }

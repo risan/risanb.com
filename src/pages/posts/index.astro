@@ -1,22 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, type Post } from '../../lib/posts';
 
-// Mirrors Hugo's layouts/_default/list.html, which grouped posts by year.
-const posts = (await getCollection('code')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getPosts();
 
-const byYear = new Map<string, typeof posts>();
+const byYear = new Map<number, Post[]>();
 for (const post of posts) {
-  const year = String(post.data.date.getUTCFullYear());
-  const bucket = byYear.get(year);
-  if (bucket) bucket.push(post);
-  else byYear.set(year, [post]);
+  const year = post.data.date.getUTCFullYear();
+  byYear.set(year, [...(byYear.get(year) ?? []), post]);
 }
-
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <BaseLayout
@@ -26,25 +19,16 @@ const fmt = (d: Date) =>
   <div class="page-head">
     <h1>Archive</h1>
     <p class="lede">
-      All notes, tutorials, and articles on web development, tooling, and programming.
+      All notes, tutorials, and articles on web development, tooling, and programming.{' '}
       {posts.length} posts published.
     </p>
   </div>
 
   {
-    [...byYear.entries()].map(([year, entries]) => (
+    [...byYear.entries()].map(([year, yearPosts]) => (
       <section class="year-group">
         <h2>{year}</h2>
-        <ul class="entry-list entry-list--compact">
-          {entries.map((post) => (
-            <li>
-              <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
-                <span class="title">{post.data.title}</span>
-                <span class="meta">{fmt(post.data.date)}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <PostList posts={yearPosts} />
       </section>
     ))
   }

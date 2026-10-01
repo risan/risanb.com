@@ -1,66 +1,36 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-type Post = CollectionEntry<'code'>;
+import PostList from '../../components/PostList.astro';
+import { getPosts, groupByTerm } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('code');
+  const groups = groupByTerm(await getPosts(), 'categories');
 
-  const terms = new Map<string, Post[]>();
-  for (const post of posts) {
-    for (const c of post.data.categories) {
-      const bucket = terms.get(c);
-      if (bucket) bucket.push(post);
-      else terms.set(c, [post]);
-    }
-  }
-
-  return [...terms.entries()].map(([category, entries]) => ({
+  return [...groups.entries()].map(([category, entries]) => ({
     params: { category },
-    props: {
-      category,
-      entries: entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
-    },
+    props: { category, entries },
   }));
 }
 
 const { category, entries } = Astro.props;
-
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
 
 const categoryHooks: Record<string, string> = {
   tutorial:
     'Hands-on, step-by-step guides and deep dives into tools, libraries, and architecture. Designed to take you from concept to working software.',
-  log:
-    'Field notes from the workshop—tool migrations, configuration experiments, and postmortems of bugs that took a little too long to solve.',
+  log: 'Field notes from the workshop—tool migrations, configuration experiments, and postmortems of bugs that took a little too long to solve.',
   snippet:
     'Concise, battle-tested solutions to specific problems—the handy tricks and snippets you write once and keep reaching back for.',
 };
 ---
 
-<BaseLayout
-  title={`${category} | Risan Bagja`}
-  description={`Posts filed under ${category}.`}
->
+<BaseLayout title={`${categoryName} | Risan Bagja`} description={`Posts filed under ${categoryName}.`}>
   <div class="page-head">
-    <h1>{category}</h1>
+    <h1>{categoryName}</h1>
     {categoryHooks[category] && <p class="category-hook">{categoryHooks[category]}</p>}
     <p class="lede">{entries.length} {entries.length === 1 ? 'post' : 'posts'}.</p>
   </div>
   <section class="section-block">
-    <ul class="entry-list entry-list--compact">
-      {
-        entries.map((post) => (
-          <li>
-            <a href={`/posts/${post.id.replace(/\/index$/, '')}/`}>
-              <span class="title">{post.data.title}</span>
-              <span class="meta">{fmt(post.data.date)}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <PostList posts={entries} />
   </section>
 </BaseLayout>

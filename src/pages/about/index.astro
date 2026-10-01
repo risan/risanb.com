@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatLongDate } from '../../lib/format-date';
 
 const entries = await getCollection('about');
 const page = entries[0];
@@ -11,9 +12,6 @@ if (!page) {
 
 const { Content } = await render(page);
 const { title, lastmod } = page.data;
-
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <BaseLayout title={`${title} | Risan Bagja`} description="Who writes this site.">
@@ -25,7 +23,7 @@ const fmt = (d: Date) =>
           <>
             <span class="dot">·</span>
             <span>
-              Last updated <time datetime={lastmod.toISOString()}>{fmt(lastmod)}</time>
+              Last updated <time datetime={lastmod.toISOString()}>{formatLongDate(lastmod)}</time>
             </span>
           </>
         )}

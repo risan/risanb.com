@@ -1,28 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GithubHeatmap from '../components/GithubHeatmap.astro';
 import Clippy from '../components/Clippy.astro';
-import TechIcon from '../components/TechIcon.astro';
+import PostList from '../components/PostList.astro';
+import TagCloud from '../components/TagCloud.astro';
 import risanPhoto from '../assets/risan.webp';
-const posts = (await getCollection('code')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+import { getPosts, groupByTerm } from '../lib/posts';
 
+const posts = await getPosts();
+const curiosityLetters = [...'curiosity'];
 const featured = posts.filter((p) => p.data.featured).slice(0, 6);
 const recent = posts.slice(0, 6);
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
-
-const href = (id: string) => `/posts/${id.replace(/\/index$/, '')}/`;
-
-const terms = new Map<string, number>();
-for (const post of posts) {
-  for (const t of post.data.tags) terms.set(t, (terms.get(t) ?? 0) + 1);
-}
-const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+const tags = groupByTerm(posts, 'tags');
 ---
 
 <BaseLayout
@@ -30,7 +21,28 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
   description="Tutorials and notes on web development, tooling, and the things I break along the way."
 >
   <div class="home-intro">
-    <h1>Code, <span id="curiosity-trigger" class="curiosity-trigger is-shimmering" role="button" tabindex="0" aria-label="Curiosity (click to summon Clippy)" title="Click to summon something curious...">curiosity</span>, and a questionable number of agents</h1>
+    <h1>
+      Code, <span class="curiosity-nowrap"><button
+          id="curiosity-trigger"
+          class="curiosity-trigger"
+          type="button"
+          aria-label="curiosity"
+          aria-controls="clippy-widget"
+          aria-expanded="false"
+          title="Psst. Click me."
+        >
+          <svg class="curiosity-peek" viewBox="0 0 24 26" aria-hidden="true">
+            <path d="M5 26V10a7 7 0 0 1 14 0v16" fill="none" stroke="#5f6b7d" stroke-width="5.4" stroke-linecap="round" />
+            <path d="M5 26V10a7 7 0 0 1 14 0v16" fill="none" stroke="#c9d1dc" stroke-width="3.6" stroke-linecap="round" />
+            <circle cx="8.6" cy="14" r="3.8" fill="#fff" stroke="#1f1f1f" stroke-width="0.9" />
+            <circle cx="15.4" cy="14" r="3.8" fill="#fff" stroke="#1f1f1f" stroke-width="0.9" />
+            <circle cx="9.2" cy="14.8" r="1.5" fill="#1f1f1f" />
+            <circle cx="16" cy="14.8" r="1.5" fill="#1f1f1f" />
+          </svg>
+          <span aria-hidden="true">{curiosityLetters.map((letter, index) => (
+            <span class="curiosity-letter" style={`--i: ${index}`}>{letter}</span>
+          ))}</span></button>,</span> and a questionable number of agents
+    </h1>
 
     <div class="home-intro-spread">
       <p>
@@ -84,34 +96,14 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
       featured.length > 0 && (
         <section class="section-block">
           <h2>Featured</h2>
-          <ul class="entry-list entry-list--compact">
-            {featured.map((post) => (
-              <li>
-                <a href={href(post.id)}>
-                  <span class="title">{post.data.title}</span>
-                  <span class="meta">{fmt(post.data.date)}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <PostList posts={featured} />
         </section>
       )
     }
 
     <section class="section-block">
       <h2>Recent</h2>
-      <ul class="entry-list entry-list--compact">
-        {
-          recent.map((post) => (
-            <li>
-              <a href={href(post.id)}>
-                <span class="title">{post.data.title}</span>
-                <span class="meta">{fmt(post.data.date)}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <PostList posts={recent} />
       <p class="eyebrow" style="margin-top: 20px;">
         <a href="/posts/">All {posts.length} posts →</a>
       </p>
@@ -120,18 +112,8 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
   </div>
 
   <section class="section-block">
-    <h2>Tag Clouds</h2>
-    <div class="tag-cloud">
-      {
-        sortedTags.map(([name, count]) => (
-          <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
-            <TechIcon name={name} />
-            <span class="tag-name">#{name}</span>
-            <span class="tag-count">{count}</span>
-          </a>
-        ))
-      }
-    </div>
+    <h2>Tag Cloud</h2>
+    <TagCloud groups={tags} />
   </section>
 
   <GithubHeatmap />
@@ -147,6 +129,13 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
       columns: 2;
       column-gap: 52px;
       margin-top: 36px;
+    }
+
+    /* The columns stay balanced; a paragraph split across them keeps at least
+       three lines on each side, as in print. */
+    .home-intro-spread p {
+      orphans: 3;
+      widows: 3;
     }
   }
 
@@ -200,86 +189,127 @@ const sortedTags = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]))
     padding: 0 8px;
   }
 
+  .curiosity-nowrap {
+    white-space: nowrap;
+  }
+
   .curiosity-trigger {
     position: relative;
-    display: inline-block;
+    appearance: none;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background:
+      linear-gradient(var(--accent), var(--accent)) 0 calc(100% - 0.1em) / 0% 2px no-repeat,
+      radial-gradient(circle, var(--accent-soft) 0.9px, transparent 1.3px) 0 calc(100% - 0.1em) / 6px 3px repeat-x;
+    padding-bottom: 0.04em;
+    color: var(--accent);
+    font: inherit;
+    letter-spacing: inherit;
     cursor: pointer;
-    font-weight: inherit;
-    font-family: inherit;
-    user-select: none;
-    border-radius: 4px;
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-size 0.35s ease,
+      color 0.2s ease,
+      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .curiosity-trigger:hover,
+  .curiosity-trigger:focus-visible {
+    background-size: 100% 2px, 6px 3px;
   }
 
   .curiosity-trigger:focus-visible {
-    outline: 2px solid var(--accent, #c8502e);
+    outline: 2px solid var(--accent);
     outline-offset: 4px;
   }
 
-  .curiosity-trigger.is-shimmering {
-    color: var(--accent, #c8502e);
-    background: linear-gradient(
-      110deg,
-      var(--accent, #c8502e) 0%,
-      var(--accent, #c8502e) 26%,
-      #e8734e 38%,
-      #f5b842 50%,
-      #e8734e 62%,
-      var(--accent, #c8502e) 74%,
-      var(--accent, #c8502e) 100%
-    );
-    background-size: 240% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: curiosity-shimmer 3s infinite linear;
-    text-decoration: none;
+  .curiosity-trigger:active {
+    transform: translateY(1px) scale(0.97);
   }
 
-  :global(.dark) .curiosity-trigger.is-shimmering {
-    color: var(--accent, #e06b47);
-    background: linear-gradient(
-      110deg,
-      var(--accent, #e06b47) 0%,
-      var(--accent, #e06b47) 26%,
-      #f08b68 38%,
-      #ffd166 50%,
-      #f08b68 62%,
-      var(--accent, #e06b47) 74%,
-      var(--accent, #e06b47) 100%
-    );
-    background-size: 240% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .curiosity-letter {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 25ms);
+    animation: curiosity-wave 7s ease-in-out calc(var(--i) * 70ms) infinite;
   }
 
-  .curiosity-trigger.is-shimmering:hover {
-    transform: translateY(-1px);
-    filter: drop-shadow(0 2px 8px rgba(200, 80, 46, 0.3));
-  }
-  .curiosity-trigger.is-active {
-    background: none !important;
-    -webkit-text-fill-color: currentColor !important;
-    animation: none !important;
-    text-shadow: none !important;
-    cursor: default !important;
-    text-decoration: none !important;
-    transform: none !important;
+  .curiosity-trigger:hover .curiosity-letter,
+  .curiosity-trigger:focus-visible .curiosity-letter {
+    animation: none;
+    transform: translateY(-0.07em);
   }
 
-  @keyframes curiosity-shimmer {
-    0% {
-      background-position: 140% 0;
-    }
+  @keyframes curiosity-wave {
+    0%,
+    14%,
     100% {
-      background-position: -140% 0;
+      transform: translateY(0);
     }
+    5% {
+      transform: translateY(-0.14em);
+    }
+    9% {
+      transform: translateY(0.02em);
+    }
+  }
+
+  .curiosity-peek {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% - 0.12em);
+    width: 0.52em;
+    margin-left: -0.26em;
+    overflow: visible;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(55%) scale(0.8);
+    transform-origin: 50% 100%;
+    transition:
+      opacity 0.2s ease,
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .curiosity-trigger:hover .curiosity-peek,
+  .curiosity-trigger:focus-visible .curiosity-peek {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .curiosity-trigger[aria-expanded='true'] {
+    color: var(--ink);
+    background-size: 100% 2px, 6px 3px;
+  }
+
+  .curiosity-trigger[aria-expanded='true'] .curiosity-letter {
+    animation: none;
+    transform: none;
+  }
+
+  .curiosity-trigger[aria-expanded='true'] .curiosity-peek {
+    opacity: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .curiosity-trigger.is-shimmering {
-      animation: none !important;
-      background: none !important;
-      -webkit-text-fill-color: var(--accent, #c8502e) !important;
+    .curiosity-trigger,
+    .curiosity-letter,
+    .curiosity-peek {
+      transition: none;
+    }
+
+    .curiosity-letter {
+      animation: none;
+    }
+
+    .curiosity-trigger:hover .curiosity-letter,
+    .curiosity-trigger:focus-visible .curiosity-letter,
+    .curiosity-trigger:hover .curiosity-peek,
+    .curiosity-trigger:focus-visible .curiosity-peek {
+      transform: none;
+    }
+
+    .curiosity-trigger:active {
+      transform: none;
     }
   }
 </style>

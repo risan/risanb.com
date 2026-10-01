@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 import MiniSearch from 'minisearch';
+import { formatShortDate } from '../lib/format-date';
 
 /**
  * ⌘K command-palette search.
  *
  * Hydrated with `client:idle` and the index is fetched on FIRST OPEN, not on
- * hydrate — so a visitor who never searches ships no Vue execution and
- * downloads zero index bytes. That ordering is why a full-text index is
- * affordable here at all (390 KB raw / 116 KB gzipped for 49 posts).
+ * hydrate — so a visitor who never searches downloads zero index bytes. That
+ * is why a full-text index is affordable here at all.
  *
  * Keyboard model is the ARIA combobox/listbox pattern: focus never leaves the
  * input, the highlighted row is published via aria-activedescendant, and the
@@ -49,8 +49,7 @@ const open = ref(false);
 const query = ref('');
 const loading = ref(false);
 const failed = ref(false);
-const loaded = ref(false);
-const entries = ref<IndexEntry[]>([]);
+const entries = shallowRef<IndexEntry[]>([]);
 const active = ref(0);
 
 const inputEl = ref<HTMLInputElement | null>(null);
@@ -59,23 +58,33 @@ const closeEl = ref<HTMLButtonElement | null>(null);
 // Deliberately non-reactive: MiniSearch holds its own inverted index, and
 // wrapping it in a Vue proxy on every keystroke would be pure overhead.
 let mini: MiniSearch<IndexEntry> | null = null;
+const entriesById = new Map<string, IndexEntry>();
 let lastFocused: HTMLElement | null = null;
+let savedBodyPaddingRight = '';
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Query split into highlightable terms. 1-char terms match everything, so drop them. */
-const terms = computed(() =>
-  [...new Set(query.value.toLowerCase().split(/\s+/).filter((t) => t.length >= 2))],
-);
+const terms = computed(() => [
+  ...new Set(
+    query.value
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((t) => t.length >= 2),
+  ),
+]);
 
 function highlight(text: string, needles: string[]): Segment[] {
-  if (!text || !needles.length) return text ? [{ text, hit: false }] : [];
+  if (!text || !needles.length) {
+    return text ? [{ text, hit: false }] : [];
+  }
+
   const re = new RegExp(`(${needles.map(escapeRegExp).join('|')})`, 'gi');
-  const lower = needles.map((n) => n.toLowerCase());
+
   return text
     .split(re)
     .filter((s) => s !== '')
-    .map((s) => ({ text: s, hit: lower.includes(s.toLowerCase()) }));
+    .map((s) => ({ text: s, hit: needles.includes(s.toLowerCase()) }));
 }
 
 /**
@@ -83,26 +92,44 @@ function highlight(text: string, needles: string[]): Segment[] {
  * matched. Falls back to the head of the post when the hit was title/tag-only.
  */
 function excerpt(text: string, needles: string[], radius = 110): Segment[] {
-  if (!text) return [];
+  if (!text) {
+    return [];
+  }
+
   const lower = text.toLowerCase();
   let at = -1;
-  for (const n of needles) {
-    const i = lower.indexOf(n);
-    if (i !== -1 && (at === -1 || i < at)) at = i;
+
+  for (const needle of needles) {
+    const i = lower.indexOf(needle);
+
+    if (i !== -1 && (at === -1 || i < at)) {
+      at = i;
+    }
   }
-  if (at === -1) return highlight(text.slice(0, radius * 2), needles);
+
+  if (at === -1) {
+    return highlight(text.slice(0, radius * 2), needles);
+  }
 
   // Snap the window outward to word boundaries — slicing on a raw character
   // offset produces excerpts that start mid-word ("…ustom static site").
   let start = Math.max(0, at - radius);
   let end = Math.min(text.length, at + radius);
+
   if (start > 0) {
     const space = text.indexOf(' ', start);
-    if (space !== -1 && space < at) start = space + 1;
+
+    if (space !== -1 && space < at) {
+      start = space + 1;
+    }
   }
+
   if (end < text.length) {
     const space = text.lastIndexOf(' ', end);
-    if (space !== -1 && space > at) end = space;
+
+    if (space !== -1 && space > at) {
+      end = space;
+    }
   }
 
   return [
@@ -125,47 +152,49 @@ function toHit(entry: IndexEntry, needles: string[]): Hit {
 
 const results = computed<Hit[]>(() => {
   const q = query.value.trim();
-  const needles = terms.value;
+  // Read before the early returns so a query typed while the index is still
+  // loading is searched again once `entries` is filled.
+  const indexedEntries = entries.value;
 
   if (!q) {
-    return entries.value.slice(0, RECENT_COUNT).map((e) => toHit(e, []));
+    return indexedEntries.slice(0, RECENT_COUNT).map((entry) => toHit(entry, []));
   }
-  if (!mini) return [];
+
+  if (!mini) {
+    return [];
+  }
 
   return mini
     .search(q)
     .slice(0, MAX_RESULTS)
-    .map((r) => {
-      const entry = entries.value.find((e) => e.id === r.id);
-      return entry ? toHit(entry, needles) : null;
-    })
-    .filter((h): h is Hit => h !== null);
+    .flatMap((result) => {
+      const entry = entriesById.get(result.id);
+
+      return entry ? [toHit(entry, terms.value)] : [];
+    });
 });
 
 const isRecent = computed(() => query.value.trim() === '');
 
-const formatDate = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
-
 async function ensureIndex(): Promise<void> {
-  if (loaded.value || loading.value || mini) return;
+  if (mini || loading.value) {
+    return;
+  }
+
   loading.value = true;
   failed.value = false;
 
   try {
-    const res = await fetch('/search.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = (await res.json()) as IndexEntry[];
+    const response = await fetch('/search.json');
 
-    mini = new MiniSearch<IndexEntry>({
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = (await response.json()) as IndexEntry[];
+    const index = new MiniSearch<IndexEntry>({
       idField: 'id',
       fields: ['title', 'description', 'tags', 'categories', 'text'],
-      storeFields: ['url', 'title', 'date', 'tags', 'description', 'text'],
       searchOptions: {
         // Title and tags outweigh body prose — a title match is almost always
         // the intent, and without a boost a long post can outrank a page whose
@@ -175,10 +204,11 @@ async function ensureIndex(): Promise<void> {
         fuzzy: 0.2,
       },
     });
-    mini.addAll(data);
 
+    index.addAll(data);
+    data.forEach((entry) => entriesById.set(entry.id, entry));
+    mini = index;
     entries.value = data;
-    loaded.value = true;
   } catch {
     failed.value = true;
   } finally {
@@ -186,29 +216,40 @@ async function ensureIndex(): Promise<void> {
   }
 }
 
-let scrollbarPad = '';
-
 function openModal(): void {
-  if (open.value) return;
+  if (open.value) {
+    return;
+  }
+
   lastFocused = document.activeElement as HTMLElement | null;
   open.value = true;
 
   // Lock the page behind the palette, compensating for the vanished scrollbar
   // so the layout doesn't jump sideways on open.
-  const gutter = window.innerWidth - document.documentElement.clientWidth;
-  scrollbarPad = document.body.style.paddingRight;
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  savedBodyPaddingRight = document.body.style.paddingRight;
   document.body.style.overflow = 'hidden';
-  if (gutter > 0) document.body.style.paddingRight = `${gutter}px`;
+
+  if (scrollbarWidth > 0) {
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+  }
 
   void ensureIndex();
   void nextTick(() => inputEl.value?.focus());
 }
 
-function closeModal(): void {
-  if (!open.value) return;
-  open.value = false;
+function unlockPage(): void {
   document.body.style.overflow = '';
-  document.body.style.paddingRight = scrollbarPad;
+  document.body.style.paddingRight = savedBodyPaddingRight;
+}
+
+function closeModal(): void {
+  if (!open.value) {
+    return;
+  }
+
+  open.value = false;
+  unlockPage();
   query.value = '';
   active.value = 0;
   lastFocused?.focus();
@@ -216,21 +257,31 @@ function closeModal(): void {
 
 function go(index: number): void {
   const hit = results.value[index];
-  if (hit) window.location.assign(hit.url);
+
+  if (!hit) {
+    return;
+  }
+
+  // Closing first matters: a page restored from the back/forward cache would
+  // otherwise come back with the palette open and scrolling locked.
+  closeModal();
+  window.location.assign(hit.url);
 }
 
 function move(delta: number): void {
   const count = results.value.length;
-  if (!count) return;
+
+  if (!count) {
+    return;
+  }
+
   active.value = (active.value + delta + count) % count;
   void nextTick(() => {
-    document
-      .getElementById(`search-opt-${active.value}`)
-      ?.scrollIntoView({ block: 'nearest' });
+    document.getElementById(`search-opt-${active.value}`)?.scrollIntoView({ block: 'nearest' });
   });
 }
 
-function onInputKeydown(event: KeyboardEvent): void {
+function onPanelKeydown(event: KeyboardEvent): void {
   switch (event.key) {
     case 'ArrowDown':
       event.preventDefault();
@@ -249,6 +300,12 @@ function onInputKeydown(event: KeyboardEvent): void {
       active.value = Math.max(0, results.value.length - 1);
       break;
     case 'Enter':
+      // Enter confirms an IME composition, and activates the close button when
+      // that has focus; neither should open a result.
+      if (event.isComposing || event.target === closeEl.value) {
+        return;
+      }
+
       event.preventDefault();
       go(active.value);
       break;
@@ -256,12 +313,15 @@ function onInputKeydown(event: KeyboardEvent): void {
       // Keep focus inside the dialog: only the input and the close button are
       // tabbable, so the cycle is always two stops.
       const stops = [inputEl.value, closeEl.value].filter(Boolean) as HTMLElement[];
-      if (stops.length < 2) return;
+
+      if (stops.length < 2) {
+        return;
+      }
+
       event.preventDefault();
+
       const at = stops.indexOf(document.activeElement as HTMLElement);
-      const next = event.shiftKey
-        ? (at - 1 + stops.length) % stops.length
-        : (at + 1) % stops.length;
+      const next = event.shiftKey ? (at - 1 + stops.length) % stops.length : (at + 1) % stops.length;
       stops[next]?.focus();
       break;
     }
@@ -271,9 +331,16 @@ function onInputKeydown(event: KeyboardEvent): void {
 function onDocumentKeydown(event: KeyboardEvent): void {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
     event.preventDefault();
-    open.value ? closeModal() : openModal();
+
+    if (open.value) {
+      closeModal();
+    } else {
+      openModal();
+    }
+
     return;
   }
+
   if (event.key === 'Escape' && open.value) {
     event.preventDefault();
     closeModal();
@@ -282,7 +349,11 @@ function onDocumentKeydown(event: KeyboardEvent): void {
 
 function onDocumentClick(event: MouseEvent): void {
   const trigger = (event.target as HTMLElement | null)?.closest('[data-search-open]');
-  if (!trigger) return;
+
+  if (!trigger) {
+    return;
+  }
+
   event.preventDefault();
   openModal();
 }
@@ -300,9 +371,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onDocumentClick);
+
   if (open.value) {
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = scrollbarPad;
+    unlockPage();
   }
 });
 </script>
@@ -314,7 +385,7 @@ onBeforeUnmount(() => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="search-label"
-      @keydown="onInputKeydown"
+      @keydown="onPanelKeydown"
     >
       <h2 id="search-label" class="sr-only">Search posts</h2>
 
@@ -331,7 +402,8 @@ onBeforeUnmount(() => {
           autocapitalize="off"
           spellcheck="false"
           role="combobox"
-          aria-expanded="true"
+          aria-label="Search posts"
+          :aria-expanded="results.length > 0"
           aria-controls="search-results"
           :aria-activedescendant="results.length ? `search-opt-${active}` : undefined"
           aria-autocomplete="list"
@@ -373,7 +445,7 @@ onBeforeUnmount(() => {
               role="option"
               :aria-selected="i === active"
               :class="{ active: i === active }"
-              @mouseenter="active = i"
+              @mousemove="active = i"
             >
               <a :href="hit.url" tabindex="-1" @click="closeModal">
                 <span class="head">
@@ -383,7 +455,7 @@ onBeforeUnmount(() => {
                       <template v-else>{{ seg.text }}</template>
                     </template>
                   </span>
-                  <time class="date" :datetime="hit.date">{{ formatDate(hit.date) }}</time>
+                  <time class="date" :datetime="hit.date">{{ formatShortDate(new Date(hit.date)) }}</time>
                 </span>
                 <span v-if="hit.snippet.length" class="snip">
                   <template v-for="(seg, si) in hit.snippet" :key="si">

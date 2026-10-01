@@ -12,20 +12,15 @@ It is half of a two-site split of what was previously a single Hugo site:
 
 | Site | Content | Repo |
 | --- | --- | --- |
-| `risanb.com` | technical posts, at `/code/<slug>/` | this repo |
+| `risanb.com` | technical posts, at `/posts/<slug>/` | this repo |
 | `blog.risanb.com` | everything else, at `/<slug>/` | [risan/blog.risanb.com](https://github.com/risan/blog.risanb.com) |
 
 The two share a design system, the remark/rehype plugins in `src/lib/`, and the
 search island — but own their content, builds and deploys independently.
 
-This repo previously held a Hugo site. Code posts kept their `/code/<slug>/`
-paths unchanged, so no technical post needed a redirect.
-
 ## Requirements
 
 Node 20.3+ (see `.node-version`). npm.
-
-Hugo is no longer required.
 
 `.tool-versions` is deliberately **absent**. Workers Builds detects that file and
 tries to install its contents, but the build image only supports `NODE_VERSION`,
@@ -37,44 +32,48 @@ starts with `Failed: error occurred while installing tools or dependencies`.
 ```sh
 npm install
 npm run dev          # dev server on :4321
-npm run build        # type-check, then build to dist/
-npm run build:only   # build without the type-check
+npm run build        # build to dist/ (no type-check; CI runs it separately)
 npm run preview      # serve dist/
 npm run check        # astro check + vue-tsc
-npm run check:site   # verify dist/ (links, redirects, legacy URLs)
+npm run check:site   # verify dist/ (links, feeds, redirects, legacy URLs)
 npx wrangler deploy  # ship dist/ to Cloudflare Workers
 ```
 
-`npm run check:site` is the one that matters before a deploy. It asserts every
-page exists, every internal link resolves, no redirect rule shadows a real page,
-and — using `scripts/legacy-urls.txt` — that all 250 URLs the Hugo site served
-are still served or redirected.
+`npm run build` does not type-check, so a deploy build doesn't repeat what CI
+already ran. Run `npm run check` before pushing; CI fails on type errors.
+
+`npm run check:site` asserts every page exists, every internal link resolves,
+the URLs in `rss.xml` and the sitemap are served, no redirect rule shadows a
+real page, and — using `scripts/legacy-urls.txt` — that all 250 URLs the Hugo
+site served are still served or redirected.
 
 ## Layout
 
 ```
-content/               50 posts (Hugo-era markdown, page bundles + flat files)
-src/content.config.ts  the `code` and `about` collection schemas
+content/posts/         the posts (markdown, page bundles and flat files)
+content/about/         the /about/ page
+src/content.config.ts  the `posts` and `about` collection schemas
 src/layouts/           BaseLayout + PostLayout
-src/pages/             home, /code/<slug>/ posts, tags, categories, rss, search.json
-src/lib/               remark/rehype plugins, Shiki theme, text helpers
+src/pages/             home, /posts/, tags, categories, about, rss.xml, search.json
+src/components/        PostList, TagCloud, counters, search modal, home widgets
+src/lib/               post and date helpers, stats API client, remark/rehype plugins, Shiki theme
 static/                favicon, robots.txt, img, _redirects
-scripts/check-site.mjs post-build verification
+scripts/               check-site.mjs (post-build verification), GitHub contributions fetcher
 wrangler.jsonc         Cloudflare Workers deploy config (static assets only)
 ```
 
 ## Notes on the migration
 
-- Code posts keep `/code/<slug>/` unchanged, so inbound links and search
-  rankings are untouched and no technical post redirects at all.
+- Technical posts moved from `/code/<slug>/` to `/posts/<slug>/`; `/code/*`
+  redirects there.
 - `static/_redirects` sends the 143 `/blog/*` URLs plus 29 blog-only category
-  and tag pages to `blog.risanb.com`. Cloudflare defaults to 302 when the status
-  is omitted, so every rule states `301` explicitly — a 302 would not carry the
-  ranking. Static rules are listed before the splat rule, per Cloudflare's
-  ordering requirement.
-- Astro writes to `dist/`, deliberately not Hugo's `public/`, so a Hugo build
-  and an Astro build could coexist during the migration without clobbering each
-  other. `publicDir` stays `static/` to match Hugo's asset semantics.
+  and tag pages to `blog.risanb.com`, and the old Hugo feed `/index.xml` to
+  `/rss.xml`. Cloudflare defaults to 302 when the status is omitted, so every
+  rule states `301` explicitly — a 302 would not carry the ranking. Static
+  rules are listed before the splat rule, per Cloudflare's ordering requirement.
+- Astro writes to `dist/`. `publicDir` stays `static/`, as it was under Hugo.
+- `src/lib/remark-hugo-shortcodes.mjs` still renders the Hugo shortcodes the
+  older posts use.
 
 ## Deploy
 

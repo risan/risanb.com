@@ -1,7 +1,7 @@
 /* ============================================================================
    risanb.com — "Technical Monograph"
    A printed-engineering-journal treatment: warm newsprint, serif throughout,
-   hairline rules, one clay accent. See docs/design.md for the rationale.
+   hairline rules, one clay accent.
    ========================================================================== */
 
 /* Self-hosted variable fonts. No third-party CDN request, no FOIT. */
@@ -11,21 +11,6 @@
 @import '@fontsource-variable/jetbrains-mono/wght.css';
 
 @import 'tailwindcss';
-
-@theme {
-  --color-paper: #fbf9f5;
-  --color-sunk: #f3efe7;
-  --color-ink: #1b1c1d;
-  --color-muted: #6b6862;
-  --color-rule: #e4ded3;
-  --color-accent: #c8502e;
-
-  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
-
-  --measure: 74ch;
-}
 
 :root {
   --paper: #fbf9f5;
@@ -217,25 +202,27 @@ nav.top a[aria-current='page'] {
   gap: 8px;
 }
 
-.kbd,
-.search-btn {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 4px 6px;
-  background: none;
-  cursor: pointer;
+.search-btn,
+.theme-toggle,
+.menu-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  padding: 4px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.kbd:hover,
-.search-btn:hover {
+.search-btn:hover,
+.theme-toggle:hover,
+.menu-toggle:hover {
   color: var(--ink);
   border-color: var(--ink-muted);
 }
@@ -248,19 +235,6 @@ nav.top a[aria-current='page'] {
 
 .menu-toggle {
   display: none;
-  background: none;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 4px 6px;
-  cursor: pointer;
-  color: var(--ink-muted);
-  align-items: center;
-  justify-content: center;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-.menu-toggle:hover {
-  color: var(--ink);
-  border-color: var(--ink-muted);
 }
 .menu-toggle .menu-icon-close {
   display: none;
@@ -278,6 +252,11 @@ nav.top a[aria-current='page'] {
 }
 .mobile-nav[hidden] {
   display: none !important;
+}
+@media (min-width: 768px) {
+  .mobile-nav {
+    display: none;
+  }
 }
 .mobile-nav-links {
   display: flex;
@@ -304,22 +283,6 @@ nav.top a[aria-current='page'] {
   color: var(--accent);
 }
 
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 4px 6px;
-  cursor: pointer;
-  color: var(--ink-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-.theme-toggle:hover {
-  color: var(--ink);
-  border-color: var(--ink-muted);
-}
 .theme-toggle .sun-icon {
   display: none;
 }
@@ -663,7 +626,7 @@ h1 {
   height: auto;
 }
 
-/* Figures. Mirrors Hugo's render hook: <figure><img><figcaption></figure>. */
+/* Figures: <figure><img><figcaption></figure>, built by rehype-figure. */
 .prose figure {
   margin: 36px 0;
 }
@@ -734,7 +697,8 @@ h1 {
   margin: 34px 0;
 }
 
-/* Expressive Code: macOS window chrome */
+/* Expressive Code: macOS-style window chrome. !important is needed to beat
+   the inline styles and specificity of the plugin's own stylesheet. */
 .expressive-code .frame {
   border: 1px solid var(--rule) !important;
   border-radius: 8px !important;
@@ -769,8 +733,6 @@ html.dark .expressive-code .frame .header {
 
 .expressive-code .frame .header::after {
   display: none !important;
-  content: none !important;
-  border: none !important;
 }
 
 .expressive-code .frame .header::before {
@@ -792,8 +754,6 @@ html.dark .expressive-code .frame .header {
 .expressive-code .frame .title::before,
 .expressive-code .frame .title::after {
   display: none !important;
-  content: none !important;
-  border: none !important;
 }
 
 .expressive-code .frame.has-title .title {
@@ -821,8 +781,6 @@ html.dark .expressive-code .frame .header {
 
 .expressive-code .copy {
   position: absolute !important;
-  top: 6px !important;
-  right: 10px !important;
   inset: 6px 10px auto auto !important;
   margin: 0 !important;
   z-index: 10 !important;
@@ -866,7 +824,6 @@ html.dark .expressive-code .frame .header {
   align-items: center;
   gap: 8px;
 }
-
 
 .post-meta-inline {
   display: flex;

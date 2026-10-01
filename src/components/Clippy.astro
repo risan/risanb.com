@@ -1,22 +1,9 @@
 ---
-// Interactive Clippy assistant with cursor-following eyes, retro sound synthesis,
-// drag-and-drop mobility, blog-aligned monograph aesthetics, and magical genie emergence.
+// Clippy: a paperclip assistant summoned by the "curiosity" button on the home page.
 ---
 
-<div
-  id="clippy-widget"
-  class="clippy-widget is-hidden"
-  role="region"
-  aria-label="Clippy assistant"
->
-  <!-- Speech Bubble (Blog monograph design, absolutely positioned relative to character) -->
-  <div
-    id="clippy-bubble"
-    class="clippy-bubble is-hidden"
-    role="dialog"
-    aria-labelledby="clippy-quote"
-  >
-    <!-- Top-right corner controls (Mute & Close) -->
+<div id="clippy-widget" class="clippy-widget" role="region" aria-label="Clippy assistant">
+  <div id="clippy-bubble" class="clippy-bubble" role="dialog" aria-labelledby="clippy-quote">
     <div class="clippy-corner-tools">
       <button
         id="clippy-sound-toggle"
@@ -26,7 +13,7 @@
         title="Toggle sound"
       >
         <span class="icon-sound-on" aria-hidden="true">🔊</span>
-        <span class="icon-sound-off" aria-hidden="true" style="display: none;">🔇</span>
+        <span class="icon-sound-off" aria-hidden="true" hidden>🔇</span>
       </button>
       <button
         id="clippy-close-btn"
@@ -39,14 +26,10 @@
       </button>
     </div>
 
-    <!-- Speech content -->
     <div class="clippy-bubble-body">
-      <p id="clippy-quote" class="clippy-quote">
-        100% test coverage is a waste of time.
-      </p>
+      <p id="clippy-quote" class="clippy-quote"></p>
     </div>
 
-    <!-- Actions: Share on X and dismissive button -->
     <div class="clippy-bubble-footer">
       <button
         id="clippy-share-btn"
@@ -60,405 +43,219 @@
         </svg>
         <span>Share</span>
       </button>
-      <button id="clippy-ack-btn" class="clippy-ack-btn" type="button">
-        Whatever
-      </button>
+      <button id="clippy-ack-btn" class="clippy-ack-btn" type="button">Whatever</button>
     </div>
 
-    <!-- Directional seamless callout tail (rotated square with zero base border) -->
     <div class="clippy-bubble-tail" aria-hidden="true"></div>
   </div>
 
-  <!-- Draggable Clippy Character -->
   <div
     id="clippy-character"
     class="clippy-character"
     role="button"
     tabindex="0"
-    aria-label="Clippy: drag to reposition or click for hot take"
-    title="Drag me anywhere or click for hot takes!"
+    aria-label="Clippy: drag to reposition, click for a hot take, double-click to dance"
+    title="Drag me anywhere, click for a hot take"
   >
     <svg
       id="clippy-svg"
       class="clippy-svg"
-      width="78"
-      height="88"
-      viewBox="0 0 32 36"
+      width="56"
+      height="92"
+      viewBox="0 0 60 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <defs>
-        <linearGradient
-          id="clippyWireGrad"
-          x1="6"
-          y1="2"
-          x2="26"
-          y2="34"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stop-color="#E2E7EE" />
-          <stop offset="35%" stop-color="#9BA6B5" />
-          <stop offset="70%" stop-color="#BAC3D0" />
-          <stop offset="100%" stop-color="#6F7A8B" />
+        <linearGradient id="clippy-metal" x1="8" y1="0" x2="52" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#c5cdd9" />
+          <stop offset="0.22" stop-color="#f5f7fb" />
+          <stop offset="0.5" stop-color="#a9b3c2" />
+          <stop offset="0.75" stop-color="#e4e9f0" />
+          <stop offset="1" stop-color="#8793a5" />
         </linearGradient>
       </defs>
-      <g class="clippy-figure">
-        <!-- Main Wire Loop (Clean vector path without internal clipped SVG filters) -->
-        <g class="clippy-wire-group">
-          <path
-            class="clippy-wire"
-            d="M12 25V13C12 10.7909 13.7909 9 16 9C18.2091 9 20 10.7909 20 13V26C20 29.3137 17.3137 32 14 32C10.6863 32 8 29.3137 8 26V7C8 3.68629 10.6863 1 14 1C17.3137 1 20 3.68629 20 7V22"
-            stroke="url(#clippyWireGrad)"
-            stroke-width="2.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
 
-          <!-- Specular Highlight Line -->
-          <path
-            class="clippy-highlight"
-            d="M8.8 24V7C8.8 4.1 11.1 1.8 14 1.8C16.9 1.8 19.2 4.1 19.2 7V20"
-            stroke="#FFFFFF"
-            stroke-width="0.8"
-            stroke-linecap="round"
-            opacity="0.85"
-          />
+      <g class="clippy-wire" transform="rotate(-8 30 50)">
+        <path
+          d="M22 64V28a8 8 0 0 1 16 0v52a13 13 0 0 1-26 0V22a18 18 0 0 1 36 0v42"
+          stroke="#5b6678"
+          stroke-width="7.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M22 64V28a8 8 0 0 1 16 0v52a13 13 0 0 1-26 0V22a18 18 0 0 1 36 0v42"
+          stroke="url(#clippy-metal)"
+          stroke-width="5.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M22 64V28a8 8 0 0 1 16 0v52a13 13 0 0 1-26 0V22a18 18 0 0 1 36 0v42"
+          transform="translate(-1.1 -0.6)"
+          stroke="#fff"
+          stroke-opacity="0.85"
+          stroke-width="1.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+
+      <g class="clippy-eyes">
+        <ellipse id="clippy-eye-left" cx="19" cy="36" rx="8.4" ry="9.6" fill="#fff" stroke="#222" stroke-width="1.1" />
+        <ellipse id="clippy-eye-right" cx="37" cy="33.5" rx="8.4" ry="9.6" fill="#fff" stroke="#222" stroke-width="1.1" />
+        <g id="clippy-pupil-left" class="clippy-pupil">
+          <circle cx="19" cy="36.6" r="3.7" fill="#161616" />
+          <circle cx="17.8" cy="35.2" r="1.1" fill="#fff" />
         </g>
-
-        <!-- Expressive Eyebrows -->
-        <g class="clippy-brows">
-          <path
-            class="brow-left"
-            d="M10 7.5C11 6.2 13 6.4 14.5 7.2"
-            stroke="#1A1918"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          />
-          <path
-            class="brow-right"
-            d="M17.5 6.2C19 5.2 21.2 5.6 22.5 7"
-            stroke="#1A1918"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          />
+        <g id="clippy-pupil-right" class="clippy-pupil">
+          <circle cx="37" cy="34.1" r="3.7" fill="#161616" />
+          <circle cx="35.8" cy="32.7" r="1.1" fill="#fff" />
         </g>
+      </g>
 
-        <!-- Eyes Container (Blinks) -->
-        <g class="clippy-eyes">
-          <!-- Left Eye Socket -->
-          <ellipse
-            id="clippy-eye-left"
-            class="clippy-eye-white eye-left"
-            cx="12.5"
-            cy="12.5"
-            rx="3.5"
-            ry="4.2"
-            fill="#FFFFFF"
-            stroke="#1A1918"
-            stroke-width="1"
-          />
-          <!-- Left Pupil Group (Follows Cursor) -->
-          <g id="clippy-pupil-left" class="clippy-pupil pupil-left">
-            <circle cx="12.8" cy="12.6" r="1.8" fill="#1A1918" />
-            <circle cx="12.0" cy="11.7" r="0.65" fill="#FFFFFF" />
-          </g>
-
-          <!-- Right Eye Socket -->
-          <ellipse
-            id="clippy-eye-right"
-            class="clippy-eye-white eye-right"
-            cx="19.5"
-            cy="12"
-            rx="3.5"
-            ry="4.2"
-            fill="#FFFFFF"
-            stroke="#1A1918"
-            stroke-width="1"
-          />
-          <!-- Right Pupil Group (Follows Cursor) -->
-          <g id="clippy-pupil-right" class="clippy-pupil pupil-right">
-            <circle cx="19.1" cy="12.2" r="1.8" fill="#1A1918" />
-            <circle cx="18.3" cy="11.3" r="0.65" fill="#FFFFFF" />
-          </g>
-        </g>
+      <g id="clippy-brow-left" class="clippy-brow">
+        <path d="M11 22.5Q18 16 27 20" stroke="#161616" stroke-width="3.4" stroke-linecap="round" />
+      </g>
+      <g id="clippy-brow-right" class="clippy-brow">
+        <path d="M30.5 17.5Q38 12 46 17" stroke="#161616" stroke-width="3.4" stroke-linecap="round" />
       </g>
     </svg>
   </div>
 </div>
 
 <style>
-  /* Base widget container fixed on screen: sized to the character */
   .clippy-widget {
     position: fixed;
     right: 28px;
     bottom: 24px;
-    width: 78px;
-    height: 88px;
+    display: none;
+    width: 56px;
+    height: 92px;
     z-index: 85;
-    pointer-events: none;
     user-select: none;
     touch-action: none;
-    transition: opacity 0.25s ease;
   }
 
-  .clippy-widget.is-unloaded,
-  .clippy-widget.is-hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    display: none;
-  }
-
-  .clippy-widget.is-entering {
+  .clippy-widget.is-out {
     display: block;
-    pointer-events: auto;
-    visibility: visible;
   }
 
-  .clippy-widget.is-visible {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-  }
-
-  /* Clippy Character Styling & Natural Vector Drop-Shadow */
   .clippy-character {
     position: relative;
-    width: 78px;
-    height: 88px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
     cursor: grab;
-    pointer-events: auto;
     outline: none;
+    transform-origin: 50% 100%;
     transition: transform 0.15s ease-out;
     -webkit-tap-highlight-color: transparent;
-    transform-origin: center center;
   }
 
   .clippy-character:focus-visible {
-    box-shadow: 0 0 0 3px rgba(200, 80, 46, 0.4);
-    border-radius: 9999px;
+    border-radius: 14px;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #c8502e) 45%, transparent);
   }
 
-  .clippy-character:active,
   .clippy-widget.is-dragging .clippy-character {
     cursor: grabbing;
-    transform: scale(1.08) rotate(-4deg);
+    transform: translateY(-4px) rotate(-3deg);
   }
 
-  /* Smooth vector drop-shadow that follows exact path curves without clipping */
   .clippy-svg {
     display: block;
     overflow: visible;
-    transform-origin: 16px 26px;
-    filter: drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18));
+    transform-origin: 50% 96%;
+    filter: drop-shadow(0 4px 8px rgba(27, 28, 29, 0.22));
   }
 
   :global(.dark) .clippy-svg {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.55));
   }
 
-  /* Click celebration wiggle */
-  .clippy-widget .clippy-character.is-wiggling {
-    animation: clippy-wiggle 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) !important;
-  }
-
-  @keyframes clippy-wiggle {
-    0% { transform: scale(1) rotate(0deg); }
-    20% { transform: scale(1.18) rotate(-14deg); }
-    40% { transform: scale(1.18) rotate(12deg); }
-    60% { transform: scale(1.1) rotate(-8deg); }
-    80% { transform: scale(1.04) rotate(4deg); }
-    100% { transform: scale(1) rotate(0deg); }
-  }
-
-  /* Idle floating animation (paused during drag and when wiggling) */
-  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) {
-    animation: clippy-float 4.8s infinite ease-in-out;
-  }
-
-  @keyframes clippy-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-
-  /* Expressive body bending and swaying */
-  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) .clippy-figure {
-    transform-origin: 14px 32px;
-    animation: clippy-body-bend 8.6s infinite ease-in-out;
-  }
-
-  @keyframes clippy-body-bend {
-    0%, 100% {
-      transform: rotate(0deg) skewX(0deg) scale(1, 1);
-    }
-    12% {
-      /* Inquisitive lean to the left, peering at the page content */
-      transform: rotate(-7deg) skewX(-6deg) translateY(-2px) scale(0.97, 1.03);
-    }
-    24% {
-      /* Curious tilt holds briefly */
-      transform: rotate(-8deg) skewX(-7deg) translateY(-3px) scale(0.96, 1.04);
-    }
-    38% {
-      /* Sway back smoothly through center */
-      transform: rotate(1.5deg) skewX(1deg) translateY(0) scale(1.02, 0.98);
-    }
-    50% {
-      /* Playful lean to the right */
-      transform: rotate(7deg) skewX(6deg) translateY(-2px) scale(0.98, 1.02);
-    }
-    62% {
-      /* Stretch upward inquisitively */
-      transform: rotate(2deg) skewX(1deg) translateY(-5px) scale(0.95, 1.06);
-    }
-    74% {
-      /* Relaxed squash bounce */
-      transform: rotate(-2deg) skewX(-1.5deg) translateY(1.5px) scale(1.04, 0.95);
-    }
-    86% {
-      /* Gentle settling sway */
-      transform: rotate(3deg) skewX(2deg) translateY(-1px) scale(1, 1);
-    }
-  }
-
-  /* Secondary elastic wire springiness */
-  .clippy-widget.is-visible:not(.is-dragging) .clippy-character:not(.is-wiggling) .clippy-wire-group {
-    transform-origin: 14px 32px;
-    animation: clippy-wire-flex 4.3s infinite ease-in-out;
-  }
-
-  @keyframes clippy-wire-flex {
-    0%, 100% {
-      transform: scale(1, 1);
-    }
-    50% {
-      transform: scale(1.015, 0.985);
-    }
-  }
-
-  /* Eyebrows expressive movement, synced with inquisitive leaning */
-  .clippy-brows {
-    transform-origin: 16px 7px;
-    animation: clippy-brow 4.4s infinite ease-in-out;
-  }
-
-  @keyframes clippy-brow {
-    0%, 72%, 100% { transform: translateY(0) rotate(0deg); }
-    18%, 28% { transform: translateY(-2.2px) rotate(-3deg); }
-    54%, 64% { transform: translateY(-1.5px) rotate(3deg); }
-  }
-
-  /* Eyes blinking */
   .clippy-eyes {
-    transform-origin: 16px 12.5px;
-    animation: clippy-blink 3.8s infinite ease-in-out;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: clippy-blink 4.2s infinite;
   }
 
   @keyframes clippy-blink {
-    0%, 88%, 100% { transform: scaleY(1); }
-    94% { transform: scaleY(0.08); }
+    0%,
+    92%,
+    100% {
+      transform: scaleY(1);
+    }
+    95% {
+      transform: scaleY(0.1);
+    }
   }
 
-  /* Pupils smooth transformation */
   .clippy-pupil {
     transition: transform 0.12s ease-out;
   }
 
-  /* Speech Bubble Styling: matches blog monograph palette (var(--paper), var(--rule), var(--ink)) */
+  .clippy-brow {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .clippy-bubble {
     position: absolute;
     width: 280px;
     max-width: calc(100vw - 32px);
+    padding: 14px 16px 12px 14px;
     background: var(--paper, #fbf9f5);
     border: 1px solid var(--rule, #e4ded3);
     border-radius: 6px;
-    padding: 14px 16px 12px 14px;
     box-shadow:
       0 12px 32px -6px color-mix(in srgb, var(--ink, #1b1c1d) 16%, transparent),
       0 3px 8px -2px color-mix(in srgb, var(--ink, #1b1c1d) 8%, transparent);
     color: var(--ink, #1b1c1d);
-    pointer-events: auto;
-    transition: opacity 0.22s ease, transform 0.22s ease;
     z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.82) translateY(10px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      visibility 0s linear 0.18s;
   }
 
-  .clippy-bubble.is-hidden {
-    display: none;
+  .clippy-bubble.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.4s cubic-bezier(0.34, 1.45, 0.64, 1);
   }
 
-  .clippy-bubble.is-popping-out {
-    animation: bubble-popdown 0.24s ease-in forwards;
-    pointer-events: none;
-  }
-
-  .clippy-bubble.is-popping-in {
-    animation: bubble-popup 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  /* Bubble popdown animation */
-  @keyframes bubble-popdown {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(0.7) translateY(12px);
-    }
-  }
-
-  /* Default placement: Bubble is above Clippy, aligned with right edge */
   .clippy-widget:not(.bubble-bottom):not(.bubble-left) .clippy-bubble {
     bottom: calc(100% + 14px);
     right: 0;
     transform-origin: bottom right;
   }
 
-  /* Bubble is above Clippy, aligned with left edge */
   .clippy-widget.bubble-left:not(.bubble-bottom) .clippy-bubble {
     bottom: calc(100% + 14px);
     left: 0;
     transform-origin: bottom left;
   }
 
-  /* Bubble is below Clippy, aligned with right edge */
   .clippy-widget.bubble-bottom:not(.bubble-left) .clippy-bubble {
     top: calc(100% + 14px);
     right: 0;
     transform-origin: top right;
   }
 
-  /* Bubble is below Clippy, aligned with left edge */
   .clippy-widget.bubble-bottom.bubble-left .clippy-bubble {
     top: calc(100% + 14px);
     left: 0;
     transform-origin: top left;
   }
 
-  @keyframes bubble-popup {
-    0% {
-      opacity: 0;
-      transform: scale(0.4) translateY(18px);
-    }
-    65% {
-      opacity: 1;
-      transform: scale(1.04) translateY(-2px);
-    }
-    85% {
-      transform: scale(0.98) translateY(1px);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-  }
-
-  /* Top-right corner tools (sound toggle & close) */
   .clippy-corner-tools {
     position: absolute;
     top: 7px;
@@ -491,7 +288,6 @@
     color: var(--ink, #1b1c1d);
   }
 
-  /* Bubble text body */
   .clippy-bubble-body {
     padding-right: 36px;
     min-height: 42px;
@@ -508,7 +304,6 @@
     color: var(--ink, #1b1c1d);
   }
 
-  /* Bubble footer with share button and dismissive button */
   .clippy-bubble-footer {
     display: flex;
     align-items: center;
@@ -519,23 +314,32 @@
     flex-wrap: wrap;
   }
 
-  .clippy-share-btn {
+  .clippy-share-btn,
+  .clippy-ack-btn {
     appearance: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: transparent;
     border: 1px solid var(--rule, #e4ded3);
     border-radius: 4px;
     padding: 3px 8px;
     font-family: var(--font-mono, 'JetBrains Mono Variable', monospace);
     font-size: 0.6875rem;
     font-weight: 500;
-    color: var(--ink-muted, #6b6862);
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  }
+
+  .clippy-share-btn:active,
+  .clippy-ack-btn:active {
+    transform: scale(0.96);
+  }
+
+  .clippy-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    color: var(--ink-muted, #6b6862);
   }
 
   .clippy-share-btn:hover {
@@ -544,28 +348,9 @@
     color: var(--ink, #1b1c1d);
   }
 
-  .clippy-share-btn:active {
-    transform: scale(0.96);
-  }
-
-  .clippy-share-btn .x-icon {
-    flex-shrink: 0;
-  }
-
   .clippy-ack-btn {
-    appearance: none;
     background: var(--sunk, #f3efe7);
-    border: 1px solid var(--rule, #e4ded3);
-    border-radius: 4px;
-    padding: 3px 8px;
-    font-family: var(--font-mono, 'JetBrains Mono Variable', monospace);
-    font-size: 0.6875rem;
-    font-weight: 500;
     color: var(--ink, #1b1c1d);
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   }
 
   .clippy-ack-btn:hover {
@@ -574,11 +359,6 @@
     color: var(--accent, #c8502e);
   }
 
-  .clippy-ack-btn:active {
-    transform: scale(0.96);
-  }
-
-  /* Directional callout tail: rotated square with ZERO top-border line */
   .clippy-bubble-tail {
     position: absolute;
     width: 12px;
@@ -586,64 +366,38 @@
     background: var(--paper, #fbf9f5);
     pointer-events: none;
     z-index: 2;
+    transform: rotate(45deg);
   }
 
-  /* Bubble above, right-aligned: pointed downwards, top half sits inside bubble with NO top border */
-  .clippy-widget:not(.bubble-bottom):not(.bubble-left) .clippy-bubble-tail {
+  .clippy-widget:not(.bubble-bottom) .clippy-bubble-tail {
     bottom: -6px;
-    right: 28px;
-    transform: rotate(45deg);
     border-right: 1px solid var(--rule, #e4ded3);
     border-bottom: 1px solid var(--rule, #e4ded3);
-    border-top: none;
-    border-left: none;
   }
 
-  /* Bubble above, left-aligned */
-  .clippy-widget.bubble-left:not(.bubble-bottom) .clippy-bubble-tail {
-    bottom: -6px;
-    left: 28px;
-    transform: rotate(45deg);
-    border-right: 1px solid var(--rule, #e4ded3);
-    border-bottom: 1px solid var(--rule, #e4ded3);
-    border-top: none;
-    border-left: none;
-  }
-
-  /* Bubble below, right-aligned: pointed upwards, bottom half sits inside bubble with NO bottom border */
-  .clippy-widget.bubble-bottom:not(.bubble-left) .clippy-bubble-tail {
+  .clippy-widget.bubble-bottom .clippy-bubble-tail {
     top: -6px;
-    right: 28px;
-    transform: rotate(45deg);
     border-top: 1px solid var(--rule, #e4ded3);
     border-left: 1px solid var(--rule, #e4ded3);
-    border-right: none;
-    border-bottom: none;
   }
 
-  /* Bubble below, left-aligned */
-  .clippy-widget.bubble-bottom.bubble-left .clippy-bubble-tail {
-    top: -6px;
-    left: 28px;
-    transform: rotate(45deg);
-    border-top: 1px solid var(--rule, #e4ded3);
-    border-left: 1px solid var(--rule, #e4ded3);
-    border-right: none;
-    border-bottom: none;
+  .clippy-widget:not(.bubble-left) .clippy-bubble-tail {
+    right: 22px;
   }
 
-  /* Accessibility: Prefers-reduced-motion: static display, no bob/shake/popup */
+  .clippy-widget.bubble-left .clippy-bubble-tail {
+    left: 22px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .clippy-widget,
     .clippy-character,
-    .clippy-figure,
-    .clippy-wire-group,
     .clippy-bubble,
-    .clippy-eyes,
-    .clippy-brows,
     .clippy-pupil {
-      animation: none !important;
-      transition: none !important;
+      transition: none;
+    }
+
+    .clippy-eyes {
+      animation: none;
     }
   }
 
@@ -652,30 +406,113 @@
       right: 14px;
       bottom: 16px;
     }
+
     .clippy-bubble {
       width: min(280px, calc(100vw - 28px));
       max-width: calc(100vw - 28px);
-    }
-    .clippy-svg {
-      width: 66px;
-      height: 75px;
     }
   }
 </style>
 
 <script>
-  // Complete programming hot takes list
   const HOT_TAKES = [
+    'Most microservices are a monolith with extra network calls.',
+    'Code review catches naming debates, not bugs.',
+    'The best cache is the query you deleted.',
+    'Your feature flag is now permanent. Name it accordingly.',
+    'Coverage tells you what ran, not what was checked.',
+    'Estimates are promises disguised as guesses.',
+    'Every abstraction is a loan. The next reader pays the interest.',
+    'If you need a comment to explain it, rename something first.',
+    'You don’t have a scaling problem. You have a missing index.',
+    'A rewrite bets you understand the system better than the people who built it.',
+    'Staging lies, just more politely than your laptop.',
+    'Dependencies are code you adopted without reviewing it.',
+    'A flaky test is a bug report you keep closing.',
+    'Logs nobody reads are just expensive disk space.',
+    'Retries without backoff are a denial-of-service you wrote yourself.',
+    'The second system is where good taste goes to die.',
+    'AI tools made writing code cheap and reviewing it expensive.',
+    'Generated code is your code the moment you merge it.',
+    'Autocomplete is great at the code you would have written anyway.',
+    'Prompting well is mostly writing the spec you were avoiding.',
+    'A good commit message outlives the code it describes.',
+    'Nobody reads the README until the day they own the repo.',
+    'Seniority is mostly knowing which problems to leave unsolved.',
+    'The best engineers I know delete more than they add.',
+    'Naming is design. Everything else is typing.',
+    'A ten-line function with a good name beats a ten-line comment.',
+    'Every temporary script outlives the team that wrote it.',
+    'A little duplication is cheaper than the wrong abstraction.',
+    'The right abstraction usually appears on the third copy, not the first.',
+    'A schema is the most durable API you will ever ship.',
+    'Migrations are the only code that has to work on the first try.',
+    'ORMs are fine until the query plan matters.',
+    'Postgres is the answer more often than anyone wants to admit.',
+    'Soft deletes are a promise to filter, forever.',
+    'SELECT * is a contract with columns you haven’t met yet.',
+    'CSS specificity wars are architecture problems in disguise.',
+    'Half of frontend performance is shipping less JavaScript.',
+    'A spinner is an admission that you could not make it fast.',
+    'Most single-page apps would have been fine as pages.',
+    'Accessibility is cheap on day one and expensive on day 400.',
+    'Dark mode is two design systems, not one.',
+    'Most state is server state. Stop copying it into the client.',
+    'Most teams adopting Kubernetes needed a bigger VM.',
+    'Infrastructure as code is still code. Review it like code.',
+    'If deploys are scary, do them more often.',
+    'A runbook nobody has tested is fiction.',
+    'An alert that needs no action is noise. Delete it.',
+    'The incident report matters more than the incident.',
+    'A backup you haven’t restored is a hope.',
+    'Observability is mostly knowing what to ask before it breaks.',
+    'The cloud bill is the only honest architecture diagram.',
+    'Mocks test your assumptions, not your system.',
+    'Integration tests are slow because they test something real.',
+    'Every bug fixed without a test is scheduled to return.',
+    'Write the test you wished you had during the last outage.',
+    'Tech debt is fine. Debt nobody knows about is the problem.',
+    'Deadlines don’t shorten the work. They shorten the testing.',
+    'Nobody gets promoted for the outage that didn’t happen.',
+    'You learn the most from the system you stay with long enough to regret.',
+    'A senior engineer is measured by how fast the next person gets.',
+    'Pair programming works best when someone says “I don’t know.”',
+    'A 2,000-line review is a rubber stamp with extra steps.',
+    'The pull request description is part of the change.',
+    'Small pull requests get real reviews. Large ones get approved.',
+    'Linters settle style arguments so reviews can have better ones.',
+    'Strict types are documentation the compiler reads for you.',
+    'Config files are programs nobody tests.',
+    'YAML is fine until it becomes a programming language.',
+    'Monorepos aren’t the hard part. Ownership is.',
+    'An internal platform is a product. Treat its users like customers.',
+    'Boring technology is a feature. Spend your novelty budget elsewhere.',
+    'Most performance work is deleting something that should never have run.',
+    'Clever code gets admired once and cursed for years.',
+    'Documentation rots at the speed of the code beside it. Keep it close.',
+    'The fastest way to learn a codebase is to fix its smallest bugs.',
+    'Error messages are UI. Write them for someone tired.',
+    'A queue doesn’t remove load. It postpones the conversation about it.',
+    'Idempotency is the cheapest insurance in distributed systems.',
+    'Time zones are a database problem you chose to ignore.',
+    'AI assistants are fast and confident. Review them like any new hire.',
+    'An agent with no tests will happily run the wrong way at full speed.',
+    'If the AI wrote it and you can’t explain it, you don’t own it yet.',
+    'Readable beats clever, and boring beats readable.',
+    'Feature requests are solutions. Ask for the problem.',
+    'Every config option is a decision you declined to make.',
+    'The most expensive code is the code that almost works.',
+    'Delete the dead code. Git remembers it for you.',
     '100% test coverage is a waste of time.',
     'It works on my machine!',
-    'You do not need Kubernetes.',
+    'You don’t need Kubernetes.',
     'Remember MongoDB? Web scale!',
     'Real engineers test directly in production.',
-    'Why write documentation when the code is "self-documenting"?',
+    'Why write documentation when the code is “self-documenting”?',
     'Microservices: because one monolith was not enough network latency.',
     'Have you tried rewriting the entire codebase in Rust?',
     'A 30-minute meeting could have been a Slack message nobody reads.',
-    'Git rebase --force: what could possibly go wrong?',
+    'git push --force: what could possibly go wrong?',
     'Technical debt is just future job security.',
     'CSS is easy: just slap !important on every selector.',
     'Why use 5 lines of vanilla JavaScript when 47 npm packages can do it worse?',
@@ -685,778 +522,912 @@
     'YAML is just JSON with severe trust issues.',
     'Documentation is like flossing: everybody agrees it is good, nobody does it.',
     'Tabs vs spaces? Real developers format with minification.',
-    'If at first you do not succeed, comment out the failing test.',
+    'If at first you don’t succeed, comment out the failing test.',
     'Premature optimization is the root of all evil. Procrastination is the trunk.',
     'Docker: wrapping broken software in containers since 2013.',
     'Delete 200 lines of code: the single most productive day of the month.',
     'A distributed monolith is just microservices without the benefits.',
     'Code comments are apologies left behind for future maintainers.',
-    'A framework a day keeps the imposter syndrome away.'
+    'A framework a day keeps the imposter syndrome away.',
+    'It’s not a bug. It’s an undocumented feature.',
+    'Weeks of coding can save you hours of planning.',
+    'Hours of debugging can save you minutes of reading the docs.',
+    '99 little bugs in the code. Patch one, push it around. 127 little bugs in the code.',
+    'The first 90% of the project takes 90% of the time. The last 10% takes the other 90%.',
+    'It’s always DNS.',
+    'The cloud is just someone else’s computer.',
+    'Regex solved your problem. Now you have two problems.',
+    'To understand recursion, you must first understand recursion.',
+    'There’s no place like 127.0.0.1.',
+    'Have you tried turning it off and on again?',
+    'Friday deploys build character.',
+    'git blame says it was you. Six months ago.',
+    'Legacy code: code that works, written by someone who left.',
+    '// TODO: fix later. Committed in 2014.',
+    'Naming things is hard. That’s why everything ends up in utils.',
+    'Estimated: two hours. Actual: two sprints.',
+    'LGTM means “I scrolled to the bottom.”',
+    'Vim is easy to learn. Quitting it is the hard part.',
+    'npm install: downloading half the internet to pad a string.',
+    'Deleted node_modules. Gained 3 GB and inner peace.',
+    'Copy-pasting from Stack Overflow was pair programming before AI made it official.',
+    'Programmers prefer dark mode because light attracts bugs.',
+    'A SQL query walks into a bar, sees two tables, and asks: “Can I join you?”',
+    'There are 10 kinds of developers: those who read binary and those who don’t.',
+    'The S in IoT stands for security.',
+    'Blockchain: a slow database with a marketing team.',
+    'Every senior engineer has run rm -rf on the wrong folder exactly once.',
+    'A senior developer has broken production more times than you have deployed.',
+    'The best code is the code you never wrote.',
+    'Kubernetes: because one YAML file was never enough.',
+    'Hello World is the only program with zero bugs. Probably.'
   ];
 
-  // Random button labels for dismissive user responses
-  const DISMISS_BUTTON_TEXTS = [
+  const DISMISS_LABELS = [
     'Whatever',
     'Okay',
     'Yeah, right',
     'Sure, Clippy',
     'Cool story',
+    'Noted',
+    'Fair enough',
+    'Debatable',
+    'Hmm',
+    'Go away',
     'Did not ask',
     'Thanks, I hate it',
     'Works on my machine',
-    'Noted',
     'K.',
-    'Unsubscribe',
-    'Go away'
+    'Unsubscribe'
   ];
 
-  // Retro sound synthesis using Web Audio API (zero external assets, zero lag)
-  class ClippySoundSynth {
-    private ctx: AudioContext | null = null;
-    private muted: boolean;
+  const MUTE_STORAGE_KEY = 'clippy_sound';
+
+  class TakeBag {
+    private bag: string[] = [];
+    private last = '';
+
+    next(): string {
+      if (this.bag.length === 0) {
+        this.refill();
+      }
+
+      const take = this.bag.pop() as string;
+      this.last = take;
+
+      return take;
+    }
+
+    private refill() {
+      this.bag = [...HOT_TAKES];
+
+      for (let i = this.bag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.bag[i], this.bag[j]] = [this.bag[j], this.bag[i]];
+      }
+
+      if (this.bag[this.bag.length - 1] === this.last) {
+        this.bag.unshift(this.bag.pop() as string);
+      }
+    }
+  }
+
+  interface Tone {
+    frequency: number;
+    endFrequency?: number;
+    delay?: number;
+    duration: number;
+    volume: number;
+    type?: OscillatorType;
+  }
+
+  // Short, soft sine and triangle notes with a gentle attack: closer to the
+  // Office assistant's small blips than to a game console.
+  class ClippySounds {
+    private context: AudioContext | null = null;
+    private muted = false;
 
     constructor() {
-      const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      this.muted = reducedMotion || (typeof window !== 'undefined' && localStorage.getItem('clippy_sound') === 'muted');
+      try {
+        this.muted = localStorage.getItem(MUTE_STORAGE_KEY) === 'muted';
+      } catch {
+        this.muted = false;
+      }
     }
 
-    public initContext(): AudioContext | null {
-      if (!this.ctx && typeof window !== 'undefined') {
-        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        if (AudioCtx) {
-          this.ctx = new AudioCtx();
-        }
-      }
-      if (this.ctx && this.ctx.state === 'suspended') {
-        this.ctx.resume().catch(() => {});
-      }
-      return this.ctx;
-    }
-
-    public isMuted(): boolean {
+    isMuted() {
       return this.muted;
     }
 
-    public setMuted(muted: boolean) {
+    setMuted(muted: boolean) {
       this.muted = muted;
-      try {
-        localStorage.setItem('clippy_sound', muted ? 'muted' : 'unmuted');
-      } catch {}
-    }
-
-    // Magical genie emerging from lamp sound
-    public playGenieEmerge() {
-      if (this.muted) return;
-      const ctx = this.initContext();
-      if (!ctx || ctx.state === 'suspended') return;
 
       try {
-        const now = ctx.currentTime;
-        // Rising swoosh
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(160, now);
-        osc.frequency.exponentialRampToValueAtTime(1150, now + 0.45);
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.28, now + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.52);
-
-        // Sparkle harmonic arpeggio
-        const notes = [520, 780, 1040, 1300, 1560];
-        notes.forEach((freq, idx) => {
-          const t = now + 0.12 + idx * 0.055;
-          const p = ctx.createOscillator();
-          const pg = ctx.createGain();
-          p.type = 'triangle';
-          p.frequency.setValueAtTime(freq, t);
-          pg.gain.setValueAtTime(0.001, t);
-          pg.gain.exponentialRampToValueAtTime(0.14, t + 0.015);
-          pg.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
-          p.connect(pg);
-          pg.connect(ctx.destination);
-          p.start(t);
-          p.stop(t + 0.13);
-        });
-      } catch {}
+        localStorage.setItem(MUTE_STORAGE_KEY, muted ? 'muted' : 'unmuted');
+      } catch {
+        // Storage can be blocked; the choice then lasts for this page view only.
+      }
     }
 
-    // Magical genie suction back into lamp sound
-    public playGenieRetract() {
-      if (this.muted) return;
-      const ctx = this.initContext();
-      if (!ctx || ctx.state === 'suspended') return;
-
-      try {
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1200, now);
-        osc.frequency.exponentialRampToValueAtTime(140, now + 0.45);
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.25, now + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
-
-        // End pop
-        const pop = ctx.createOscillator();
-        const popG = ctx.createGain();
-        pop.type = 'sine';
-        pop.frequency.setValueAtTime(120, now + 0.44);
-        popG.gain.setValueAtTime(0.22, now + 0.44);
-        popG.gain.exponentialRampToValueAtTime(0.001, now + 0.52);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        pop.connect(popG);
-        popG.connect(ctx.destination);
-
-        osc.start(now);
-        osc.stop(now + 0.5);
-        pop.start(now + 0.44);
-        pop.stop(now + 0.53);
-      } catch {}
+    // Browsers only allow audio after a user gesture, so this is called from one.
+    unlock() {
+      this.getContext();
     }
 
-    // Playful double-chime chirp for new takes / bubble pop
-    public playChirp() {
-      if (this.muted) return;
-      const ctx = this.initContext();
-      if (!ctx || ctx.state === 'suspended') return;
-
-      try {
-        const now = ctx.currentTime;
-        const notes = [
-          { freq: 620, start: 0, dur: 0.07 },
-          { freq: 880, start: 0.05, dur: 0.11 }
-        ];
-
-        notes.forEach(({ freq, start, dur }) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + start);
-          osc.frequency.exponentialRampToValueAtTime(freq * 1.06, now + start + dur);
-
-          gain.gain.setValueAtTime(0.001, now + start);
-          gain.gain.exponentialRampToValueAtTime(0.2, now + start + 0.012);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now + start);
-          osc.stop(now + start + dur);
-        });
-      } catch {}
+    summon() {
+      this.tone({ frequency: 330, endFrequency: 520, duration: 0.14, volume: 0.09 });
+      this.tone({ frequency: 660, delay: 0.11, duration: 0.12, volume: 0.06, type: 'triangle' });
+      this.tone({ frequency: 880, delay: 0.19, duration: 0.18, volume: 0.05, type: 'triangle' });
     }
 
-    // Soft drop thud when released from dragging
-    public playDrop() {
-      if (this.muted) return;
-      const ctx = this.initContext();
-      if (!ctx || ctx.state === 'suspended') return;
-
-      try {
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(170, now);
-        osc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
-
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.1);
-      } catch {}
+    goodbye() {
+      this.tone({ frequency: 660, delay: 0.05, duration: 0.1, volume: 0.06, type: 'triangle' });
+      this.tone({ frequency: 494, delay: 0.15, duration: 0.12, volume: 0.06, type: 'triangle' });
+      this.tone({ frequency: 392, endFrequency: 260, delay: 0.27, duration: 0.2, volume: 0.07 });
     }
+
+    newTake() {
+      this.tone({ frequency: 587, duration: 0.09, volume: 0.07, type: 'triangle' });
+      this.tone({ frequency: 784, delay: 0.07, duration: 0.14, volume: 0.07, type: 'triangle' });
+    }
+
+    knocks() {
+      [0.15, 0.35, 0.55].forEach((delay) => {
+        this.tone({ frequency: 240, endFrequency: 130, delay, duration: 0.07, volume: 0.1 });
+      });
+    }
+
+    drop() {
+      this.tone({ frequency: 160, endFrequency: 70, duration: 0.09, volume: 0.1 });
+    }
+
+    private getContext(): AudioContext | null {
+      if (!this.context) {
+        const AudioContextClass =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        this.context = AudioContextClass ? new AudioContextClass() : null;
+      }
+
+      if (this.context?.state === 'suspended') {
+        this.context.resume().catch(() => {});
+      }
+
+      return this.context;
+    }
+
+    private tone({ frequency, endFrequency, delay = 0, duration, volume, type = 'sine' }: Tone) {
+      const context = this.muted ? null : this.getContext();
+
+      if (!context || context.state !== 'running') {
+        return;
+      }
+
+      const start = context.currentTime + delay;
+      const end = start + duration;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+
+      if (endFrequency) {
+        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, end);
+      }
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(volume, start + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(start);
+      oscillator.stop(end + 0.02);
+    }
+  }
+
+  // Gaze is expressed as -1..1 on each axis, where 1 is the pupil's full travel.
+  interface Gaze {
+    x: number;
+    y: number;
+  }
+
+  interface Move {
+    duration: number;
+    body: Keyframe[];
+    brows?: [Keyframe[], Keyframe[]];
+    gaze?: Array<[delayMs: number, gaze: Gaze | null]>;
+  }
+
+  type MoveName = 'greet' | 'attention' | 'lookAround' | 'think' | 'browRaise' | 'dance' | 'sway' | 'goodbye';
+
+  const pose = (offset: number, y = 0, rotate = 0, scaleX = 1, scaleY = 1): Keyframe => ({
+    offset,
+    easing: 'ease-in-out',
+    transform: `translateY(${y}px) rotate(${rotate}deg) scale(${scaleX}, ${scaleY})`
+  });
+
+  // Lift raises both brows; tilt is for the left brow and mirrored on the right,
+  // so a positive tilt furrows and a negative one looks worried or surprised.
+  const browPair = (lift: number, tilt: number): [Keyframe[], Keyframe[]] => {
+    const frames = (angle: number): Keyframe[] => [
+      { offset: 0, easing: 'ease-out', transform: 'translateY(0) rotate(0deg)' },
+      { offset: 0.2, transform: `translateY(${-lift}px) rotate(${angle}deg)` },
+      { offset: 0.8, easing: 'ease-in-out', transform: `translateY(${-lift}px) rotate(${angle}deg)` },
+      { offset: 1, transform: 'translateY(0) rotate(0deg)' }
+    ];
+
+    return [frames(tilt), frames(-tilt)];
+  };
+
+  const danceFrames = (): Keyframe[] => {
+    const frames = [pose(0)];
+
+    [1, -1, 1, -1].forEach((side, beat) => {
+      const start = beat * 0.24;
+      frames.push(
+        pose(start + 0.05, 3, side * -6, 1.1, 0.9),
+        pose(start + 0.15, -14, side * 8, 0.92, 1.1),
+        pose(start + 0.24, 0, side * -4, 1.08, 0.92)
+      );
+    });
+
+    frames.push(pose(1));
+
+    return frames;
+  };
+
+  const MOVES: Record<MoveName, Move> = {
+    greet: {
+      duration: 1300,
+      body: [
+        pose(0),
+        pose(0.12, 2, 0, 1.06, 0.94),
+        pose(0.3, -16, 0, 0.94, 1.08),
+        pose(0.44, 0, 0, 1.07, 0.93),
+        pose(0.54, 0, -11),
+        pose(0.66, 0, 10),
+        pose(0.78, 0, -9),
+        pose(0.9, 0, 6),
+        pose(1)
+      ],
+      brows: browPair(4, -6)
+    },
+    attention: {
+      duration: 1000,
+      body: [
+        pose(0),
+        pose(0.1, 0, -8, 1.03, 0.97),
+        pose(0.2, 3, -3, 1.05, 0.95),
+        pose(0.3, 0, -8),
+        pose(0.4, 3, -3, 1.05, 0.95),
+        pose(0.5, 0, -8),
+        pose(0.6, 3, -3, 1.05, 0.95),
+        pose(0.8, 0, -6),
+        pose(1)
+      ],
+      brows: browPair(3, -5)
+    },
+    lookAround: {
+      duration: 2600,
+      body: [pose(0), pose(0.2, 0, -5), pose(0.45, 0, -5), pose(0.55, 0, 5), pose(0.8, 0, 5), pose(1)],
+      gaze: [
+        [0, { x: -1, y: 0.2 }],
+        [1300, { x: 1, y: 0.1 }],
+        [2200, null]
+      ]
+    },
+    think: {
+      duration: 900,
+      body: [pose(0), pose(0.3, 0, 6, 0.98, 1.02), pose(0.8, 0, 6, 0.98, 1.02), pose(1)],
+      brows: browPair(-1.5, 14),
+      gaze: [
+        [0, { x: -0.7, y: -1 }],
+        [800, null]
+      ]
+    },
+    browRaise: {
+      duration: 900,
+      body: [pose(0), pose(0.3, -3, 0, 0.98, 1.03), pose(1)],
+      brows: browPair(4.5, -6)
+    },
+    dance: {
+      duration: 1900,
+      body: danceFrames(),
+      brows: browPair(3, -6)
+    },
+    sway: {
+      duration: 3000,
+      body: [pose(0), pose(0.3, 0, -3), pose(0.7, 0, 3), pose(1)]
+    },
+    goodbye: {
+      duration: 1000,
+      body: [
+        pose(0),
+        pose(0.15, 0, -10),
+        pose(0.3, 0, 10),
+        pose(0.45, 0, -9),
+        pose(0.6, 0, 8),
+        pose(0.78, 0, -3),
+        pose(1)
+      ],
+      brows: browPair(3, -5)
+    }
+  };
+
+  const IDLE_MOVES: MoveName[] = [
+    'lookAround',
+    'lookAround',
+    'lookAround',
+    'sway',
+    'sway',
+    'sway',
+    'browRaise',
+    'browRaise',
+    'browRaise',
+    'dance'
+  ];
+
+  const ENTER_MS = 900;
+  const EXIT_MS = 700;
+  const BUBBLE_READING_MS = 20000;
+  const MAX_PUPIL_TRAVEL = { x: 3.4, y: 4.2 };
+
+  const easeOutQuad = (t: number) => 1 - (1 - t) * (1 - t);
+  const easeInCubic = (t: number) => t * t * t;
+  const easeOutBack = (t: number) => 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);
+
+  interface Offset {
+    dx: number;
+    dy: number;
+  }
+
+  function squashStretchFrame(offset: number, x: number, y: number, rotate: number, scaleX: number, scaleY: number, height: number, opacity = 1): Keyframe {
+    // The character scales around its feet, so shift it to keep its middle on the path.
+    const centreShift = ((1 - scaleY) * height) / 2;
+
+    return {
+      offset,
+      opacity,
+      transform: `translate(${x}px, ${y - centreShift}px) rotate(${rotate}deg) scale(${scaleX}, ${scaleY})`
+    };
+  }
+
+  // A hop from the word to the resting spot: the clip pops out, stretches through the
+  // air along an arc, then lands with a squash and a small settle.
+  function enterKeyframes(from: Offset, height: number): Keyframe[] {
+    const lift = 70;
+    const frames: Keyframe[] = [];
+    const steps = 10;
+
+    for (let step = 0; step <= steps; step++) {
+      const t = step / steps;
+      const travelled = easeOutQuad(t);
+      const size = Math.max(0.05, easeOutBack(t));
+      const stretch = Math.sin(Math.PI * t);
+
+      frames.push(
+        squashStretchFrame(
+          t * 0.72,
+          from.dx * (1 - travelled),
+          from.dy * (1 - travelled) - lift * Math.sin(Math.PI * travelled),
+          -22 * (1 - t),
+          size * (1 - 0.14 * stretch),
+          size * (1 + 0.2 * stretch),
+          height,
+          Math.min(1, t * 6)
+        )
+      );
+    }
+
+    frames.push(
+      squashStretchFrame(0.82, 0, 0, 0, 1.16, 0.82, height),
+      squashStretchFrame(0.92, 0, 0, 0, 0.96, 1.06, height),
+      squashStretchFrame(1, 0, 0, 0, 1, 1, height)
+    );
+
+    return frames;
+  }
+
+  // The reverse: a small crouch, then a hop back along an arc, shrinking into the word.
+  function exitKeyframes(to: Offset, height: number): Keyframe[] {
+    const lift = 60;
+    const frames: Keyframe[] = [
+      squashStretchFrame(0, 0, 0, 0, 1, 1, height),
+      squashStretchFrame(0.2, 0, 0, 0, 1.14, 0.84, height)
+    ];
+    const steps = 10;
+
+    for (let step = 0; step <= steps; step++) {
+      const t = step / steps;
+      const travelled = easeInCubic(t) * 0.5 + t * 0.5;
+      const size = Math.max(0.05, 1 - 0.95 * easeInCubic(t));
+      const stretch = Math.sin(Math.PI * t);
+
+      frames.push(
+        squashStretchFrame(
+          0.2 + t * 0.8,
+          to.dx * travelled,
+          to.dy * travelled - lift * Math.sin(Math.PI * travelled),
+          20 * t,
+          size * (1 - 0.14 * stretch),
+          size * (1 + 0.2 * stretch),
+          height,
+          t > 0.8 ? (1 - t) * 5 : 1
+        )
+      );
+    }
+
+    return frames;
   }
 
   function initClippy() {
     const trigger = document.getElementById('curiosity-trigger');
     const widget = document.getElementById('clippy-widget');
     const character = document.getElementById('clippy-character');
+    const svg = document.getElementById('clippy-svg');
     const bubble = document.getElementById('clippy-bubble');
-    const quoteEl = document.getElementById('clippy-quote');
-    const ackBtn = document.getElementById('clippy-ack-btn');
-    const shareBtn = document.getElementById('clippy-share-btn');
-    const closeBtn = document.getElementById('clippy-close-btn');
-    const soundBtn = document.getElementById('clippy-sound-toggle');
+    const quoteElement = document.getElementById('clippy-quote');
+    const acknowledgeButton = document.getElementById('clippy-ack-btn');
+    const shareButton = document.getElementById('clippy-share-btn');
+    const closeButton = document.getElementById('clippy-close-btn');
+    const soundButton = document.getElementById('clippy-sound-toggle');
+    const eyes = [document.getElementById('clippy-eye-left'), document.getElementById('clippy-eye-right')];
+    const pupils = [document.getElementById('clippy-pupil-left'), document.getElementById('clippy-pupil-right')];
+    const brows = [document.getElementById('clippy-brow-left'), document.getElementById('clippy-brow-right')];
 
-    const pupilLeft = document.getElementById('clippy-pupil-left');
-    const pupilRight = document.getElementById('clippy-pupil-right');
-    const eyeLeftWhite = document.getElementById('clippy-eye-left');
-    const eyeRightWhite = document.getElementById('clippy-eye-right');
+    if (
+      !trigger || !widget || !character || !svg || !bubble || !quoteElement ||
+      !acknowledgeButton || !shareButton || !closeButton || !soundButton ||
+      eyes.includes(null) || pupils.includes(null) || brows.includes(null)
+    ) {
+      return;
+    }
 
-    if (!widget || !character || !bubble || !quoteEl) return;
+    const eyeElements = eyes as HTMLElement[];
+    const pupilElements = pupils as HTMLElement[];
+    const browElements = brows as HTMLElement[];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sounds = new ClippySounds();
+    const takes = new TakeBag();
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const sound = new ClippySoundSynth();
-    let currentTakeIndex = 0;
-    let isDismissedCompletely = true;
-    let isBubbleOpen = false;
-    let isAnimatingGenie = false;
-
-    // Timers for automatic speech bubble lifecycle
-    let autoCloseTimer: number | null = null;
-    let nextTakeTimer: number | null = null;
-
-    // Update sound button UI
-    const updateSoundUI = () => {
-      const isMuted = sound.isMuted();
-      const soundOn = soundBtn?.querySelector('.icon-sound-on') as HTMLElement | null;
-      const soundOff = soundBtn?.querySelector('.icon-sound-off') as HTMLElement | null;
-      if (soundOn && soundOff) {
-        soundOn.style.display = isMuted ? 'none' : 'inline';
-        soundOff.style.display = isMuted ? 'inline' : 'none';
-      }
-      soundBtn?.setAttribute('aria-label', isMuted ? 'Unmute Clippy sounds' : 'Mute Clippy sounds');
-    };
-    updateSoundUI();
-
-    soundBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      sound.setMuted(!sound.isMuted());
-      updateSoundUI();
-    });
-
-    // Handle browser autoplay policy by unlocking audio on the first user interaction
-    const unlockAudio = () => {
-      sound.initContext();
-      window.removeEventListener('pointerdown', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-    };
-    window.addEventListener('pointerdown', unlockAudio, { passive: true });
-    window.addEventListener('keydown', unlockAudio, { passive: true });
-
-    // Open speech bubble with a new hot take and random button text
-    const openBubble = (playAudio: boolean = true) => {
-      if (isDismissedCompletely) return;
-
-      // Pick new hot take
-      let nextIndex = Math.floor(Math.random() * HOT_TAKES.length);
-      if (nextIndex === currentTakeIndex) {
-        nextIndex = (currentTakeIndex + 1) % HOT_TAKES.length;
-      }
-      currentTakeIndex = nextIndex;
-      quoteEl.textContent = HOT_TAKES[currentTakeIndex];
-
-      // Pick random dismiss button text
-      if (ackBtn) {
-        const btnText = DISMISS_BUTTON_TEXTS[Math.floor(Math.random() * DISMISS_BUTTON_TEXTS.length)];
-        ackBtn.textContent = btnText;
-      }
-
-      // Show bubble
-      isBubbleOpen = true;
-      bubble.classList.remove('is-hidden', 'is-popping-out');
-
-      if (!prefersReducedMotion) {
-        bubble.classList.add('is-popping-in');
-        if (playAudio) sound.playChirp();
-      }
-
-      // Clear any pending timers
-      if (autoCloseTimer) clearTimeout(autoCloseTimer);
-      if (nextTakeTimer) clearTimeout(nextTakeTimer);
-
-      // Auto-close bubble after generous reading duration (~20 seconds)
-      autoCloseTimer = window.setTimeout(() => {
-        closeBubble(true);
-      }, 20000);
-    };
-
-    // Close speech bubble smoothly and schedule next take
-    const closeBubble = (scheduleNext: boolean = true) => {
-      if (!isBubbleOpen) return;
-      isBubbleOpen = false;
-
-      if (autoCloseTimer) {
-        clearTimeout(autoCloseTimer);
-        autoCloseTimer = null;
-      }
-
-      if (prefersReducedMotion) {
-        bubble.classList.add('is-hidden');
-      } else {
-        bubble.classList.remove('is-popping-in');
-        bubble.classList.add('is-popping-out');
-        setTimeout(() => {
-          if (!isBubbleOpen) {
-            bubble.classList.add('is-hidden');
-            bubble.classList.remove('is-popping-out');
-          }
-        }, 240);
-      }
-
-      // Schedule next take after a relaxed, ambient idle wait (~40 to 60 seconds)
-      if (scheduleNext && !isDismissedCompletely) {
-        if (nextTakeTimer) clearTimeout(nextTakeTimer);
-        const waitTime = 40000 + Math.random() * 20000;
-        nextTakeTimer = window.setTimeout(() => {
-          if (!isDismissedCompletely && !isBubbleOpen) {
-            openBubble(true);
-          }
-        }, waitTime);
-      }
-    };
-
-    // Share current hot take on Twitter / X
-    shareBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const quote = HOT_TAKES[currentTakeIndex];
-      const text = `"${quote}" — Clippy 📎`;
-      const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.origin)}`;
-      window.open(shareUrl, '_blank', 'noopener,noreferrer,width=550,height=420');
-    });
-
-    // Hovering over the speech bubble pauses the auto-close timer so user is never rushed
-    bubble.addEventListener('mouseenter', () => {
-      if (autoCloseTimer) {
-        clearTimeout(autoCloseTimer);
-        autoCloseTimer = null;
-      }
-    });
-
-    bubble.addEventListener('mouseleave', () => {
-      if (isBubbleOpen && !autoCloseTimer) {
-        autoCloseTimer = window.setTimeout(() => {
-          closeBubble(true);
-        }, 10000);
-      }
-    });
-
-    // Clicking "Whatever" / "Okay" / etc. immediately closes the bubble and schedules next take
-    ackBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeBubble(true);
-    });
-
-    // Emerge like a genie from the "curiosity" word
-    const emergeFromCuriosity = () => {
-      if (isAnimatingGenie || (!isDismissedCompletely && widget.classList.contains('is-visible'))) {
-        // If already visible, celebrate click with a wiggle and fresh take
-        if (!isDismissedCompletely && widget.classList.contains('is-visible')) {
-          if (!prefersReducedMotion) {
-            character.classList.remove('is-wiggling');
-            void character.offsetWidth;
-            character.classList.add('is-wiggling');
-          }
-          openBubble(true);
-        }
-        return;
-      }
-
-      isAnimatingGenie = true;
-      isDismissedCompletely = false;
-
-      // Turn "curiosity" word into normal text once Clippy is out
-      if (trigger) {
-        trigger.classList.remove('is-shimmering');
-        trigger.classList.add('is-active');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
-
-      // Ensure default resting position is set if not moved
-      if (!widget.style.left) {
-        widget.style.right = '28px';
-        widget.style.bottom = '24px';
-        widget.style.left = 'auto';
-        widget.style.top = 'auto';
-      }
-
-      widget.classList.remove('is-hidden', 'is-unloaded');
-      widget.classList.add('is-visible');
-
-      if (prefersReducedMotion) {
-        isAnimatingGenie = false;
-        openBubble(false);
-        return;
-      }
-
-      // Measure coordinates of the trigger word "curiosity"
-      const triggerRect = trigger
-        ? trigger.getBoundingClientRect()
-        : { left: window.innerWidth / 2, top: 120, width: 60, height: 24 };
-      const sourceCenterX = triggerRect.left + triggerRect.width / 2;
-      const sourceCenterY = triggerRect.top + triggerRect.height / 2;
-
-      // Measure coordinates of destination resting character
-      const charRect = character.getBoundingClientRect();
-      const destCenterX = charRect.left + charRect.width / 2;
-      const destCenterY = charRect.top + charRect.height / 2;
-
-      const startDx = sourceCenterX - destCenterX;
-      const startDy = sourceCenterY - destCenterY;
-
-      sound.playGenieEmerge();
-
-      const genieInKeyframes: Keyframe[] = [
-        {
-          transform: `translate3d(${startDx}px, ${startDy}px, 0) scale(0.02) rotate(720deg) skewX(25deg)`,
-          opacity: 0,
-          filter: 'blur(8px) drop-shadow(0 0 24px rgba(245, 184, 66, 0.9))'
-        },
-        {
-          transform: `translate3d(${startDx * 0.75}px, ${startDy * 0.75 - 50}px, 0) scale(0.28, 0.85) rotate(360deg) skewX(-20deg)`,
-          opacity: 0.85,
-          filter: 'blur(2px) drop-shadow(0 0 16px rgba(200, 80, 46, 0.7))',
-          offset: 0.3
-        },
-        {
-          transform: `translate3d(${startDx * 0.25}px, ${startDy * 0.25 - 20}px, 0) scale(1.22, 0.78) rotate(90deg) skewX(12deg)`,
-          opacity: 1,
-          filter: 'blur(0px) drop-shadow(0 4px 14px rgba(27, 28, 29, 0.3))',
-          offset: 0.68
-        },
-        {
-          transform: 'translate3d(-8px, -12px, 0) scale(0.92, 1.12) rotate(-8deg)',
-          opacity: 1,
-          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))',
-          offset: 0.86
-        },
-        {
-          transform: 'translate3d(0, 0, 0) scale(1, 1) rotate(0deg)',
-          opacity: 1,
-          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))'
-        }
-      ];
-
-      const anim = character.animate(genieInKeyframes, {
-        duration: 820,
-        easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)',
-        fill: 'forwards'
-      });
-
-      anim.onfinish = () => {
-        anim.cancel();
-        character.style.transform = '';
-        isAnimatingGenie = false;
-        const rect = character.getBoundingClientRect();
-        updateBubbleOrientation(rect.left, rect.top);
-        openBubble(false);
-        scheduleIdleGlance();
-      };
-    };
-
-    // Retract like a genie back into the "curiosity" word
-    const retractIntoCuriosity = () => {
-      if (isAnimatingGenie || isDismissedCompletely) return;
-      isAnimatingGenie = true;
-      isDismissedCompletely = true;
-      isBubbleOpen = false;
-
-      if (autoCloseTimer) clearTimeout(autoCloseTimer);
-      if (nextTakeTimer) clearTimeout(nextTakeTimer);
-      if (idleEyeTimer) {
-        clearTimeout(idleEyeTimer);
-        idleEyeTimer = null;
-      }
-      // Hide bubble immediately
-      bubble.classList.add('is-hidden');
-      bubble.classList.remove('is-popping-in', 'is-popping-out');
-
-      if (prefersReducedMotion) {
-        widget.classList.add('is-hidden');
-        widget.classList.remove('is-visible');
-        if (trigger) {
-          trigger.classList.remove('is-active');
-          trigger.classList.add('is-shimmering');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-        isAnimatingGenie = false;
-        return;
-      }
-
-      // Measure coordinates of current character position
-      const charRect = character.getBoundingClientRect();
-      const currentCenterX = charRect.left + charRect.width / 2;
-      const currentCenterY = charRect.top + charRect.height / 2;
-
-      // Measure coordinates of trigger word "curiosity"
-      const triggerRect = trigger
-        ? trigger.getBoundingClientRect()
-        : { left: window.innerWidth / 2, top: 120, width: 60, height: 24 };
-      const targetCenterX = triggerRect.left + triggerRect.width / 2;
-      const targetCenterY = triggerRect.top + triggerRect.height / 2;
-
-      const endDx = targetCenterX - currentCenterX;
-      const endDy = targetCenterY - currentCenterY;
-
-      sound.playGenieRetract();
-
-      const genieOutKeyframes: Keyframe[] = [
-        {
-          transform: 'translate3d(0, 0, 0) scale(1, 1) rotate(0deg)',
-          opacity: 1,
-          filter: 'drop-shadow(0 4px 10px rgba(27, 28, 29, 0.18))'
-        },
-        {
-          transform: `translate3d(${-endDx * 0.05}px, ${-endDy * 0.05 - 15}px, 0) scale(1.12, 0.9) rotate(12deg)`,
-          opacity: 1,
-          offset: 0.18
-        },
-        {
-          transform: `translate3d(${endDx * 0.38}px, ${endDy * 0.38 - 35}px, 0) scale(0.62, 1.4) rotate(-360deg) skewX(20deg)`,
-          opacity: 0.9,
-          filter: 'blur(1px) drop-shadow(0 0 16px rgba(200, 80, 46, 0.7))',
-          offset: 0.55
-        },
-        {
-          transform: `translate3d(${endDx * 0.85}px, ${endDy * 0.85}px, 0) scale(0.18, 0.5) rotate(-720deg) skewX(-15deg)`,
-          opacity: 0.6,
-          filter: 'blur(3px) drop-shadow(0 0 20px rgba(245, 184, 66, 0.9))',
-          offset: 0.85
-        },
-        {
-          transform: `translate3d(${endDx}px, ${endDy}px, 0) scale(0.01, 0.01) rotate(-1080deg)`,
-          opacity: 0,
-          filter: 'blur(6px)'
-        }
-      ];
-
-      const anim = character.animate(genieOutKeyframes, {
-        duration: 650,
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-        fill: 'forwards'
-      });
-
-      anim.onfinish = () => {
-        anim.cancel();
-        character.style.transform = '';
-        widget.classList.add('is-hidden');
-        widget.classList.remove('is-visible');
-        isAnimatingGenie = false;
-
-        // Turn "curiosity" back to shimmering, clickable mode!
-        if (trigger) {
-          trigger.classList.remove('is-active');
-          trigger.classList.add('is-shimmering');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      };
-    };
-
-    // Wire curiosity trigger clicks & keyboard Enter/Space
-    trigger?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      emergeFromCuriosity();
-    });
-
-    trigger?.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        emergeFromCuriosity();
-      }
-    });
-
-    // Clicking top-right ✕ retracts Clippy back into the "curiosity" word
-    closeBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      retractIntoCuriosity();
-    });
-
-    // Cursor tracking: eyes follow cursor
-    let mouseX = -1000;
-    let mouseY = -1000;
-    let lastPointerTime = 0;
-    let rafEyeId: number | null = null;
-    let idleEyeTimer: number | null = null;
-
-    const performIdleGlance = () => {
-      if (!pupilLeft || !pupilRight || isDismissedCompletely || prefersReducedMotion) return;
-      // Glances: peering at page content, glancing up towards speech bubble, or looking straight
-      const glances = [
-        { ox: -1.0, oy: -0.3 },  // peering left towards blog post text
-        { ox: -1.15, oy: 0.2 },  // looking left
-        { ox: -0.5, oy: -0.9 },  // looking up at speech bubble
-        { ox: 0, oy: 0 },        // looking straight ahead
-        { ox: 0.6, oy: -0.35 }   // glancing right
-      ];
-      const glance = glances[Math.floor(Math.random() * glances.length)];
-      pupilLeft.setAttribute('transform', `translate(${glance.ox.toFixed(2)}, ${glance.oy.toFixed(2)})`);
-      pupilRight.setAttribute('transform', `translate(${glance.ox.toFixed(2)}, ${glance.oy.toFixed(2)})`);
-    };
-
-    const scheduleIdleGlance = () => {
-      if (isDismissedCompletely || prefersReducedMotion) return;
-      if (idleEyeTimer) clearTimeout(idleEyeTimer);
-      idleEyeTimer = window.setTimeout(() => {
-        if (Date.now() - lastPointerTime >= 2400 && !isDismissedCompletely) {
-          performIdleGlance();
-          scheduleIdleGlance();
-        }
-      }, 3000 + Math.random() * 2200);
-    };
-    const updateEyes = () => {
-      rafEyeId = null;
-      if (isDismissedCompletely || prefersReducedMotion || !eyeLeftWhite || !eyeRightWhite || !pupilLeft || !pupilRight) return;
-
-      const leftRect = eyeLeftWhite.getBoundingClientRect();
-      const rightRect = eyeRightWhite.getBoundingClientRect();
-
-      const leftCenter = {
-        x: leftRect.left + leftRect.width / 2,
-        y: leftRect.top + leftRect.height / 2
-      };
-      const rightCenter = {
-        x: rightRect.left + rightRect.width / 2,
-        y: rightRect.top + rightRect.height / 2
-      };
-
-      // Left eye calculation (viewBox units)
-      const dxL = mouseX - leftCenter.x;
-      const dyL = mouseY - leftCenter.y;
-      const distL = Math.hypot(dxL, dyL);
-      const angleL = Math.atan2(dyL, dxL);
-      const maxOffset = 1.35;
-      const factorL = Math.min(1, distL / 140) * maxOffset;
-      const oxL = Math.cos(angleL) * factorL;
-      const oyL = Math.sin(angleL) * factorL * 1.18;
-
-      // Right eye calculation
-      const dxR = mouseX - rightCenter.x;
-      const dyR = mouseY - rightCenter.y;
-      const distR = Math.hypot(dxR, dyR);
-      const angleR = Math.atan2(dyR, dxR);
-      const factorR = Math.min(1, distR / 140) * maxOffset;
-      const oxR = Math.cos(angleR) * factorR;
-      const oyR = Math.sin(angleR) * factorR * 1.18;
-
-      pupilLeft.setAttribute('transform', `translate(${oxL.toFixed(2)}, ${oyL.toFixed(2)})`);
-      pupilRight.setAttribute('transform', `translate(${oxR.toFixed(2)}, ${oyR.toFixed(2)})`);
-    };
-
-    const handlePointerMove = (e: MouseEvent | PointerEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      lastPointerTime = Date.now();
-      if (rafEyeId === null && !prefersReducedMotion) {
-        rafEyeId = requestAnimationFrame(updateEyes);
-      }
-      scheduleIdleGlance();
-    };
-
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('mousemove', handlePointerMove, { passive: true });
-
-    // Drag-and-drop mechanics
+    let currentTake = '';
+    let isOut = false;
+    let isTravelling = false;
     let isDragging = false;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let elementStartX = 0;
-    let elementStartY = 0;
+    let isBubbleOpen = false;
+    let isIntroPlaying = false;
+    let introRun = 0;
+
+    let bodyAnimation: Animation | null = null;
+    let browAnimations: Animation[] = [];
+    let gazeTimers: number[] = [];
+    let gazeOverride: Gaze | null = null;
+    let pointer: { x: number; y: number } | null = null;
+    let pointerFrame: number | null = null;
+    let autoCloseTimer: number | undefined;
+    let nextTakeTimer: number | undefined;
+    let idleTimer: number | undefined;
+
+    const renderSoundButton = () => {
+      const isMuted = sounds.isMuted();
+      soundButton.querySelector<HTMLElement>('.icon-sound-on')!.hidden = isMuted;
+      soundButton.querySelector<HTMLElement>('.icon-sound-off')!.hidden = !isMuted;
+      soundButton.setAttribute('aria-label', isMuted ? 'Unmute Clippy sounds' : 'Mute Clippy sounds');
+    };
+
+    renderSoundButton();
+
+    soundButton.addEventListener('click', () => {
+      sounds.setMuted(!sounds.isMuted());
+      renderSoundButton();
+    });
+
+    // Gaze
+
+    const gazeTowards = (eye: HTMLElement): Gaze => {
+      if (!pointer) {
+        return { x: 0, y: 0.15 };
+      }
+
+      const rect = eye.getBoundingClientRect();
+      const dx = pointer.x - (rect.left + rect.width / 2);
+      const dy = pointer.y - (rect.top + rect.height / 2);
+      const distance = Math.hypot(dx, dy) || 1;
+      const strength = Math.min(1, distance / 160);
+
+      return { x: (dx / distance) * strength, y: (dy / distance) * strength };
+    };
+
+    const renderGaze = () => {
+      pointerFrame = null;
+
+      pupilElements.forEach((pupil, index) => {
+        const gaze = gazeOverride ?? gazeTowards(eyeElements[index]);
+        pupil.style.transform = `translate(${gaze.x * MAX_PUPIL_TRAVEL.x}px, ${gaze.y * MAX_PUPIL_TRAVEL.y}px)`;
+      });
+    };
+
+    const requestGazeRender = () => {
+      if (pointerFrame === null) {
+        pointerFrame = requestAnimationFrame(renderGaze);
+      }
+    };
+
+    const setGazeOverride = (gaze: Gaze | null) => {
+      gazeOverride = gaze;
+      requestGazeRender();
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      pointer = { x: event.clientX, y: event.clientY };
+      requestGazeRender();
+    };
+
+    // Body moves: exactly one body animation runs at a time.
+
+    const stopMove = () => {
+      bodyAnimation?.cancel();
+      bodyAnimation = null;
+      browAnimations.forEach((animation) => animation.cancel());
+      browAnimations = [];
+      gazeTimers.forEach((timer) => clearTimeout(timer));
+      gazeTimers = [];
+      setGazeOverride(null);
+    };
+
+    const startBreathing = () => {
+      if (reducedMotion.matches || !isOut || isDragging) {
+        return;
+      }
+
+      bodyAnimation?.cancel();
+      bodyAnimation = svg.animate(
+        [
+          { transform: 'scale(1, 1)' },
+          { transform: 'scale(1.014, 0.982) rotate(0.8deg)' }
+        ],
+        { duration: 1800, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' }
+      );
+    };
+
+    // Resolves true when the move ran to the end, false when something interrupted it.
+    const play = async (name: MoveName): Promise<boolean> => {
+      stopMove();
+
+      if (reducedMotion.matches) {
+        return true;
+      }
+
+      const move = MOVES[name];
+      const animation = svg.animate(move.body, { duration: move.duration });
+      bodyAnimation = animation;
+
+      move.brows?.forEach((frames, index) => {
+        browAnimations.push(browElements[index].animate(frames, { duration: move.duration }));
+      });
+      move.gaze?.forEach(([delay, gaze]) => {
+        gazeTimers.push(window.setTimeout(() => setGazeOverride(gaze), delay));
+      });
+
+      if (name === 'attention') {
+        sounds.knocks();
+      }
+
+      try {
+        await animation.finished;
+      } catch {
+        return false;
+      }
+
+      if (bodyAnimation === animation) {
+        stopMove();
+        startBreathing();
+      }
+
+      return true;
+    };
+
+    // Speech bubble
+
+    const updateBubbleSide = () => {
+      const rect = character.getBoundingClientRect();
+      widget.classList.toggle('bubble-left', rect.left < window.innerWidth / 2);
+      widget.classList.toggle('bubble-bottom', rect.top < 220);
+    };
+
+    const pauseAutoClose = () => {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = undefined;
+    };
+
+    const openBubble = () => {
+      const wasOpen = isBubbleOpen;
+      currentTake = takes.next();
+      quoteElement.textContent = currentTake;
+      acknowledgeButton.textContent = DISMISS_LABELS[Math.floor(Math.random() * DISMISS_LABELS.length)];
+      isBubbleOpen = true;
+      updateBubbleSide();
+      bubble.classList.add('is-open');
+      sounds.newTake();
+
+      if (wasOpen && !reducedMotion.matches) {
+        bubble.animate(
+          [{ transform: 'scale(0.96)' }, { transform: 'scale(1.015)', offset: 0.6 }, { transform: 'scale(1)' }],
+          { duration: 320, easing: 'ease-out' }
+        );
+      }
+
+      pauseAutoClose();
+      clearTimeout(nextTakeTimer);
+      autoCloseTimer = window.setTimeout(() => closeBubble(), BUBBLE_READING_MS);
+    };
+
+    const closeBubble = () => {
+      isBubbleOpen = false;
+      bubble.classList.remove('is-open');
+      pauseAutoClose();
+      scheduleNextTake();
+    };
+
+    // Takes are staged: a move or two first, then the bubble. Starting a new run
+    // invalidates the previous one, so overlapping clicks never double-open.
+    const showTake = async (intro: MoveName[]) => {
+      const run = ++introRun;
+      isIntroPlaying = true;
+      clearTimeout(nextTakeTimer);
+
+      for (const name of intro) {
+        const completed = await play(name);
+
+        if (run !== introRun || !isOut) {
+          return;
+        }
+
+        // A drag interrupts the move but still owes the reader a take.
+        if (!completed) {
+          break;
+        }
+      }
+
+      isIntroPlaying = false;
+      openBubble();
+
+      if (!isDragging) {
+        void play('browRaise');
+      }
+    };
+
+    const scheduleNextTake = () => {
+      clearTimeout(nextTakeTimer);
+
+      if (!isOut) {
+        return;
+      }
+
+      nextTakeTimer = window.setTimeout(
+        () => {
+          if (isOut && !isBubbleOpen && !isDragging) {
+            void showTake(['attention', 'think']);
+          }
+        },
+        40000 + Math.random() * 20000
+      );
+    };
+
+    // Idle life
+
+    const scheduleIdleMove = () => {
+      clearTimeout(idleTimer);
+
+      if (reducedMotion.matches || !isOut) {
+        return;
+      }
+
+      idleTimer = window.setTimeout(
+        () => {
+          if (!isTravelling && !isDragging && !isIntroPlaying) {
+            void play(IDLE_MOVES[Math.floor(Math.random() * IDLE_MOVES.length)]);
+          }
+
+          scheduleIdleMove();
+        },
+        6000 + Math.random() * 5000
+      );
+    };
+
+    // Entering and leaving
+
+    const offsetToWord = (): Offset => {
+      const word = trigger.getBoundingClientRect();
+      const rest = character.getBoundingClientRect();
+
+      return {
+        dx: word.left + word.width / 2 - (rest.left + rest.width / 2),
+        dy: word.top + word.height / 2 - (rest.top + rest.height / 2)
+      };
+    };
+
+    const setTriggerExpanded = (expanded: boolean) => {
+      trigger.setAttribute('aria-expanded', String(expanded));
+    };
+
+    const summon = async () => {
+      if (isTravelling) {
+        return;
+      }
+
+      if (isOut) {
+        void showTake(['attention', 'think']);
+
+        return;
+      }
+
+      isOut = true;
+      isTravelling = true;
+      setTriggerExpanded(true);
+      widget.classList.add('is-out');
+      updateBubbleSide();
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+
+      if (!reducedMotion.matches) {
+        sounds.summon();
+        const height = character.offsetHeight;
+
+        await character.animate(enterKeyframes(offsetToWord(), height), {
+          duration: ENTER_MS,
+          easing: 'linear',
+          fill: 'backwards'
+        }).finished;
+      }
+
+      isTravelling = false;
+      startBreathing();
+      scheduleIdleMove();
+      void showTake(['greet', 'think']);
+    };
+
+    const dismiss = async () => {
+      if (!isOut || isTravelling) {
+        return;
+      }
+
+      isTravelling = true;
+      introRun++;
+      isIntroPlaying = false;
+      isBubbleOpen = false;
+      bubble.classList.remove('is-open');
+      pauseAutoClose();
+      clearTimeout(nextTakeTimer);
+      clearTimeout(idleTimer);
+
+      if (!reducedMotion.matches) {
+        sounds.goodbye();
+        await play('goodbye');
+
+        await character.animate(exitKeyframes(offsetToWord(), character.offsetHeight), {
+          duration: EXIT_MS,
+          easing: 'linear',
+          fill: 'forwards'
+        }).finished;
+      }
+
+      const hadFocus = widget.contains(document.activeElement);
+      stopMove();
+      character.getAnimations().forEach((animation) => animation.cancel());
+      widget.classList.remove('is-out');
+      window.removeEventListener('pointermove', onPointerMove);
+      isOut = false;
+      isTravelling = false;
+      setTriggerExpanded(false);
+
+      if (hadFocus) {
+        trigger.focus();
+      }
+    };
+
+    trigger.addEventListener('click', () => {
+      sounds.unlock();
+      void summon();
+    });
+
+    closeButton.addEventListener('click', () => void dismiss());
+    acknowledgeButton.addEventListener('click', closeBubble);
+
+    shareButton.addEventListener('click', () => {
+      const text = `"${currentTake}" — Clippy 📎`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.origin)}`;
+      window.open(url, '_blank', 'noopener,noreferrer,width=550,height=420');
+    });
+
+    bubble.addEventListener('mouseenter', pauseAutoClose);
+    bubble.addEventListener('mouseleave', () => {
+      if (isBubbleOpen && autoCloseTimer === undefined) {
+        autoCloseTimer = window.setTimeout(() => closeBubble(), BUBBLE_READING_MS / 2);
+      }
+    });
+
+    // Dragging
+
+    let dragStart = { pointerX: 0, pointerY: 0, left: 0, top: 0 };
     let hasMoved = false;
 
-    // Adjust speech bubble orientation based on viewport proximity
-    const updateBubbleOrientation = (left: number, top: number) => {
-      const winW = window.innerWidth;
-      if (left < winW / 2) {
-        widget.classList.add('bubble-left');
-      } else {
-        widget.classList.remove('bubble-left');
+    character.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0 || isTravelling) {
+        return;
       }
-
-      if (top < 220) {
-        widget.classList.add('bubble-bottom');
-      } else {
-        widget.classList.remove('bubble-bottom');
-      }
-    };
-
-    character.addEventListener('pointerdown', (e: PointerEvent) => {
-      if (e.button !== 0 || isAnimatingGenie) return;
-
-      isDragging = true;
-      hasMoved = false;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
 
       const rect = character.getBoundingClientRect();
-      elementStartX = rect.left;
-      elementStartY = rect.top;
+      isDragging = true;
+      hasMoved = false;
+      dragStart = { pointerX: event.clientX, pointerY: event.clientY, left: rect.left, top: rect.top };
 
       widget.style.right = 'auto';
       widget.style.bottom = 'auto';
-      widget.style.left = `${elementStartX}px`;
-      widget.style.top = `${elementStartY}px`;
+      widget.style.left = `${rect.left}px`;
+      widget.style.top = `${rect.top}px`;
 
-      character.setPointerCapture(e.pointerId);
+      character.setPointerCapture(event.pointerId);
       widget.classList.add('is-dragging');
+      stopMove();
     });
 
-    character.addEventListener('pointermove', (e: PointerEvent) => {
-      if (!isDragging) return;
-
-      const deltaX = e.clientX - dragStartX;
-      const deltaY = e.clientY - dragStartY;
-
-      if (Math.hypot(deltaX, deltaY) > 5) {
-        hasMoved = true;
+    character.addEventListener('pointermove', (event) => {
+      if (!isDragging) {
+        return;
       }
 
-      const charW = character.offsetWidth || 78;
-      const charH = character.offsetHeight || 88;
+      const deltaX = event.clientX - dragStart.pointerX;
+      const deltaY = event.clientY - dragStart.pointerY;
+      hasMoved = hasMoved || Math.hypot(deltaX, deltaY) > 5;
 
-      const minX = 14;
-      const maxX = Math.max(minX, window.innerWidth - charW - 14);
-      const minY = 14;
-      const maxY = Math.max(minY, window.innerHeight - charH - 14);
+      const margin = 14;
+      const maxLeft = Math.max(margin, window.innerWidth - character.offsetWidth - margin);
+      const maxTop = Math.max(margin, window.innerHeight - character.offsetHeight - margin);
+      const left = Math.min(Math.max(dragStart.left + deltaX, margin), maxLeft);
+      const top = Math.min(Math.max(dragStart.top + deltaY, margin), maxTop);
 
-      const targetX = Math.min(Math.max(elementStartX + deltaX, minX), maxX);
-      const targetY = Math.min(Math.max(elementStartY + deltaY, minY), maxY);
-
-      widget.style.left = `${targetX}px`;
-      widget.style.top = `${targetY}px`;
-
-      updateBubbleOrientation(targetX, targetY);
+      widget.style.left = `${left}px`;
+      widget.style.top = `${top}px`;
+      updateBubbleSide();
     });
 
-    const endDrag = (e: PointerEvent) => {
-      if (!isDragging) return;
+    const endDrag = () => {
+      if (!isDragging) {
+        return;
+      }
+
       isDragging = false;
       widget.classList.remove('is-dragging');
-
-      try {
-        character.releasePointerCapture(e.pointerId);
-      } catch {}
+      startBreathing();
 
       if (!hasMoved) {
-        // Simple click: if bubble is closed, open it; if open, trigger celebration wiggle and fresh take
-        if (!prefersReducedMotion) {
-          character.classList.remove('is-wiggling');
-          void character.offsetWidth;
-          character.classList.add('is-wiggling');
-        }
-        openBubble(true);
-      } else if (!prefersReducedMotion) {
-        sound.playDrop();
+        void showTake(['think']);
+      } else {
+        sounds.drop();
       }
     };
 
     character.addEventListener('pointerup', endDrag);
     character.addEventListener('pointercancel', endDrag);
 
-    // Keyboard support: Enter or Space triggers take
-    character.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openBubble(true);
-      } else if (e.key === 'Escape') {
-        closeBubble(true);
+    character.addEventListener('dblclick', () => {
+      introRun++;
+      isIntroPlaying = false;
+      void play('dance');
+    });
+
+    widget.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isBubbleOpen) {
+        closeBubble();
+      } else if ((event.key === 'Enter' || event.key === ' ') && event.target === character) {
+        event.preventDefault();
+        void showTake(['think']);
       }
     });
+
   }
 
-  // Initialize after DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initClippy);
   } else {

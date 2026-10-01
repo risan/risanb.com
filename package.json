@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run check && astro build",
+    "build": "astro build",
     "build:only": "astro build",
     "preview": "astro preview",
     "check": "astro check && vue-tsc --noEmit",

@@ -1,34 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TechIcon from '../../components/TechIcon.astro';
+import TagCloud from '../../components/TagCloud.astro';
+import { getPosts, groupByTerm } from '../../lib/posts';
 
-const posts = await getCollection('code');
-
-const terms = new Map<string, number>();
-for (const post of posts) {
-  for (const t of post.data.tags) terms.set(t, (terms.get(t) ?? 0) + 1);
-}
-const sorted = [...terms.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+const tags = groupByTerm(await getPosts(), 'tags');
 ---
 
 <BaseLayout title="Tags | Risan Bagja" description="Browse posts by tag.">
   <div class="page-head">
     <h1>Tags</h1>
-    <p class="lede">{sorted.length} tags across all posts.</p>
+    <p class="lede">{tags.size} tags across all posts.</p>
   </div>
 
   <section class="section-block">
-    <div class="tag-cloud">
-      {
-        sorted.map(([name, count]) => (
-          <a href={`/tags/${name}/`} class="tag-pill tag-pill--lg">
-            <TechIcon name={name} />
-            <span class="tag-name">#{name}</span>
-            <span class="tag-count">{count}</span>
-          </a>
-        ))
-      }
-    </div>
+    <TagCloud groups={tags} />
   </section>
 </BaseLayout>
