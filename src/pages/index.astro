@@ -259,8 +259,9 @@ const tags = groupByTerm(posts, 'tags');
 
   .curiosity-trigger:hover .curiosity-letter,
   .curiosity-trigger:focus-visible .curiosity-letter {
-    animation: curiosity-burn 3.2s linear calc(var(--i) * 0.11s - 3.2s) infinite;
-    transform: translateY(-0.07em);
+    animation:
+      curiosity-burn 3.2s linear calc(var(--i) * 0.11s - 3.2s) infinite,
+      curiosity-ripple 0.9s ease-in-out calc(var(--i) * 70ms - 0.9s) infinite;
   }
 
   @keyframes curiosity-burn {
@@ -283,6 +284,20 @@ const tags = groupByTerm(posts, 'tags');
     }
     9% {
       transform: translateY(0.02em);
+    }
+  }
+
+  @keyframes curiosity-ripple {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+    }
+    20% {
+      transform: translateY(-0.15em);
+    }
+    40% {
+      transform: translateY(0.03em);
     }
   }
 
