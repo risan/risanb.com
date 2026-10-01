@@ -1,6 +1,7 @@
 ---
 import githubData from '../data/github-contributions.json';
 import { formatShortDate } from '../lib/format-date';
+import { computeHeatmapStats, formatNumber } from '../lib/heatmap-stats';
 
 interface Props {
   class?: string;
@@ -39,38 +40,12 @@ const MOOD_OPTIONS = [
   { id: 'mystic', label: 'Mystic' },
 ];
 
-const formatNumber = (n: number) => n.toLocaleString('en-US');
-
 const formatDate = (dateStr: string) => formatShortDate(new Date(dateStr));
 
 const weeks = calendar.weeks;
 const days = weeks.flatMap((week) => week.contributionDays);
-const sum = (list: typeof days) => list.reduce((total, day) => total + day.contributionCount, 0);
-
-// Every stat is relative to the last day in the data, never to the build date.
-// The snapshot is refreshed daily, so the build date can be a day ahead of it.
-const asOfDate = days.at(-1)!.date;
-const asOfYear = asOfDate.slice(0, 4);
-const asOfMonth = asOfDate.slice(0, 7);
-const daysIntoMonth = Number(asOfDate.slice(8));
-
-const thisMonthDays = days.filter((day) => day.date.startsWith(asOfMonth));
-const thisYearDays = days.filter((day) => day.date.startsWith(asOfYear));
-const thisMonthTotal = sum(thisMonthDays);
-const thisMonthDailyAverage = (thisMonthTotal / daysIntoMonth).toFixed(1);
-const last7DaysTotal = sum(days.slice(-7));
-const peakDay = thisYearDays.reduce((peak, day) => (day.contributionCount > peak.contributionCount ? day : peak));
-const yearsActive = Number(asOfYear) - FIRST_ACTIVE_YEAR;
-
-// A quiet last day does not break the streak: the day may not be over yet.
-let currentStreak = 0;
-for (let i = days.length - 1; i >= 0; i--) {
-  if (days[i]!.contributionCount > 0) {
-    currentStreak++;
-  } else if (i !== days.length - 1) {
-    break;
-  }
-}
+const initialStats = computeHeatmapStats(days.map((day) => ({ date: day.date, count: day.contributionCount })));
+const yearsActive = Number(days.at(-1)!.date.slice(0, 4)) - FIRST_ACTIVE_YEAR;
 
 type Week = (typeof weeks)[number];
 
@@ -114,36 +89,43 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 <section class={`github-activity section-block ${className}`}>
   <div class="activity-header">
     <p class="eyebrow">Vanity Metrics</p>
-    <h2>{formatNumber(calendar.totalContributions)} contributions in the last year</h2>
+    <h2><span data-stat="total"><span class="stat-number">{formatNumber(initialStats.values.total)}</span></span> contributions in the last year</h2>
   </div>
 
-  <div class="stats-grid">
+  <div class="stats-grid" data-all-time={stats.allTime.contributions}>
     <div class="stat-card">
       <span class="stat-label">Last 7 days</span>
-      <span class="stat-value">{formatNumber(last7DaysTotal)}</span>
-      <span class="stat-detail">{currentStreak}-day active streak</span>
+      <span class="stat-value" data-stat="last7"><span class="stat-number">{formatNumber(initialStats.values.last7)}</span></span>
+      <span class="stat-detail" data-stat-detail="streak">{initialStats.details.streak}</span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">This Month</span>
-      <span class="stat-value">{formatNumber(thisMonthTotal)}</span>
-      <span class="stat-detail">~{thisMonthDailyAverage} / day avg</span>
+      <span class="stat-value" data-stat="month"><span class="stat-number">{formatNumber(initialStats.values.month)}</span></span>
+      <span class="stat-detail" data-stat-detail="average">{initialStats.details.average}</span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">This Year</span>
-      <span class="stat-value">{formatNumber(sum(thisYearDays))}</span>
-      <span class="stat-detail">Peak: {peakDay.contributionCount} on {formatDate(peakDay.date)}</span>
+      <span class="stat-value" data-stat="year"><span class="stat-number">{formatNumber(initialStats.values.year)}</span></span>
+      <span class="stat-detail" data-stat-detail="peak">{initialStats.details.peak}</span>
     </div>
 
     <div class="stat-card">
       <span class="stat-label">All Time</span>
-      <span class="stat-value">{formatNumber(stats.allTime.contributions)}</span>
+      <span class="stat-value" data-stat="all"><span class="stat-number">{formatNumber(stats.allTime.contributions)}</span></span>
       <span class="stat-detail">{yearsActive} years · since {FIRST_ACTIVE_YEAR}</span>
     </div>
   </div>
 
-  <div class="heatmap-card" data-step={STEP} data-mobile-first-week={layouts[1]!.firstWeek}>
+  <div
+    class="heatmap-card"
+    data-step={STEP}
+    data-x-offset={X_OFFSET}
+    data-y-offset={Y_OFFSET}
+    data-cell-size={CELL_SIZE}
+    data-mobile-first-week={layouts[1]!.firstWeek}
+  >
     <div class="heatmap-scroll" tabindex="0" role="region" aria-label="GitHub contribution calendar">
       {
         layouts.map((layout) => (
@@ -197,18 +179,31 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
                     data-day={day.weekday}
                     data-level={level}
                     data-chord={chord}
+                    data-count={day.contributionCount}
+                    data-date={day.date}
                   >
                     <title>{`${day.contributionCount} ${noun} on ${formatDate(day.date)}`}</title>
                   </rect>
                 );
               });
             })}
+
+            <g class="snake-layer" aria-hidden="true"></g>
           </svg>
         ))
       }
     </div>
 
     <div class="heatmap-bar">
+      <button id="snake-toggle" class="btn" type="button" aria-expanded="false" aria-controls="snake-panel">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 5H10a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8H5"></path>
+          <circle cx="19" cy="5" r="1.4" fill="currentColor"></circle>
+        </svg>
+        <span>Snake</span>
+        <span class="chevron" aria-hidden="true">▾</span>
+      </button>
+
       <button id="synth-toggle" class="btn" type="button" aria-expanded="false" aria-controls="synth-panel">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"></path>
@@ -224,6 +219,30 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         <span>@{username}</span>
         <span aria-hidden="true">↗</span>
       </a>
+    </div>
+
+    <div id="snake-panel" class="synth-panel snake-panel" role="region" aria-label="Snake game" hidden>
+      <div class="synth-actions">
+        <button type="button" class="btn btn--primary" data-action="snake-primary" data-state="idle">
+          <svg class="snake-icon snake-icon--play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
+          <svg class="snake-icon snake-icon--pause" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
+          <svg class="snake-icon snake-icon--restart" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8M20 4v5h-5"></path></svg>
+          <span data-snake="primary-label">Start</span>
+        </button>
+        <button type="button" class="btn" data-action="sound" aria-pressed="true">
+          <span class="sound-dot" aria-hidden="true"></span>
+          <span data-sound-label>Sound on</span>
+        </button>
+        <span class="snake-score">
+          <span>Score <strong data-snake="score">0</strong></span>
+          <span>Best <strong data-snake="best">0</strong></span>
+        </span>
+        <button type="button" class="synth-close" data-action="close" aria-label="Close Snake">✕</button>
+      </div>
+
+      <p class="snake-status" data-snake="status" aria-live="polite"></p>
+
+      <p class="synth-hint">Arrow keys, WASD or swipe. Darker days are worth more, and every bite comes off the stats above.</p>
     </div>
 
     <div id="synth-panel" class="synth-panel" role="region" aria-label="Tone synthesizer" hidden>
@@ -297,6 +316,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   </div>
 
   <script>
+    import { computeHeatmapStats, formatNumber } from '../lib/heatmap-stats';
+
     type PresetId = 'chimes' | 'bit' | 'pad' | 'cosmic';
     type MoodId = 'bright' | 'moody' | 'mystic';
 
@@ -518,14 +539,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         this.echoSend.gain.setTargetAtTime(this.settings.space * 0.45, now, 0.05);
       }
 
-      public play(frequency: number, level: number, loudness = 1, when = 0) {
+      public play(frequency: number, level: number, loudness = 1, when = 0, preset = this.settings.preset) {
         const ctx = this.ctx;
 
         if (!ctx || level === 0) {
           return;
         }
 
-        const voice = VOICES[this.settings.preset];
+        const voice = VOICES[preset];
         const velocity = VELOCITY_BY_LEVEL[level]!;
         const start = Math.max(when, ctx.currentTime);
         const peak = VOICE_GAIN * voice.gain * velocity * loudness;
@@ -628,14 +649,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     const card = document.querySelector<HTMLElement>('.heatmap-card')!;
     const scroller = card.querySelector<HTMLElement>('.heatmap-scroll')!;
-    const panel = card.querySelector<HTMLElement>('#synth-panel')!;
-    const toggle = card.querySelector<HTMLButtonElement>('#synth-toggle')!;
-    const playButton = panel.querySelector<HTMLButtonElement>('[data-action="play"]')!;
-    const soundButton = panel.querySelector<HTMLButtonElement>('[data-action="sound"]')!;
-    const progress = panel.querySelector<HTMLElement>('[data-progress]')!;
+    const synthPanel = card.querySelector<HTMLElement>('#synth-panel')!;
+    const synthToggle = card.querySelector<HTMLButtonElement>('#synth-toggle')!;
+    const playButton = synthPanel.querySelector<HTMLButtonElement>('[data-action="play"]')!;
+    const soundButtons = [...card.querySelectorAll<HTMLButtonElement>('[data-action="sound"]')];
+    const progress = synthPanel.querySelector<HTMLElement>('[data-progress]')!;
     const playheads = [...card.querySelectorAll<SVGElement>('.playhead')];
-    const radios = [...panel.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
-    const sliders = [...panel.querySelectorAll<HTMLInputElement>('input[type="range"]')];
+    const radios = [...synthPanel.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
+    const sliders = [...synthPanel.querySelectorAll<HTMLInputElement>('input[type="range"]')];
 
     const columnStep = Number(card.dataset.step);
     const mobileFirstWeek = Number(card.dataset.mobileFirstWeek);
@@ -651,7 +672,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     scroller.scrollLeft = scroller.scrollWidth;
 
-    const isOpen = () => !panel.hidden;
+    const isSynthOpen = () => !synthPanel.hidden;
     const isPlaying = () => playingWeek >= 0;
 
     function renderSettings() {
@@ -661,21 +682,24 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       for (const slider of sliders) {
         const name = slider.name as 'tempo' | 'space';
-        const output = panel.querySelector(`[data-output="${name}"]`)!;
+        const output = synthPanel.querySelector(`[data-output="${name}"]`)!;
         slider.value = String(settings[name]);
         output.textContent = name === 'tempo' ? `${settings.tempo} bpm` : `${Math.round(settings.space * 100)}%`;
       }
 
-      soundButton.setAttribute('aria-pressed', String(settings.sound));
-      soundButton.querySelector('[data-sound-label]')!.textContent = settings.sound ? 'Sound on' : 'Sound off';
+      for (const soundButton of soundButtons) {
+        soundButton.setAttribute('aria-pressed', String(settings.sound));
+        soundButton.querySelector('[data-sound-label]')!.textContent = settings.sound ? 'Sound on' : 'Sound off';
+      }
     }
 
-    function setOpen(open: boolean) {
-      panel.hidden = !open;
+    function setSynthOpen(open: boolean) {
+      synthPanel.hidden = !open;
       card.classList.toggle('is-synth-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
+      synthToggle.setAttribute('aria-expanded', String(open));
 
       if (open) {
+        setSnakeOpen(false);
         engine.unlock();
       } else {
         stop();
@@ -795,28 +819,32 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       playButton.setAttribute('aria-label', 'Play the year');
     }
 
-    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    function toggleSound() {
+      settings.sound = !settings.sound;
+      saveSettings(settings);
+      renderSettings();
 
-    panel.addEventListener('click', (event) => {
+      if (!settings.sound) {
+        engine.stopAll();
+      }
+    }
+
+    synthToggle.addEventListener('click', () => setSynthOpen(!isSynthOpen()));
+
+    synthPanel.addEventListener('click', (event) => {
       const action = (event.target as Element).closest<HTMLElement>('[data-action]')?.dataset.action;
 
       if (action === 'close') {
-        setOpen(false);
-        toggle.focus();
+        setSynthOpen(false);
+        synthToggle.focus();
       } else if (action === 'play') {
         isPlaying() ? stop() : start();
       } else if (action === 'sound') {
-        settings.sound = !settings.sound;
-        saveSettings(settings);
-        renderSettings();
-
-        if (!settings.sound) {
-          engine.stopAll();
-        }
+        toggleSound();
       }
     });
 
-    panel.addEventListener('input', (event) => {
+    synthPanel.addEventListener('input', (event) => {
       const input = event.target as HTMLInputElement;
 
       if (input.type === 'radio') {
@@ -836,13 +864,22 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && isOpen()) {
-        const focusWasInside = panel.contains(document.activeElement);
+      if (event.key !== 'Escape') {
+        return;
+      }
 
-        setOpen(false);
+      for (const { panel, toggle, setOpen } of [
+        { panel: synthPanel, toggle: synthToggle, setOpen: setSynthOpen },
+        { panel: snakePanel, toggle: snakeToggle, setOpen: setSnakeOpen },
+      ]) {
+        if (!panel.hidden) {
+          const focusWasInside = panel.contains(document.activeElement);
 
-        if (focusWasInside) {
-          toggle.focus();
+          setOpen(false);
+
+          if (focusWasInside) {
+            toggle.focus();
+          }
         }
       }
     });
@@ -850,13 +887,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stop();
+        pauseGame();
       }
     });
 
     // Touch implicitly captures the pointer to the cell it started on. Releasing it lets
     // pointerover fire on every cell the finger crosses, so one handler serves mouse and touch.
     scroller.addEventListener('pointerdown', (event) => {
-      if (!isOpen()) {
+      if (!isSynthOpen()) {
         return;
       }
 
@@ -871,10 +909,596 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     });
 
     scroller.addEventListener('pointerover', (event) => {
-      const cell = isOpen() ? cellOf(event) : null;
+      const cell = isSynthOpen() ? cellOf(event) : null;
 
       if (cell) {
         triggerCell(cell, event.timeStamp);
+      }
+    });
+
+    type Direction = 'up' | 'down' | 'left' | 'right';
+    type GameState = 'idle' | 'running' | 'paused' | 'over';
+
+    interface Segment {
+      col: number;
+      row: number;
+      rect: SVGRectElement;
+    }
+
+    interface Board {
+      cols: number;
+      /** Indexed by `col * ROWS + row`. Missing days of the first and last week are undefined. */
+      cells: (SVGElement | undefined)[];
+      layer: SVGGElement;
+    }
+
+    const SNAKE_BEST_KEY = 'heatmap-snake-best';
+    const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+    const ROWS = 7;
+    const START_LENGTH = 3;
+    const START_SPEED = 7;
+    const MAX_SPEED = 14;
+    const SPEED_PER_SEGMENT = 0.35;
+    const MAX_FRAME_MS = 250;
+    const MAX_QUEUED_TURNS = 2;
+    const METER_PER_SEGMENT = 4;
+    const SWIPE_DISTANCE = 24;
+    const EYE_FORWARD = 2;
+    const EYE_SIDE = 2.2;
+    const PHRASE_GAP_SECONDS = 0.09;
+    const PHRASE_LOUDNESS = 0.6;
+    const START_PHRASE = [4, 2, 0];
+    const OVER_PHRASE = [1, 3, 5];
+    const CELEBRATION_PHRASE = [6, 4, 2, 0];
+    const PRIMARY_LABELS: Record<GameState, string> = { idle: 'Start', running: 'Pause', paused: 'Resume', over: 'Play again' };
+
+    const DIRECTIONS: Record<Direction, { dx: number; dy: number; opposite: Direction }> = {
+      up: { dx: 0, dy: -1, opposite: 'down' },
+      down: { dx: 0, dy: 1, opposite: 'up' },
+      left: { dx: -1, dy: 0, opposite: 'right' },
+      right: { dx: 1, dy: 0, opposite: 'left' },
+    };
+
+    const KEY_DIRECTIONS: Record<string, Direction> = {
+      arrowup: 'up',
+      w: 'up',
+      arrowdown: 'down',
+      s: 'down',
+      arrowleft: 'left',
+      a: 'left',
+      arrowright: 'right',
+      d: 'right',
+    };
+
+    const snakePanel = card.querySelector<HTMLElement>('#snake-panel')!;
+    const snakeToggle = card.querySelector<HTMLButtonElement>('#snake-toggle')!;
+    const primaryButton = snakePanel.querySelector<HTMLButtonElement>('[data-action="snake-primary"]')!;
+    const primaryLabel = snakePanel.querySelector<HTMLElement>('[data-snake="primary-label"]')!;
+    const scoreOutput = snakePanel.querySelector<HTMLElement>('[data-snake="score"]')!;
+    const bestOutput = snakePanel.querySelector<HTMLElement>('[data-snake="best"]')!;
+    const statusOutput = snakePanel.querySelector<HTMLElement>('[data-snake="status"]')!;
+
+    const section = card.closest<HTMLElement>('.github-activity')!;
+    const eyebrow = section.querySelector<HTMLElement>('.eyebrow')!;
+    const eyebrowText = eyebrow.textContent!;
+    const statValues = [...section.querySelectorAll<HTMLElement>('[data-stat]')];
+    const statDetails = [...section.querySelectorAll<HTMLElement>('[data-stat-detail]')];
+    const allTimeBase = Number(section.querySelector<HTMLElement>('.stats-grid')!.dataset.allTime);
+    const yearDays = [...card.querySelectorAll<SVGElement>('.heatmap-svg--desktop .gh-cell')].map((cell) => ({
+      date: cell.dataset.date!,
+      count: Number(cell.dataset.count),
+    }));
+    const snakeLayers = [...card.querySelectorAll<SVGGElement>('.snake-layer')];
+    const cellSize = Number(card.dataset.cellSize);
+    const xOffset = Number(card.dataset.xOffset);
+    const yOffset = Number(card.dataset.yOffset);
+
+    const eatenDates = new Set<string>();
+    let eatenCells: { cell: SVGElement; level: number }[] = [];
+    let gameState: GameState = 'idle';
+    let board: Board;
+    let body: Segment[] = [];
+    let occupied: boolean[] = [];
+    let eyes: SVGCircleElement[] = [];
+    let direction: Direction = 'right';
+    let queuedTurns: Direction[] = [];
+    let pendingGrowth = 0;
+    let meter = 0;
+    let score = 0;
+    let best = loadBest();
+    let bestAtStart = best;
+    let remainingLit = 0;
+    let frameId = 0;
+    let lastFrameAt = 0;
+    let accumulator = 0;
+    let swipeOrigin: { x: number; y: number } | null = null;
+
+    const isSnakeOpen = () => !snakePanel.hidden;
+    const cellIndex = (col: number, row: number) => col * ROWS + row;
+    const moveIntervalMs = () => 1000 / Math.min(MAX_SPEED, START_SPEED + (body.length - START_LENGTH) * SPEED_PER_SEGMENT);
+
+    function loadBest() {
+      try {
+        const saved = Number(localStorage.getItem(SNAKE_BEST_KEY));
+
+        return Number.isFinite(saved) ? saved : 0;
+      } catch {
+        return 0;
+      }
+    }
+
+    function saveBest() {
+      try {
+        localStorage.setItem(SNAKE_BEST_KEY, String(best));
+      } catch {
+        // Storage can be blocked; the best score then lasts for the page only.
+      }
+    }
+
+    function setSnakeOpen(open: boolean) {
+      snakePanel.hidden = !open;
+      snakeToggle.setAttribute('aria-expanded', String(open));
+
+      if (open) {
+        setSynthOpen(false);
+        engine.unlock();
+        renderScore();
+      } else {
+        restoreBoard();
+      }
+    }
+
+    function setGameState(next: GameState) {
+      gameState = next;
+      primaryButton.dataset.state = next;
+      primaryLabel.textContent = PRIMARY_LABELS[next];
+      card.classList.toggle('is-snake-running', next === 'running');
+    }
+
+    function setStatus(message: string) {
+      statusOutput.textContent = message;
+    }
+
+    function renderScore() {
+      scoreOutput.textContent = formatNumber(score);
+      bestOutput.textContent = formatNumber(best);
+    }
+
+    function playGameNote(weekday: number, chord: number, level: number, loudness = 1, when = 0) {
+      if (settings.sound) {
+        engine.play(noteFrequency(settings.mood, weekday, chord), level, loudness, when, 'bit');
+      }
+    }
+
+    function playPhrase(weekdays: number[]) {
+      const now = engine.time;
+
+      weekdays.forEach((weekday, index) => {
+        playGameNote(weekday, 0, 3, PHRASE_LOUDNESS, now + index * PHRASE_GAP_SECONDS);
+      });
+    }
+
+    function currentStats() {
+      const { values, details } = computeHeatmapStats(
+        yearDays.map((day) => (eatenDates.has(day.date) ? { ...day, count: 0 } : day)),
+      );
+
+      return { values: { ...values, all: allTimeBase - score }, details };
+    }
+
+    let shownValues = currentStats().values;
+
+    // Bites land faster than a float fades, so each stat keeps one float and sums the drops it shows.
+    const floats = new Map<HTMLElement, { element: HTMLElement; total: number; animation: Animation }>();
+
+    function flashDrop(stat: HTMLElement, drop: number) {
+      if (reducedMotionQuery.matches) {
+        return;
+      }
+
+      stat.animate([{ color: 'var(--accent)' }, {}], { duration: 500 });
+
+      // The heading number has running text on its right, so it only flashes.
+      if (stat.dataset.stat === 'total') {
+        return;
+      }
+
+      const current = floats.get(stat);
+      current?.animation.cancel();
+
+      const element = current?.element ?? stat.appendChild(document.createElement('span'));
+      const total = (current?.total ?? 0) + drop;
+      element.className = 'stat-float';
+      element.textContent = `−${formatNumber(total)}`;
+
+      const animation = element.animate(
+        [
+          { opacity: 1, transform: 'translateY(0)', offset: 0 },
+          { opacity: 1, transform: 'translateY(-4px)', offset: 0.5 },
+          { opacity: 0, transform: 'translateY(-12px)' },
+        ],
+        { duration: 1100, easing: 'ease-out', fill: 'forwards' },
+      );
+      floats.set(stat, { element, total, animation });
+      animation.finished
+        .then(() => {
+          element.remove();
+          floats.delete(stat);
+        })
+        .catch(() => {});
+    }
+
+    function renderStats() {
+      const { values, details } = currentStats();
+
+      for (const stat of statValues) {
+        const key = stat.dataset.stat as keyof typeof values;
+        const drop = shownValues[key] - values[key];
+        stat.querySelector('.stat-number')!.textContent = formatNumber(values[key]);
+
+        if (drop > 0) {
+          flashDrop(stat, drop);
+        }
+      }
+
+      for (const detail of statDetails) {
+        detail.textContent = details[detail.dataset.statDetail as keyof typeof details];
+      }
+
+      shownValues = values;
+    }
+
+    function readBoard(): Board {
+      const svg = card.querySelector<SVGSVGElement>(mobileQuery.matches ? '.heatmap-svg--mobile' : '.heatmap-svg--desktop')!;
+      const firstWeek = Number(svg.dataset.firstWeek);
+      const cells: Board['cells'] = [];
+      let cols = 0;
+
+      remainingLit = 0;
+
+      for (const cell of svg.querySelectorAll<SVGElement>('.gh-cell')) {
+        const col = Number(cell.dataset.week) - firstWeek;
+        cells[cellIndex(col, Number(cell.dataset.day))] = cell;
+        cols = Math.max(cols, col + 1);
+
+        if (Number(cell.dataset.level) > 0) {
+          remainingLit++;
+        }
+      }
+
+      return { cols, cells, layer: svg.querySelector<SVGGElement>('.snake-layer')! };
+    }
+
+    function placeSegment(segment: Segment, col: number, row: number) {
+      segment.col = col;
+      segment.row = row;
+      occupied[cellIndex(col, row)] = true;
+      segment.rect.setAttribute('x', String(xOffset + col * columnStep));
+      segment.rect.setAttribute('y', String(yOffset + row * columnStep));
+    }
+
+    function addSegment(col: number, row: number) {
+      const rect = document.createElementNS(SVG_NAMESPACE, 'rect');
+      rect.setAttribute('class', 'snake-segment');
+      rect.setAttribute('width', String(cellSize));
+      rect.setAttribute('height', String(cellSize));
+      rect.setAttribute('rx', '2');
+      // Prepended so the eyes, which are appended last, always stay on top.
+      board.layer.prepend(rect);
+
+      const segment = { col, row, rect };
+      placeSegment(segment, col, row);
+      body.push(segment);
+    }
+
+    function placeEyes() {
+      const head = body.at(-1)!;
+      const { dx, dy } = DIRECTIONS[direction];
+      const centerX = xOffset + head.col * columnStep + cellSize / 2;
+      const centerY = yOffset + head.row * columnStep + cellSize / 2;
+
+      eyes.forEach((eye, index) => {
+        const side = index === 0 ? -1 : 1;
+        eye.setAttribute('cx', String(centerX + dx * EYE_FORWARD - dy * side * EYE_SIDE));
+        eye.setAttribute('cy', String(centerY + dy * EYE_FORWARD + dx * side * EYE_SIDE));
+      });
+    }
+
+    function createEyes() {
+      return [0, 1].map(() => {
+        const eye = document.createElementNS(SVG_NAMESPACE, 'circle');
+        eye.setAttribute('class', 'snake-eye');
+        eye.setAttribute('r', '1.1');
+        board.layer.append(eye);
+
+        return eye;
+      });
+    }
+
+    function startGame() {
+      restoreBoard();
+      engine.unlock();
+      board = readBoard();
+      body = [];
+      occupied = [];
+      direction = 'right';
+      queuedTurns = [];
+      pendingGrowth = 0;
+      meter = 0;
+      bestAtStart = best;
+
+      const headCol = Math.floor(board.cols / 2);
+
+      for (let i = START_LENGTH - 1; i >= 0; i--) {
+        addSegment(headCol - i, Math.floor(ROWS / 2));
+      }
+
+      eyes = createEyes();
+      placeEyes();
+      keepHeadInView();
+      eyebrow.textContent = 'Scoreboard';
+      setGameState('running');
+      setStatus('');
+      playPhrase(START_PHRASE);
+      resumeLoop();
+    }
+
+    function resumeLoop() {
+      accumulator = 0;
+      lastFrameAt = performance.now();
+      frameId = requestAnimationFrame(frame);
+    }
+
+    function pauseGame() {
+      if (gameState !== 'running') {
+        return;
+      }
+
+      cancelAnimationFrame(frameId);
+      setGameState('paused');
+      setStatus('Paused');
+    }
+
+    function resumeGame() {
+      setGameState('running');
+      setStatus('');
+      resumeLoop();
+    }
+
+    function togglePrimary() {
+      if (gameState === 'running') {
+        pauseGame();
+      } else if (gameState === 'paused') {
+        resumeGame();
+      } else {
+        startGame();
+      }
+    }
+
+    function frame(now: number) {
+      accumulator += Math.min(now - lastFrameAt, MAX_FRAME_MS);
+      lastFrameAt = now;
+
+      while (gameState === 'running' && accumulator >= moveIntervalMs()) {
+        accumulator -= moveIntervalMs();
+        advance();
+      }
+
+      if (gameState === 'running') {
+        frameId = requestAnimationFrame(frame);
+      }
+    }
+
+    function advance() {
+      if (queuedTurns.length > 0) {
+        direction = queuedTurns.shift()!;
+      }
+
+      const { dx, dy } = DIRECTIONS[direction];
+      const head = body.at(-1)!;
+      const tail = body[0]!;
+      const col = (head.col + dx + board.cols) % board.cols;
+      const row = (head.row + dy + ROWS) % ROWS;
+      const isGrowing = pendingGrowth > 0;
+      const entersTailCell = !isGrowing && col === tail.col && row === tail.row;
+
+      if (occupied[cellIndex(col, row)] && !entersTailCell) {
+        endGame(false);
+
+        return;
+      }
+
+      if (isGrowing) {
+        pendingGrowth--;
+        addSegment(col, row);
+      } else {
+        // The tail segment is recycled as the new head, so no DOM is created per move.
+        const recycled = body.shift()!;
+        occupied[cellIndex(recycled.col, recycled.row)] = false;
+        placeSegment(recycled, col, row);
+        body.push(recycled);
+      }
+
+      placeEyes();
+      keepHeadInView();
+      eatCell(col, row);
+    }
+
+    function keepHeadInView() {
+      if (scroller.scrollWidth <= scroller.clientWidth) {
+        return;
+      }
+
+      const head = body.at(-1)!.rect.getBoundingClientRect();
+      const view = scroller.getBoundingClientRect();
+      const margin = 2 * head.width;
+
+      if (head.left < view.left + margin || head.right > view.right - margin) {
+        scroller.scrollLeft += head.left + head.width / 2 - (view.left + view.width / 2);
+      }
+    }
+
+    function eatCell(col: number, row: number) {
+      const cell = board.cells[cellIndex(col, row)];
+      const level = cell ? Number(cell.dataset.level) : 0;
+
+      if (!cell || level === 0) {
+        return;
+      }
+
+      eatenCells.push({ cell, level });
+      eatenDates.add(cell.dataset.date!);
+      cell.classList.replace(`gh-cell-${level}`, 'gh-cell-0');
+      cell.classList.add('is-eaten');
+      cell.dataset.level = '0';
+
+      score += Number(cell.dataset.count);
+      meter += level;
+      pendingGrowth += Math.floor(meter / METER_PER_SEGMENT);
+      meter %= METER_PER_SEGMENT;
+      remainingLit--;
+
+      if (score > best) {
+        best = score;
+        saveBest();
+      }
+
+      renderScore();
+      renderStats();
+      playGameNote(Number(cell.dataset.day), Number(cell.dataset.chord), level);
+
+      if (remainingLit === 0) {
+        endGame(true);
+      }
+    }
+
+    function endGame(won: boolean) {
+      cancelAnimationFrame(frameId);
+      setGameState('over');
+
+      const isNewBest = score > bestAtStart;
+      const noun = score === 1 ? 'contribution' : 'contributions';
+      const summary = won ? 'You ate the whole year.' : `Game over. You ate ${formatNumber(score)} ${noun}.`;
+
+      setStatus(isNewBest ? `${summary} New best!` : summary);
+      playPhrase(won || isNewBest ? CELEBRATION_PHRASE : OVER_PHRASE);
+    }
+
+    function restoreBoard() {
+      cancelAnimationFrame(frameId);
+
+      for (const { element, animation } of floats.values()) {
+        animation.cancel();
+        element.remove();
+      }
+
+      floats.clear();
+
+      for (const { cell, level } of eatenCells) {
+        cell.setAttribute('class', `gh-cell gh-cell-${level}`);
+        cell.dataset.level = String(level);
+      }
+
+      for (const layer of snakeLayers) {
+        layer.replaceChildren();
+      }
+
+      eatenCells = [];
+      eatenDates.clear();
+      score = 0;
+      renderStats();
+      renderScore();
+      eyebrow.textContent = eyebrowText;
+      setGameState('idle');
+      setStatus('');
+    }
+
+    function queueTurn(next: Direction) {
+      const previous = queuedTurns.at(-1) ?? direction;
+
+      if (queuedTurns.length < MAX_QUEUED_TURNS && next !== previous && next !== DIRECTIONS[previous].opposite) {
+        queuedTurns.push(next);
+      }
+    }
+
+    snakeToggle.addEventListener('click', () => setSnakeOpen(!isSnakeOpen()));
+
+    snakePanel.addEventListener('click', (event) => {
+      const action = (event.target as Element).closest<HTMLElement>('[data-action]')?.dataset.action;
+
+      if (action === 'close') {
+        setSnakeOpen(false);
+        snakeToggle.focus();
+      } else if (action === 'snake-primary') {
+        togglePrimary();
+      } else if (action === 'sound') {
+        toggleSound();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const target = event.target as Element;
+      const isTyping = target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
+
+      if (!isSnakeOpen() || event.defaultPrevented || isTyping || event.ctrlKey || event.metaKey || event.altKey) {
+        return;
+      }
+
+      const turn = KEY_DIRECTIONS[event.key.toLowerCase()];
+
+      if (turn && gameState === 'running') {
+        event.preventDefault();
+        queueTurn(turn);
+
+        return;
+      }
+
+      // A focused button or link handles Space and Enter itself, so it must not also toggle the game.
+      // Outside a running game, Space keeps scrolling the page unless focus is on the heatmap.
+      const isControl = (event.key === ' ' || event.key === 'Enter') && !target.closest('button, a');
+
+      if (isControl && (gameState === 'running' || card.contains(target))) {
+        event.preventDefault();
+        togglePrimary();
+      }
+    });
+
+    scroller.addEventListener('pointerdown', (event) => {
+      if (gameState === 'running' && event.pointerType !== 'mouse') {
+        swipeOrigin = { x: event.clientX, y: event.clientY };
+      }
+    });
+
+    scroller.addEventListener('pointermove', (event) => {
+      if (!swipeOrigin) {
+        return;
+      }
+
+      const dx = event.clientX - swipeOrigin.x;
+      const dy = event.clientY - swipeOrigin.y;
+
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_DISTANCE) {
+        return;
+      }
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        queueTurn(dx > 0 ? 'right' : 'left');
+      } else {
+        queueTurn(dy > 0 ? 'down' : 'up');
+      }
+
+      swipeOrigin = { x: event.clientX, y: event.clientY };
+    });
+
+    for (const type of ['pointerup', 'pointercancel']) {
+      scroller.addEventListener(type, () => {
+        swipeOrigin = null;
+      });
+    }
+
+    mobileQuery.addEventListener('change', () => {
+      if (gameState !== 'idle') {
+        restoreBoard();
       }
     });
 
@@ -889,6 +1513,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     --gh-level-2: #d65d3a;
     --gh-level-3: #a33314;
     --gh-level-4: #5e1906;
+    --snake-body: #1b1c1d;
+    --snake-eye: #f4f1ea;
   }
 
   :global(html.dark) {
@@ -897,6 +1523,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     --gh-level-2: #733725;
     --gh-level-3: #c05435;
     --gh-level-4: #e06b47;
+    --snake-body: #e6e4df;
+    --snake-eye: #1b1c1d;
   }
 
   .gh-cell-0 { --level: var(--gh-level-0); }
@@ -956,7 +1584,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     margin-bottom: 4px;
   }
 
+  [data-stat] {
+    position: relative;
+  }
+
   .stat-value {
+    align-self: flex-start;
     font-size: 1.625rem;
     font-weight: 600;
     line-height: 1.15;
@@ -982,6 +1615,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     padding-bottom: 6px;
     scrollbar-width: thin;
     scrollbar-color: var(--rule) transparent;
+  }
+
+  /* While a game runs a finger swipes the grid to steer, so the page must not pan under it. */
+  .is-snake-running .heatmap-scroll {
+    touch-action: none;
   }
 
   /* While the synth is open a finger drags across cells to play them. Only vertical panning stays native. */
@@ -1024,6 +1662,34 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     opacity: 0;
   }
 
+  .snake-layer {
+    pointer-events: none;
+  }
+
+  .snake-layer :global(.snake-segment) {
+    fill: var(--snake-body);
+    stroke: var(--paper);
+    stroke-width: 0.75px;
+  }
+
+  .snake-layer :global(.snake-eye) {
+    fill: var(--snake-eye);
+  }
+
+  :global(.stat-float) {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--accent);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .playhead {
       transition: transform 0.12s linear, opacity 0.2s ease;
@@ -1031,6 +1697,24 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     .is-playing .playhead {
       opacity: 0.2;
+    }
+
+    .gh-cell.is-eaten {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: eat-pop 0.35s ease-out;
+    }
+  }
+
+  @keyframes eat-pop {
+    from {
+      transform: scale(1.7);
+      opacity: 0.4;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
@@ -1141,6 +1825,44 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   [aria-pressed="false"] .sound-dot {
     background: #cf222e;
+  }
+
+  .snake-panel .synth-actions {
+    flex-wrap: wrap;
+  }
+
+  .snake-icon {
+    display: none;
+  }
+
+  [data-state="idle"] .snake-icon--play,
+  [data-state="paused"] .snake-icon--play,
+  [data-state="running"] .snake-icon--pause,
+  [data-state="over"] .snake-icon--restart {
+    display: block;
+  }
+
+  .snake-score {
+    display: inline-flex;
+    gap: 12px;
+    white-space: nowrap;
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .snake-score strong {
+    color: var(--ink);
+  }
+
+  .snake-status {
+    margin: 10px 0 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .snake-status:empty {
+    display: none;
   }
 
   .synth-progress {

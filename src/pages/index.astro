@@ -31,15 +31,7 @@ const tags = groupByTerm(posts, 'tags');
           aria-expanded="false"
           title="Psst. Click me."
         >
-          <svg class="curiosity-peek" viewBox="0 0 24 26" aria-hidden="true">
-            <path d="M5 26V10a7 7 0 0 1 14 0v16" fill="none" stroke="#5f6b7d" stroke-width="5.4" stroke-linecap="round" />
-            <path d="M5 26V10a7 7 0 0 1 14 0v16" fill="none" stroke="#c9d1dc" stroke-width="3.6" stroke-linecap="round" />
-            <circle cx="8.6" cy="14" r="3.8" fill="#fff" stroke="#1f1f1f" stroke-width="0.9" />
-            <circle cx="15.4" cy="14" r="3.8" fill="#fff" stroke="#1f1f1f" stroke-width="0.9" />
-            <circle cx="9.2" cy="14.8" r="1.5" fill="#1f1f1f" />
-            <circle cx="16" cy="14.8" r="1.5" fill="#1f1f1f" />
-          </svg>
-          <span aria-hidden="true">{curiosityLetters.map((letter, index) => (
+          <span class="curiosity-flame" aria-hidden="true">{curiosityLetters.map((letter, index) => (
             <span class="curiosity-letter" style={`--i: ${index}`}>{letter}</span>
           ))}</span></button>,</span> and a questionable number of agents
     </h1>
@@ -194,29 +186,31 @@ const tags = groupByTerm(posts, 'tags');
   }
 
   .curiosity-trigger {
-    position: relative;
+    --flame-ember: #9e2a10;
+    --flame-heat: #d9501f;
+    --flame-glow: #ec7a1e;
+    --flame-core: #f4a321;
+    --flame-halo: rgba(240, 110, 40, 0.35);
+
     appearance: none;
     padding: 0;
     border: 0;
-    border-radius: 3px;
-    background:
-      linear-gradient(var(--accent), var(--accent)) 0 calc(100% - 0.1em) / 0% 2px no-repeat,
-      radial-gradient(circle, var(--accent-soft) 0.9px, transparent 1.3px) 0 calc(100% - 0.1em) / 6px 3px repeat-x;
-    padding-bottom: 0.04em;
+    border-radius: 4px;
+    background: none;
     color: var(--accent);
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition:
-      background-size 0.35s ease,
-      color 0.2s ease,
-      transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .curiosity-trigger:hover,
-  .curiosity-trigger:focus-visible {
-    background-size: 100% 2px, 6px 3px;
+  :global(html.dark) .curiosity-trigger {
+    --flame-ember: #d0451f;
+    --flame-heat: #f2703f;
+    --flame-glow: #ffb547;
+    --flame-core: #ffe39a;
+    --flame-halo: rgba(255, 140, 60, 0.45);
   }
 
   .curiosity-trigger:focus-visible {
@@ -228,16 +222,54 @@ const tags = groupByTerm(posts, 'tags');
     transform: translateY(1px) scale(0.97);
   }
 
+  .curiosity-flame {
+    filter: drop-shadow(0 0 0.08em var(--flame-halo));
+    transition: filter 0.3s ease;
+  }
+
+  .curiosity-trigger:hover .curiosity-flame,
+  .curiosity-trigger:focus-visible .curiosity-flame {
+    filter: drop-shadow(0 0 0.06em var(--flame-halo)) drop-shadow(0 0 0.22em var(--flame-halo));
+  }
+
   .curiosity-letter {
     display: inline-block;
+    /* Each letter carries its own copy of the gradient, shifted by its index, so the band
+       still reads as one sweep while the letters move independently. */
+    background: linear-gradient(
+      100deg,
+      var(--flame-ember) 0%,
+      var(--flame-heat) 22%,
+      var(--flame-glow) 40%,
+      var(--flame-core) 50%,
+      var(--flame-glow) 60%,
+      var(--flame-heat) 78%,
+      var(--flame-ember) 100%
+    );
+    background-size: 900% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 25ms);
-    animation: curiosity-wave 7s ease-in-out calc(var(--i) * 70ms) infinite;
+    animation:
+      curiosity-burn 3.2s linear calc(var(--i) * 0.11s - 3.2s) infinite,
+      curiosity-wave 7s ease-in-out calc(var(--i) * 70ms) infinite;
   }
 
   .curiosity-trigger:hover .curiosity-letter,
   .curiosity-trigger:focus-visible .curiosity-letter {
-    animation: none;
+    animation: curiosity-burn 3.2s linear calc(var(--i) * 0.11s - 3.2s) infinite;
     transform: translateY(-0.07em);
+  }
+
+  @keyframes curiosity-burn {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: 0% 0;
+    }
   }
 
   @keyframes curiosity-wave {
@@ -254,58 +286,40 @@ const tags = groupByTerm(posts, 'tags');
     }
   }
 
-  .curiosity-peek {
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% - 0.12em);
-    width: 0.52em;
-    margin-left: -0.26em;
-    overflow: visible;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(55%) scale(0.8);
-    transform-origin: 50% 100%;
-    transition:
-      opacity 0.2s ease,
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .curiosity-trigger:hover .curiosity-peek,
-  .curiosity-trigger:focus-visible .curiosity-peek {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  .curiosity-trigger[aria-expanded='true'] {
-    color: var(--ink);
-    background-size: 100% 2px, 6px 3px;
+  .curiosity-trigger[aria-expanded='true'] .curiosity-flame {
+    filter: none;
   }
 
   .curiosity-trigger[aria-expanded='true'] .curiosity-letter {
     animation: none;
     transform: none;
+    background: none;
+    color: var(--ink);
+    -webkit-text-fill-color: currentColor;
   }
 
-  .curiosity-trigger[aria-expanded='true'] .curiosity-peek {
-    opacity: 0;
+  /* Forced colours drop the gradient but keep the transparent fill, which would hide the word. */
+  @media (forced-colors: active) {
+    .curiosity-letter {
+      background: none;
+      color: LinkText;
+      -webkit-text-fill-color: currentColor;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .curiosity-trigger,
     .curiosity-letter,
-    .curiosity-peek {
+    .curiosity-flame {
       transition: none;
     }
 
-    .curiosity-letter {
-      animation: none;
-    }
-
+    .curiosity-letter,
     .curiosity-trigger:hover .curiosity-letter,
-    .curiosity-trigger:focus-visible .curiosity-letter,
-    .curiosity-trigger:hover .curiosity-peek,
-    .curiosity-trigger:focus-visible .curiosity-peek {
+    .curiosity-trigger:focus-visible .curiosity-letter {
+      animation: none;
       transform: none;
+      background-position: 50% 0;
     }
 
     .curiosity-trigger:active {
