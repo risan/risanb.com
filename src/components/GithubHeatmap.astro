@@ -1,5 +1,6 @@
 ---
 import githubData from '../data/github-contributions.json';
+import { formatShortDate } from '../lib/format-date';
 
 interface Props {
   class?: string;
@@ -40,13 +41,7 @@ const MOOD_OPTIONS = [
 
 const formatNumber = (n: number) => n.toLocaleString('en-US');
 
-const formatDate = (dateStr: string) =>
-  new Date(dateStr).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
+const formatDate = (dateStr: string) => formatShortDate(new Date(dateStr));
 
 const weeks = calendar.weeks;
 const days = weeks.flatMap((week) => week.contributionDays);
