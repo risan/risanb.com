@@ -1117,14 +1117,22 @@
       for (const name of intro) {
         const completed = await play(name);
 
-        if (!completed || run !== introRun || !isOut) {
+        if (run !== introRun || !isOut) {
           return;
+        }
+
+        // A drag interrupts the move but still owes the reader a take.
+        if (!completed) {
+          break;
         }
       }
 
       isIntroPlaying = false;
       openBubble();
-      void play('browRaise');
+
+      if (!isDragging) {
+        void play('browRaise');
+      }
     };
 
     const scheduleNextTake = () => {

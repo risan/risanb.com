@@ -562,7 +562,13 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         const active = { envelope, oscillators };
         this.voices.push(active);
         oscillators[0]!.onended = () => {
-          this.voices.splice(this.voices.indexOf(active), 1);
+          const index = this.voices.indexOf(active);
+
+          // A stolen voice was already removed from the list.
+          if (index !== -1) {
+            this.voices.splice(index, 1);
+          }
+
           envelope.disconnect();
           filter.disconnect();
         };
@@ -706,6 +712,10 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
 
     function playColumn(notes: ColumnNote[]) {
+      if (!settings.sound) {
+        return;
+      }
+
       const lit = notes.filter((note) => note.level > 0).sort((a, b) => b.weekday - a.weekday);
       const loudness = 1 / Math.sqrt(lit.length);
       const now = engine.time;

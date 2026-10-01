@@ -33,12 +33,14 @@ jobs:
       # here. Measured locally: a cold build takes ~14s, ~3s with this directory
       # restored. The prefix fallback restores the previous cache after a
       # content change, so only new or changed entries are processed again.
+      # The renderer inputs sit in the prefix too: Astro's config digest skips
+      # plugin function bodies, so a plugin edit must not restore stale HTML.
       - name: Cache Astro content store and optimized images
         uses: actions/cache@v6
         with:
           path: node_modules/.astro
-          key: astro-${{ runner.os }}-${{ hashFiles('content/**', 'src/assets/**', 'package-lock.json') }}
-          restore-keys: astro-${{ runner.os }}-
+          key: astro-${{ runner.os }}-${{ hashFiles('astro.config.ts', 'src/lib/**', 'src/content.config.ts', 'package-lock.json') }}-${{ hashFiles('content/**', 'src/assets/**') }}
+          restore-keys: astro-${{ runner.os }}-${{ hashFiles('astro.config.ts', 'src/lib/**', 'src/content.config.ts', 'package-lock.json') }}-
 
       - name: Build
         run: npm run build:only
