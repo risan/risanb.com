@@ -2,19 +2,14 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
-// The `code` collection reads Hugo's content directory directly, so there is no
-// duplicated content during the migration and a slug maps 1:1 to its Hugo URL:
+// The `code` collection reads the posts in content/code/. A slug maps to its URL:
 //
-//   content/code/switching-to-hugo.md            -> /code/switching-to-hugo/
-//   content/code/vue-chart-component-with-chartjs/index.md
-//                                                -> /code/vue-chart-component-with-chartjs/
+//   content/code/switching-to-hugo.md                       -> /posts/switching-to-hugo/
+//   content/code/vue-chart-component-with-chartjs/index.md  -> /posts/vue-chart-component-with-chartjs/
 //
-// _index.md is Hugo's section-metadata file (it renders /code/) and is excluded
-// here; the section page is built from src/pages/code/index.astro instead.
+// _index.md is Hugo's section-metadata file and is not a post.
 //
-// The schema mirrors the frontmatter actually present across all 50 code posts
-// (audited 2026-09): every field below is either present everywhere or has a
-// default, so a missing/renamed key fails the build rather than silently
+// A missing or renamed frontmatter key fails the build rather than silently
 // degrading a page.
 const code = defineCollection({
   loader: glob({
@@ -24,16 +19,16 @@ const code = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    /** Hugo renders "Updated on <lastmod>" when lastmod > date. 1 post uses it. */
+    /** Shown as "Updated" when later than `date`. */
     lastmod: z.coerce.date().optional(),
     description: z.string().optional(),
     categories: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
     /** Social/OG images. Absolute site paths, not bundle-relative. */
     images: z.array(z.string()).default([]),
-    /** Drives the homepage featured list. 7 code posts are featured. */
+    /** Drives the homepage featured list. */
     featured: z.boolean().default(false),
-    /** 4 code posts are Indonesian; Hugo used this for <html lang>. */
+    /** Used for <html lang>; some posts are Indonesian. */
     languageCode: z.string().default('en'),
   }),
 });

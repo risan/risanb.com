@@ -29,16 +29,16 @@ jobs:
       - name: Type-check Astro and Vue
         run: npm run check
 
-      # Astro keeps optimized images here. Resizing the ~680 content images
-      # dominates a cold build, so a restored cache makes the build several
-      # times faster. The prefix fallback reuses the previous cache after a
-      # content change, so only new or changed images are processed again.
-      - name: Cache optimized images
+      # Astro keeps its content store (rendered markdown) and optimized images
+      # here. Measured locally: a cold build takes ~14s, ~3s with this directory
+      # restored. The prefix fallback restores the previous cache after a
+      # content change, so only new or changed entries are processed again.
+      - name: Cache Astro content store and optimized images
         uses: actions/cache@v6
         with:
-          path: node_modules/.astro/assets
-          key: astro-images-${{ runner.os }}-${{ hashFiles('content/**', 'src/assets/**') }}
-          restore-keys: astro-images-${{ runner.os }}-
+          path: node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('content/**', 'src/assets/**', 'package-lock.json') }}
+          restore-keys: astro-${{ runner.os }}-
 
       - name: Build
         run: npm run build:only
