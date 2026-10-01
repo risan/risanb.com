@@ -2,212 +2,131 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const ROOT_DIR = path.resolve(__dirname, '..');
+const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT_FILE = path.join(ROOT_DIR, 'src/data/github-contributions.json');
+const EXPECTED_USER = 'risan';
 
-/**
- * Resolves a GitHub token from environment variables or the local gh CLI.
- * Returns null if no token is available.
- */
 function resolveToken() {
-  if (process.env.GITHUB_TOKEN?.trim()) {
-    return process.env.GITHUB_TOKEN.trim();
+  const fromEnv = (process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '').trim();
+
+  if (fromEnv) {
+    return fromEnv;
   }
-  if (process.env.GH_TOKEN?.trim()) {
-    return process.env.GH_TOKEN.trim();
-  }
+
   try {
-    const out = execSync('gh auth token', { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'] });
-    if (out?.trim()) {
-      return out.trim();
-    }
+    return execFileSync('gh', ['auth', 'token'], { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
   } catch {
-    // gh CLI not authenticated or not installed
+    return '';
   }
-  return null;
 }
 
-/**
- * Performs an authenticated GitHub GraphQL API query.
- */
-async function graphql(token, query, variables = {}) {
-  const res = await fetch('https://api.github.com/graphql', {
+async function graphql(token, query) {
+  const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
       'User-Agent': 'risanb.com-updater',
     },
-    body: JSON.stringify({ query, variables }),
+    body: JSON.stringify({ query }),
+    signal: AbortSignal.timeout(30_000),
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`GitHub API responded with HTTP ${res.status}: ${text}`);
+  if (!response.ok) {
+    throw new Error(`GitHub API responded with HTTP ${response.status}: ${await response.text()}`);
   }
 
-  const payload = await res.json();
+  const payload = await response.json();
+
   if (payload.errors?.length) {
     throw new Error(`GitHub GraphQL errors: ${JSON.stringify(payload.errors)}`);
   }
+
   return payload.data;
+}
+
+function writeSnapshot(snapshot) {
+  const tempFile = `${OUTPUT_FILE}.tmp`;
+
+  fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
+  fs.writeFileSync(tempFile, `${JSON.stringify(snapshot, null, 2)}\n`);
+  fs.renameSync(tempFile, OUTPUT_FILE);
 }
 
 async function main() {
   const token = resolveToken();
+
   if (!token) {
-    if (process.env.CI) {
-      console.error('[github] ERROR: No GitHub token found in CI environment. Ensure secrets.GH_PAT is configured.');
-      process.exit(1);
+    if (process.env.CI || !fs.existsSync(OUTPUT_FILE)) {
+      throw new Error('No GitHub token (GITHUB_TOKEN, GH_TOKEN or gh auth) and no usable cached snapshot.');
     }
-    console.log('[github] No GitHub token found (GITHUB_TOKEN, GH_TOKEN, or gh auth).');
-    if (fs.existsSync(OUTPUT_FILE)) {
-      console.log('[github] Keeping existing cached snapshot at src/data/github-contributions.json.');
-      process.exit(0);
-    }
-    console.error('[github] ERROR: No token and no cached snapshot exists.');
-    process.exit(1);
+
+    console.log('[github] No GitHub token found. Keeping the cached snapshot.');
+    return;
   }
 
-  console.log('[github] Fetching contributions from GitHub GraphQL API...');
-
-  const now = new Date();
-  const year = now.getUTCFullYear();
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const monthStart = `${year}-${month}-01T00:00:00Z`;
-  const yearStart = `${year}-01-01T00:00:00Z`;
-  const nowIso = now.toISOString();
-
-  // 1. Fetch calendar (trailing year), thisMonth, thisYear, and list of all active years
-  const queryOverview = `
-    query GetOverview($monthStart: DateTime!, $yearStart: DateTime!, $now: DateTime!) {
+  // The trailing-year calendar is the single source for every stat the page shows
+  // (this month, this year, streak, peak). Only the all-time total needs extra queries.
+  const overview = await graphql(
+    token,
+    `query {
       viewer {
         login
-        calendar: contributionsCollection {
+        contributionsCollection {
+          contributionYears
           contributionCalendar {
             totalContributions
             weeks {
               firstDay
-              contributionDays {
-                date
-                contributionCount
-                contributionLevel
-                weekday
-              }
+              contributionDays { date contributionCount contributionLevel weekday }
             }
-            months {
-              name
-              firstDay
-              totalWeeks
-            }
-          }
-          contributionYears
-        }
-        thisMonth: contributionsCollection(from: $monthStart, to: $now) {
-          totalCommitContributions
-          restrictedContributionsCount
-          contributionCalendar {
-            totalContributions
-          }
-        }
-        thisYear: contributionsCollection(from: $yearStart, to: $now) {
-          totalCommitContributions
-          restrictedContributionsCount
-          contributionCalendar {
-            totalContributions
           }
         }
       }
-    }
-  `;
+    }`,
+  );
 
-  const dataOverview = await graphql(token, queryOverview, {
-    monthStart,
-    yearStart,
-    now: nowIso,
-  });
+  const { login, contributionsCollection } = overview.viewer;
+  const { contributionYears, contributionCalendar } = contributionsCollection;
 
-  const viewer = dataOverview.viewer;
-  const username = viewer.login;
-  const calendar = viewer.calendar.contributionCalendar;
-  const years = viewer.calendar.contributionYears;
-
-  const EXPECTED_USER = 'risan';
-  if (username.toLowerCase() !== EXPECTED_USER) {
-    throw new Error(
-      `[github] Token belongs to "${username}", expected "${EXPECTED_USER}". Refusing to overwrite data snapshot.`,
-    );
+  if (login.toLowerCase() !== EXPECTED_USER) {
+    throw new Error(`Token belongs to "${login}", expected "${EXPECTED_USER}". Refusing to overwrite the snapshot.`);
   }
 
-  if (!calendar || calendar.totalContributions === 0) {
-    throw new Error(
-      `[github] Received 0 contributions for "${username}". Refusing to overwrite existing snapshot with empty data.`,
-    );
+  if (!contributionCalendar.weeks.length || contributionCalendar.totalContributions === 0) {
+    throw new Error('Received an empty calendar. Refusing to overwrite the snapshot.');
   }
 
-  // 2. Fetch all historical years in a single batched query to sum all-time contributions
-  const yearAliases = years
+  const yearFields = contributionYears
     .map(
-      (y) =>
-        `y${y}: contributionsCollection(from: "${y}-01-01T00:00:00Z", to: "${y}-12-31T23:59:59Z") { contributionCalendar { totalContributions } totalCommitContributions restrictedContributionsCount }`,
+      (year) =>
+        `y${year}: contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${year}-12-31T23:59:59Z") { contributionCalendar { totalContributions } }`,
     )
     .join('\n');
+  const { viewer: yearTotals } = await graphql(token, `query { viewer { ${yearFields} } }`);
 
-  const queryAllYears = `query { viewer { ${yearAliases} } }`;
-  const dataAllYears = await graphql(token, queryAllYears);
+  const allTimeContributions = contributionYears.reduce(
+    (sum, year) => sum + yearTotals[`y${year}`].contributionCalendar.totalContributions,
+    0,
+  );
 
-  let allTimeContributions = 0;
-  let allTimePublicCommits = 0;
-  let allTimeRestricted = 0;
-
-  for (const y of years) {
-    const item = dataAllYears.viewer[`y${y}`];
-    if (item) {
-      allTimeContributions += item.contributionCalendar?.totalContributions || 0;
-      allTimePublicCommits += item.totalCommitContributions || 0;
-      allTimeRestricted += item.restrictedContributionsCount || 0;
-    }
-  }
-
-  const result = {
-    username,
-    updatedAt: nowIso,
-    stats: {
-      thisMonth: {
-        contributions: viewer.thisMonth.contributionCalendar.totalContributions,
-      },
-      thisYear: {
-        contributions: viewer.thisYear.contributionCalendar.totalContributions,
-      },
-      lastYear: {
-        contributions: calendar.totalContributions,
-      },
-      allTime: {
-        contributions: allTimeContributions,
-      },
-    },
+  writeSnapshot({
+    username: login,
+    updatedAt: new Date().toISOString(),
+    stats: { allTime: { contributions: allTimeContributions } },
     calendar: {
-      totalContributions: calendar.totalContributions,
-      weeks: calendar.weeks,
-      months: calendar.months,
+      totalContributions: contributionCalendar.totalContributions,
+      weeks: contributionCalendar.weeks,
     },
-  };
+  });
 
-  fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(result, null, 2) + '\n', 'utf-8');
-
-  console.log(`[github] Wrote snapshot to ${path.relative(ROOT_DIR, OUTPUT_FILE)}`);
-  console.log(`[github] Trailing year: ${calendar.totalContributions} contributions`);
-  console.log(`[github] This month:   ${result.stats.thisMonth.contributions} contributions`);
-  console.log(`[github] This year:    ${result.stats.thisYear.contributions} contributions`);
-  console.log(`[github] All time:     ${result.stats.allTime.contributions} contributions`);
+  console.log(`[github] Wrote ${path.relative(ROOT_DIR, OUTPUT_FILE)}`);
+  console.log(`[github] Trailing year: ${contributionCalendar.totalContributions}, all time: ${allTimeContributions}`);
 }
 
-main().catch((err) => {
-  console.error('[github] Fatal error:', err);
+main().catch((error) => {
+  console.error('[github] Fatal error:', error);
   process.exit(1);
 });
