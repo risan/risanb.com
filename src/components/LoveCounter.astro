@@ -7,298 +7,244 @@ const { slug } = Astro.props;
 ---
 
 <div class="love-counter-widget" data-slug={slug}>
-  <div class="love-widget-inner">
-    <button
-      type="button"
-      class="post-meta-pill love-button"
-      aria-label="Love this post"
-      title="Send some love!"
-    >
-      <span class="love-icon-wrapper" aria-hidden="true">
-        <svg
-          class="love-heart-svg"
-          viewBox="0 0 24 24"
-          width="14"
-          height="14"
-          aria-hidden="true"
-        >
-          <path
-            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-          ></path>
-        </svg>
-      </span>
-      <span class="love-count-badge" aria-live="polite">0</span>
-      <span class="love-burst-container" aria-hidden="true"></span>
-    </button>
-  </div>
+  <button
+    type="button"
+    class="post-meta-pill love-button"
+    aria-label="Love this post"
+    title="Send some love!"
+  >
+    <span class="love-icon-wrapper" aria-hidden="true">
+      <svg class="love-heart-svg" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+        ></path>
+      </svg>
+    </span>
+    <span class="love-count-badge" aria-live="polite">0</span>
+    <span class="love-burst-container" aria-hidden="true"></span>
+  </button>
 </div>
 
 <script>
-  function initLoveCounter() {
-    const widgets = document.querySelectorAll<HTMLElement>('.love-counter-widget[data-slug]');
-    if (!widgets.length) return;
+  import { fetchStats, postStatsEvent } from '../lib/stats-api';
 
-    const STATS_API = (import.meta.env.PUBLIC_STATS_API_URL || 'https://stats.risanb.com').replace(/\/$/, '');
-    const MAX_LIKES_PER_USER = 10;
-    const CONFETTI_COLORS = ['#c8502e', '#e07a5f', '#f5b842', '#3d6b5e', '#dfd8cc', '#ffffff'];
+  const MAX_LIKES_PER_USER = 10;
+  const SYNC_DELAY_MS = 600;
+  const CONFETTI_COLORS = ['#c8502e', '#e07a5f', '#f5b842', '#3d6b5e', '#dfd8cc', '#ffffff'];
 
-    // Web Audio chime synthesizer for joyful tap feedback
-    let audioCtx: AudioContext | null = null;
-    const getAudioCtx = () => {
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        if (AudioContextClass) audioCtx = new AudioContextClass();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume().catch(() => {});
-      }
-      return audioCtx;
-    };
+  const widget = document.querySelector<HTMLElement>('.love-counter-widget[data-slug]');
+  const button = widget?.querySelector<HTMLButtonElement>('.love-button');
+  const countEl = widget?.querySelector<HTMLElement>('.love-count-badge');
+  const burstEl = widget?.querySelector<HTMLElement>('.love-burst-container');
+  const slug = widget?.dataset.slug;
 
-    const playChime = () => {
-      try {
-        const ctx = getAudioCtx();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        // Rising joyful bell frequencies (A5 -> E6)
-        osc.frequency.setValueAtTime(880, now);
-        osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.12);
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.36);
-      } catch {}
-    };
+  let audioContext: AudioContext | null = null;
 
-    const playMaxSound = (isLocked = false) => {
-      try {
-        const ctx = getAudioCtx();
-        if (!ctx) return;
-        const now = ctx.currentTime;
+  function playTone(frequency: number, delay: number, peakGain: number, length: number, glideTo?: number) {
+    try {
+      audioContext ??= new AudioContext();
+      audioContext.resume().catch(() => {});
 
-        if (isLocked) {
-          // Double-pulse soft lock tone (370Hz -> 277Hz)
-          [0, 0.09].forEach((offset, idx) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(idx === 0 ? 370 : 277.18, now + offset);
-            gain.gain.setValueAtTime(0.001, now + offset);
-            gain.gain.exponentialRampToValueAtTime(0.06, now + offset + 0.015);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.075);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + offset);
-            osc.stop(now + offset + 0.08);
-          });
-        } else {
-          // Reached MAX on 10th tap: celebratory arpeggio fanfare (C5, E5, G5, C6)
-          const notes = [523.25, 659.25, 783.99, 1046.5];
-          notes.forEach((freq, idx) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            const noteStart = now + idx * 0.055;
-            osc.frequency.setValueAtTime(freq, noteStart);
-            gain.gain.setValueAtTime(0.001, noteStart);
-            gain.gain.exponentialRampToValueAtTime(0.07, noteStart + 0.015);
-            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.28);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(noteStart);
-            osc.stop(noteStart + 0.3);
-          });
-        }
-      } catch {}
-    };
+      const start = audioContext.currentTime + delay;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
 
-    widgets.forEach((widget) => {
-      const slug = widget.getAttribute('data-slug');
-      if (!slug) return;
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(frequency, start);
 
-      const btn = widget.querySelector<HTMLButtonElement>('.love-button');
-      const countEl = widget.querySelector<HTMLElement>('.love-count-badge');
-      const burstContainer = widget.querySelector<HTMLElement>('.love-burst-container');
-      if (!btn || !countEl || !burstContainer) return;
-
-      const userLikesKey = `likes_given:${slug}`;
-      let userLikes = 0;
-      try {
-        userLikes = parseInt(localStorage.getItem(userLikesKey) || '0', 10);
-      } catch {}
-      let totalLikes = 0;
-      let pendingBatchLikes = 0;
-      let syncTimer: number | null = null;
-
-      // Update button visual state if user already loved this post
-
-      // Update button visual state if user already loved this post
-      if (userLikes > 0) {
-        btn.classList.add('has-loved');
+      if (glideTo) {
+        oscillator.frequency.exponentialRampToValueAtTime(glideTo, start + 0.12);
       }
 
-      // Fetch live stats from API
-      fetch(`${STATS_API}/api/stats?slug=${encodeURIComponent(slug)}`, {
-        headers: { Accept: 'application/json' },
-      })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data) => {
-          if (data && typeof data.likes === 'number') {
-            totalLikes = Math.max(totalLikes, data.likes);
-            countEl.textContent = totalLikes.toLocaleString('en-US');
-            widget.classList.add('is-loaded');
-          }
-        })
-        .catch(() => {
-          // Fallback gracefully: show local count if available
-          countEl.textContent = totalLikes.toLocaleString('en-US');
-          widget.classList.add('is-loaded');
-        });
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.exponentialRampToValueAtTime(peakGain, start + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + length);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(start);
+      oscillator.stop(start + length + 0.01);
+    } catch {}
+  }
 
-      // Synchronize accumulated likes to Cloudflare D1
-      const syncLikesToAPI = () => {
-        if (pendingBatchLikes <= 0) return;
-        const countToSend = pendingBatchLikes;
-        pendingBatchLikes = 0;
+  const playLoveSound = () => playTone(880, 0, 0.08, 0.35, 1318.51);
 
-        fetch(`${STATS_API}/api/likes`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ site: 'risanb.com', slug, path: window.location.pathname, count: countToSend }),
-        })
-          .then((res) => (res.ok ? res.json() : null))
-          .then((data) => {
-            if (data && typeof data.likes === 'number') {
-              totalLikes = data.likes;
-              countEl.textContent = totalLikes.toLocaleString('en-US');
-            }
-          })
-          .catch(() => {});
-      };
+  const playLockedSound = () => {
+    playTone(370, 0, 0.06, 0.075);
+    playTone(277.18, 0.09, 0.06, 0.075);
+  };
 
-      // Spits out "MAX" words exploding outward
-      const triggerMaxFireworks = () => {
-        burstContainer.innerHTML = '';
+  const playMaxSound = () => {
+    [523.25, 659.25, 783.99, 1046.5].forEach((frequency, i) => {
+      playTone(frequency, i * 0.055, 0.07, 0.28);
+    });
+  };
 
-        const maxWords = ['MAX!', 'MAX', 'MAX! ✨', 'MAX', 'MAX!'];
-        const wordCount = maxWords.length;
-        for (let i = 0; i < wordCount; i++) {
-          const wordEl = document.createElement('span');
-          wordEl.className = 'max-word-particle';
-          wordEl.textContent = maxWords[i];
+  function initLoveCounter(
+    slug: string,
+    button: HTMLButtonElement,
+    countEl: HTMLElement,
+    burstEl: HTMLElement,
+  ) {
+    const userLikesKey = `likes_given:${slug}`;
+    let userLikes = 0;
 
-          const angle = (i / wordCount) * 2 * Math.PI - Math.PI / 2 + (Math.random() * 0.3 - 0.15);
+    try {
+      userLikes = parseInt(localStorage.getItem(userLikesKey) ?? '', 10) || 0;
+    } catch {}
+
+    // The shown count is what the server last confirmed, plus likes not yet confirmed.
+    let serverLikes = 0;
+    let unsentLikes = 0;
+    let inFlightLikes = 0;
+    let syncTimer: number | undefined;
+    let burstTimer: number | undefined;
+
+    const renderCount = () => {
+      countEl.textContent = (serverLikes + unsentLikes + inFlightLikes).toLocaleString('en-US');
+    };
+
+    if (userLikes > 0) {
+      button.classList.add('has-loved');
+    }
+
+    void fetchStats(slug).then((stats) => {
+      if (typeof stats?.likes === 'number') {
+        serverLikes = Math.max(serverLikes, stats.likes);
+        renderCount();
+      }
+    });
+
+    async function syncLikes(keepalive = false) {
+      clearTimeout(syncTimer);
+
+      if (unsentLikes === 0) {
+        return;
+      }
+
+      const count = unsentLikes;
+      unsentLikes = 0;
+      inFlightLikes += count;
+
+      const stats = await postStatsEvent('likes', { slug, count }, { keepalive });
+
+      inFlightLikes -= count;
+
+      if (typeof stats?.likes === 'number') {
+        serverLikes = stats.likes;
+      }
+
+      renderCount();
+    }
+
+    // The debounce can still be pending when the reader leaves the page.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        void syncLikes(true);
+      }
+    });
+
+    const restartAnimation = (className: 'is-bouncing' | 'is-shaking') => {
+      button.classList.remove('is-bouncing', 'is-shaking');
+      void button.offsetWidth;
+      button.classList.add(className);
+    };
+
+    const showBurst = (particles: HTMLElement[], lifetimeMs: number) => {
+      clearTimeout(burstTimer);
+      burstEl.replaceChildren(...particles);
+      burstTimer = window.setTimeout(() => burstEl.replaceChildren(), lifetimeMs);
+    };
+
+    const createParticle = (className: string, text = '') => {
+      const particle = document.createElement('span');
+      particle.className = className;
+      particle.textContent = text;
+
+      return particle;
+    };
+
+    const showMaxBurst = () => {
+      const words = ['MAX!', 'MAX', 'MAX! ✨', 'MAX', 'MAX!'];
+
+      showBurst(
+        words.map((word, i) => {
+          const particle = createParticle('max-word-particle', word);
+          const angle = (i / words.length) * 2 * Math.PI - Math.PI / 2 + (Math.random() * 0.3 - 0.15);
           const distance = 32 + Math.random() * 24;
-          const dx = Math.cos(angle) * distance;
-          const dy = Math.sin(angle) * distance;
-          wordEl.style.setProperty('--dx', `${dx}px`);
-          wordEl.style.setProperty('--dy', `${dy}px`);
-          wordEl.style.setProperty('--color', 'var(--accent, #c8502e)');
-          wordEl.style.setProperty('--rot', `${Math.floor((Math.random() - 0.5) * 36)}deg`);
 
-          burstContainer.appendChild(wordEl);
-        }
+          particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+          particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
+          particle.style.setProperty('--color', 'var(--accent, #c8502e)');
+          particle.style.setProperty('--rot', `${Math.floor((Math.random() - 0.5) * 36)}deg`);
 
-        setTimeout(() => {
-          burstContainer.innerHTML = '';
-        }, 850);
-      };
+          return particle;
+        }),
+        850,
+      );
+    };
 
-      // Confetti & fireworks burst animation generator
-      const triggerFireworks = () => {
-        burstContainer.innerHTML = '';
+    const showLoveBurst = () => {
+      const particleCount = 14;
+      const particles = Array.from({ length: particleCount }, (_, i) => {
+        const particle = createParticle('firework-particle');
+        const angle = (i / particleCount) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
+        const distance = 26 + Math.random() * 34;
 
-        // 1. Floating +1 indicator
-        const floater = document.createElement('span');
-        floater.className = 'love-floater';
-        floater.textContent = '+1';
-        burstContainer.appendChild(floater);
+        particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+        // Slight upward bias.
+        particle.style.setProperty('--dy', `${Math.sin(angle) * distance - 8}px`);
+        particle.style.setProperty(
+          '--color',
+          CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]!,
+        );
+        particle.style.setProperty('--size', `${4 + Math.random() * 4}px`);
+        particle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
 
-        // 2. 14 sparkling radial fireworks particles
-        const particleCount = 14;
-        for (let i = 0; i < particleCount; i++) {
-          const particle = document.createElement('span');
-          particle.className = 'firework-particle';
-          const angle = (i / particleCount) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
-          const distance = 26 + Math.random() * 34; // distance in px
-          const dx = Math.cos(angle) * distance;
-          const dy = Math.sin(angle) * distance - 8; // slight upward bias
-          const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-          const size = 4 + Math.random() * 4;
-
-          particle.style.setProperty('--dx', `${dx}px`);
-          particle.style.setProperty('--dy', `${dy}px`);
-          particle.style.setProperty('--color', color);
-          particle.style.setProperty('--size', `${size}px`);
-          particle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-
-          burstContainer.appendChild(particle);
-        }
-
-        // Clean up particles after animation completes
-        setTimeout(() => {
-          burstContainer.innerHTML = '';
-        }, 750);
-      };
-
-      // Click handler
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        if (userLikes >= MAX_LIKES_PER_USER) {
-          // Maximum reached — shake icon, play lock sound, spit MAX confetti!
-          btn.classList.remove('is-shaking');
-          void btn.offsetWidth; // force reflow
-          btn.classList.add('is-shaking');
-          triggerMaxFireworks();
-          playMaxSound(true);
-          return;
-        }
-
-        // Increment user and total likes optimistically
-        userLikes++;
-        totalLikes++;
-        pendingBatchLikes++;
-        try {
-          localStorage.setItem(userLikesKey, userLikes.toString());
-        } catch {}
-
-        countEl.textContent = totalLikes.toLocaleString('en-US');
-        btn.classList.add('has-loved');
-
-        if (userLikes >= MAX_LIKES_PER_USER) {
-          // 10th tap reaches max!
-          btn.classList.remove('is-shaking');
-          btn.classList.remove('is-bouncing');
-          void btn.offsetWidth;
-          btn.classList.add('is-shaking');
-          triggerMaxFireworks();
-          playMaxSound(false);
-        } else {
-          btn.classList.remove('is-bouncing');
-          void btn.offsetWidth;
-          btn.classList.add('is-bouncing');
-          triggerFireworks();
-          playChime();
-        }
-
-        // Debounce API dispatch by 600ms to batch rapid taps into a single request
-        if (syncTimer) clearTimeout(syncTimer);
-        syncTimer = window.setTimeout(syncLikesToAPI, 600);
+        return particle;
       });
+
+      showBurst([createParticle('love-floater', '+1'), ...particles], 750);
+    };
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      if (userLikes >= MAX_LIKES_PER_USER) {
+        restartAnimation('is-shaking');
+        showMaxBurst();
+        playLockedSound();
+
+        return;
+      }
+
+      userLikes++;
+      unsentLikes++;
+
+      try {
+        localStorage.setItem(userLikesKey, String(userLikes));
+      } catch {}
+
+      renderCount();
+      button.classList.add('has-loved');
+
+      if (userLikes >= MAX_LIKES_PER_USER) {
+        restartAnimation('is-shaking');
+        showMaxBurst();
+        playMaxSound();
+      } else {
+        restartAnimation('is-bouncing');
+        showLoveBurst();
+        playLoveSound();
+      }
+
+      // Batch rapid taps into a single request.
+      clearTimeout(syncTimer);
+      syncTimer = window.setTimeout(() => void syncLikes(), SYNC_DELAY_MS);
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLoveCounter);
-  } else {
-    initLoveCounter();
+  if (button && countEl && burstEl && slug) {
+    initLoveCounter(slug, button, countEl, burstEl);
   }
 </script>
 
@@ -307,14 +253,6 @@ const { slug } = Astro.props;
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
-    margin: 0;
-    padding: 0;
-    border: none;
-  }
-
-  .love-widget-inner {
-    display: inline-flex;
-    align-items: center;
   }
 
   .love-button {
@@ -344,8 +282,10 @@ const { slug } = Astro.props;
   .love-heart-svg {
     fill: var(--ink-muted);
     opacity: 0.55;
-    stroke: none;
-    transition: fill 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      fill 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .love-button:hover .love-heart-svg {
@@ -356,9 +296,9 @@ const { slug } = Astro.props;
 
   .love-button.has-loved .love-heart-svg {
     fill: var(--accent);
-    stroke: none;
     opacity: 1;
   }
+
   .love-button.is-bouncing .love-icon-wrapper {
     animation: heart-bounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
@@ -372,11 +312,22 @@ const { slug } = Astro.props;
   }
 
   @keyframes icon-shake {
-    0%, 100% { transform: translateX(0) rotate(0); }
-    20% { transform: translateX(-4px) rotate(-14deg); }
-    40% { transform: translateX(4px) rotate(14deg); }
-    60% { transform: translateX(-3px) rotate(-8deg); }
-    80% { transform: translateX(3px) rotate(8deg); }
+    0%,
+    100% {
+      transform: translateX(0) rotate(0);
+    }
+    20% {
+      transform: translateX(-4px) rotate(-14deg);
+    }
+    40% {
+      transform: translateX(4px) rotate(14deg);
+    }
+    60% {
+      transform: translateX(-3px) rotate(-8deg);
+    }
+    80% {
+      transform: translateX(3px) rotate(8deg);
+    }
   }
 
   @keyframes heart-bounce {
@@ -395,9 +346,16 @@ const { slug } = Astro.props;
   }
 
   @keyframes button-shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    75% {
+      transform: translateX(4px);
+    }
   }
 
   .love-count-badge {
@@ -406,8 +364,14 @@ const { slug } = Astro.props;
     color: var(--ink);
   }
 
+  .love-burst-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
 
-  /* Exploding MAX word confetti */
+  /* The particles are created from the script, so they carry no scoping attribute. */
   :global(.max-word-particle) {
     position: absolute;
     top: 50%;
@@ -430,23 +394,16 @@ const { slug } = Astro.props;
     }
     45% {
       opacity: 1;
-      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15) rotate(var(--rot));
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15)
+        rotate(var(--rot));
     }
     100% {
       opacity: 0;
-      transform: translate(calc(-50% + var(--dx) * 1.3), calc(-50% + var(--dy) * 1.3 - 8px)) scale(0.85) rotate(calc(var(--rot) * 1.4));
+      transform: translate(calc(-50% + var(--dx) * 1.3), calc(-50% + var(--dy) * 1.3 - 8px))
+        scale(0.85) rotate(calc(var(--rot) * 1.4));
     }
   }
 
-  /* Burst container positioned over the button */
-  .love-burst-container {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  /* Floating +1 */
   :global(.love-floater) {
     position: absolute;
     top: 50%;
@@ -474,7 +431,6 @@ const { slug } = Astro.props;
     }
   }
 
-  /* Sparkling fireworks particles */
   :global(.firework-particle) {
     position: absolute;
     top: 50%;
@@ -494,16 +450,21 @@ const { slug } = Astro.props;
     }
     50% {
       opacity: 1;
-      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot));
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2)
+        rotate(var(--rot));
     }
     100% {
       opacity: 0;
-      transform: translate(calc(-50% + var(--dx) * 1.2), calc(-50% + var(--dy) * 1.2 + 8px)) scale(0) rotate(calc(var(--rot) * 1.5));
+      transform: translate(calc(-50% + var(--dx) * 1.2), calc(-50% + var(--dy) * 1.2 + 8px))
+        scale(0) rotate(calc(var(--rot) * 1.5));
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .love-button.is-bouncing .love-icon-wrapper,
+    .love-button.is-shaking,
+    .love-button.is-shaking .love-icon-wrapper,
+    :global(.max-word-particle),
     :global(.love-floater),
     :global(.firework-particle) {
       animation: none !important;

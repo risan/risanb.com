@@ -5,7 +5,7 @@ interface Props {
   title: string;
   description?: string | undefined;
   lang?: string | undefined;
-  /** Social/OG image, absolute site path (Hugo's `images:` frontmatter). */
+  /** Social/OG image, absolute site path. */
   ogImage?: string | undefined;
   /** Page type for OG. */
   ogType?: 'article' | 'website' | undefined;
@@ -35,11 +35,11 @@ const nav = [
   { href: '/posts/', label: 'Archive' },
 ] as const;
 const isCurrent = (href: string) => {
-  if (activeNav) return activeNav === href;
-  if (href === '/posts/') {
-    return Astro.url.pathname === '/posts/' || Astro.url.pathname.startsWith('/posts/page/');
+  if (activeNav) {
+    return activeNav === href;
   }
-  return Astro.url.pathname.startsWith(href);
+
+  return Astro.url.pathname === href;
 };
 ---
 
@@ -74,10 +74,15 @@ const isCurrent = (href: string) => {
 
     <script is:inline>
       (() => {
-        const stored = localStorage.getItem('theme');
-        const theme =
-          stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        if (theme === 'dark') {
+        let stored = null;
+
+        try {
+          stored = localStorage.getItem('theme');
+        } catch {}
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (stored ? stored === 'dark' : prefersDark) {
           document.documentElement.classList.add('dark');
         }
       })();
@@ -253,82 +258,75 @@ const isCurrent = (href: string) => {
       </div>
     </footer>
 
-    {/* client:idle, not client:load: the palette is worth ~0ms until someone
-        actually searches, and the index is fetched on first open rather than on
-        hydrate. Astro hydrates this once the browser goes idle. */}
+    {/* client:idle, not client:load: the index is fetched on first open, so
+        hydration only has to register the keyboard shortcut. */}
     <SearchModal client:idle />
 
     <script>
-      const themeBtn = document.getElementById('theme-toggle');
-      themeBtn?.addEventListener('click', () => {
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+        try {
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        } catch {}
       });
 
-      // Mobile navbar menu toggle
-      const menuBtn = document.getElementById('menu-toggle');
+      const menuButton = document.getElementById('menu-toggle');
       const mobileNav = document.getElementById('mobile-nav');
-      if (menuBtn && mobileNav) {
-        menuBtn.addEventListener('click', () => {
-          const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-          menuBtn.setAttribute('aria-expanded', String(!isOpen));
-          menuBtn.classList.toggle('is-active', !isOpen);
-          mobileNav.hidden = isOpen;
+
+      if (menuButton && mobileNav) {
+        const setMenuOpen = (isOpen: boolean) => {
+          menuButton.setAttribute('aria-expanded', String(isOpen));
+          menuButton.classList.toggle('is-active', isOpen);
+          mobileNav.hidden = !isOpen;
+        };
+
+        menuButton.addEventListener('click', () => {
+          setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true');
         });
 
-        // Auto-close menu on link click
         mobileNav.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', () => {
-            menuBtn.setAttribute('aria-expanded', 'false');
-            menuBtn.classList.remove('is-active');
-            mobileNav.hidden = true;
-          });
+          link.addEventListener('click', () => setMenuOpen(false));
         });
       }
 
-      // Windows XP startup sound on hover
-      let xpAudio: HTMLAudioElement | null = null;
-      let lastPlayTime = 0;
-      const playWindowsXpSound = () => {
-        const now = Date.now();
-        if (now - lastPlayTime < 2500) return;
-        lastPlayTime = now;
-        try {
-          if (!xpAudio) {
-            xpAudio = new Audio('/sounds/windows-xp-startup.mp3');
-            xpAudio.volume = 0.5;
-          } else {
-            xpAudio.currentTime = 0;
-          }
-          xpAudio.play().catch(() => {});
-        } catch {}
-      };
+      // Easter egg: the Windows XP startup sound when hovering the Windows tag.
+      const XP_SOUND_COOLDOWN_MS = 2500;
+      let xpSound: HTMLAudioElement | null = null;
+      let lastPlayedAt = 0;
 
-      const preloadXpAudio = () => {
-        if (!xpAudio) {
-          xpAudio = new Audio('/sounds/windows-xp-startup.mp3');
-          xpAudio.volume = 0.5;
-          xpAudio.load();
+      const getXpSound = () => {
+        if (!xpSound) {
+          xpSound = new Audio('/sounds/windows-xp-startup.mp3');
+          xpSound.volume = 0.5;
         }
+
+        return xpSound;
       };
 
-      const bindWindowsHover = () => {
-        const selectors = [
-          'a[href*="/tags/windows"]',
-          '.tech-icon[data-tech="windows"]'
-        ];
-        document.querySelectorAll(selectors.join(',')).forEach((el) => {
-          el.addEventListener('mouseenter', playWindowsXpSound);
-          el.addEventListener('pointerenter', preloadXpAudio, { once: true });
-        });
+      const playXpSound = () => {
+        const now = Date.now();
+
+        if (now - lastPlayedAt < XP_SOUND_COOLDOWN_MS) {
+          return;
+        }
+
+        lastPlayedAt = now;
+
+        const sound = getXpSound();
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
       };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindWindowsHover);
-      } else {
-        bindWindowsHover();
-      }
+
+      document
+        .querySelectorAll('a[href*="/tags/windows"], .tech-icon[data-tech="windows"]')
+        .forEach((el) => {
+          el.addEventListener('mouseenter', playXpSound);
+          el.addEventListener('pointerenter', () => getXpSound().load(), { once: true });
+        });
 
       const progressBar = document.getElementById('reading-progress');
+
       if (progressBar) {
         const updateProgress = () => {
           const doc = document.documentElement;
@@ -336,6 +334,7 @@ const isCurrent = (href: string) => {
           const ratio = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
           progressBar.style.transform = `scaleX(${ratio})`;
         };
+
         window.addEventListener('scroll', updateProgress, { passive: true });
         updateProgress();
       }

@@ -26,68 +26,42 @@ const { slug } = Astro.props;
 </span>
 
 <script>
-  function initViewCounter() {
+  import { fetchStats, postStatsEvent } from '../lib/stats-api';
+
+  async function initViewCounter() {
     const el = document.querySelector<HTMLElement>('.post-views[data-slug]');
-    if (!el) return;
+    const textEl = el?.querySelector<HTMLElement>('.view-count-text');
+    const slug = el?.dataset.slug;
 
-    const slug = el.getAttribute('data-slug');
-    if (!slug) return;
-
-    const textEl = el.querySelector<HTMLElement>('.view-count-text');
-    if (!textEl) return;
-
-    const STATS_API = (import.meta.env.PUBLIC_STATS_API_URL || 'https://stats.risanb.com').replace(/\/$/, '');
-    const sessionKey = `viewed:${slug}`;
-    const alreadyViewed = typeof sessionStorage !== 'undefined' && sessionStorage.getItem(sessionKey);
-
-    const formatCount = (n: number) => {
-      return `${n.toLocaleString('en-US')} view${n === 1 ? '' : 's'}`;
-    };
-
-    if (alreadyViewed) {
-      // Already viewed in this session — fetch current count without incrementing
-      fetch(`${STATS_API}/api/stats?slug=${encodeURIComponent(slug)}`, {
-        headers: { Accept: 'application/json' },
-      })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data) => {
-          if (data && typeof data.views === 'number' && data.views > 0) {
-            textEl.textContent = formatCount(data.views);
-            el.classList.add('is-loaded');
-          }
-        })
-        .catch(() => {});
-    } else {
-      // First visit in this session — record view
-      fetch(`${STATS_API}/api/views`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          site: 'risanb.com',
-          slug,
-          path: window.location.pathname,
-          referrer: document.referrer,
-        }),
-      })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data) => {
-          if (data && typeof data.views === 'number' && data.views > 0) {
-            textEl.textContent = formatCount(data.views);
-            el.classList.add('is-loaded');
-            try {
-              sessionStorage.setItem(sessionKey, '1');
-            } catch {}
-          }
-        })
-        .catch(() => {});
+    if (!el || !textEl || !slug) {
+      return;
     }
+
+    // One recorded view per browser session, so reloads don't inflate the count.
+    const sessionKey = `viewed:${slug}`;
+    let alreadyViewed = false;
+
+    try {
+      alreadyViewed = sessionStorage.getItem(sessionKey) !== null;
+    } catch {}
+
+    const stats = alreadyViewed
+      ? await fetchStats(slug)
+      : await postStatsEvent('views', { slug, referrer: document.referrer });
+
+    if (!stats?.views || stats.views <= 0) {
+      return;
+    }
+
+    textEl.textContent = `${stats.views.toLocaleString('en-US')} view${stats.views === 1 ? '' : 's'}`;
+    el.classList.add('is-loaded');
+
+    try {
+      sessionStorage.setItem(sessionKey, '1');
+    } catch {}
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initViewCounter);
-  } else {
-    initViewCounter();
-  }
+  initViewCounter();
 </script>
 
 <style>
