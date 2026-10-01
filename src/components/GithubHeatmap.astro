@@ -1235,6 +1235,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
       eyes = createEyes();
       placeEyes();
+      keepHeadInView();
       eyebrow.textContent = 'Scoreboard';
       setGameState('running');
       setStatus('');
@@ -1319,7 +1320,22 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
 
       placeEyes();
+      keepHeadInView();
       eatCell(col, row);
+    }
+
+    function keepHeadInView() {
+      if (scroller.scrollWidth <= scroller.clientWidth) {
+        return;
+      }
+
+      const head = body.at(-1)!.rect.getBoundingClientRect();
+      const view = scroller.getBoundingClientRect();
+      const margin = 2 * head.width;
+
+      if (head.left < view.left + margin || head.right > view.right - margin) {
+        scroller.scrollLeft += head.left + head.width / 2 - (view.left + view.width / 2);
+      }
     }
 
     function eatCell(col: number, row: number) {
@@ -1371,6 +1387,13 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     function restoreBoard() {
       cancelAnimationFrame(frameId);
 
+      for (const { element, animation } of floats.values()) {
+        animation.cancel();
+        element.remove();
+      }
+
+      floats.clear();
+
       for (const { cell, level } of eatenCells) {
         cell.setAttribute('class', `gh-cell gh-cell-${level}`);
         cell.dataset.level = String(level);
@@ -1414,7 +1437,10 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     });
 
     document.addEventListener('keydown', (event) => {
-      if (!isSnakeOpen() || event.ctrlKey || event.metaKey || event.altKey) {
+      const target = event.target as Element;
+      const isTyping = target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
+
+      if (!isSnakeOpen() || event.defaultPrevented || isTyping || event.ctrlKey || event.metaKey || event.altKey) {
         return;
       }
 
@@ -1428,10 +1454,10 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       }
 
       // A focused button or link handles Space and Enter itself, so it must not also toggle the game.
-      const target = event.target as Element;
-      const isControl = (event.key === ' ' || event.key === 'Enter') && !target.closest('button, a, input, select, textarea');
+      // Outside a running game, Space keeps scrolling the page unless focus is on the heatmap.
+      const isControl = (event.key === ' ' || event.key === 'Enter') && !target.closest('button, a');
 
-      if (isControl && (gameState !== 'idle' || card.contains(target))) {
+      if (isControl && (gameState === 'running' || card.contains(target))) {
         event.preventDefault();
         togglePrimary();
       }

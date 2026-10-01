@@ -298,6 +298,15 @@ const tags = groupByTerm(posts, 'tags');
     -webkit-text-fill-color: currentColor;
   }
 
+  /* Forced colours drop the gradient but keep the transparent fill, which would hide the word. */
+  @media (forced-colors: active) {
+    .curiosity-letter {
+      background: none;
+      color: LinkText;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .curiosity-trigger,
     .curiosity-letter,
