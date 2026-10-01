@@ -211,7 +211,7 @@ for (const { from } of redirectRules) {
 /**
  * The 250 URLs in risanb.com's sitemap before the split. Each must be either
  * served by this build or covered by a redirect rule — that is the whole
- * promise of the migration, and it stays checkable after content/blog is gone.
+ * promise of the migration.
  */
 const legacyPath = join(ROOT, 'scripts', 'legacy-urls.txt');
 let legacyCount = 0;

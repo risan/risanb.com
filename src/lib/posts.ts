@@ -1,10 +1,10 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-export type Post = CollectionEntry<'code'>;
+export type Post = CollectionEntry<'posts'>;
 
 /** All posts, newest first. */
 export async function getPosts(): Promise<Post[]> {
-  const posts = await getCollection('code');
+  const posts = await getCollection('posts');
 
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }

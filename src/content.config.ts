@@ -2,19 +2,17 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
-// The `code` collection reads the posts in content/code/. A slug maps to its URL:
+// A post's slug maps to its URL:
 //
-//   content/code/switching-to-hugo.md                       -> /posts/switching-to-hugo/
-//   content/code/vue-chart-component-with-chartjs/index.md  -> /posts/vue-chart-component-with-chartjs/
-//
-// _index.md is Hugo's section-metadata file and is not a post.
+//   content/posts/switching-to-hugo.md                       -> /posts/switching-to-hugo/
+//   content/posts/vue-chart-component-with-chartjs/index.md  -> /posts/vue-chart-component-with-chartjs/
 //
 // A missing or renamed frontmatter key fails the build rather than silently
 // degrading a page.
-const code = defineCollection({
+const posts = defineCollection({
   loader: glob({
-    pattern: ['**/*.md', '!**/_index.md'],
-    base: './content/code',
+    pattern: '**/*.md',
+    base: './content/posts',
   }),
   schema: z.object({
     title: z.string(),
@@ -51,4 +49,4 @@ const about = defineCollection({
   }),
 });
 
-export const collections = { code, about };
+export const collections = { posts, about };

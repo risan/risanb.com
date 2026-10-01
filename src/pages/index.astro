@@ -112,7 +112,7 @@ const tags = groupByTerm(posts, 'tags');
   </div>
 
   <section class="section-block">
-    <h2>Tag Clouds</h2>
+    <h2>Tag Cloud</h2>
     <TagCloud groups={tags} />
   </section>
 
@@ -129,6 +129,13 @@ const tags = groupByTerm(posts, 'tags');
       columns: 2;
       column-gap: 52px;
       margin-top: 36px;
+    }
+
+    /* The columns stay balanced; a paragraph split across them keeps at least
+       three lines on each side, as in print. */
+    .home-intro-spread p {
+      orphans: 3;
+      widows: 3;
     }
   }
 
@@ -169,21 +176,6 @@ const tags = groupByTerm(posts, 'tags');
     border: 1px solid var(--rule);
     border-radius: 4px;
     background: var(--sunk);
-  }
-
-  /* Opening the second column with the photo keeps every sentence in one
-     column, so the reader never jumps from mid-sentence back up the page. */
-  @media (min-width: 768px) {
-    .home-intro-figure {
-      break-before: column;
-      margin-top: 0;
-    }
-
-    /* A squarer crop gives the shorter second column the height to balance the first. */
-    .home-intro-photo {
-      aspect-ratio: 1 / 1;
-      object-position: 72% center;
-    }
   }
 
   .home-intro-caption {

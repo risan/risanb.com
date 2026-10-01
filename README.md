@@ -50,9 +50,9 @@ site served are still served or redirected.
 ## Layout
 
 ```
-content/code/          the posts (markdown, page bundles and flat files)
+content/posts/         the posts (markdown, page bundles and flat files)
 content/about/         the /about/ page
-src/content.config.ts  the `code` and `about` collection schemas
+src/content.config.ts  the `posts` and `about` collection schemas
 src/layouts/           BaseLayout + PostLayout
 src/pages/             home, /posts/, tags, categories, about, rss.xml, search.json
 src/components/        PostList, TagCloud, counters, search modal, home widgets
@@ -61,8 +61,6 @@ static/                favicon, robots.txt, img, _redirects
 scripts/               check-site.mjs (post-build verification), GitHub contributions fetcher
 wrangler.jsonc         Cloudflare Workers deploy config (static assets only)
 ```
-
-`content/blog/` is a leftover of the split and is not read by the build.
 
 ## Notes on the migration
 

@@ -6,7 +6,9 @@ interface Props {
   groups: Map<string, Post[]>;
 }
 
-const sorted = [...Astro.props.groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+const sorted = [...Astro.props.groups.entries()].sort(
+  (a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]),
+);
 ---
 
 <div class="tag-cloud">
