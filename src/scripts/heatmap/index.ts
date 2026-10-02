@@ -1,3 +1,4 @@
+import { createGameShell } from './game-shell';
 import { initSnake } from './snake';
 import { loadSettings, SoundEngine, type Settings } from './sound-engine';
 import { initSynth } from './synth';
@@ -6,6 +7,9 @@ export interface HeatmapContext {
   card: HTMLElement;
   scroller: HTMLElement;
   columnStep: number;
+  cellSize: number;
+  xOffset: number;
+  yOffset: number;
   mobileQuery: MediaQueryList;
   reducedMotionQuery: MediaQueryList;
   settings: Settings;
@@ -18,6 +22,9 @@ export function initHeatmap(card: HTMLElement) {
     card,
     scroller: card.querySelector<HTMLElement>('.heatmap-scroll')!,
     columnStep: Number(card.dataset.step),
+    cellSize: Number(card.dataset.cellSize),
+    xOffset: Number(card.dataset.xOffset),
+    yOffset: Number(card.dataset.yOffset),
     mobileQuery: matchMedia('(max-width: 680px)'),
     reducedMotionQuery: matchMedia('(prefers-reduced-motion: reduce)'),
     settings,
@@ -26,26 +33,35 @@ export function initHeatmap(card: HTMLElement) {
 
   context.scroller.scrollLeft = context.scroller.scrollWidth;
 
-  const synth = initSynth(context, () => snake.setMode(false));
-  const snake = initSnake(context, { closeSynth: () => synth.setOpen(false), toggleSound: synth.toggleSound });
+  const shell = createGameShell(context, { closeSynth: () => synth.setOpen(false), toggleSound: () => synth.toggleSound() });
+  const synth = initSynth(context, shell.close);
+
+  initSnake(context, shell);
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') {
       return;
     }
 
-    for (const { scope, toggle, isOpen, setOpen } of [
-      { scope: synth.panel, toggle: synth.toggle, isOpen: synth.isOpen, setOpen: synth.setOpen },
-      { scope: card, toggle: snake.toggle, isOpen: snake.isOn, setOpen: snake.setMode },
-    ]) {
-      if (isOpen()) {
-        const focusWasInside = scope.contains(document.activeElement);
+    if (synth.isOpen()) {
+      const focusWasInside = synth.panel.contains(document.activeElement);
 
-        setOpen(false);
+      synth.setOpen(false);
 
-        if (focusWasInside) {
-          toggle.focus();
-        }
+      if (focusWasInside) {
+        synth.toggle.focus();
+      }
+    }
+
+    const game = shell.getActive();
+
+    if (game) {
+      const focusWasInside = card.contains(document.activeElement);
+
+      shell.close();
+
+      if (focusWasInside) {
+        game.toggle.focus();
       }
     }
   });
@@ -53,7 +69,7 @@ export function initHeatmap(card: HTMLElement) {
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       synth.stop();
-      snake.pause();
+      shell.pause();
     }
   });
 }

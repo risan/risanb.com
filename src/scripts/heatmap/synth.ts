@@ -10,7 +10,7 @@ interface ColumnNote {
   chord: number;
 }
 
-export function initSynth({ card, scroller, columnStep, mobileQuery, reducedMotionQuery, engine, settings }: HeatmapContext, closeSnake: () => void) {
+export function initSynth({ card, scroller, columnStep, mobileQuery, reducedMotionQuery, engine, settings }: HeatmapContext, closeGame: () => void) {
   const synthPanel = card.querySelector<HTMLElement>('#synth-panel')!;
   const synthToggle = card.querySelector<HTMLButtonElement>('#synth-toggle')!;
   const playButton = synthPanel.querySelector<HTMLButtonElement>('[data-action="play"]')!;
@@ -58,7 +58,7 @@ export function initSynth({ card, scroller, columnStep, mobileQuery, reducedMoti
     synthToggle.setAttribute('aria-expanded', String(open));
 
     if (open) {
-      closeSnake();
+      closeGame();
       engine.unlock();
     } else {
       stop();

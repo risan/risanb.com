@@ -189,31 +189,31 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
                 });
               })}
 
-              <g class="snake-layer" aria-hidden="true"></g>
+              <g class="game-layer" aria-hidden="true"></g>
             </svg>
           ))
         }
       </div>
 
-      <div class="snake-overlay" data-state="idle" hidden>
-        <p class="snake-title" data-snake="title"></p>
-        <p class="snake-summary" data-snake="summary"></p>
-        <button type="button" class="btn btn--primary" data-action="snake-primary">
-          <svg class="snake-icon-play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
-          <span data-snake="primary-label">Start</span>
+      <div class="game-overlay" data-state="idle" hidden>
+        <p class="game-title" data-game="title"></p>
+        <p class="game-summary" data-game="summary"></p>
+        <button type="button" class="btn btn--primary" data-action="game-primary">
+          <svg class="game-icon-play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
+          <span data-game="primary-label">Start</span>
         </button>
-        <p class="snake-instruction">
-          <span class="snake-instruction--pointer">Arrow keys or WASD to steer. Darker days are worth more.</span>
-          <span class="snake-instruction--touch">Swipe to steer. Darker days are worth more.</span>
+        <p class="game-instruction">
+          <span class="game-instruction--pointer"></span>
+          <span class="game-instruction--touch"></span>
         </p>
       </div>
 
-      <p class="snake-announcer" data-snake="announcer" aria-live="polite"></p>
+      <p class="game-announcer" data-game="announcer" aria-live="polite"></p>
     </div>
     <div class="heatmap-bar">
-      <div class="snake-hud">
-        <span class="snake-score">Score <strong data-snake="score">0</strong> · Best <strong data-snake="best">0</strong></span>
-        <button type="button" class="btn btn--icon snake-pause" data-snake="pause" aria-label="Pause">
+      <div class="game-hud">
+        <span class="game-score">Score <strong data-game="score">0</strong> · Best <strong data-game="best">0</strong></span>
+        <button type="button" class="btn btn--icon game-pause" data-game="pause" aria-label="Pause">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
         </button>
         <button type="button" class="btn btn--icon" data-action="sound" aria-pressed="true" aria-label="Sound">
@@ -441,7 +441,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   }
 
   /* While a game runs a finger swipes the grid to steer, so the page must not pan under it. */
-  .is-snake-running .heatmap-scroll {
+  .is-game-running .heatmap-scroll {
     touch-action: none;
   }
 
@@ -485,83 +485,96 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     opacity: 0;
   }
 
-  .snake-layer {
+  .game-layer {
     pointer-events: none;
   }
 
-  .snake-layer :global(path) {
+  .game-layer :global(path) {
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
-  .snake-layer :global(.snake-outline) {
+  .game-layer :global(.snake-outline) {
     stroke: var(--snake-outline);
     stroke-width: 9.5px;
   }
 
-  .snake-layer :global(.snake-body) {
+  .game-layer :global(.snake-body) {
     stroke: var(--snake-body);
     stroke-width: 8px;
   }
 
   /* A dash period equal to the step puts one marking on every segment. */
-  .snake-layer :global(.snake-marks) {
+  .game-layer :global(.snake-marks) {
     stroke: var(--snake-marks);
     stroke-width: 4px;
     stroke-dasharray: 3px 10px;
     stroke-dashoffset: 1.5px;
   }
 
-  .snake-layer :global(.snake-tail-outline) {
+  .game-layer :global(.snake-tail-outline) {
     stroke: var(--snake-outline);
     stroke-width: 7px;
   }
 
-  .snake-layer :global(.snake-tail-body) {
+  .game-layer :global(.snake-tail-body) {
     stroke: var(--snake-body);
     stroke-width: 5.5px;
   }
 
-  .snake-layer :global(.snake-lump-outlines .snake-lump) {
+  .game-layer :global(.snake-lump-outlines .snake-lump) {
     fill: var(--snake-outline);
   }
 
-  .snake-layer :global(.snake-lump-fills .snake-lump) {
+  .game-layer :global(.snake-lump-fills .snake-lump) {
     fill: var(--snake-body);
   }
 
-  .snake-layer :global(.snake-head-shape) {
+  .game-layer :global(.snake-head-shape) {
     fill: var(--snake-body);
     stroke: var(--snake-outline);
     stroke-width: 1.2px;
   }
 
-  .snake-layer :global(.snake-jaw) {
+  .game-layer :global(.snake-jaw) {
     transform-box: fill-box;
     transform-origin: center;
   }
 
-  .snake-layer :global(.snake-eye) {
+  .game-layer :global(.snake-eye) {
     fill: var(--snake-eye);
     stroke: var(--snake-outline);
     stroke-width: 0.4px;
   }
 
-  .snake-layer :global(.snake-pupil) {
+  .game-layer :global(.snake-pupil) {
     fill: var(--snake-pupil);
   }
 
-  .snake-layer :global(.snake-tongue) {
+  .game-layer :global(.snake-tongue) {
     stroke: var(--snake-tongue);
     stroke-width: 1.1px;
     transform-box: fill-box;
     transform-origin: left center;
   }
 
-  .is-snake-over .heatmap-svg {
+  .is-game-over .heatmap-svg {
     filter: grayscale(1);
     opacity: 0.45;
+  }
+
+  /* Created on the body while a touch run is going, so a finger anywhere steers and the page cannot scroll. */
+  :global(.game-touch-pad) {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    touch-action: none;
+    overscroll-behavior: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   :global(.stat-float) {
@@ -593,11 +606,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       animation: eat-pop 0.35s ease-out;
     }
 
-    .snake-layer :global(.snake-tongue) {
+    .game-layer :global(.snake-tongue) {
       animation: tongue-flick 2.4s ease-in-out infinite;
     }
 
-    .snake-layer.is-dying {
+    .game-layer.is-dying {
       animation: snake-blink 0.6s step-end;
     }
 
@@ -650,7 +663,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     position: relative;
   }
 
-  .snake-overlay {
+  .game-overlay {
     position: absolute;
     inset: 0 0 6px;
     display: flex;
@@ -665,64 +678,64 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     border-radius: 3px;
   }
 
-  .snake-overlay[hidden] {
+  .game-overlay[hidden] {
     display: none;
   }
 
-  .snake-overlay[data-state="over"] {
+  .game-overlay[data-state="over"] {
     background: color-mix(in srgb, var(--paper) 60%, transparent);
   }
 
-  .snake-title,
-  .snake-summary,
-  .snake-instruction {
+  .game-title,
+  .game-summary,
+  .game-instruction {
     margin: 0;
   }
 
-  .snake-title {
+  .game-title {
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .snake-overlay[data-state="over"] .snake-title {
+  .game-overlay[data-state="over"] .game-title {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     line-height: 1.2;
   }
 
-  .snake-summary {
+  .game-summary {
     font-size: 0.75rem;
     line-height: 1.4;
   }
 
-  .snake-title:empty,
-  .snake-summary:empty,
-  .snake-overlay:not([data-state="idle"]) .snake-instruction,
-  .snake-overlay:not([data-state="idle"]) .snake-icon-play,
-  .snake-instruction--touch {
+  .game-title:empty,
+  .game-summary:empty,
+  .game-overlay:not([data-state="idle"]) .game-instruction,
+  .game-overlay:not([data-state="idle"]) .game-icon-play,
+  .game-instruction--touch {
     display: none;
   }
 
-  .snake-instruction {
+  .game-instruction {
     max-width: 36ch;
     font-size: 0.6875rem;
     line-height: 1.5;
   }
 
   @media (pointer: coarse) {
-    .snake-instruction--pointer {
+    .game-instruction--pointer {
       display: none;
     }
 
-    .snake-instruction--touch {
+    .game-instruction--touch {
       display: inline;
     }
   }
 
-  .snake-announcer {
+  .game-announcer {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -741,25 +754,25 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     margin-top: 10px;
   }
 
-  .snake-hud {
+  .game-hud {
     display: none;
     align-items: center;
     gap: 8px;
     margin-right: auto;
   }
 
-  .is-snake-on .snake-hud {
+  .is-game-on .game-hud {
     display: flex;
   }
 
-  .snake-score {
+  .game-score {
     white-space: nowrap;
     font-size: 0.6875rem;
     color: var(--ink-muted);
     font-variant-numeric: tabular-nums;
   }
 
-  .snake-score strong {
+  .game-score strong {
     color: var(--ink);
   }
 
@@ -797,11 +810,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     padding: 0;
   }
 
-  .snake-pause {
+  .game-pause {
     display: none;
   }
 
-  .is-snake-running .snake-pause {
+  .is-game-running .game-pause {
     display: inline-flex;
   }
 
@@ -1087,16 +1100,16 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
       padding: 12px;
     }
 
-    .snake-hud {
+    .game-hud {
       flex-basis: 100%;
     }
 
-    .snake-overlay {
+    .game-overlay {
       gap: 6px;
       padding: 4px;
     }
 
-    .snake-overlay[data-state="over"] .snake-title {
+    .game-overlay[data-state="over"] .game-title {
       font-size: 1.0625rem;
       letter-spacing: 0.14em;
     }
