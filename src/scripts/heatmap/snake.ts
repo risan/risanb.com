@@ -74,6 +74,7 @@ export function initSnake({ card, scroller, columnStep, cellSize, xOffset, yOffs
   let lastFrameAt = 0;
   let accumulator = 0;
   let swipeOrigin: { x: number; y: number } | null = null;
+  let swipePointerId: number | null = null;
 
   const centerX = (col: number) => xOffset + col * columnStep + cellSize / 2;
   const centerY = (row: number) => yOffset + row * columnStep + cellSize / 2;
@@ -210,6 +211,12 @@ export function initSnake({ card, scroller, columnStep, cellSize, xOffset, yOffs
 
   function halt() {
     cancelAnimationFrame(frameId);
+    clearSwipe();
+  }
+
+  function clearSwipe() {
+    swipeOrigin = null;
+    swipePointerId = null;
   }
 
   function frame(now: number) {
@@ -392,14 +399,21 @@ export function initSnake({ card, scroller, columnStep, cellSize, xOffset, yOffs
   scroller.addEventListener('pointerdown', (event) => {
     if (shell.getActive()?.id === 'snake' && shell.isRunning() && event.pointerType !== 'mouse') {
       swipeOrigin = { x: event.clientX, y: event.clientY };
+      swipePointerId = event.pointerId;
     }
   });
 
-  scroller.addEventListener('pointermove', (event) => steerBySwipe(event.clientX, event.clientY));
+  scroller.addEventListener('pointermove', (event) => {
+    if (event.pointerId === swipePointerId) {
+      steerBySwipe(event.clientX, event.clientY);
+    }
+  });
 
   for (const type of ['pointerup', 'pointercancel']) {
-    scroller.addEventListener(type, () => {
-      swipeOrigin = null;
+    scroller.addEventListener(type, (event) => {
+      if ((event as PointerEvent).pointerId === swipePointerId) {
+        clearSwipe();
+      }
     });
   }
 }

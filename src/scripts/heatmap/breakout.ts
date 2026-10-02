@@ -412,6 +412,8 @@ export function initBreakout({ card, scroller, columnStep, cellSize, xOffset, yO
 
   shell.register(game);
 
+  window.addEventListener('blur', () => heldSides.clear());
+
   document.addEventListener('keyup', (event) => {
     const side = KEY_SIDES[event.key.toLowerCase()];
 

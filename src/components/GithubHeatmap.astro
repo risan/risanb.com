@@ -590,6 +590,47 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     opacity: 0.45;
   }
 
+  /* Forced colors keep these author colors, which can be invisible on the forced canvas, so the game shapes take system colors. */
+  @media (forced-colors: active) {
+    .game-layer :global(.breakout-paddle) {
+      fill: CanvasText;
+    }
+
+    .game-layer :global(.breakout-ball) {
+      fill: Highlight;
+      stroke: Canvas;
+    }
+
+    .game-layer :global(.snake-outline),
+    .game-layer :global(.snake-tail-outline),
+    .game-layer :global(.snake-head-shape),
+    .game-layer :global(.snake-eye) {
+      stroke: CanvasText;
+    }
+
+    .game-layer :global(.snake-body),
+    .game-layer :global(.snake-tail-body) {
+      stroke: Highlight;
+    }
+
+    .game-layer :global(.snake-marks) {
+      stroke: Canvas;
+    }
+
+    .game-layer :global(.snake-head-shape),
+    .game-layer :global(.snake-lump-fills .snake-lump) {
+      fill: Highlight;
+    }
+
+    .game-layer :global(.snake-lump-outlines .snake-lump) {
+      fill: CanvasText;
+    }
+
+    .game-layer :global(.snake-eye) {
+      fill: Canvas;
+    }
+  }
+
   /* Created on the body while a touch run is going, so a finger anywhere steers and the page cannot scroll. */
   :global(.game-touch-pad) {
     position: fixed;

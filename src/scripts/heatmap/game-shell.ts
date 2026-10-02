@@ -470,14 +470,18 @@ export function createGameShell({ card, scroller, mobileQuery, reducedMotionQuer
       gesture = null;
     });
 
-    pad.addEventListener('pointercancel', () => {
-      gesture = null;
-      tapped = false;
+    pad.addEventListener('pointercancel', (event) => {
+      if (gesture && event.pointerId === gesture.pointerId) {
+        gesture = null;
+        tapped = false;
+      }
     });
 
     // The pointer is released after a tap's pointerup too, so only the gesture is dropped, never the pending tap.
-    pad.addEventListener('lostpointercapture', () => {
-      gesture = null;
+    pad.addEventListener('lostpointercapture', (event) => {
+      if (gesture && event.pointerId === gesture.pointerId) {
+        gesture = null;
+      }
     });
 
     // The tap acts on the click that follows it, so the pad is still there to swallow that click.
