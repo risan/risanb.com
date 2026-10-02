@@ -189,31 +189,31 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
                 });
               })}
 
-              <g class="snake-layer" aria-hidden="true"></g>
+              <g class="game-layer" aria-hidden="true"></g>
             </svg>
           ))
         }
       </div>
 
-      <div class="snake-overlay" data-state="idle" hidden>
-        <p class="snake-title" data-snake="title"></p>
-        <p class="snake-summary" data-snake="summary"></p>
-        <button type="button" class="btn btn--primary" data-action="snake-primary">
-          <svg class="snake-icon-play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
-          <span data-snake="primary-label">Start</span>
+      <div class="game-overlay" data-state="idle" hidden>
+        <p class="game-title" data-game="title"></p>
+        <p class="game-summary" data-game="summary"></p>
+        <button type="button" class="btn btn--primary" data-action="game-primary">
+          <svg class="game-icon-play" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5v17L21 12z"></path></svg>
+          <span data-game="primary-label">Start</span>
         </button>
-        <p class="snake-instruction">
-          <span class="snake-instruction--pointer">Arrow keys or WASD to steer. Darker days are worth more.</span>
-          <span class="snake-instruction--touch">Swipe to steer. Darker days are worth more.</span>
+        <p class="game-instruction">
+          <span class="game-instruction--pointer"></span>
+          <span class="game-instruction--touch"></span>
         </p>
       </div>
 
-      <p class="snake-announcer" data-snake="announcer" aria-live="polite"></p>
+      <p class="game-announcer" data-game="announcer" aria-live="polite"></p>
     </div>
     <div class="heatmap-bar">
-      <div class="snake-hud">
-        <span class="snake-score">Score <strong data-snake="score">0</strong> · Best <strong data-snake="best">0</strong></span>
-        <button type="button" class="btn btn--icon snake-pause" data-snake="pause" aria-label="Pause">
+      <div class="game-hud">
+        <span class="game-score">Score <strong data-game="score">0</strong> · Best <strong data-game="best">0</strong><span class="game-lives"> · <strong data-game="lives" role="img">●●●</strong></span></span>
+        <button type="button" class="btn btn--icon game-pause" data-game="pause" aria-label="Pause">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
         </button>
         <button type="button" class="btn btn--icon" data-action="sound" aria-pressed="true" aria-label="Sound">
@@ -221,6 +221,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
           <svg class="icon-sound-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="m22 9-6 6M16 9l6 6"></path></svg>
         </button>
       </div>
+
+      <button id="breakout-toggle" class="btn" type="button" aria-pressed="false">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 20h10"></path>
+          <circle cx="17" cy="6" r="1.8" fill="currentColor"></circle>
+          <path d="M15.6 8.4 12 14"></path>
+        </svg>
+        <span>Breakout</span>
+      </button>
 
       <button id="snake-toggle" class="btn" type="button" aria-pressed="false">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -238,12 +247,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         <span class="chevron" aria-hidden="true">▾</span>
       </button>
 
-      <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="btn" aria-label={`View @${username} on GitHub`}>
+      <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="btn btn--github" aria-label={`View @${username} on GitHub`}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
         </svg>
-        <span>@{username}</span>
-        <span aria-hidden="true">↗</span>
+        <span class="github-name">@{username}</span>
+        <span class="github-name" aria-hidden="true">↗</span>
       </a>
     </div>
 
@@ -318,1389 +327,9 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   </div>
 
   <script>
-    import { computeHeatmapStats, formatNumber } from '../lib/heatmap-stats';
+    import { initHeatmap } from '../scripts/heatmap';
 
-    type PresetId = 'chimes' | 'bit' | 'pad' | 'cosmic';
-    type MoodId = 'bright' | 'moody' | 'mystic';
-
-    interface Settings {
-      sound: boolean;
-      preset: PresetId;
-      mood: MoodId;
-      tempo: number;
-      space: number;
-    }
-
-    interface Voice {
-      wave: OscillatorType;
-      /** Second oscillator: a detuned copy at the same pitch, or a quiet overtone. */
-      wave2: OscillatorType;
-      ratio2: number;
-      gain2: number;
-      detuneCents: number;
-      /** Seconds. Time constants for decay and release, so tails never end with a click. */
-      attack: number;
-      decay: number;
-      sustain: number;
-      hold: number;
-      release: number;
-      cutoff: number;
-      /** How far above its resting cutoff the filter starts, closing over the decay. */
-      sweep: number;
-      resonance: number;
-      gain: number;
-      /** Default reverb and echo amount. */
-      space: number;
-    }
-
-    const VOICES: Record<PresetId, Voice> = {
-      // Glassy bell: pure sine plus a quiet octave-and-a-fifth shimmer, long soft tail.
-      chimes: {
-        wave: 'sine', wave2: 'sine', ratio2: 3, gain2: 0.16, detuneCents: 3,
-        attack: 0.003, decay: 0.35, sustain: 0, hold: 0, release: 0.18,
-        cutoff: 5000, sweep: 1.5, resonance: 0.5, gain: 1, space: 0.5,
-      },
-      // Rounded square pluck, dry, like a handheld console.
-      bit: {
-        wave: 'square', wave2: 'square', ratio2: 1, gain2: 0, detuneCents: 0,
-        attack: 0.002, decay: 0.05, sustain: 0.3, hold: 0.07, release: 0.04,
-        cutoff: 2600, sweep: 1.5, resonance: 0.7, gain: 0.5, space: 0.08,
-      },
-      // Two detuned saws behind a slow filter: warm, wide and swelling.
-      pad: {
-        wave: 'sawtooth', wave2: 'sawtooth', ratio2: 1, gain2: 1, detuneCents: 8,
-        attack: 0.16, decay: 0.25, sustain: 0.7, hold: 0.22, release: 0.55,
-        cutoff: 1200, sweep: 1.6, resonance: 0.8, gain: 0.5, space: 0.75,
-      },
-      // Resonant filter pluck that sweeps shut, thrown into a long echo.
-      cosmic: {
-        wave: 'triangle', wave2: 'sawtooth', ratio2: 1, gain2: 0.45, detuneCents: 6,
-        attack: 0.004, decay: 0.28, sustain: 0, hold: 0, release: 0.2,
-        cutoff: 700, sweep: 6, resonance: 5, gain: 0.65, space: 0.8,
-      },
-    };
-
-    const SCALES: Record<MoodId, number[]> = {
-      bright: [0, 2, 4, 7, 9],
-      moody: [0, 3, 5, 7, 10],
-      mystic: [0, 2, 3, 7, 8],
-    };
-
-    const STORAGE_KEY = 'heatmap-synth';
-    const ROOT_MIDI = 48;
-    // Start an octave above the root so the negative chord shift stays in range.
-    const FIRST_SCALE_STEP = 5;
-    // Scale steps the key centre moves per month, cycling every four months.
-    const CHORD_SHIFTS = [0, 2, -1, 1];
-    const VELOCITY_BY_LEVEL = [0, 0.4, 0.6, 0.8, 1];
-    const MAX_VOICES = 12;
-    const MIN_RETRIGGER_MS = 120;
-    const STRUM_SECONDS = 0.022;
-    const VOICE_GAIN = 0.2;
-    const BEEP_GAIN = 0.07;
-    const BEEP_ATTACK = 0.002;
-    const BEEP_RELEASE = 0.01;
-    const DEFAULT_SETTINGS: Settings = { sound: true, preset: 'chimes', mood: 'bright', tempo: 110, space: VOICES.chimes.space };
-
-    const isPreset = (value: unknown): value is PresetId => typeof value === 'string' && value in VOICES;
-    const isMood = (value: unknown): value is MoodId => typeof value === 'string' && value in SCALES;
-    const clamp = (value: unknown, min: number, max: number, fallback: number) =>
-      typeof value === 'number' && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
-
-    function loadSettings(): Settings {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}');
-
-        return {
-          sound: typeof saved.sound === 'boolean' ? saved.sound : DEFAULT_SETTINGS.sound,
-          preset: isPreset(saved.preset) ? saved.preset : DEFAULT_SETTINGS.preset,
-          mood: isMood(saved.mood) ? saved.mood : DEFAULT_SETTINGS.mood,
-          tempo: clamp(saved.tempo, 60, 180, DEFAULT_SETTINGS.tempo),
-          space: clamp(saved.space, 0, 1, DEFAULT_SETTINGS.space),
-        };
-      } catch {
-        return { ...DEFAULT_SETTINGS };
-      }
-    }
-
-    function saveSettings(settings: Settings) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-      } catch {
-        // Storage can be blocked; settings then last for the page only.
-      }
-    }
-
-    function noteFrequency(mood: MoodId, weekday: number, chord: number) {
-      const scale = SCALES[mood];
-      const step = FIRST_SCALE_STEP + (6 - weekday) + CHORD_SHIFTS[chord]!;
-      const octave = Math.floor(step / scale.length);
-      const midi = ROOT_MIDI + 12 * octave + scale[step - octave * scale.length]!;
-
-      return 440 * 2 ** ((midi - 69) / 12);
-    }
-
-    function createReverbImpulse(ctx: BaseAudioContext, seconds = 2.2) {
-      const length = Math.floor(ctx.sampleRate * seconds);
-      const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
-
-      for (let channel = 0; channel < 2; channel++) {
-        const data = impulse.getChannelData(channel);
-        let smoothed = 0;
-
-        for (let i = 0; i < length; i++) {
-          const progress = i / length;
-          // A one-pole low-pass that closes over time makes the tail darker as it fades, like a real room.
-          smoothed += (Math.random() * 2 - 1 - smoothed) * (0.9 - 0.75 * progress);
-          data[i] = smoothed * (1 - progress) ** 3;
-        }
-      }
-
-      return impulse;
-    }
-
-    interface ActiveVoice {
-      envelope: GainNode;
-      oscillators: OscillatorNode[];
-      startsAt: number;
-    }
-
-    class SoundEngine {
-      private ctx: AudioContext | null = null;
-      private input!: GainNode;
-      private reverbSend!: GainNode;
-      private echoSend!: GainNode;
-      private output!: AudioNode;
-      private voices: ActiveVoice[] = [];
-      private beeps = new Set<ActiveVoice>();
-
-      constructor(private settings: Settings) {}
-
-      /** Creates the audio graph on the first call. Must run inside a user gesture. */
-      public unlock() {
-        if (!this.ctx) {
-          this.ctx = new AudioContext();
-          this.buildGraph(this.ctx);
-        }
-
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume().catch(() => {});
-        }
-      }
-
-      // voices -> dry + reverb send + echo send -> master -> gentle low-pass -> compressor -> speakers
-      // beeps skip everything before the compressor, so they stay dry like a phone speaker.
-      private buildGraph(ctx: AudioContext) {
-        const compressor = ctx.createDynamicsCompressor();
-        compressor.threshold.value = -16;
-        compressor.knee.value = 20;
-        compressor.ratio.value = 6;
-        compressor.attack.value = 0.005;
-        compressor.release.value = 0.25;
-        compressor.connect(ctx.destination);
-        this.output = compressor;
-
-        const tone = ctx.createBiquadFilter();
-        tone.type = 'lowpass';
-        tone.frequency.value = 9000;
-        tone.Q.value = 0.5;
-        tone.connect(compressor);
-
-        const master = ctx.createGain();
-        master.gain.value = 0.7;
-        master.connect(tone);
-
-        this.input = ctx.createGain();
-        this.input.connect(master);
-
-        const reverb = ctx.createConvolver();
-        reverb.buffer = createReverbImpulse(ctx);
-        reverb.connect(master);
-        this.reverbSend = ctx.createGain();
-        this.reverbSend.connect(reverb);
-
-        const echo = ctx.createDelay(1);
-        echo.delayTime.value = 0.3;
-        const echoFeedback = ctx.createGain();
-        echoFeedback.gain.value = 0.38;
-        const echoDamping = ctx.createBiquadFilter();
-        echoDamping.type = 'lowpass';
-        echoDamping.frequency.value = 2500;
-        echo.connect(echoDamping);
-        echoDamping.connect(echoFeedback);
-        echoFeedback.connect(echo);
-        echoDamping.connect(master);
-        echoDamping.connect(reverb);
-        this.echoSend = ctx.createGain();
-        this.echoSend.connect(echo);
-
-        this.input.connect(this.reverbSend);
-        this.input.connect(this.echoSend);
-        this.applySpace();
-      }
-
-      public applySpace() {
-        if (!this.ctx) {
-          return;
-        }
-
-        const now = this.ctx.currentTime;
-        this.reverbSend.gain.setTargetAtTime(this.settings.space * 0.8, now, 0.05);
-        this.echoSend.gain.setTargetAtTime(this.settings.space * 0.45, now, 0.05);
-      }
-
-      public play(frequency: number, level: number, loudness = 1, when = 0) {
-        const ctx = this.ctx;
-
-        if (!ctx || level === 0) {
-          return;
-        }
-
-        const voice = VOICES[this.settings.preset];
-        const velocity = VELOCITY_BY_LEVEL[level]!;
-        const start = Math.max(when, ctx.currentTime);
-        const peak = VOICE_GAIN * voice.gain * velocity * loudness;
-
-        while (this.voices.length >= MAX_VOICES) {
-          this.stealOldest(start);
-        }
-
-        const restingCutoff = Math.min(12000, voice.cutoff * (0.6 + 0.6 * velocity));
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.Q.value = voice.resonance;
-        filter.frequency.setValueAtTime(Math.min(12000, restingCutoff * voice.sweep), start);
-        filter.frequency.setTargetAtTime(restingCutoff, start + voice.attack, voice.decay * 0.8);
-
-        const decayEnd = start + voice.attack + voice.decay * 3;
-        const releaseStart = decayEnd + voice.hold;
-        const stopAt = releaseStart + voice.release * 7;
-        const envelope = ctx.createGain();
-        envelope.gain.setValueAtTime(0, start);
-        envelope.gain.linearRampToValueAtTime(peak, start + Math.max(0.003, voice.attack));
-        envelope.gain.setTargetAtTime(peak * voice.sustain, start + voice.attack, voice.decay);
-        envelope.gain.setTargetAtTime(0, releaseStart, voice.release);
-
-        filter.connect(envelope);
-        envelope.connect(this.input);
-
-        const oscillators = [this.oscillator(ctx, voice.wave, frequency, -voice.detuneCents, 1, filter)];
-
-        if (voice.gain2 > 0) {
-          oscillators.push(this.oscillator(ctx, voice.wave2, frequency * voice.ratio2, voice.detuneCents, voice.gain2, filter));
-        }
-
-        const active = { envelope, oscillators, startsAt: start };
-        this.voices.push(active);
-        oscillators[0]!.onended = () => {
-          const index = this.voices.indexOf(active);
-
-          // A stolen voice was already removed from the list.
-          if (index !== -1) {
-            this.voices.splice(index, 1);
-          }
-
-          envelope.disconnect();
-          filter.disconnect();
-        };
-
-        for (const oscillator of oscillators) {
-          oscillator.start(start);
-          oscillator.stop(stopAt);
-        }
-      }
-
-      private oscillator(ctx: AudioContext, type: OscillatorType, frequency: number, cents: number, level: number, destination: AudioNode) {
-        const oscillator = ctx.createOscillator();
-        oscillator.type = type;
-        oscillator.frequency.value = frequency;
-        oscillator.detune.value = cents;
-
-        if (level === 1) {
-          oscillator.connect(destination);
-        } else {
-          const gain = ctx.createGain();
-          gain.gain.value = level;
-          oscillator.connect(gain);
-          gain.connect(destination);
-        }
-
-        return oscillator;
-      }
-
-      private stealOldest(now: number) {
-        const oldest = this.voices.shift();
-
-        if (oldest) {
-          this.silence(oldest, now);
-        }
-      }
-
-      private silence(voice: ActiveVoice, now: number) {
-        // Cancelling a voice that has not started also drops its opening zero, leaving gain at 1; never let it start.
-        if (voice.startsAt >= now) {
-          voice.oscillators.forEach((oscillator) => oscillator.stop(now));
-
-          return;
-        }
-
-        voice.envelope.gain.cancelScheduledValues(now);
-        voice.envelope.gain.setTargetAtTime(0, now, 0.01);
-        voice.oscillators.forEach((oscillator) => oscillator.stop(now + 0.08));
-      }
-
-      /** A dry monophonic square-wave beep, like an old phone. */
-      public beep(frequency: number, duration: number, when = 0, gain = BEEP_GAIN) {
-        const ctx = this.ctx;
-
-        if (!ctx || !this.settings.sound) {
-          return;
-        }
-
-        const start = Math.max(when, ctx.currentTime);
-        const end = start + duration;
-        const oscillator = ctx.createOscillator();
-        oscillator.type = 'square';
-        oscillator.frequency.value = frequency;
-
-        const envelope = ctx.createGain();
-        envelope.gain.setValueAtTime(0, start);
-        envelope.gain.linearRampToValueAtTime(gain, start + BEEP_ATTACK);
-        envelope.gain.setValueAtTime(gain, end - BEEP_RELEASE);
-        envelope.gain.linearRampToValueAtTime(0, end);
-
-        oscillator.connect(envelope);
-        envelope.connect(this.output);
-
-        const active = { envelope, oscillators: [oscillator], startsAt: start };
-        this.beeps.add(active);
-        oscillator.onended = () => {
-          this.beeps.delete(active);
-          oscillator.disconnect();
-          envelope.disconnect();
-        };
-        oscillator.start(start);
-        oscillator.stop(end);
-      }
-
-      public get time() {
-        return this.ctx?.currentTime ?? 0;
-      }
-
-      public stopAll() {
-        while (this.voices.length > 0) {
-          this.stealOldest(this.time);
-        }
-
-        for (const beep of this.beeps) {
-          this.silence(beep, this.time);
-        }
-
-        this.beeps.clear();
-      }
-    }
-
-    interface ColumnNote {
-      weekday: number;
-      level: number;
-      chord: number;
-    }
-
-    const card = document.querySelector<HTMLElement>('.heatmap-card')!;
-    const scroller = card.querySelector<HTMLElement>('.heatmap-scroll')!;
-    const synthPanel = card.querySelector<HTMLElement>('#synth-panel')!;
-    const synthToggle = card.querySelector<HTMLButtonElement>('#synth-toggle')!;
-    const playButton = synthPanel.querySelector<HTMLButtonElement>('[data-action="play"]')!;
-    const soundButtons = [...card.querySelectorAll<HTMLButtonElement>('[data-action="sound"]')];
-    const progress = synthPanel.querySelector<HTMLElement>('[data-progress]')!;
-    const playheads = [...card.querySelectorAll<SVGElement>('.playhead')];
-    const radios = [...synthPanel.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
-    const sliders = [...synthPanel.querySelectorAll<HTMLInputElement>('input[type="range"]')];
-
-    const columnStep = Number(card.dataset.step);
-    const mobileFirstWeek = Number(card.dataset.mobileFirstWeek);
-    const mobileQuery = matchMedia('(max-width: 680px)');
-    const reducedMotionQuery = matchMedia('(prefers-reduced-motion: reduce)');
-
-    const settings = loadSettings();
-    const engine = new SoundEngine(settings);
-    const lastHoverAt = new WeakMap<Element, number>();
-    let columns: ColumnNote[][] = [];
-    let playTimer = 0;
-    let playingWeek = -1;
-
-    scroller.scrollLeft = scroller.scrollWidth;
-
-    const isSynthOpen = () => !synthPanel.hidden;
-    const isPlaying = () => playingWeek >= 0;
-
-    function renderSettings() {
-      for (const radio of radios) {
-        radio.checked = settings[radio.name as 'preset' | 'mood'] === radio.value;
-      }
-
-      for (const slider of sliders) {
-        const name = slider.name as 'tempo' | 'space';
-        const output = synthPanel.querySelector(`[data-output="${name}"]`)!;
-        slider.value = String(settings[name]);
-        output.textContent = name === 'tempo' ? `${settings.tempo} bpm` : `${Math.round(settings.space * 100)}%`;
-      }
-
-      for (const soundButton of soundButtons) {
-        soundButton.setAttribute('aria-pressed', String(settings.sound));
-
-        const label = soundButton.querySelector('[data-sound-label]');
-
-        if (label) {
-          label.textContent = settings.sound ? 'Sound on' : 'Sound off';
-        }
-      }
-    }
-
-    function setSynthOpen(open: boolean) {
-      synthPanel.hidden = !open;
-      card.classList.toggle('is-synth-open', open);
-      synthToggle.setAttribute('aria-expanded', String(open));
-
-      if (open) {
-        setSnakeMode(false);
-        engine.unlock();
-      } else {
-        stop();
-      }
-    }
-
-    function triggerCell(cell: SVGElement, timeStamp: number) {
-      const level = Number(cell.dataset.level);
-      const sinceLast = timeStamp - (lastHoverAt.get(cell) ?? -Infinity);
-
-      if (!settings.sound || level === 0 || sinceLast < MIN_RETRIGGER_MS) {
-        return;
-      }
-
-      lastHoverAt.set(cell, timeStamp);
-      engine.play(noteFrequency(settings.mood, Number(cell.dataset.day), Number(cell.dataset.chord)), level);
-    }
-
-    function cellOf(event: Event) {
-      const target = event.target;
-
-      return target instanceof SVGElement && target.classList.contains('gh-cell') ? target : null;
-    }
-
-    function readColumns() {
-      const grouped: ColumnNote[][] = [];
-
-      for (const cell of card.querySelectorAll<SVGElement>('.heatmap-svg--desktop .gh-cell')) {
-        const { week, day, level, chord } = cell.dataset;
-        (grouped[Number(week)] ??= []).push({ weekday: Number(day), level: Number(level), chord: Number(chord) });
-      }
-
-      return grouped;
-    }
-
-    function playColumn(notes: ColumnNote[]) {
-      if (!settings.sound) {
-        return;
-      }
-
-      const lit = notes.filter((note) => note.level > 0).sort((a, b) => b.weekday - a.weekday);
-      const loudness = 1 / Math.sqrt(lit.length);
-      const now = engine.time;
-
-      lit.forEach((note, index) => {
-        const frequency = noteFrequency(settings.mood, note.weekday, note.chord);
-        engine.play(frequency, note.level, loudness, now + index * STRUM_SECONDS);
-      });
-    }
-
-    function showPlayhead(week: number) {
-      for (const playhead of playheads) {
-        const firstWeek = Number(playhead.parentElement!.dataset.firstWeek);
-        playhead.style.transform = `translateX(${(week - firstWeek) * columnStep}px)`;
-      }
-    }
-
-    function scrollToWeek(week: number) {
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-
-      if (maxScroll > 0) {
-        scroller.scrollLeft = (week / (columns.length - 1)) * maxScroll;
-      }
-    }
-
-    function step() {
-      if (playingWeek >= columns.length) {
-        stop(false);
-
-        return;
-      }
-
-      playColumn(columns[playingWeek] ?? []);
-      progress.textContent = `Week ${playingWeek + 1} of ${columns.length}`;
-
-      if (!reducedMotionQuery.matches) {
-        showPlayhead(playingWeek);
-        scrollToWeek(playingWeek);
-      }
-
-      playingWeek++;
-      playTimer = window.setTimeout(step, 30000 / settings.tempo);
-    }
-
-    function start() {
-      engine.unlock();
-
-      if (!settings.sound) {
-        settings.sound = true;
-        saveSettings(settings);
-        renderSettings();
-      }
-
-      columns = columns.length > 0 ? columns : readColumns();
-      playingWeek = mobileQuery.matches ? mobileFirstWeek : 0;
-      card.classList.add('is-playing');
-      playButton.querySelector('[data-play-label]')!.textContent = 'Stop';
-      playButton.setAttribute('aria-label', 'Stop playing');
-      step();
-    }
-
-    function stop(cutSound = true) {
-      if (!isPlaying()) {
-        return;
-      }
-
-      clearTimeout(playTimer);
-      playingWeek = -1;
-
-      if (cutSound) {
-        engine.stopAll();
-      }
-
-      card.classList.remove('is-playing');
-      progress.textContent = '';
-      playButton.querySelector('[data-play-label]')!.textContent = 'Play';
-      playButton.setAttribute('aria-label', 'Play the year');
-    }
-
-    function toggleSound() {
-      settings.sound = !settings.sound;
-      saveSettings(settings);
-      renderSettings();
-
-      if (!settings.sound) {
-        engine.stopAll();
-      }
-    }
-
-    synthToggle.addEventListener('click', () => setSynthOpen(!isSynthOpen()));
-
-    synthPanel.addEventListener('click', (event) => {
-      const action = (event.target as Element).closest<HTMLElement>('[data-action]')?.dataset.action;
-
-      if (action === 'close') {
-        setSynthOpen(false);
-        synthToggle.focus();
-      } else if (action === 'play') {
-        isPlaying() ? stop() : start();
-      } else if (action === 'sound') {
-        toggleSound();
-      }
-    });
-
-    synthPanel.addEventListener('input', (event) => {
-      const input = event.target as HTMLInputElement;
-
-      if (input.type === 'radio') {
-        Object.assign(settings, { [input.name]: input.value });
-
-        if (input.name === 'preset') {
-          settings.space = VOICES[settings.preset].space;
-          engine.applySpace();
-        }
-      } else {
-        Object.assign(settings, { [input.name]: Number(input.value) });
-        engine.applySpace();
-      }
-
-      saveSettings(settings);
-      renderSettings();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape') {
-        return;
-      }
-
-      for (const { scope, toggle, isOpen, setOpen } of [
-        { scope: synthPanel, toggle: synthToggle, isOpen: () => !synthPanel.hidden, setOpen: setSynthOpen },
-        { scope: card, toggle: snakeToggle, isOpen: isSnakeOn, setOpen: setSnakeMode },
-      ]) {
-        if (isOpen()) {
-          const focusWasInside = scope.contains(document.activeElement);
-
-          setOpen(false);
-
-          if (focusWasInside) {
-            toggle.focus();
-          }
-        }
-      }
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stop();
-        pauseGame();
-      }
-    });
-
-    // Touch implicitly captures the pointer to the cell it started on. Releasing it lets
-    // pointerover fire on every cell the finger crosses, so one handler serves mouse and touch.
-    scroller.addEventListener('pointerdown', (event) => {
-      if (!isSynthOpen()) {
-        return;
-      }
-
-      engine.unlock();
-      (event.target as Element).releasePointerCapture?.(event.pointerId);
-
-      const cell = cellOf(event);
-
-      if (cell) {
-        triggerCell(cell, event.timeStamp);
-      }
-    });
-
-    scroller.addEventListener('pointerover', (event) => {
-      const cell = isSynthOpen() ? cellOf(event) : null;
-
-      if (cell) {
-        triggerCell(cell, event.timeStamp);
-      }
-    });
-
-    type Direction = 'up' | 'down' | 'left' | 'right';
-    type GameState = 'idle' | 'running' | 'paused' | 'over';
-    type OverlayState = Exclude<GameState, 'running'>;
-
-    interface Segment {
-      col: number;
-      row: number;
-    }
-
-    interface Lump extends Segment {
-      elements: SVGCircleElement[];
-    }
-
-    interface Skin {
-      outline: SVGPathElement;
-      body: SVGPathElement;
-      marks: SVGPathElement;
-      tailOutline: SVGPathElement;
-      tailBody: SVGPathElement;
-      lumpOutlines: SVGGElement;
-      lumpFills: SVGGElement;
-      head: SVGGElement;
-      jaw: SVGGElement;
-    }
-
-    interface Board {
-      cols: number;
-      /** Indexed by `col * ROWS + row`. Missing days of the first and last week are undefined. */
-      cells: (SVGElement | undefined)[];
-      svg: SVGSVGElement;
-      layer: SVGGElement;
-    }
-
-    const SNAKE_BEST_KEY = 'heatmap-snake-best';
-    const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
-    const ROWS = 7;
-    const START_LENGTH = 3;
-    const START_SPEED = 4.5;
-    const MAX_SPEED = 9.5;
-    const SPEED_PER_SEGMENT = 0.15;
-    const MAX_FRAME_MS = 250;
-    const MAX_QUEUED_TURNS = 2;
-    const METER_PER_SEGMENT = 4;
-    const SWIPE_DISTANCE = 24;
-    const BLINK_MS = 600;
-    const CHOMP_MS = 300;
-    const LUMP_RADIUS = 4.9;
-    const LUMP_MIN_LEVEL = 3;
-    const LUMP_OUTLINE = 0.9;
-    const EAT_BEEP_FREQUENCIES = [0, 880, 988, 1175, 1319];
-    const EAT_BEEP_SECONDS = 0.055;
-    const START_BEEPS = [660, 880];
-    const GAME_OVER_BEEPS = [660, 440, 330];
-    const GAME_OVER_BUZZ = 110;
-    const CELEBRATION_BEEPS = [523, 659, 784, 1047];
-    const OVERLAY_LABELS: Record<OverlayState, string> = { idle: 'Start', paused: 'Resume', over: 'Play again' };
-
-    const DIRECTIONS: Record<Direction, { dx: number; dy: number; angle: number; opposite: Direction }> = {
-      up: { dx: 0, dy: -1, angle: -90, opposite: 'down' },
-      down: { dx: 0, dy: 1, angle: 90, opposite: 'up' },
-      left: { dx: -1, dy: 0, angle: 180, opposite: 'right' },
-      right: { dx: 1, dy: 0, angle: 0, opposite: 'left' },
-    };
-
-    const KEY_DIRECTIONS: Record<string, Direction> = {
-      arrowup: 'up',
-      w: 'up',
-      arrowdown: 'down',
-      s: 'down',
-      arrowleft: 'left',
-      a: 'left',
-      arrowright: 'right',
-      d: 'right',
-    };
-
-    const snakeToggle = card.querySelector<HTMLButtonElement>('#snake-toggle')!;
-    const overlay = card.querySelector<HTMLElement>('.snake-overlay')!;
-    const overlayTitle = overlay.querySelector<HTMLElement>('[data-snake="title"]')!;
-    const overlaySummary = overlay.querySelector<HTMLElement>('[data-snake="summary"]')!;
-    const primaryButton = overlay.querySelector<HTMLButtonElement>('[data-action="snake-primary"]')!;
-    const primaryLabel = overlay.querySelector<HTMLElement>('[data-snake="primary-label"]')!;
-    const announcer = card.querySelector<HTMLElement>('[data-snake="announcer"]')!;
-    const hudSoundButton = card.querySelector<HTMLButtonElement>('.snake-hud [data-action="sound"]')!;
-    const pauseButton = card.querySelector<HTMLButtonElement>('[data-snake="pause"]')!;
-    const scoreOutput = card.querySelector<HTMLElement>('[data-snake="score"]')!;
-    const bestOutput = card.querySelector<HTMLElement>('[data-snake="best"]')!;
-
-    const section = card.closest<HTMLElement>('.github-activity')!;
-    const eyebrow = section.querySelector<HTMLElement>('.eyebrow')!;
-    const eyebrowText = eyebrow.textContent!;
-    const statValues = [...section.querySelectorAll<HTMLElement>('[data-stat]')];
-    const statDetails = [...section.querySelectorAll<HTMLElement>('[data-stat-detail]')];
-    const allTimeBase = Number(section.querySelector<HTMLElement>('.stats-grid')!.dataset.allTime);
-    const yearDays = [...card.querySelectorAll<SVGElement>('.heatmap-svg--desktop .gh-cell')].map((cell) => ({
-      date: cell.dataset.date!,
-      count: Number(cell.dataset.count),
-    }));
-    const snakeLayers = [...card.querySelectorAll<SVGGElement>('.snake-layer')];
-    const cellSize = Number(card.dataset.cellSize);
-    const xOffset = Number(card.dataset.xOffset);
-    const yOffset = Number(card.dataset.yOffset);
-
-    const eatenDates = new Set<string>();
-    let eatenCells: { cell: SVGElement; level: number }[] = [];
-    let gameState: GameState = 'idle';
-    let board: Board;
-    let skin: Skin;
-    let body: Segment[] = [];
-    let lumps: Lump[] = [];
-    let occupied: boolean[] = [];
-    let direction: Direction = 'right';
-    let queuedTurns: Direction[] = [];
-    let pendingGrowth = 0;
-    let meter = 0;
-    let score = 0;
-    let best = loadBest();
-    let bestAtStart = best;
-    let remainingLit = 0;
-    let frameId = 0;
-    let overTimer = 0;
-    let lastFrameAt = 0;
-    let accumulator = 0;
-    let swipeOrigin: { x: number; y: number } | null = null;
-
-    const isSnakeOn = () => card.classList.contains('is-snake-on');
-    const cellIndex = (col: number, row: number) => col * ROWS + row;
-    const centerX = (col: number) => xOffset + col * columnStep + cellSize / 2;
-    const centerY = (row: number) => yOffset + row * columnStep + cellSize / 2;
-    const moveIntervalMs = () => 1000 / Math.min(MAX_SPEED, START_SPEED + (body.length - START_LENGTH) * SPEED_PER_SEGMENT);
-
-    function loadBest() {
-      try {
-        const saved = Number(localStorage.getItem(SNAKE_BEST_KEY));
-
-        return Number.isFinite(saved) ? saved : 0;
-      } catch {
-        return 0;
-      }
-    }
-
-    function saveBest() {
-      try {
-        localStorage.setItem(SNAKE_BEST_KEY, String(best));
-      } catch {
-        // Storage can be blocked; the best score then lasts for the page only.
-      }
-    }
-
-    function setSnakeMode(on: boolean) {
-      if (on === isSnakeOn()) {
-        return;
-      }
-
-      card.classList.toggle('is-snake-on', on);
-      snakeToggle.setAttribute('aria-pressed', String(on));
-
-      if (on) {
-        setSynthOpen(false);
-        engine.unlock();
-        renderScore();
-        showOverlay('idle');
-        primaryButton.focus();
-      } else {
-        restoreBoard();
-      }
-    }
-
-    function setGameState(next: GameState) {
-      gameState = next;
-      card.classList.toggle('is-snake-running', next === 'running');
-    }
-
-    function showOverlay(state: OverlayState, title = '', summary = '') {
-      overlay.dataset.state = state;
-      overlayTitle.textContent = title;
-      overlaySummary.textContent = summary;
-      primaryLabel.textContent = OVERLAY_LABELS[state];
-      overlay.hidden = false;
-      announcer.textContent = [title, summary].filter(Boolean).join('. ');
-    }
-
-    function hideOverlay() {
-      overlay.hidden = true;
-      announcer.textContent = '';
-    }
-
-    function renderScore() {
-      scoreOutput.textContent = formatNumber(score);
-      bestOutput.textContent = formatNumber(best);
-    }
-
-    function playBeeps(frequencies: number[], seconds: number, intervalSeconds: number) {
-      const now = engine.time;
-
-      frequencies.forEach((frequency, index) => engine.beep(frequency, seconds, now + index * intervalSeconds));
-    }
-
-    function playGameOverSound() {
-      playBeeps(GAME_OVER_BEEPS, 0.12, 0.14);
-      engine.beep(GAME_OVER_BUZZ, 0.25, engine.time + GAME_OVER_BEEPS.length * 0.14);
-    }
-
-    function currentStats() {
-      const { values, details } = computeHeatmapStats(
-        yearDays.map((day) => (eatenDates.has(day.date) ? { ...day, count: 0 } : day)),
-      );
-
-      return { values: { ...values, all: allTimeBase - score }, details };
-    }
-
-    let shownValues = currentStats().values;
-
-    // Bites land faster than a float fades, so each stat keeps one float and sums the drops it shows.
-    const floats = new Map<HTMLElement, { element: HTMLElement; total: number; animation: Animation }>();
-
-    function flashDrop(stat: HTMLElement, drop: number) {
-      if (reducedMotionQuery.matches) {
-        return;
-      }
-
-      stat.animate([{ color: 'var(--accent)' }, {}], { duration: 500 });
-
-      // The heading number has running text on its right, so it only flashes.
-      if (stat.dataset.stat === 'total') {
-        return;
-      }
-
-      const current = floats.get(stat);
-      current?.animation.cancel();
-
-      const element = current?.element ?? stat.appendChild(document.createElement('span'));
-      const total = (current?.total ?? 0) + drop;
-      element.className = 'stat-float';
-      element.textContent = `−${formatNumber(total)}`;
-
-      const animation = element.animate(
-        [
-          { opacity: 1, transform: 'translateY(0)', offset: 0 },
-          { opacity: 1, transform: 'translateY(-4px)', offset: 0.5 },
-          { opacity: 0, transform: 'translateY(-12px)' },
-        ],
-        { duration: 1100, easing: 'ease-out', fill: 'forwards' },
-      );
-      floats.set(stat, { element, total, animation });
-      animation.finished
-        .then(() => {
-          element.remove();
-          floats.delete(stat);
-        })
-        .catch(() => {});
-    }
-
-    function renderStats() {
-      const { values, details } = currentStats();
-
-      for (const stat of statValues) {
-        const key = stat.dataset.stat as keyof typeof values;
-        const drop = shownValues[key] - values[key];
-        stat.querySelector('.stat-number')!.textContent = formatNumber(values[key]);
-
-        if (drop > 0) {
-          flashDrop(stat, drop);
-        }
-      }
-
-      for (const detail of statDetails) {
-        detail.textContent = details[detail.dataset.statDetail as keyof typeof details];
-      }
-
-      shownValues = values;
-    }
-
-    function readBoard(): Board {
-      const svg = card.querySelector<SVGSVGElement>(mobileQuery.matches ? '.heatmap-svg--mobile' : '.heatmap-svg--desktop')!;
-      const firstWeek = Number(svg.dataset.firstWeek);
-      const cells: Board['cells'] = [];
-      let cols = 0;
-
-      remainingLit = 0;
-
-      for (const cell of svg.querySelectorAll<SVGElement>('.gh-cell')) {
-        const col = Number(cell.dataset.week) - firstWeek;
-        cells[cellIndex(col, Number(cell.dataset.day))] = cell;
-        cols = Math.max(cols, col + 1);
-
-        if (Number(cell.dataset.level) > 0) {
-          remainingLit++;
-        }
-      }
-
-      return { cols, cells, svg, layer: svg.querySelector<SVGGElement>('.snake-layer')! };
-    }
-
-    function svgElement<Tag extends keyof SVGElementTagNameMap>(tag: Tag, className: string, parent: Element) {
-      const element = document.createElementNS(SVG_NAMESPACE, tag);
-      element.setAttribute('class', className);
-      parent.append(element);
-
-      return element;
-    }
-
-    function createSkin(layer: SVGGElement): Skin {
-      // Every outline sits below every fill, so shapes join without a seam.
-      const outline = svgElement('path', 'snake-outline', layer);
-      const tailOutline = svgElement('path', 'snake-tail-outline', layer);
-      const lumpOutlines = svgElement('g', 'snake-lump-outlines', layer);
-      const bodyPath = svgElement('path', 'snake-body', layer);
-      const tailBody = svgElement('path', 'snake-tail-body', layer);
-      const lumpFills = svgElement('g', 'snake-lump-fills', layer);
-      const marks = svgElement('path', 'snake-marks', layer);
-      const head = svgElement('g', 'snake-head', layer);
-      const tongue = svgElement('path', 'snake-tongue', head);
-      const jaw = svgElement('g', 'snake-jaw', head);
-      const headShape = svgElement('ellipse', 'snake-head-shape', jaw);
-
-      tongue.setAttribute('d', 'M7 0H11.6M11.6 0l2.2-1.7M11.6 0l2.2 1.7');
-      headShape.setAttribute('cx', '1.5');
-      headShape.setAttribute('rx', '6.8');
-      headShape.setAttribute('ry', '5.6');
-
-      for (const side of [-1, 1]) {
-        const eye = svgElement('circle', 'snake-eye', jaw);
-        eye.setAttribute('cx', '3');
-        eye.setAttribute('cy', String(side * 3.2));
-        eye.setAttribute('r', '1.8');
-
-        const pupil = svgElement('circle', 'snake-pupil', jaw);
-        pupil.setAttribute('cx', '3.7');
-        pupil.setAttribute('cy', String(side * 3.2));
-        pupil.setAttribute('r', '0.9');
-      }
-
-      return { outline, body: bodyPath, marks, tailOutline, tailBody, lumpOutlines, lumpFills, head, jaw };
-    }
-
-    /** A wrap-around starts a new subpath, so no line crosses the board. The `h0` lets a lone point draw a round dot. */
-    function pathThrough(segments: Segment[]) {
-      return segments
-        .map((segment, index) => {
-          const previous = segments[index - 1];
-          const isNeighbour = previous && Math.abs(segment.col - previous.col) + Math.abs(segment.row - previous.row) === 1;
-
-          return `${isNeighbour ? 'L' : 'M'}${centerX(segment.col)} ${centerY(segment.row)}${isNeighbour ? '' : 'h0'}`;
-        })
-        .join('');
-    }
-
-    function renderSnake() {
-      const headToTail = [...body].reverse();
-      const head = headToTail[0]!;
-      const bodyPathData = pathThrough(headToTail.slice(0, -2));
-      const tailPathData = pathThrough(body.slice(0, 3).reverse());
-
-      // The markings are dashes along this same path, which starts at the head,
-      // so they stay on the body as it moves instead of sliding over it.
-      for (const path of [skin.outline, skin.body, skin.marks]) {
-        path.setAttribute('d', bodyPathData);
-      }
-
-      for (const path of [skin.tailOutline, skin.tailBody]) {
-        path.setAttribute('d', tailPathData);
-      }
-
-      skin.head.setAttribute('transform', `translate(${centerX(head.col)} ${centerY(head.row)}) rotate(${DIRECTIONS[direction].angle})`);
-    }
-
-    function addLump(col: number, row: number) {
-      const elements = [skin.lumpOutlines, skin.lumpFills].map((group, index) => {
-        const circle = svgElement('circle', 'snake-lump', group);
-        circle.setAttribute('cx', String(centerX(col)));
-        circle.setAttribute('cy', String(centerY(row)));
-        circle.setAttribute('r', String(index === 0 ? LUMP_RADIUS + LUMP_OUTLINE : LUMP_RADIUS));
-
-        return circle;
-      });
-
-      lumps.push({ col, row, elements });
-    }
-
-    // The swallowed food stays at its cell while the body slides through it, until the tail has passed.
-    function removePassedLumps() {
-      lumps = lumps.filter((lump) => {
-        if (occupied[cellIndex(lump.col, lump.row)]) {
-          return true;
-        }
-
-        lump.elements.forEach((element) => element.remove());
-
-        return false;
-      });
-    }
-
-    function chomp() {
-      if (reducedMotionQuery.matches) {
-        return;
-      }
-
-      const squash = { transform: 'scale(1.2, 0.8)' };
-      skin.jaw.animate([{ transform: 'scale(1)' }, squash, { transform: 'scale(1)' }, squash, { transform: 'scale(1)' }], { duration: CHOMP_MS });
-    }
-
-    function startGame() {
-      restoreBoard();
-      engine.unlock();
-      board = readBoard();
-      skin = createSkin(board.layer);
-      body = [];
-      occupied = [];
-      direction = 'right';
-      queuedTurns = [];
-      pendingGrowth = 0;
-      meter = 0;
-      bestAtStart = best;
-
-      const headCol = Math.floor(board.cols / 2);
-      const startRow = Math.floor(ROWS / 2);
-
-      for (let i = START_LENGTH - 1; i >= 0; i--) {
-        body.push({ col: headCol - i, row: startRow });
-        occupied[cellIndex(headCol - i, startRow)] = true;
-      }
-
-      renderSnake();
-      keepHeadInView();
-      eyebrow.textContent = 'Scoreboard';
-      setGameState('running');
-      scroller.focus({ preventScroll: true });
-      hideOverlay();
-      playBeeps(START_BEEPS, 0.06, 0.08);
-      resumeLoop();
-    }
-
-    function resumeLoop() {
-      accumulator = 0;
-      lastFrameAt = performance.now();
-      frameId = requestAnimationFrame(frame);
-    }
-
-    function pauseGame() {
-      if (gameState !== 'running') {
-        return;
-      }
-
-      cancelAnimationFrame(frameId);
-      setGameState('paused');
-      showOverlay('paused', 'Paused');
-
-      // Focus on the heatmap keeps Space working as resume, without a focused button also clicking on key-up.
-      scroller.focus({ preventScroll: true });
-    }
-
-    function resumeGame() {
-      setGameState('running');
-      scroller.focus({ preventScroll: true });
-      hideOverlay();
-      resumeLoop();
-    }
-
-    function togglePrimary() {
-      if (gameState === 'running') {
-        pauseGame();
-      } else if (gameState === 'paused') {
-        resumeGame();
-      } else {
-        startGame();
-      }
-    }
-
-    function frame(now: number) {
-      accumulator += Math.min(now - lastFrameAt, MAX_FRAME_MS);
-      lastFrameAt = now;
-
-      while (gameState === 'running' && accumulator >= moveIntervalMs()) {
-        accumulator -= moveIntervalMs();
-        advance();
-      }
-
-      if (gameState === 'running') {
-        frameId = requestAnimationFrame(frame);
-      }
-    }
-
-    function advance() {
-      if (queuedTurns.length > 0) {
-        direction = queuedTurns.shift()!;
-      }
-
-      const { dx, dy } = DIRECTIONS[direction];
-      const head = body.at(-1)!;
-      const tail = body[0]!;
-      const col = (head.col + dx + board.cols) % board.cols;
-      const row = (head.row + dy + ROWS) % ROWS;
-      const isGrowing = pendingGrowth > 0;
-      const entersTailCell = !isGrowing && col === tail.col && row === tail.row;
-
-      if (occupied[cellIndex(col, row)] && !entersTailCell) {
-        endGame(false);
-
-        return;
-      }
-
-      if (isGrowing) {
-        pendingGrowth--;
-      } else {
-        body.shift();
-        occupied[cellIndex(tail.col, tail.row)] = false;
-        removePassedLumps();
-      }
-
-      body.push({ col, row });
-      occupied[cellIndex(col, row)] = true;
-      renderSnake();
-      keepHeadInView();
-      eatCell(col, row);
-    }
-
-    function keepHeadInView() {
-      if (scroller.scrollWidth <= scroller.clientWidth) {
-        return;
-      }
-
-      const { svg } = board;
-      const svgBox = svg.getBoundingClientRect();
-      const pixelsPerUnit = svgBox.width / svg.viewBox.baseVal.width;
-      const headX = svgBox.left + centerX(body.at(-1)!.col) * pixelsPerUnit;
-      const view = scroller.getBoundingClientRect();
-      const margin = 2 * columnStep * pixelsPerUnit;
-
-      if (headX < view.left + margin || headX > view.right - margin) {
-        scroller.scrollLeft += headX - (view.left + view.width / 2);
-      }
-    }
-
-    function eatCell(col: number, row: number) {
-      const cell = board.cells[cellIndex(col, row)];
-      const level = cell ? Number(cell.dataset.level) : 0;
-
-      if (!cell || level === 0) {
-        return;
-      }
-
-      eatenCells.push({ cell, level });
-      eatenDates.add(cell.dataset.date!);
-      cell.classList.replace(`gh-cell-${level}`, 'gh-cell-0');
-      cell.classList.add('is-eaten');
-      cell.dataset.level = '0';
-
-      score += Number(cell.dataset.count);
-      meter += level;
-      pendingGrowth += Math.floor(meter / METER_PER_SEGMENT);
-      meter %= METER_PER_SEGMENT;
-      remainingLit--;
-
-      if (score > best) {
-        best = score;
-        saveBest();
-      }
-
-      // Nearly every day is lit, so only the big meals bulge; a lump on every bite reads as beads.
-      if (level >= LUMP_MIN_LEVEL) {
-        addLump(col, row);
-      }
-
-      chomp();
-      renderScore();
-      renderStats();
-      engine.beep(EAT_BEEP_FREQUENCIES[level]!, EAT_BEEP_SECONDS);
-
-      if (remainingLit === 0) {
-        endGame(true);
-      }
-    }
-
-    function endGame(won: boolean) {
-      cancelAnimationFrame(frameId);
-      setGameState('over');
-
-      const isNewBest = score > bestAtStart;
-      const noun = score === 1 ? 'contribution' : 'contributions';
-      const summary = `You ate ${formatNumber(score)} ${noun}.${isNewBest ? ' New best!' : ''}`;
-
-      if (won || isNewBest) {
-        playBeeps(CELEBRATION_BEEPS, 0.07, 0.09);
-      } else {
-        playGameOverSound();
-      }
-
-      const showResult = () => {
-        board.layer.classList.remove('is-dying');
-        card.classList.add('is-snake-over');
-        showOverlay('over', won ? 'YOU ATE THE YEAR' : 'GAME OVER', summary);
-        primaryButton.focus();
-      };
-
-      if (won || reducedMotionQuery.matches) {
-        showResult();
-      } else {
-        board.layer.classList.add('is-dying');
-        overTimer = window.setTimeout(showResult, BLINK_MS);
-      }
-    }
-
-    function restoreBoard() {
-      cancelAnimationFrame(frameId);
-      clearTimeout(overTimer);
-      engine.stopAll();
-
-      for (const { element, animation } of floats.values()) {
-        animation.cancel();
-        element.remove();
-      }
-
-      floats.clear();
-
-      for (const { cell, level } of eatenCells) {
-        cell.setAttribute('class', `gh-cell gh-cell-${level}`);
-        cell.dataset.level = String(level);
-      }
-
-      for (const layer of snakeLayers) {
-        layer.classList.remove('is-dying');
-        layer.replaceChildren();
-      }
-
-      eatenCells = [];
-      eatenDates.clear();
-      lumps = [];
-      score = 0;
-      renderStats();
-      renderScore();
-      eyebrow.textContent = eyebrowText;
-      card.classList.remove('is-snake-over');
-      setGameState('idle');
-
-      if (isSnakeOn()) {
-        showOverlay('idle');
-      } else {
-        hideOverlay();
-      }
-    }
-
-    function queueTurn(next: Direction) {
-      const previous = queuedTurns.at(-1) ?? direction;
-
-      if (queuedTurns.length < MAX_QUEUED_TURNS && next !== previous && next !== DIRECTIONS[previous].opposite) {
-        queuedTurns.push(next);
-      }
-    }
-
-    snakeToggle.addEventListener('click', () => setSnakeMode(!isSnakeOn()));
-    primaryButton.addEventListener('click', togglePrimary);
-    hudSoundButton.addEventListener('click', toggleSound);
-    pauseButton.addEventListener('click', pauseGame);
-
-    document.addEventListener('keydown', (event) => {
-      const target = event.target instanceof Element ? event.target : document.body;
-      const isTyping = target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
-
-      if (!isSnakeOn() || event.defaultPrevented || isTyping || event.ctrlKey || event.metaKey || event.altKey) {
-        return;
-      }
-
-      const turn = KEY_DIRECTIONS[event.key.toLowerCase()];
-
-      if (turn && gameState === 'running') {
-        event.preventDefault();
-        queueTurn(turn);
-
-        return;
-      }
-
-      // A focused button or link handles Space and Enter itself, so it must not also toggle the game.
-      // Outside a running game, Space keeps scrolling the page unless focus is on the heatmap.
-      const isControl = (event.key === ' ' || event.key === 'Enter') && !target.closest('button, a');
-
-      if (isControl && (gameState === 'running' || card.contains(target))) {
-        event.preventDefault();
-        togglePrimary();
-      }
-    });
-
-    scroller.addEventListener('pointerdown', (event) => {
-      if (gameState === 'running' && event.pointerType !== 'mouse') {
-        swipeOrigin = { x: event.clientX, y: event.clientY };
-      }
-    });
-
-    scroller.addEventListener('pointermove', (event) => {
-      if (!swipeOrigin) {
-        return;
-      }
-
-      const dx = event.clientX - swipeOrigin.x;
-      const dy = event.clientY - swipeOrigin.y;
-
-      if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_DISTANCE) {
-        return;
-      }
-
-      if (Math.abs(dx) > Math.abs(dy)) {
-        queueTurn(dx > 0 ? 'right' : 'left');
-      } else {
-        queueTurn(dy > 0 ? 'down' : 'up');
-      }
-
-      swipeOrigin = { x: event.clientX, y: event.clientY };
-    });
-
-    for (const type of ['pointerup', 'pointercancel']) {
-      scroller.addEventListener(type, () => {
-        swipeOrigin = null;
-      });
-    }
-
-    mobileQuery.addEventListener('change', () => {
-      if (gameState !== 'idle') {
-        restoreBoard();
-      }
-    });
-
-    renderSettings();
+    initHeatmap(document.querySelector<HTMLElement>('.heatmap-card')!);
   </script>
 </section>
 
@@ -1821,7 +450,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
   }
 
   /* While a game runs a finger swipes the grid to steer, so the page must not pan under it. */
-  .is-snake-running .heatmap-scroll {
+  .is-game-running .heatmap-scroll {
     touch-action: none;
   }
 
@@ -1844,6 +473,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     display: none;
   }
 
+  /* Breakout needs both walls on screen, so the desktop board shrinks to the card instead of scrolling. */
+  .heatmap-card[data-active-game="breakout"] .heatmap-svg--desktop {
+    min-width: 0;
+  }
+
   .label-axis {
     font-family: var(--font-mono);
     font-size: 9px;
@@ -1853,6 +487,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   .gh-cell {
     fill: var(--level);
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .gh-cell:hover {
@@ -1865,83 +501,151 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     opacity: 0;
   }
 
-  .snake-layer {
+  .game-layer {
     pointer-events: none;
   }
 
-  .snake-layer :global(path) {
+  .game-layer :global(.breakout-paddle) {
+    fill: var(--ink);
+  }
+
+  .game-layer :global(.breakout-ball) {
+    fill: var(--accent);
+    stroke: var(--paper);
+    stroke-width: 0.8px;
+  }
+
+  .game-layer :global(path) {
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
-  .snake-layer :global(.snake-outline) {
+  .game-layer :global(.snake-outline) {
     stroke: var(--snake-outline);
     stroke-width: 9.5px;
   }
 
-  .snake-layer :global(.snake-body) {
+  .game-layer :global(.snake-body) {
     stroke: var(--snake-body);
     stroke-width: 8px;
   }
 
   /* A dash period equal to the step puts one marking on every segment. */
-  .snake-layer :global(.snake-marks) {
+  .game-layer :global(.snake-marks) {
     stroke: var(--snake-marks);
     stroke-width: 4px;
     stroke-dasharray: 3px 10px;
     stroke-dashoffset: 1.5px;
   }
 
-  .snake-layer :global(.snake-tail-outline) {
+  .game-layer :global(.snake-tail-outline) {
     stroke: var(--snake-outline);
     stroke-width: 7px;
   }
 
-  .snake-layer :global(.snake-tail-body) {
+  .game-layer :global(.snake-tail-body) {
     stroke: var(--snake-body);
     stroke-width: 5.5px;
   }
 
-  .snake-layer :global(.snake-lump-outlines .snake-lump) {
+  .game-layer :global(.snake-lump-outlines .snake-lump) {
     fill: var(--snake-outline);
   }
 
-  .snake-layer :global(.snake-lump-fills .snake-lump) {
+  .game-layer :global(.snake-lump-fills .snake-lump) {
     fill: var(--snake-body);
   }
 
-  .snake-layer :global(.snake-head-shape) {
+  .game-layer :global(.snake-head-shape) {
     fill: var(--snake-body);
     stroke: var(--snake-outline);
     stroke-width: 1.2px;
   }
 
-  .snake-layer :global(.snake-jaw) {
+  .game-layer :global(.snake-jaw) {
     transform-box: fill-box;
     transform-origin: center;
   }
 
-  .snake-layer :global(.snake-eye) {
+  .game-layer :global(.snake-eye) {
     fill: var(--snake-eye);
     stroke: var(--snake-outline);
     stroke-width: 0.4px;
   }
 
-  .snake-layer :global(.snake-pupil) {
+  .game-layer :global(.snake-pupil) {
     fill: var(--snake-pupil);
   }
 
-  .snake-layer :global(.snake-tongue) {
+  .game-layer :global(.snake-tongue) {
     stroke: var(--snake-tongue);
     stroke-width: 1.1px;
     transform-box: fill-box;
     transform-origin: left center;
   }
 
-  .is-snake-over .heatmap-svg {
+  .is-game-over .heatmap-svg {
     filter: grayscale(1);
     opacity: 0.45;
+  }
+
+  /* Forced colors keep these author colors, which can be invisible on the forced canvas, so the game shapes take system colors. */
+  @media (forced-colors: active) {
+    .game-layer :global(.breakout-paddle) {
+      fill: CanvasText;
+    }
+
+    .game-layer :global(.breakout-ball) {
+      fill: Highlight;
+      stroke: Canvas;
+    }
+
+    .game-layer :global(.snake-outline),
+    .game-layer :global(.snake-tail-outline),
+    .game-layer :global(.snake-head-shape),
+    .game-layer :global(.snake-eye) {
+      stroke: CanvasText;
+    }
+
+    .game-layer :global(.snake-body),
+    .game-layer :global(.snake-tail-body) {
+      stroke: Highlight;
+    }
+
+    .game-layer :global(.snake-marks) {
+      stroke: Canvas;
+    }
+
+    .game-layer :global(.snake-head-shape),
+    .game-layer :global(.snake-lump-fills .snake-lump) {
+      fill: Highlight;
+    }
+
+    .game-layer :global(.snake-lump-outlines .snake-lump) {
+      fill: CanvasText;
+    }
+
+    .game-layer :global(.snake-eye) {
+      fill: Canvas;
+    }
+
+    .game-layer :global(.snake-pupil) {
+      fill: CanvasText;
+    }
+  }
+
+  /* Created on the body while a touch run is going, so a finger anywhere steers and the page cannot scroll. */
+  :global(.game-touch-pad) {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    touch-action: none;
+    overscroll-behavior: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   :global(.stat-float) {
@@ -1968,16 +672,14 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
 
     .gh-cell.is-eaten {
-      transform-box: fill-box;
-      transform-origin: center;
       animation: eat-pop 0.35s ease-out;
     }
 
-    .snake-layer :global(.snake-tongue) {
+    .game-layer :global(.snake-tongue) {
       animation: tongue-flick 2.4s ease-in-out infinite;
     }
 
-    .snake-layer.is-dying {
+    .game-layer.is-dying {
       animation: snake-blink 0.6s step-end;
     }
 
@@ -2030,7 +732,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     position: relative;
   }
 
-  .snake-overlay {
+  .game-overlay {
     position: absolute;
     inset: 0 0 6px;
     display: flex;
@@ -2045,64 +747,64 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     border-radius: 3px;
   }
 
-  .snake-overlay[hidden] {
+  .game-overlay[hidden] {
     display: none;
   }
 
-  .snake-overlay[data-state="over"] {
+  .game-overlay[data-state="over"] {
     background: color-mix(in srgb, var(--paper) 60%, transparent);
   }
 
-  .snake-title,
-  .snake-summary,
-  .snake-instruction {
+  .game-title,
+  .game-summary,
+  .game-instruction {
     margin: 0;
   }
 
-  .snake-title {
+  .game-title {
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .snake-overlay[data-state="over"] .snake-title {
+  .game-overlay[data-state="over"] .game-title {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     line-height: 1.2;
   }
 
-  .snake-summary {
+  .game-summary {
     font-size: 0.75rem;
     line-height: 1.4;
   }
 
-  .snake-title:empty,
-  .snake-summary:empty,
-  .snake-overlay:not([data-state="idle"]) .snake-instruction,
-  .snake-overlay:not([data-state="idle"]) .snake-icon-play,
-  .snake-instruction--touch {
+  .game-title:empty,
+  .game-summary:empty,
+  .game-overlay:not([data-state="idle"]) .game-instruction,
+  .game-overlay:not([data-state="idle"]) .game-icon-play,
+  .game-instruction--touch {
     display: none;
   }
 
-  .snake-instruction {
+  .game-instruction {
     max-width: 36ch;
     font-size: 0.6875rem;
     line-height: 1.5;
   }
 
   @media (pointer: coarse) {
-    .snake-instruction--pointer {
+    .game-instruction--pointer {
       display: none;
     }
 
-    .snake-instruction--touch {
+    .game-instruction--touch {
       display: inline;
     }
   }
 
-  .snake-announcer {
+  .game-announcer {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -2121,26 +823,39 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     margin-top: 10px;
   }
 
-  .snake-hud {
+  .game-hud {
     display: none;
     align-items: center;
     gap: 8px;
     margin-right: auto;
   }
 
-  .is-snake-on .snake-hud {
+  .is-game-on .game-hud {
     display: flex;
   }
 
-  .snake-score {
+  .game-score {
     white-space: nowrap;
     font-size: 0.6875rem;
     color: var(--ink-muted);
     font-variant-numeric: tabular-nums;
   }
 
-  .snake-score strong {
+  .game-score strong {
     color: var(--ink);
+  }
+
+  .game-lives {
+    display: none;
+  }
+
+  .heatmap-card[data-active-game="breakout"] .game-lives {
+    display: inline;
+  }
+
+  .game-lives strong {
+    color: var(--accent);
+    letter-spacing: 0.1em;
   }
 
   .btn {
@@ -2167,7 +882,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   .btn:hover,
   .btn[aria-expanded="true"],
-  #snake-toggle[aria-pressed="true"] {
+  #snake-toggle[aria-pressed="true"],
+  #breakout-toggle[aria-pressed="true"] {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -2177,11 +893,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     padding: 0;
   }
 
-  .snake-pause {
+  .game-pause {
     display: none;
   }
 
-  .is-snake-running .snake-pause {
+  .is-game-running .game-pause {
     display: inline-flex;
   }
 
@@ -2462,21 +1178,41 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
   }
 
+  @media (max-width: 479px) {
+    .heatmap-bar {
+      gap: 5px;
+    }
+
+    .btn {
+      gap: 5px;
+      padding: 0 7px;
+    }
+
+    .btn--github {
+      width: 28px;
+      padding: 0;
+    }
+
+    .github-name {
+      display: none;
+    }
+  }
+
   @media (max-width: 640px) {
     .heatmap-card {
       padding: 12px;
     }
 
-    .snake-hud {
+    .game-hud {
       flex-basis: 100%;
     }
 
-    .snake-overlay {
+    .game-overlay {
       gap: 6px;
       padding: 4px;
     }
 
-    .snake-overlay[data-state="over"] .snake-title {
+    .game-overlay[data-state="over"] .game-title {
       font-size: 1.0625rem;
       letter-spacing: 0.14em;
     }
