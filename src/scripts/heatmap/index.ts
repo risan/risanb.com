@@ -1,3 +1,4 @@
+import { initBreakout } from './breakout';
 import { createGameShell } from './game-shell';
 import { initSnake } from './snake';
 import { loadSettings, SoundEngine, type Settings } from './sound-engine';
@@ -36,6 +37,7 @@ export function initHeatmap(card: HTMLElement) {
   const shell = createGameShell(context, { closeSynth: () => synth.setOpen(false), toggleSound: () => synth.toggleSound() });
   const synth = initSynth(context, shell.close);
 
+  initBreakout(context, shell);
   initSnake(context, shell);
 
   document.addEventListener('keydown', (event) => {

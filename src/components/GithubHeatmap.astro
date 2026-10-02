@@ -212,7 +212,7 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     </div>
     <div class="heatmap-bar">
       <div class="game-hud">
-        <span class="game-score">Score <strong data-game="score">0</strong> · Best <strong data-game="best">0</strong></span>
+        <span class="game-score">Score <strong data-game="score">0</strong> · Best <strong data-game="best">0</strong><span class="game-lives"> · <strong data-game="lives" role="img">●●●</strong></span></span>
         <button type="button" class="btn btn--icon game-pause" data-game="pause" aria-label="Pause">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
         </button>
@@ -221,6 +221,15 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
           <svg class="icon-sound-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="m22 9-6 6M16 9l6 6"></path></svg>
         </button>
       </div>
+
+      <button id="breakout-toggle" class="btn" type="button" aria-pressed="false">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 20h10"></path>
+          <circle cx="17" cy="6" r="1.8" fill="currentColor"></circle>
+          <path d="M15.6 8.4 12 14"></path>
+        </svg>
+        <span>Breakout</span>
+      </button>
 
       <button id="snake-toggle" class="btn" type="button" aria-pressed="false">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -238,12 +247,12 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
         <span class="chevron" aria-hidden="true">▾</span>
       </button>
 
-      <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="btn" aria-label={`View @${username} on GitHub`}>
+      <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="btn btn--github" aria-label={`View @${username} on GitHub`}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
         </svg>
-        <span>@{username}</span>
-        <span aria-hidden="true">↗</span>
+        <span class="github-name">@{username}</span>
+        <span class="github-name" aria-hidden="true">↗</span>
       </a>
     </div>
 
@@ -464,6 +473,11 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     display: none;
   }
 
+  /* Breakout needs both walls on screen, so the desktop board shrinks to the card instead of scrolling. */
+  .heatmap-card[data-active-game="breakout"] .heatmap-svg--desktop {
+    min-width: 0;
+  }
+
   .label-axis {
     font-family: var(--font-mono);
     font-size: 9px;
@@ -473,6 +487,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   .gh-cell {
     fill: var(--level);
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .gh-cell:hover {
@@ -487,6 +503,16 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   .game-layer {
     pointer-events: none;
+  }
+
+  .game-layer :global(.breakout-paddle) {
+    fill: var(--ink);
+  }
+
+  .game-layer :global(.breakout-ball) {
+    fill: var(--accent);
+    stroke: var(--paper);
+    stroke-width: 0.8px;
   }
 
   .game-layer :global(path) {
@@ -601,8 +627,6 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     }
 
     .gh-cell.is-eaten {
-      transform-box: fill-box;
-      transform-origin: center;
       animation: eat-pop 0.35s ease-out;
     }
 
@@ -776,6 +800,19 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
     color: var(--ink);
   }
 
+  .game-lives {
+    display: none;
+  }
+
+  .heatmap-card[data-active-game="breakout"] .game-lives {
+    display: inline;
+  }
+
+  .game-lives strong {
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
   .btn {
     appearance: none;
     display: inline-flex;
@@ -800,7 +837,8 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
   .btn:hover,
   .btn[aria-expanded="true"],
-  #snake-toggle[aria-pressed="true"] {
+  #snake-toggle[aria-pressed="true"],
+  #breakout-toggle[aria-pressed="true"] {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -1092,6 +1130,26 @@ const chordOf = (week: Week) => Number((week.contributionDays[3] ?? week.contrib
 
     .heatmap-scroll {
       overflow-x: visible;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .heatmap-bar {
+      gap: 5px;
+    }
+
+    .btn {
+      gap: 5px;
+      padding: 0 7px;
+    }
+
+    .btn--github {
+      width: 28px;
+      padding: 0;
+    }
+
+    .github-name {
+      display: none;
     }
   }
 
