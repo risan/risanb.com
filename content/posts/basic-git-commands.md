@@ -6,7 +6,7 @@ categories: [snippet]
 tags: [git]
 images: [/img/git.png]
 ---
-Here are the Git commands that I use most often, written down so I don't have to search for them every time.
+Here are the Git commands that I use most often.
 
 ## Setup SSH Key
 

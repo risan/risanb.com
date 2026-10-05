@@ -1,12 +1,12 @@
 ---
 title: Setup macOS for Web Development
 date: 2019-10-29T10:00:00+02:00
-description: My notes for setting up a fresh macOS for web development, from Homebrew and ZSH to PHP, Nginx, NVM, rbenv, pyenv and PostgreSQL.
+description: How I set up a fresh macOS for web development, from Homebrew and ZSH to PHP, Nginx, NVM, rbenv, pyenv and PostgreSQL.
 categories: [tutorial]
 tags: [macos, homebrew, zsh, nginx, php, nodejs, ruby, python, postgresql]
 images: [/img/macos.png]
 ---
-Whenever I get a fresh macOS installation, I need to set up my development environment all over again. These are the steps that I follow, written down so I don't have to figure them out each time. A few steps already have their own posts (Dnsmasq, GPG and SQL Server), so here I only link to them.
+Whenever I get a fresh macOS installation, I need to set up my development environment all over again. These are the steps that I follow. A few steps already have their own posts (Dnsmasq, GPG and SQL Server), so here I only link to them.
 
 ## Install Homebrew
 

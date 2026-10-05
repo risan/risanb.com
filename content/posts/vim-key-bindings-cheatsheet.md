@@ -6,7 +6,7 @@ categories: [snippet]
 tags: [vim]
 images: [/img/vim.png]
 ---
-These are the Vim key bindings and commands that I use the most, collected in one place so I don't have to look them up again. At the end there are also notes for a few plugins (Vim Vinegar, NERDTree, CtrlP, Ack, Greplace, Surround), FZF and tmux that I use together with Vim.
+These are the Vim key bindings and commands that I use the most, collected in one place so I don't have to look them up again. At the end there are also a few plugins (Vim Vinegar, NERDTree, CtrlP, Ack, Greplace, Surround), FZF and tmux that I use together with Vim.
 
 ## Generate Ctags
 

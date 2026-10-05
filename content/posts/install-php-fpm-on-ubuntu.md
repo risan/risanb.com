@@ -6,7 +6,7 @@ categories: [tutorial]
 tags: [devops, linux, php]
 images: [/img/php.png]
 ---
-My notes on installing PHP 7.1 with PHP-FPM on Ubuntu and connecting it to Nginx.
+How to install PHP 7.1 with PHP-FPM on Ubuntu and connect it to Nginx.
 
 ## Web Application
 

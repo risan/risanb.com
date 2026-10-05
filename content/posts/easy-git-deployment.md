@@ -48,4 +48,4 @@ git remote add production ssh://risan@YOUR_IP:2270/repo/example.com
 git push production master
 ```
 
-Note that my SSH server listens on port `2270`, see the server setup notes. The last two commands run on the local machine: add the server as a `production` remote, then push to it to deploy.
+Note that my SSH server listens on port `2270`, see [Setup New Ubuntu Server](/posts/setup-new-ubuntu-server/). The last two commands run on the local machine: add the server as a `production` remote, then push to it to deploy.

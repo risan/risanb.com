@@ -1,14 +1,14 @@
 ---
 title: Machine Learning Notes
 description: >
-    My notes on the basics of machine learning. Supervised vs unsupervised learning, regression,
+    The basics of machine learning. Supervised vs unsupervised learning, regression,
     classification, clustering, and a worked example of Bayes' rule.
 date: 2019-01-26T10:00:00+02:00
 categories: [log]
 tags: [machine-learning]
 images: [/img/python.png]
 ---
-These are my notes from learning the basics of machine learning. There is no code here, only the concepts that I want to remember. The notes are in two parts: the general ideas, and a worked example of Bayes' rule.
+The basics of machine learning. There is no code here, only the concepts worth remembering. It comes in two parts: the general ideas, and a worked example of Bayes' rule.
 
 {{<toc>}}
 

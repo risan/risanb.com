@@ -10,7 +10,7 @@ images: [/img/react.png]
 ---
 {{<toc>}}
 
-These are my notes from learning React. We start from the lowest level, the raw React API, and then build up to JSX, components, state, forms and HTTP requests. All the examples were written against React 16 (December 2017), loaded from unpkg, so there is no build step. Just save a snippet into an HTML file and open it in the browser.
+A step-by-step introduction to React. We start from the lowest level, the raw React API, and then build up to JSX, components, state, forms and HTTP requests. All the examples were written against React 16 (December 2017), loaded from unpkg, so there is no build step. Just save a snippet into an HTML file and open it in the browser.
 
 ## Hello World with Raw React API
 

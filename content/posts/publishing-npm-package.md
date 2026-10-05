@@ -112,7 +112,7 @@ git push
 
 ## Publishing
 
-These are my short notes for the rest of the process. To test the package locally within another project, use `npm link`. Use the `prepublish` script to build the package before it's published, and use `.npmignore` to exclude the files that shouldn't be published (here, the `src` directory). Finally, log in and publish the package.
+A few more tips for the rest of the process. To test the package locally within another project, use `npm link`. Use the `prepublish` script to build the package before it's published, and use `.npmignore` to exclude the files that shouldn't be published (here, the `src` directory). Finally, log in and publish the package.
 
 ```bash
 npm link => test localy within other project

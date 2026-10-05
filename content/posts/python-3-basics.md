@@ -1,14 +1,14 @@
 ---
 title: Python 3 Basics
 description: >
-    My notes on learning Python 3 from scratch. Strings, flow control, lists, dictionaries, functions,
+    Learn Python 3 from scratch. Strings, flow control, lists, dictionaries, functions,
     modules, files, exceptions, classes, and pip.
 date: 2017-12-10T10:00:00+02:00
 categories: [tutorial]
 tags: [python]
 images: [/img/python.png]
 ---
-I'm learning Python 3. These are the notes I took while going through an introductory course and the official Python tutorial. I'm coming from other languages, so most of the notes are about how Python does the things I already know from elsewhere. Some of them also mention how Python 2 behaves, since I still run into it.
+An introduction to Python 3, for someone who already knows other programming languages. Most of it is about how Python does the things you already know from elsewhere. Some parts also mention how Python 2 behaves, since you may still run into it.
 
 {{<toc>}}
 
@@ -874,7 +874,7 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-## Notes from the Official Tutorial
+## More from the Official Tutorial
 
 Later I also read through the official Python tutorial. These are some of the points I wanted to remember.
 
