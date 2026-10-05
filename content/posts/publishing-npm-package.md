@@ -2,7 +2,7 @@
 title: Publishing NPM Package
 date: 2017-12-15T10:00:00+02:00
 description: The steps I follow to create a JavaScript package, from git init and package.json to npm link and npm publish.
-categories: [tutorial]
+categories: [snippet]
 tags: [npm, javascript, git]
 images: [/img/npm.png]
 ---
