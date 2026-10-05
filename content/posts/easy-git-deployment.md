@@ -2,7 +2,7 @@
 title: Easy Git Deployment
 date: 2017-10-09T10:00:00+02:00
 description: Deploy a site with a plain git push to a bare repository on the server and a post-receive hook.
-categories: [tutorial]
+categories: [snippet]
 tags: [devops, git, linux]
 images: [/img/git.png]
 ---
