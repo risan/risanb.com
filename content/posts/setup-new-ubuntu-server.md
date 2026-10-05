@@ -2,7 +2,7 @@
 title: Setup a New Ubuntu Server
 date: 2017-10-09T10:00:00+02:00
 description: My checklist for a fresh Ubuntu server, from SSH key and non-root user to Nginx, PHP, iptables, and Fail2Ban.
-categories: [tutorial]
+categories: [snippet]
 tags: [devops, linux]
 images: [/img/ubuntu.png]
 ---

@@ -1,14 +1,14 @@
 ---
 title: Python 3 Basics
 description: >
-    My notes on learning Python 3 from scratch. Strings, flow control, lists, dictionaries, functions,
+    Learn Python 3 from scratch. Strings, flow control, lists, dictionaries, functions,
     modules, files, exceptions, classes, and pip.
 date: 2017-12-10T10:00:00+02:00
 categories: [tutorial]
 tags: [python]
 images: [/img/python.png]
 ---
-I'm learning Python 3. These are the notes I took while going through an introductory course and the official Python tutorial. I'm coming from other languages, so most of the notes are about how Python does the things I already know from elsewhere. Some of them also mention how Python 2 behaves, since I still run into it.
+An introduction to Python 3, for someone who already knows other programming languages. Most of it is about how Python does the things you already know from elsewhere. Some parts also mention how Python 2 behaves, since you may still run into it.
 
 {{<toc>}}
 
@@ -874,9 +874,11 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-## Notes from the Official Tutorial
+## Python Basics in Depth
 
-Later I also read through the official Python tutorial. These are some of the points I wanted to remember.
+A closer look at the fundamentals of the language: numbers, strings, lists and booleans.
+
+### Python at a Glance
 
 * The Python interpreter is easily extended with new functions and data types implemented in C or C++ (or other languages callable from C).
 * Python is extensible: if you know how to program in C it is easy to add a new built-in function or module to the interpreter, either to perform critical operations at maximum speed, or to link Python programs to libraries that may only be available in binary form (such as a vendor-specific graphics library). 
@@ -888,7 +890,7 @@ if is_awesome:
 	print("Awesome!")
 ```
 
-### Calculator
+### Numbers
 
 * Division always returns a floating point number:
 ```python
@@ -929,7 +931,9 @@ NameError: name 'x' is not defined
 5 * 2 * 10.1 # 50.5
 ```
 
-### Strings
+### Working with Strings
+
+#### Quotes and Escaping
 
 * String can be enclosed in single quotes `('...')` or double quotes `("...")`. The `\` can be used to escape a quote or a special character.
 ```python
@@ -946,6 +950,8 @@ print('they said "yes!"')
 print('C:\task') # \t is tab character: C:  ask
 print(r'C:\task') # C:\task
 ```
+
+#### Multiple Lines
 
 * Enclose multiple lines string with triple-quotes: `"""..."""` or `'''...'''`. 
 ```python
@@ -983,6 +989,8 @@ hello
 world
 ```
 
+#### Concatenation
+
 * Strings can be concatenated with the `+` operator, and repeated with `*`:
 ```python
 print("hello" + " " + "world") # hello world
@@ -1007,6 +1015,8 @@ print(("hello " * 2) "world") # SyntaxError: invalid syntax
 print(message + "world!") # helloworld!
 print(("hello " * 2) + "world") # hello hello world
 ```
+
+#### Indexing and Slicing Strings
 
 * Strings can be indexed (subscripted), with the first character having index 0.
 ```python
@@ -1039,6 +1049,8 @@ word[1:100] # ython
 word[-100:2] # Py
 ```
 
+#### Immutability and Length
+
 * Python strings cannot be changed — they are immutable. Therefore, assigning to an indexed position in the string results in an error:
 ```python
 word = "Python"
@@ -1055,13 +1067,17 @@ len(word) # 6
 len("hello") # 5
 ```
 
-### Lists
+### Working with Lists
+
+#### Creating Lists
 
 * List can be written as a list of comma-separated values (items) between square brackets. Lists might contain items of different types, but usually the items all have the same type.
 ```python
 nums = [1, 10, 50, 100]
 mixed = [1, "hello", 3.14]
 ```
+
+#### Indexing and Slicing Lists
 
 * lists can be indexed and sliced:
 ```python
@@ -1081,6 +1097,8 @@ nums[-2:] # [50, 100]
 # All slice operations return a new list containing the requested elements. This means that the following slice returns a new (shallow) copy of the list:
 nums[:] # [1, 10, 50, 100]
 ```
+
+#### Changing Lists
 
 * Lists also support operations like concatenation:
 ```python
@@ -1126,12 +1144,16 @@ nums = [1, 2, 3, 4, 5]
 len(nums) # 5
 ```
 
+### Multiple Assignment
+
 * Multiple assignment
 ```python
 a, b = 10, 99 # a = 10; b = 99
 
 a, b = 2 ** 4, 10 / 2 # a = 16; b = 5.0
 ```
+
+### Booleans
 
 * Boolean
 ```python

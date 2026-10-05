@@ -1,12 +1,12 @@
 ---
 title: Ubuntu Users, Groups, and Sudo
 date: 2017-09-18T10:00:00+02:00
-description: Notes on managing users and groups on Ubuntu, and on configuring sudo through the sudoers files.
+description: How to manage users and groups on Ubuntu, and how to configure sudo through the sudoers files.
 categories: [snippet]
 tags: [devops, linux]
 images: [/img/ubuntu.png]
 ---
-These are my notes on managing users and groups on Ubuntu, and on configuring the `sudo` command.
+How to manage users and groups on Ubuntu, and how to configure the `sudo` command.
 
 ## Users
 

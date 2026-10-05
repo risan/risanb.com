@@ -2,7 +2,7 @@
 title: Publishing NPM Package
 date: 2017-12-15T10:00:00+02:00
 description: The steps I follow to create a JavaScript package, from git init and package.json to npm link and npm publish.
-categories: [tutorial]
+categories: [snippet]
 tags: [npm, javascript, git]
 images: [/img/npm.png]
 ---
@@ -112,7 +112,7 @@ git push
 
 ## Publishing
 
-These are my short notes for the rest of the process. To test the package locally within another project, use `npm link`. Use the `prepublish` script to build the package before it's published, and use `.npmignore` to exclude the files that shouldn't be published (here, the `src` directory). Finally, log in and publish the package.
+A few more tips for the rest of the process. To test the package locally within another project, use `npm link`. Use the `prepublish` script to build the package before it's published, and use `.npmignore` to exclude the files that shouldn't be published (here, the `src` directory). Finally, log in and publish the package.
 
 ```bash
 npm link => test localy within other project

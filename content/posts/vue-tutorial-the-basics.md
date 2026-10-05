@@ -8,7 +8,7 @@ categories: [tutorial]
 tags: [javascript, vue]
 images: [/img/vue.png]
 ---
-These are my notes from following the VueCast series, a set of screencasts about Vue.js. The code here is written for Vue 2: components use the `mounted()` hook, events are triggered with `$emit`, and there is no build step, just a plain `new Vue({ el })` on a page. I kept the code exactly as I wrote it back then.
+A step-by-step introduction to Vue.js. The code here is written for Vue 2: components use the `mounted()` hook, events are triggered with `$emit`, and there is no build step, just a plain `new Vue({ el })` on a page.
 
 This first part covers the basics, from data binding all the way to component communication. The second part, [Vue Tutorial: Building Real Apps](/posts/vue-tutorial-building-real-apps/), covers Ajax, Webpack, forms and routing.
 

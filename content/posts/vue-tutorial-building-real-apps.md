@@ -8,7 +8,7 @@ categories: [tutorial]
 tags: [javascript, vue, webpack]
 images: [/img/vue.png]
 ---
-This is the second part of my notes from the VueCast series. In the [first part](/posts/vue-tutorial-the-basics/) we learned the basics of Vue.js. Now it's time to build something closer to a real application: fetching data from a server, using a build tool, working with forms and routing between pages. The code is still written for Vue 2 and the tooling of that time (Webpack 2 and vue-cli), and I kept it as it was in my notes.
+This is the second part of the Vue tutorial. In the [first part](/posts/vue-tutorial-the-basics/) we learned the basics of Vue.js. Now it's time to build something closer to a real application: fetching data from a server, using a build tool, working with forms and routing between pages. The code is still written for Vue 2 and the tooling of that time (Webpack 2 and vue-cli).
 
 {{<toc>}}
 

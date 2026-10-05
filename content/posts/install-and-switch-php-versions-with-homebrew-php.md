@@ -6,7 +6,7 @@ categories: [snippet]
 tags: [macos, php, homebrew]
 images: [/img/macos.png]
 ---
-At the time of writing these notes, PHP was installed through the `homebrew-php` tap. Here's how I installed PHP 5.6 and 7.1 side by side, and how I switched between the versions. For the newer approach with the PHP formulae in the Homebrew core, see my post on a bash script for switching between PHP versions.
+At the time, PHP was installed through the `homebrew-php` tap. Here's how I installed PHP 5.6 and 7.1 side by side, and how I switched between the versions. For the newer approach with the PHP formulae in the Homebrew core, see my post on a bash script for switching between PHP versions.
 
 ## Install Homebrew-PHP
 

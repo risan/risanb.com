@@ -2,7 +2,7 @@
 title: Let's Encrypt with Certbot and Nginx
 date: 2017-10-09T10:00:00+02:00
 description: Installing Certbot on Ubuntu, generating a certificate with the webroot plugin, and wiring it into an Nginx site.
-categories: [tutorial]
+categories: [snippet]
 tags: [devops, linux]
 images: [/img/ubuntu.png]
 ---

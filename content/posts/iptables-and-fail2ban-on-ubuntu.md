@@ -2,11 +2,11 @@
 title: iptables and Fail2Ban on Ubuntu
 date: 2017-10-09T10:00:00+02:00
 description: How I set up a basic iptables firewall, make the rules persistent, and ban brute-force SSH logins with Fail2Ban.
-categories: [tutorial]
+categories: [snippet]
 tags: [devops, linux]
 images: [/img/ubuntu.png]
 ---
-These are my notes on locking down a new Ubuntu server with `iptables`, and then adding `fail2ban` on top of it.
+How to lock down a new Ubuntu server with `iptables`, and then add `fail2ban` on top of it.
 
 ## List the Rules
 

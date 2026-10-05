@@ -2,11 +2,11 @@
 title: Install PHP-FPM on Ubuntu
 date: 2017-09-16T10:00:00+02:00
 description: Installing PHP 7.1 with FPM on Ubuntu, how its configuration is organized, and how to hook it up to Nginx.
-categories: [tutorial]
+categories: [snippet]
 tags: [devops, linux, php]
 images: [/img/php.png]
 ---
-My notes on installing PHP 7.1 with PHP-FPM on Ubuntu and connecting it to Nginx.
+How to install PHP 7.1 with PHP-FPM on Ubuntu and connect it to Nginx.
 
 ## Web Application
 
